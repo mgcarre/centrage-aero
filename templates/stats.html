@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<link rel="stylesheet" type="text/css" href="dataframe.css"/>
+
+{% block content %}
+    <h1 class="title">
+    Flight log statistics for {{ name }}
+    </h1>
+<!--     {% for dataframe in dataframes %}
+        {{ dataframe | safe }}
+        <br>
+   {% endfor %}
+-->
+ {{ dataframes.0 | safe }} 
+ {{ dataframes.1 | safe }} 
+{% endblock %}

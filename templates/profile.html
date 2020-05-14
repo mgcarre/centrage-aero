@@ -1,6 +1,55 @@
 {% extends "base.html" %}
+{% block title %}Log book{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
 
-<link rel="stylesheet" type="text/css" href="dataframe.css"/>
+/* Table Layout */
+
+table.dataframe {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 0;
+  width: 100%;
+  margin-left:auto; 
+  margin-right:auto;
+}
+table.dataframe th,
+td {
+  padding: 6px 15px;
+  font-size: smaller;
+}
+table.dataframe th {
+  background: #42444e;
+  color: #fff;
+  text-align: left;
+}
+table.dataframe tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+table.dataframe tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+table.dataframe td {
+  border-right: 1px solid #c6c9cc;
+  border-bottom: 1px solid #c6c9cc;
+}
+table.dataframe td:first-child {
+  border-left: 1px solid #c6c9cc;
+}
+table.dataframe tr:nth-child(even) td {
+  background: #eaeaed;
+  color: #42444e;
+}
+table.dataframe tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+table.dataframe tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+  </style>
+{% endblock %}
 
 {% block content %}
   <h1 class="title">

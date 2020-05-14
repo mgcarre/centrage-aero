@@ -52,6 +52,12 @@ class FlightLog:
             parse_dates=True
         )[0]
         logbook = logbook.iloc[:-1, :]
+
+        logbook["Temps (hh:mm)"] = logbook["Temps (hh:mm)"].apply(
+           lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000"
+        )
+        logbook["Temps (hh:mm)"] = pd.to_timedelta(logbook["Temps (hh:mm)"])
+        logbook.rename(columns={"Temps (hh:mm)":"Heures"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR400$": "DR400-160"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
 
@@ -78,7 +84,7 @@ class FlightLog:
         for col in columns:
             tables.append(
                 pd.pivot_table(
-                    self.logbook.rename(columns={"Date": "Vols", "Temps (hh:mm)": "Heures"}),
+                    self.logbook.rename(columns={"Date": "Vols"}),
                     index=[col],
                     values=["Vols", "Heures"],
                     aggfunc={

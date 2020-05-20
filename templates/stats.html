@@ -1,81 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Log stats{% endblock %}
+{% block title %}statistiques de vol{% endblock %}
+
 {% block head %}
-  {{ super() }}
-  <style type="text/css">
-
-/* Table Layout */
-
-table.dataframe {
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 0;
-  width: 50%;
-  margin-left:auto; 
-  margin-right:auto;
-}
-table.dataframe th,
-td {
-  padding: 6px 15px;
-}
-table.dataframe th {
-  background: #42444e;
-  color: #fff;
-  text-align: left;
-}
-table.dataframe tr:first-child th:first-child {
-  border-top-left-radius: 12px;
-}
-table.dataframe tr:first-child th:last-child {
-  border-top-right-radius: 12px;
-}
-table.dataframe td {
-  border-right: 1px solid #c6c9cc;
-  border-bottom: 1px solid #c6c9cc;
-}
-table.dataframe td:first-child {
-  border-left: 1px solid #c6c9cc;
-}
-table.dataframe tr:nth-child(even) td {
-  background: #eaeaed;
-  color: #42444e;
-}
-table.dataframe tr:last-child th:first-child {
-  border-bottom-left-radius: 12px;
-}
-table.dataframe tr:last-child td:last-child {
-  border-bottom-right-radius: 12px;
-}
-
-  </style>
+    {{ super() }}
+    <link rel="stylesheet"
+      href="{{url_for('static', filename='stats.css')}}">
 {% endblock %}
 
 
 {% block content %}
     <h1 class="title">
-    Flight log statistics for {{ name }}
+    Statistiques de vol de {{ name }}
     </h1>
     {% for dataframe in dataframes %}
         {{ dataframe | safe }}
         <br>
     {% endfor %}
 
-<!--  <table class="dataframe" cellspacing="10" cellspacing="10" border=0 margin="10">
-    <th>Type</th>
-    <th>Avion</th>
-    <th>Mode</th>
-    <tr>
-        <td>{{ dataframes.0 | safe }} </td>
-        <td>{{ dataframes.1 | safe }} </td>
-        <td>{{ dataframes.2 | safe }} </td>
-    </tr>
-    <th>Type de Vol</th>
-    <th>Activité</th>
-    <th></th>
-    <tr>
-        <td>{{ dataframes.3 | safe }} </td>
-        <td>{{ dataframes.4 | safe }} </td>
-    </tr>
- </table> -->
 {% endblock %}

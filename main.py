@@ -23,7 +23,6 @@ def get_aero():
         pilot = {"username": current_user.name, "password": current_user.password}
         flightlog = FlightLog(pilot)
         logbook = flightlog.logbook
-    print(logbook.dtypes)
 
 @main.route('/')
 @login_required
@@ -32,7 +31,6 @@ def index():
 
 @main.route('/favicon.ico')
 def favicon():
-    print("CALLIN FAVICON")
     return send_from_directory(os.path.join(main.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 

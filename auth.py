@@ -12,19 +12,15 @@ auth = Blueprint("auth", __name__)
 def login():
     if current_user.is_authenticated:
         flash("Already logged in.")
-        return redirect(url_for('main.profile'))
+        #return redirect(url_for('main.profile'))
+        return redirect(request.referrer)
 
     if request.method == 'POST':
-        email = request.form.get('email')
+        name = request.form.get('name')
         password = request.form.get('password')
         remember = True if request.form.get('remember') else False
 
-        user = User.query.filter_by(email=email).first()
-
-        logbook = LogBook.query.filter_by(pilot=user.name).first()
-        if logbook:
-            db.session.delete(logbook)
-            db.session.commit()
+        user = User.query.filter_by(name=name).first()
 
         # check if user actually exists
         # take the user supplied password, hash it, and compare it to the hashed password in database
@@ -42,19 +38,16 @@ def login():
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        email = request.form.get('email')
         name = request.form.get('name')
         password = request.form.get('password')
 
-        user = User.query.filter_by(email=email).first()
-        print('HERE', user)
+        user = User.query.filter_by(name=name).first()
 
         if user:
-            flash('Email address already exists')
+            flash('Name already exists')
             return redirect(url_for('auth.signup'))
 
-        #new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
-        new_user = User(email=email, name=name, password=password)
+        new_user = User(name=name, password=password)
         db.session.add(new_user)
         db.session.commit()
         flash('User registered')

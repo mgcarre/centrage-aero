@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import datetime
 import sys
 import logging
@@ -17,13 +14,9 @@ from sklearn.linear_model import Ridge, LinearRegression, Lasso
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.lines as mlines
-
-
-# In[132]:
-
+#from matplotlib import cm
+#from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib.lines as mlines
 
 class Error(Exception):
    """Base class for other exceptions"""
@@ -44,7 +37,7 @@ class WeightBalance:
     - bew: basic empty weight
     - arms: distance of all parts from datum
     - maxfuel: fuel tank capacity
-    - auxfuel: auxiliary fuel tank capacity
+    - maxauxfuel: auxiliary fuel tank capacity
     - unusfuel: unusable fuel
     - fuelrate: fuel flow rate at cruise speed
     - mtow: MTOW
@@ -68,7 +61,7 @@ class WeightBalance:
             "mtow": 900,
             "maxfuel": 110,
             "unusfuel": 1,
-            "auxfuel": 0,
+            "maxauxfuel": 0,
             "fuelrate": 25,
             "arms": {
                 "bew": 0.331,
@@ -93,7 +86,7 @@ class WeightBalance:
             "mtow": 900,
             "maxfuel": 110,
             "unusfuel": 10,
-            "auxfuel": 0,
+            "maxauxfuel": 0,
             "fuelrate": 25,
             "arms": {
                 "bew": 0.351,
@@ -118,7 +111,7 @@ class WeightBalance:
             "mtow": 1000,
             "maxfuel": 110,
             "unusfuel": 0,
-            "auxfuel": 50,
+            "maxauxfuel": 50,
             "fuelrate": 30,
             "arms": {
                 "bew": 0.290,
@@ -145,7 +138,7 @@ class WeightBalance:
                  auxfuel=0):
         planes = self._planes
         if callsign not in planes.keys():
-            raise Exception(f"No such call sign. Valid call signs are {', '.join(_planes.keys())}")
+            raise Exception(f"No such call sign. Valid call signs are {', '.join(planes.keys())}")
         self.callsign = callsign
         plane = planes[self.callsign]
         self.planetype = plane["planetype"]
@@ -154,7 +147,7 @@ class WeightBalance:
         self.mtow = plane['mtow']
         self.maxfuel = plane['maxfuel']
         self.unusfuel = plane['unusfuel']
-        self.auxfuel = plane['auxfuel']
+        self.maxauxfuel = plane['maxauxfuel']
         self.arms = plane['arms']
         self.envelope = plane['envelope']
         self.fuelrate = plane["fuelrate"]
@@ -372,10 +365,10 @@ class WeightBalance:
             msg = f"{self.callsign} has no auxiliary fuel tank. Setting volume to 0."
             logging.warning(msg)
             self._auxfuel = 0
-        elif value > self._auxfuel:
-            msg = f"Auxiliary tank max volumes is {self.plane['auxfuel']}"
+        elif value > self.maxauxfuel:
+            msg = f"Auxiliary tank max volumes is {self.maxauxfuel}"
             logging.error(msg)
-            self._auxfuel = self.plane['auxfuel']
+            self._auxfuel = self.maxauxfuel
         self._auxfuel_mass = self._volume_to_mass(self._auxfuel)
 
     @property
@@ -386,7 +379,7 @@ class WeightBalance:
     def auxfuel_mass(self, value):
         assert value >= 0
         self._auxfuel_mass = value
-        max_auxfuel_mass = self._volume_to_mass(self.auxfuel)
+        max_auxfuel_mass = self._volume_to_mass(self.maxauxfuel)
         if max_auxfuel_mass == 0 and value > 0:
             msg = f"{self.callsign} has no auxiliary fuel tank. Setting mass to 0."
             logging.warning(msg)
@@ -405,36 +398,6 @@ class WeightBalance:
         """
         usable_fuel = (self.fuel + self.auxfuel - self.unusfuel)
         return  usable_fuel / self.fuelrate
-
-
-# In[135]:
-
-
-p = WeightBalance("FBUPS")
-p.cg
-
-
-# In[137]:
-
-
-p
-
-
-# In[123]:
-
-
-p.pax0, p.pax1, p.pax2, p.baggage, p.fuel, p.auxfuel = 40, 0, 280, 50, 80, 20
-p.auw, p.moment, p.cg
-
-
-# In[16]:
-
-
-p.fuel_gauge = 4
-p.auw, p.moment, p.cg
-
-
-# In[152]:
 
 
 class PlanePerf:
@@ -511,10 +474,10 @@ class PlanePerf:
         """
         tkoff = self.takeoff_data()
         
-        takeoff_model = make_pipeline(PolynomialFeatures(2), LinearRegression());
-        X = tkoff.iloc[range(1, len(tkoff), 2), :3].values
-        y = tkoff.iloc[range(1, len(tkoff), 2), 3].values
-        p = takeoff_model.fit(tkoff.iloc[:, :3], tkoff.iloc[:, 3])
+        takeoff_model = make_pipeline(PolynomialFeatures(2), LinearRegression())
+        #X = tkoff.iloc[range(1, len(tkoff), 2), :3].values
+        #y = tkoff.iloc[range(1, len(tkoff), 2), 3].values
+        _ = takeoff_model.fit(tkoff.iloc[:, :3], tkoff.iloc[:, 3])
         
         # A little engineering
         # Convert temperature in K
@@ -524,12 +487,12 @@ class PlanePerf:
         
         features = takeoff_model.steps[0][1].get_feature_names(tkoff.columns)
         features = [i.replace(" ", " * ").replace("^", "**") for i in features]
-        coefs = takeoff_model.steps[1][1].coef_
-        formula = (
-            str(takeoff_model.steps[1][1].intercept_)
-            + " + "
-            + " + ".join([f"({a}) * {b}" for a, b in zip(coefs, features)])
-        )
+        # coefs = takeoff_model.steps[1][1].coef_
+        # formula = (
+        #     str(takeoff_model.steps[1][1].intercept_)
+        #     + " + "
+        #     + " + ".join([f"({a}) * {b}" for a, b in zip(coefs, features)])
+        # )
         tkoff_distance = takeoff_model.predict([[Zp, Ktemp, self.auw]])
         # Applying coefficient for head wind
         asphalt = np.around(tkoff_distance * np.array([[1, 0.78, 0.63, 0.52]]))
@@ -593,12 +556,12 @@ class PlanePerf:
         
         landing_model = make_pipeline(PolynomialFeatures(2), LinearRegression())
 
-        X_train = ldng.iloc[range(0, len(ldng), 2), :3].values
-        y_train = ldng.iloc[range(0, len(ldng), 2), 3].values
-        X = ldng.iloc[range(1, len(ldng), 2), :3].values
-        y = ldng.iloc[range(1, len(ldng), 2), 3].values
-        q = landing_model.fit(ldng.iloc[:, :3], ldng.iloc[:, 3])
-        print(f"Landing regression score: {landing_model.score(X, y)}")
+        # X_train = ldng.iloc[range(0, len(ldng), 2), :3].values
+        # y_train = ldng.iloc[range(0, len(ldng), 2), 3].values
+        # X = ldng.iloc[range(1, len(ldng), 2), :3].values
+        # y = ldng.iloc[range(1, len(ldng), 2), 3].values
+        _ = landing_model.fit(ldng.iloc[:, :3], ldng.iloc[:, 3])
+        # print(f"Landing regression score: {landing_model.score(X, y)}")
         
         # A little engineering
         # Convert t in K
@@ -607,13 +570,13 @@ class PlanePerf:
         Zp = self.altitude - 28 * (self.qnh - 1013.25)
         features = landing_model.steps[0][1].get_feature_names(ldng.columns)
         features = [i.replace(" ", " * ").replace("^", "**") for i in features]
-        coefs = landing_model.steps[1][1].coef_
+        # coefs = landing_model.steps[1][1].coef_
         # To display the regression formula
-        formula = (
-            str(landing_model.steps[1][1].intercept_)
-            + " + "
-            + " + ".join([f"({a})*{b}" for a, b in zip(coefs, features)])
-        )
+        # formula = (
+        #     str(landing_model.steps[1][1].intercept_)
+        #     + " + "
+        #     + " + ".join([f"({a})*{b}" for a, b in zip(coefs, features)])
+        # )
         #print(formula.replace(" +", "\n+"))
         landing_distance = landing_model.predict([[Zp, Ktemp, self.auw]])
         # Coefficients for head wind
@@ -627,53 +590,3 @@ class PlanePerf:
         print(f"\nDistance d'atterrissage (15m): \nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n")
         print(df)
         return df        
-
-
-# In[153]:
-
-
-t = PlanePerf(p.planetype, 900, 4000, 7, 1013)
-u = PlanePerf("DR400-120", 900, 4000, 7, 1013)
-
-
-# In[155]:
-
-
-t
-
-
-# In[156]:
-
-
-t.takeoff()
-
-
-# In[116]:
-
-
-u.takeoff()
-
-
-# In[117]:
-
-
-t.landing()
-
-
-# In[119]:
-
-
-u.landing()
-
-
-# In[112]:
-
-
-u.ldng_data()
-
-
-# In[ ]:
-
-
-
-

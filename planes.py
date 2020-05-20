@@ -105,14 +105,14 @@ class WeightBalance:
             ],
         },
         "FBUPS": {
-            "planetype": "DR400-140",
+            "planetype": "DR400-140B",
             "bew": 593.5,
             "bagmax": 40,
             "mtow": 1000,
             "maxfuel": 110,
             "unusfuel": 0,
             "maxauxfuel": 50,
-            "fuelrate": 30,
+            "fuelrate": 35,
             "arms": {
                 "bew": 0.290,
                 "front": 0.41,
@@ -407,7 +407,7 @@ class PlanePerf:
     def __init__(self, planetype, auw, altitude, temperature, qnh):
         """Predicts DR400 planes takeoff and landing distances (50ft)
         given an all-up weight, airfield altitude, temperature and QNH
-        planetype: either DR400-120 or DR400-140
+        planetype: either DR400-120 or DR400-140B
         auw: all-up weight in kg
         altitude: altitude in feet
         temperature: temperature in Celsius degrees
@@ -429,7 +429,7 @@ class PlanePerf:
     
     def takeoff_data(self):
         """Gets raw performance data for the given type of plane
-        Choices are DR400-120 or DR400-140
+        Choices are DR400-120 or DR400-140B
         """
         # Takeoff data from POH
         raw = {}
@@ -443,7 +443,7 @@ class PlanePerf:
                     8000\t-21\t500\t890
                     8000\t-1\t560\t1000
                     8000\t19\t620\t1125"""
-        raw["DR400-140"] = """alt\ttemp\t800\t1000
+        raw["DR400-140B"] = """alt\ttemp\t800\t1000
                     0\t-5\t245\t435
                     0\t15\t265\t485
                     0\t35\t290\t535
@@ -523,7 +523,7 @@ class PlanePerf:
                         8000\t-1\t460\t555
                         8000\t19\t485\t590"""
 
-        raw["DR400-140"] = """alt\ttemp\t800\t1000
+        raw["DR400-140B"] = """alt\ttemp\t800\t1000
                         0\t-5\t380\t445
                         0\t15\t400\t470
                         0\t35\t420\t500

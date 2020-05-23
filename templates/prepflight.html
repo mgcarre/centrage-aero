@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Préparation du vol{% endblock %}
+
+{% block head %}
+  {{ super() }}
+
+  <link rel="stylesheet" href="{{url_for('static', filename='profile.css')}}">
+
+  <script>
+      var planes = JSON.parse({{ planes|tojson|safe }});
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script type="text/javascript" src="{{url_for('static', filename='prepflight.js')}}"></script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- <div class="column is-4 is-offset-4"> -->
+    <h3 class="title">Préparation du vol</h3>
+    <div class="box">
+
+        <form method="POST" action="/prepflight">
+
+            <fieldset>
+                <legend>Masse et centrage</legend>
+                {{ form.hidden_tag() }}
+
+                <table>
+                    <!--<thead> -->
+                        <th width="20%"></th><th width="20%"></th><th width="20%">masse (kg)</th><th>levier (m)</th><th>moment (kg.m)</th>
+                    <!-- </thead> -->
+                <tr>
+                    <td> {{ form.plane.label }} {{ form.plane }} </td>
+                    <td id="planetype"></td>
+                    <td id="bew"></td>
+                    <td id="bearm"></td>
+                    <td id="bemoment"></td>
+                </tr>
+                <tr>
+                    <td> {{form.pax0.label }} {{ form.pax0 }} </td>
+                    <td> {{ form.pax1.label }} {{ form.pax1 }} </td>
+                    <td id='frontweight'></td>
+                    <td id="frontarm"></td>
+                    <td id="frontmoment"></td>
+                </tr>
+                <tr>
+                    <td> {{ form.pax2.label }} {{ form.pax2 }} </td>
+                    <td> {{ form.pax3.label }} {{ form.pax3 }} </td>
+                    <td id="rearweight"></td>
+                    <td id="reararm"></td>
+                    <td id="rearmoment"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"> {{ form.baggage.label }} {{ form.baggage }}</td>
+                    <td id="bagweight"></td>
+                    <td id="bagarm"></td>
+                    <td id="bagmoment"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"> {{ form.fuelgauge.label }} {{ form.fuelgauge }} </td>
+                    <td> {{ form.fuelmass }} </td>
+                    <td> {{ form.fuelarm }} </td>
+                    <td> {{ form.fuelmoment }} </td>
+                </tr>
+                <tr>
+                    <td colspan="2"> {{ form.auxfuel.label }} {{ form.auxfuel }} </td>
+                    <td> {{ form.auxfuelmass }} </td>
+                    <td> {{ form.auxfuelarm }} </td>
+                    <td> {{ form.auxfuelmoment }}</td>
+                </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>Performances</legend>
+                <table>
+                    <th>décollage</th><th>atterrissage</th>
+                    <tr>
+                        <td> {{ form.tkalt.label }} {{ form.tkalt }} </td>
+                        <td> {{ form.ldalt.label }} {{ form.ldalt }} </td>
+                    </tr>
+                    <tr>
+                        <td> {{ form.tktemp.label }} {{ form.tktemp }} </td>
+                        <td> {{ form.ldtemp.label }} {{ form.ldtemp }} </td>
+                    </tr>
+                    <tr>
+                        <td> {{ form.tkqnh.label }} {{ form.tkqnh }} </td>
+                        <td> {{ form.ldqnh.label }} {{ form.ldqnh }} </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>Validation</legend>
+                <table>
+                    <tr>
+                        <td> {{ form.submit }} </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

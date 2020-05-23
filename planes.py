@@ -305,6 +305,22 @@ class WeightBalance:
         self._pax3 = value
 
     @property
+    def frontweight(self):
+        return self.pax0 + self.pax1
+
+    @property
+    def frontmoment(self):
+        return self.frontweight * self.arms["front"]
+
+    @property
+    def rearweight(self):
+        return self.pax2 + self.pax3
+
+    @property
+    def rearmoment(self):
+        return self.rearweight * self.arms["rear"]
+
+    @property
     def baggage(self):
         return self._baggage
     
@@ -319,6 +335,10 @@ class WeightBalance:
         else:
             self.reasons = [k for k in self.reasons if k != reason]
         self._baggage = value
+
+    @property
+    def bagmoment(self):
+        return self.baggage * self.arms["baggage"]
 
     @property
     def fuel(self):
@@ -353,6 +373,10 @@ class WeightBalance:
         self._fuel = self._gauge_to_volume(self._fuel_gauge)
         self._fuel_mass = self._gauge_to_mass(self._fuel_gauge)
         
+    @property
+    def fuelmoment(self):
+        return self.fuel_mass * self.arms["fuel"]
+
     @property
     def auxfuel(self):
         return self._auxfuel
@@ -390,6 +414,10 @@ class WeightBalance:
             self._auxfuel_mass = max_auxfuel_mass
         self._auxfuel = self._mass_to_volume(self._auxfuel_mass)
 
+    @property
+    def auxfuelmoment(self):
+        return self.auxfuel_mass * self.arms["auxfuel"]
+        
     @property
     def endurance(self):
         """Endurance of the flight is roughly

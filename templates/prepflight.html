@@ -63,15 +63,21 @@
                 </tr>
                 <tr>
                     <td colspan="2"> {{ form.fuelgauge.label }} {{ form.fuelgauge }} </td>
-                    <td> {{ form.fuelmass }} </td>
-                    <td> {{ form.fuelarm }} </td>
-                    <td> {{ form.fuelmoment }} </td>
+                    <td id="fuelmass"></td>
+                    <td id="fuelarm"></td>
+                    <td id="fuelmoment"></td>
                 </tr>
                 <tr>
                     <td colspan="2"> {{ form.auxfuel.label }} {{ form.auxfuel }} </td>
-                    <td> {{ form.auxfuelmass }} </td>
-                    <td> {{ form.auxfuelarm }} </td>
-                    <td> {{ form.auxfuelmoment }}</td>
+                    <td id="auxfuelmass"></td>
+                    <td id="auxfuelarm"></td>
+                    <td id="auxfuelmoment"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">TOTAL</td>
+                    <td id="auw"></td>
+                    <td id="cg"></td>
+                    <td id="moment"></td>
                 </tr>
                 </table>
             </fieldset>

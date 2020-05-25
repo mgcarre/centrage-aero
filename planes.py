@@ -69,7 +69,7 @@ class WeightBalance:
                 "rear": 1.19,
                 "baggage": 1.9,
                 "fuel": 1.12,
-                "auxfuel": 1.61
+                "auxfuel": 0
             },
             "envelope": [
                 [0.205, 550],
@@ -139,7 +139,7 @@ class WeightBalance:
         planes = self._planes
         if callsign not in planes.keys():
             raise Exception(f"No such call sign. Valid call signs are {', '.join(planes.keys())}")
-        self.callsign = callsign
+        self.callsign = str(callsign)
         plane = planes[self.callsign]
         self.planetype = plane["planetype"]
         self.bew = plane['bew']
@@ -151,28 +151,28 @@ class WeightBalance:
         self.arms = plane['arms']
         self.envelope = plane['envelope']
         self.fuelrate = plane["fuelrate"]
-        self._pax0 = pax0
-        self._pax1 = pax1
-        self._pax2 = pax2
-        self._pax3 = pax3
-        self._baggage = baggage
+        self._pax0 = int(pax0)
+        self._pax1 = int(pax1)
+        self._pax2 = int(pax2)
+        self._pax3 = int(pax3)
+        self._baggage = int(baggage)
         if fuel:
-            self._fuel = fuel
+            self._fuel = int(fuel)
             self._fuel_mass = self._volume_to_mass(fuel)
             self._fuel_gauge = self._volume_to_gauge(fuel)
         elif fuel_mass:
-            self._fuel_mass = fuel_mass
+            self._fuel_mass = int(fuel_mass)
             self._fuel = self._mass_to_volume(fuel_mass)
             self._fuel_gauge = self._mass_to_gauge(fuel_mass)
         elif fuel_gauge:
-            self._fuel_gauge = fuel_gauge
+            self._fuel_gauge = float(fuel_gauge)
             self._fuel = self._gauge_to_volume(fuel_gauge)
             self._fuel_mass = self._gauge_to_mass(fuel_gauge)
         else:
             self._fuel = 0
             self._fuel_mass = 0
             self._fuel_gauge = 0
-        self._auxfuel = auxfuel
+        self._auxfuel = int(auxfuel)
         self._auxfuel_mass = self._auxfuel * .72
         self.is_ready_to_fly = True
         self.reasons = []
@@ -417,7 +417,7 @@ class WeightBalance:
     @property
     def auxfuelmoment(self):
         return self.auxfuel_mass * self.arms["auxfuel"]
-        
+
     @property
     def endurance(self):
         """Endurance of the flight is roughly
@@ -441,11 +441,11 @@ class PlanePerf:
         temperature: temperature in Celsius degrees
         qnh: QNH in hPa
         """
-        self.planetype = planetype
-        self.auw = auw
-        self.altitude = altitude
-        self.temperature = temperature
-        self.qnh = qnh
+        self.planetype = str(planetype)
+        self.auw = float(auw)
+        self.altitude = int(altitude)
+        self.temperature = int(temperature)
+        self.qnh = int(qnh)
         
         
     def __repr__(self):

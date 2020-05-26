@@ -1,0 +1,38 @@
+form {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 0;
+  width: 90%;
+  margin-left:auto; 
+  margin-right:auto;
+  padding: 6px 15px 15px;
+  background: #42444e;
+  color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+table.dataframe {
+    table-layout: fixed;
+    width: 100%
+}
+
+table.dataframe th {
+  background: #42444e;
+  color: #fff;
+  text-align: left;
+}
+
+table.dataframe th,
+td {
+  padding: 6px 15px;
+  width: 20%
+}
+
+label, select {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}

@@ -1,31 +1,56 @@
+import json
 from flask_wtf import FlaskForm
 from wtforms import TextField, IntegerField, SubmitField, SelectField, DecimalField
-from wtforms import validators, ValidationError
-
+from wtforms.validators import DataRequired, NoneOf, InputRequired
+from .planes import WeightBalance, PlanePerf
 
 class PrepflightForm(FlaskForm):
-    plane = SelectField("Call sign", [
-        validators.NoneOf("FXXXX",
-        message=("Veuillez choisir un appareil"))])
+
+    # Get plane list from the planes module
+    planes = json.dumps(WeightBalance._planes)
+    callsigns = list(WeightBalance._planes.keys())
+    plane = WeightBalance(callsigns[0])
+
+    pax_weight_range = range(0, 145, 5)
+    baggage_weight_range = range(0, plane.bagmax + 1, 5)
+    fuelgauge_range = [0, .5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+    auxfuel_range = range(0, plane.maxauxfuel + 41, 5)
+    altitude_range = range(0, 8100, 100)
+    temperature_range = range(-20, 51, 1)
+    qnh_range = range(950, 1051, 1)
+    
+    callsign = SelectField("Call sign", validators=[
+        NoneOf("FXXXX",
+        message=("Veuillez choisir un appareil"))], choices=list(zip(callsigns, callsigns)))
 
     # Front row
-    pax0 = SelectField("pax0", [validators.DataRequired()])
-    pax1 = SelectField("pax1", [validators.DataRequired()])
+    pax_weight_choices = [i for i in zip(pax_weight_range, pax_weight_range)]
+    pax0 = SelectField("pax0", coerce=int, validators=[DataRequired()], choices=pax_weight_choices)
+    pax1 = SelectField("pax1", coerce=int, validators=[InputRequired()], choices=pax_weight_choices)
     # Rear row
-    pax2 = SelectField("pax2", [validators.DataRequired()])
-    pax3 = SelectField("pax3", [validators.DataRequired()])
+    pax2 = SelectField("pax2", coerce=int, validators=[InputRequired()], choices=pax_weight_choices)
+    pax3 = SelectField("pax3", coerce=int, validators=[InputRequired()], choices=pax_weight_choices)
     # Baggage
-    baggage = SelectField("baggage", [validators.DataRequired()])
+    baggage_choices = [i for i in zip(baggage_weight_range, baggage_weight_range)]
+    baggage = SelectField("baggage", coerce=int, validators=[InputRequired()], choices=baggage_choices)
     # Fuel
-    fuelgauge = SelectField("jauge fuel", [validators.DataRequired()])
-    auxfuel = SelectField("fuel aux. (l)", [validators.DataRequired()])
+    fuelgauge_choices = [i for i in zip(fuelgauge_range, fuelgauge_range)]
+    fuelgauge = SelectField("jauge fuel", coerce=float, validators=[InputRequired()], choices=fuelgauge_choices)
+    # Aux fuel
+    auxfuel_choices = [i for i in zip(auxfuel_range, auxfuel_range)]
+    auxfuel = SelectField("fuel aux. (l)", coerce=int, validators=[InputRequired()], choices=auxfuel_choices)
 
     # Performances
-    tkalt = SelectField("alt (ft)", [validators.DataRequired()])
-    ldalt = SelectField("alt (ft)", [validators.DataRequired()])
-    tktemp = SelectField("temp (°C)", [validators.DataRequired()])
-    ldtemp = SelectField("temp (°C)", [validators.DataRequired()])
-    tkqnh = SelectField("QNH", [validators.DataRequired()])
-    ldqnh = SelectField("QNH", [validators.DataRequired()])
+    altitude_choices = [i for i in zip(altitude_range, altitude_range)]
+    tkalt = SelectField("alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices)
+    ldalt = SelectField("alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices)
+
+    temperature_choices = [i for i in zip(temperature_range, temperature_range)]
+    tktemp = SelectField("temp (°C)", coerce=int, validators=[InputRequired()], choices=temperature_choices, default=15)
+    ldtemp = SelectField("temp (°C)", coerce=int, validators=[InputRequired()], choices=temperature_choices, default=15)
+
+    qnh_choices = [i for i in zip(qnh_range, qnh_range)]
+    tkqnh = SelectField("QNH", coerce=int, validators=[InputRequired()], choices=qnh_choices, default=1013)
+    ldqnh = SelectField("QNH", coerce=int, validators=[InputRequired()], choices=qnh_choices, default=1013)
 
     submit = SubmitField("Valider")

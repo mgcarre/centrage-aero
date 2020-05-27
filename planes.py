@@ -6,10 +6,13 @@ import numpy as np
 #import matplotlib.pyplot as plt
 import datetime
 import sys
+from base64 import b64encode
 import logging
-from io import StringIO
+import copy
+from io import StringIO, BytesIO
 import matplotlib.pyplot as plt
 from matplotlib import cm, lines
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 from sklearn.linear_model import Ridge, LinearRegression, Lasso
@@ -431,6 +434,41 @@ class WeightBalance:
         return  usable_fuel / self.fuelrate
 
 
+    def plot_balance(self, encode=False):
+        """Plots the envelope with the evolution of the cg
+
+        encode {boolean} - returns BytesIO if True
+        """
+        # Envelope
+        polygon = Polygon(tuple(k) for k in self.envelope)
+        
+        # Get cg and auw with no fuel
+        no_fuel_plane = copy.copy(self)
+        no_fuel_plane.fuel = 0
+
+        fig = plt.figure()
+        ax = plt.gca()
+        ax.plot(*polygon.exterior.xy, c="b")
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        ax.set_title(f"centrage de {self.callsign} - {date}")
+        # Start and no fuel points
+        ax.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
+        ax.plot([self.cg], [self.auw], "ro", markerfacecolor="w", markersize=12)
+        ax.plot([no_fuel_plane.cg], [no_fuel_plane.auw], "r^", markerfacecolor="w", markersize=12)
+        ax.set_xlabel("m", fontsize=12)
+        ax.set_ylabel("kg", fontsize=12)
+
+        if encode:
+            canvas = FigureCanvas(fig)
+            png = BytesIO()
+            canvas.print_png(png)
+            figdata = b64encode(png.getvalue()).decode("ascii")
+            plt.close(fig)
+            return figdata
+        else:
+            _ = plt.show()
+
+
 class PlanePerf:
     """
     """
@@ -529,7 +567,7 @@ class PlanePerf:
         ldng["temp"] = ldng["temp"] + 273
         ldng["mass"] = ldng["mass"].astype("int")
         return ldng
-    
+
 
     def make_model(self, operation):
         """Returns a trained model of takeoff or landing performance.
@@ -582,11 +620,12 @@ class PlanePerf:
 
         return df
     
-    def plot_performance(self, operation):
+    def plot_performance(self, operation, encode=False):
         """Plots a contour graph of the takeoff or landing performance
         given a plane's all-up weight.
 
         operation: takeoff or landing
+        imagedata: renturns a bytes stream instead of showing the plot
         """
         assert operation in ["takeoff", "landing"]
 
@@ -608,24 +647,37 @@ class PlanePerf:
         predict_x_ = model.steps[0][1].fit_transform(predict_x)
         predict_y = model.steps[1][1].predict(predict_x_)
         
-        fig = plt.figure(figsize=(16, 6));
-        ax2 = fig.add_subplot(122);
-        cs = ax2.contourf(
+        fig = plt.figure(figsize=(12, 10))
+        ax = plt.gca()
+        cs = ax.contourf(
             predict_a,
             predict_t - 273,
             predict_y.reshape(predict_a.shape),
             #cmap=surf.cmap.name,
             cmap=cm.jet,
             alpha=0.6,
-        );
+        )
         title = {"takeoff": "décollage", "landing": "atterrissage"}
-        ax2.set_title(f"{title[operation]} (15m) à {self.auw}kg");
-        ax2.contour(cs, colors="k");
-        cbar2 = fig.colorbar(cs, ax=ax2);
-        ax2.set_xlabel("ft", size=12);
-        ax2.set_ylabel("°C", size=12);
-        cbar2.ax.set_ylabel("mètres", rotation=270, size=12, labelpad=10)
-        plt.show();
-        #plt.tight_layout();
-
+        ax.set_title(f"{title[operation]} (15m) à {self.auw:.2f}kg", size=26)
+        ax.contour(cs, colors="k")
+        cbar = fig.colorbar(cs, ax=ax)
+        ax.set_xlabel("Zp (ft)", size=24)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
+        ax.set_ylabel("°C", size=24)
+        cbar.ax.set_ylabel("mètres", rotation=270, size=24, labelpad=20)
+        cbar.ax.tick_params(labelsize=20)
+        fig.patch.set_alpha(1)
+        fig.tight_layout()
+        
+        if encode:
+            canvas = FigureCanvas(fig)
+            png = BytesIO()
+            canvas.print_png(png)
+            figdata = b64encode(png.getvalue()).decode("ascii")
+            plt.close(fig)
+            return figdata
+        else:
+            _ = plt.show()
+        
 

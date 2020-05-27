@@ -36,3 +36,11 @@ label, select {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
+
+img.prep {
+  border-radius: 30px;
+}
+
+fieldset {
+  border-radius: 10px;
+}

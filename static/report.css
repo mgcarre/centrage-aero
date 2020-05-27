@@ -1,0 +1,59 @@
+.title {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+}
+
+body {
+  background-color: white;
+  text-size-adjust: auto;
+}
+
+table.dataframe {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1;
+  width: 100%;
+  margin-left:auto; 
+  margin-right:auto;
+  table-layout: auto;
+}
+
+table.dataframe {
+    color: black;
+    background-color: white;
+}
+
+table.dataframe th {
+  background: white;
+  color: #000000;
+  text-align: left;
+}
+
+table.dataframe th,
+td {
+  padding: 6px;
+}
+
+label, select {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+img.prep {
+  border-radius: 30px;
+}
+
+fieldset {
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 01;
+  width: 80%;
+  margin-left:auto; 
+  margin-right:auto;
+  padding: 6px 15px 15px;
+  background: white;
+  color: black;
+}

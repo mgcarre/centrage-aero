@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}rapport{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='report.css')}}">
+    {% endblock %}
+</head>
+
+
+{% block content %}
+
+<h3 class="title">Rapport de préparation du vol</h3>
+
+<fieldset>
+    <legend>Masse et centrage</legend>
+
+    <table class="dataframe">
+        <!--<thead> -->
+        <th></th>
+        <th></th>
+        <th>masse (kg)</th>
+        <th>levier (m)</th>
+        <th>moment (kg.m)</th>
+        <th ></th>
+        <!-- </thead> -->
+        <tr>
+            <td> call sign {{ plane.callsign }}</td>
+            <td> {{ plane.planetype }} </td>
+            <td id="bew"></td>
+            <td id="bearm"></td>
+            <td id="bemoment"></td>
+            <td rowspan="7" align="right">
+                <img width=500px, class="prep", src="data:image/png;base64,{{ balance }}"/>
+            </td>
+        </tr>
+        <tr>
+            <td> {{ plane.pax0 }} kg</td>
+            <td> {{ plane.pax1 }} kg</td>
+            <td> {{ '%0.3f'|format(plane.frontweight)|float }} </td>
+            <td> {{ '%0.3f'|format(plane.arms["front"])|float }}</td>
+            <td> {{ '%0.3f'|format(plane.frontmoment)|float }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td> {{ plane.pax2 }} kg </td>
+            <td> {{ plane.pax3 }} kg </td>
+            <td> {{ '%0.3f'|format(plane.rearweight)|float }}</td>
+            <td> {{ '%0.3f'|format(plane.arms["rear"])|float }}</td>
+            <td> {{ '%0.3f'|format(plane.rearmoment)|float }}</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"> {{ plane.baggage }} kg</td>
+            <td> {{ '%0.3f'|format(plane.baggage)|float }}</td>
+            <td> {{ '%0.3f'|format(plane.arms["baggage"])|float }}</td>
+            <td> {{ '%0.3f'|format(plane.bagmoment)|float }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2"> {{ plane.fuel_gauge }} </td>
+            <td> {{ '%0.3f'|format(plane.fuel_mass)|float }} </td>
+            <td> {{ '%0.3f'|format(plane.arms["fuel"])|float }} </td>
+            <td> {{ '%0.3f'|format(plane.fuelmoment)|float }} </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2"> {{ plane.auxfuel }} l </td>
+            <td> {{ plane.auxfuelmass }} </td>
+            <td> {{ '%0.3f'|format(plane.arms["auxfuel"])|float }} </td>
+            <td> {{ '%0.3f'|format(plane.auxfuelmoment)|float }} </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">TOTAL</td>
+            <td> {{ plane.auw }} </td>
+            <td> {{ '%0.3f'|format(plane.cg)|float }} </td>
+            <td> {{ '%0.3f'|format(plane.moment)|float }} </td>
+            <td></td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Prévisions</legend>
+
+    <table class="dataframe">
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>décollage</legend>
+                        {{ form.tkalt.data }} ft
+                    <br>
+                        {{ form.tktemp.data }} °C
+                    <br>
+                        {{ form.tkqnh.data }} hPa
+                    <br>
+                    {{ takeoff_data | safe }}
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>atterrissage</legend>
+                        {{ form.ldalt.data }} ft
+                    <br>
+                        {{ form.ldtemp.data }} °C
+                    <br>
+                        {{ form.ldqnh.data }} hPa
+                    <br>
+                    {{ landing_data | safe }}
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<div align="center">
+<img width=400px, class="prep" , src="data:image/png;base64,{{ takeoff }}" />
+
+<img width=400px, class="prep" , src="data:image/png;base64,{{ landing }}" />
+
+
+</div>
+
+{% endblock %}

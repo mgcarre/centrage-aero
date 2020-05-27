@@ -2,6 +2,7 @@ import os
 import json
 from flask import Blueprint, render_template, flash, session, send_from_directory, request
 from flask_login import login_required, current_user
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from .logbook import FlightLog
 from .models import LogBook
 from . import db
@@ -54,19 +55,31 @@ from .planes import WeightBalance, PlanePerf
 from .forms import PrepflightForm
 @main.route("/prepflight", methods=['GET', 'POST'])
 def prepflight():
+    import urllib
     # form defaults
     form = PrepflightForm()
     
     if form.validate_on_submit():
         # WeightBalance accepts extra parameters - full dict is Ok
-        p = WeightBalance(**form.data)
-        # Split tkoff and ldng data for prediction
-        tk_dict = {k: v for k, v in form.data.items() if k.startswith("tk")}
-        ld_dict = {k: v for k, v in form.data.items() if k.startswith("ld")}
-        tkoff = PlanePerf(p.planetype, p.auw, **tk_dict)
-        ldng = PlanePerf(p.planetype, p.auw, **ld_dict)
+        plane = WeightBalance(**form.data)
 
+        tkoff = PlanePerf(plane.planetype, plane.auw, form.data["tkalt"], form.data["tktemp"], form.data["tkqnh"])
+        ldng = PlanePerf(plane.planetype, plane.auw, form.data["ldalt"], form.data["ldtemp"], form.data["ldqnh"])
+        
+        # Get plot images
+        balance_img = plane.plot_balance(encode=True)
+        tkoff_data = tkoff.predict("takeoff").to_html(classes="dataframe")
+        tkoff_img = tkoff.plot_performance("takeoff", encode=True)
+        ldng_data = ldng.predict("landing").to_html()
+        ldng_img = ldng.plot_performance("landing", encode=True)
 
+        return render_template('report.html', form=form, plane=plane,
+                balance=urllib.parse.quote(balance_img),
+                takeoff_data=tkoff_data,
+                takeoff=urllib.parse.quote(tkoff_img),
+                landing_data=ldng_data,
+                landing=urllib.parse.quote(ldng_img))
+        
     else:
         print("ERRORS")
         print(form.errors)

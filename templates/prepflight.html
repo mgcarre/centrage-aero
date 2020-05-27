@@ -115,9 +115,38 @@
                     </tr>
                 </table>
             </fieldset>
+            
+    {% if balance %}
+    <br>
+        <img width=500px, class="prep", src="data:image/png;base64,{{ balance }}"/>
+    {% endif %}
+
+    {% if takeoff %}
+        <img width=400px, class="prep", src="data:image/png;base64,{{ takeoff }}"/>
+    {% endif %}
+    
+    {% if landing %}
+        <img width=400px, class="prep", src="data:image/png;base64,{{ landing }}"/>
+    {% endif %}
+
+    <table class="dataframe">
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>décollage</legend>
+                    {{ takeoff_data | safe }}
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>atterrissage</legend>
+                    {{ landing_data | safe }}
+                </fieldset>
+            </td>
+        </tr>
+
         </form>
     </div>
-</div>
-
+<!-- </div> -->
 
 {% endblock %}

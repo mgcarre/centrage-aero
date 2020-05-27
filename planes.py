@@ -8,6 +8,8 @@ import datetime
 import sys
 import logging
 from io import StringIO
+import matplotlib.pyplot as plt
+from matplotlib import cm, lines
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 from sklearn.linear_model import Ridge, LinearRegression, Lasso
@@ -135,7 +137,8 @@ class WeightBalance:
                  pax0=0, pax1=0, pax2=0, pax3=0,
                  baggage=0,
                  fuel=None, fuel_mass=None, fuel_gauge=None,
-                 auxfuel=0):
+                 auxfuel=0,
+                 **kwargs):
         planes = self._planes
         if callsign not in planes.keys():
             raise Exception(f"No such call sign. Valid call signs are {', '.join(planes.keys())}")
@@ -432,7 +435,7 @@ class PlanePerf:
     """
     """
     
-    def __init__(self, planetype, auw, altitude, temperature, qnh):
+    def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
         """Predicts DR400 planes takeoff and landing distances (50ft)
         given an all-up weight, airfield altitude, temperature and QNH
         planetype: either DR400-120 or DR400-140B
@@ -490,51 +493,8 @@ class PlanePerf:
         tkoff["mass"] = tkoff["mass"].astype("int")
         return tkoff
 
-        
-    def takeoff(self):
-        """Builds a linear regression model out of the raw data
-        Predicts takeoff distance (50ft) given:
-        type of plane
-        altitude in ft
-        temperature in °C
-        auw in kg
-        QNH in hPa
-        """
-        tkoff = self.takeoff_data()
-        
-        takeoff_model = make_pipeline(PolynomialFeatures(2), LinearRegression())
-        #X = tkoff.iloc[range(1, len(tkoff), 2), :3].values
-        #y = tkoff.iloc[range(1, len(tkoff), 2), 3].values
-        _ = takeoff_model.fit(tkoff.iloc[:, :3], tkoff.iloc[:, 3])
-        
-        # A little engineering
-        # Convert temperature in K
-        Ktemp = self.temperature + 273
-        # Convert altitude in Zp
-        Zp = self.altitude - 28 * (self.qnh - 1013.25)
-        
-        features = takeoff_model.steps[0][1].get_feature_names(tkoff.columns)
-        features = [i.replace(" ", " * ").replace("^", "**") for i in features]
-        # coefs = takeoff_model.steps[1][1].coef_
-        # formula = (
-        #     str(takeoff_model.steps[1][1].intercept_)
-        #     + " + "
-        #     + " + ".join([f"({a}) * {b}" for a, b in zip(coefs, features)])
-        # )
-        tkoff_distance = takeoff_model.predict([[Zp, Ktemp, self.auw]])
-        # Applying coefficient for head wind
-        asphalt = np.around(tkoff_distance * np.array([[1, 0.78, 0.63, 0.52]]))
-        df = pd.DataFrame(asphalt, columns=["0KN", "10KN", "20KN", "30KN"])
-        # Applying coefficient for grass runway
-        df = df.append(df.iloc[0].apply(lambda x: round(x * 1.15))).astype("int")
-        df.index = ["dur", "herbe"]
-        df.columns.name = "Ve"
-        print(f"\nDistance de décollage (15m)\nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n")
-        print(df)
-        return df
-    
-    
-    def ldng_data(self):
+
+    def landing_data(self):
         """Gets raw performance data for the given type of plane
         Choices are DR400-120 or DR400-140
         """
@@ -570,51 +530,102 @@ class PlanePerf:
         ldng["mass"] = ldng["mass"].astype("int")
         return ldng
     
-    
-    def landing(self):
+
+    def make_model(self, operation):
+        """Returns a trained model of takeoff or landing performance.
+
+        Arguments:
+            operation {str} -- ["takeoff" or "landing"]
+        """
+        assert operation in ["takeoff", "landing"]
+
+        data_df = eval(f"self.{operation}_data()")
+        
+        model = make_pipeline(PolynomialFeatures(2), LinearRegression())
+        _ = model.fit(data_df.iloc[:, :3], data_df.iloc[:, 3])
+
+        return model
+        
+    def predict(self, operation):
         """Builds a linear regression model out of the raw data
-        Predicts landing distance (50ft) given:
+        Predicts takeoff or landing distance (50ft) given:
         type of plane
         altitude in ft
         temperature in °C
         auw in kg
         QNH in hPa
-        """
-        ldng = self.ldng_data()
-        
-        landing_model = make_pipeline(PolynomialFeatures(2), LinearRegression())
 
-        # X_train = ldng.iloc[range(0, len(ldng), 2), :3].values
-        # y_train = ldng.iloc[range(0, len(ldng), 2), 3].values
-        # X = ldng.iloc[range(1, len(ldng), 2), :3].values
-        # y = ldng.iloc[range(1, len(ldng), 2), 3].values
-        _ = landing_model.fit(ldng.iloc[:, :3], ldng.iloc[:, 3])
-        # print(f"Landing regression score: {landing_model.score(X, y)}")
+        Arguments:
+            operation {str} -- ["takeoff" or "landing"]
+        """
+        
+        assert operation in ["takeoff", "landing"]
+
+        model = self.make_model(operation)
         
         # A little engineering
-        # Convert t in K
+        # Convert temperature in K
         Ktemp = self.temperature + 273
-        # Convert a in Zp
+        # Convert altitude in Zp
         Zp = self.altitude - 28 * (self.qnh - 1013.25)
-        features = landing_model.steps[0][1].get_feature_names(ldng.columns)
-        features = [i.replace(" ", " * ").replace("^", "**") for i in features]
-        # coefs = landing_model.steps[1][1].coef_
-        # To display the regression formula
-        # formula = (
-        #     str(landing_model.steps[1][1].intercept_)
-        #     + " + "
-        #     + " + ".join([f"({a})*{b}" for a, b in zip(coefs, features)])
-        # )
-        #print(formula.replace(" +", "\n+"))
-        landing_distance = landing_model.predict([[Zp, Ktemp, self.auw]])
-        # Coefficients for head wind
-        asphalt = np.around(landing_distance*np.array([[1, .78, .63, .52]]))
+        
+        distance = model.predict([[Zp, Ktemp, self.auw]])
+        # Applying coefficient for head wind
+        asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
         df = pd.DataFrame(asphalt, columns=["0KN", "10KN", "20KN", "30KN"])
-        df = df.append(df.iloc[0].apply(lambda x: round(x*1.15))).astype("int")
+        # Applying coefficient for grass runway
+        df = df.append(df.iloc[0].apply(lambda x: round(x * 1.15))).astype("int")
         df.index = ["dur", "herbe"]
         df.columns.name = "Ve"
-        #df.columns = pd.MultiIndex.from_product([[f"atterrissage Zp = {Zp}ft {t}°C {m}kg"], df.columns])
-        #print(f"\nLanding distance for Zp = {Zp}ft at {t}°C and mass {m}kg: {landing}m")
-        print(f"\nDistance d'atterrissage (15m): \nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n")
-        print(df)
-        return df        
+        title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
+        print(f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n")
+
+        return df
+    
+    def plot_performance(self, operation):
+        """Plots a contour graph of the takeoff or landing performance
+        given a plane's all-up weight.
+
+        operation: takeoff or landing
+        """
+        assert operation in ["takeoff", "landing"]
+
+        model = self.make_model(operation)
+
+        # Number of zones in the contour graph
+        N = 10
+
+        # Make a mesh grid of altitudes and temperatures
+        predict_a, predict_t = np.meshgrid(np.linspace(0, 13000, N), np.linspace(243, 323, N))
+        predict_x = np.concatenate(
+            (
+                predict_a.reshape(-1, 1),
+                predict_t.reshape(-1, 1),
+                np.array(100 * [self.auw]).reshape(-1, 1),
+            ),
+            axis=1,
+        )
+        predict_x_ = model.steps[0][1].fit_transform(predict_x)
+        predict_y = model.steps[1][1].predict(predict_x_)
+        
+        fig = plt.figure(figsize=(16, 6));
+        ax2 = fig.add_subplot(122);
+        cs = ax2.contourf(
+            predict_a,
+            predict_t - 273,
+            predict_y.reshape(predict_a.shape),
+            #cmap=surf.cmap.name,
+            cmap=cm.jet,
+            alpha=0.6,
+        );
+        title = {"takeoff": "décollage", "landing": "atterrissage"}
+        ax2.set_title(f"{title[operation]} (15m) à {self.auw}kg");
+        ax2.contour(cs, colors="k");
+        cbar2 = fig.colorbar(cs, ax=ax2);
+        ax2.set_xlabel("ft", size=12);
+        ax2.set_ylabel("°C", size=12);
+        cbar2.ax.set_ylabel("mètres", rotation=270, size=12, labelpad=10)
+        plt.show();
+        #plt.tight_layout();
+
+

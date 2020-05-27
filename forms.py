@@ -13,7 +13,7 @@ class PrepflightForm(FlaskForm):
 
     pax_weight_range = range(0, 145, 5)
     baggage_weight_range = range(0, plane.bagmax + 1, 5)
-    fuelgauge_range = [0, .5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+    fuel_gauge_range = [0, .5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
     auxfuel_range = range(0, plane.maxauxfuel + 41, 5)
     altitude_range = range(0, 8100, 100)
     temperature_range = range(-20, 51, 1)
@@ -34,8 +34,8 @@ class PrepflightForm(FlaskForm):
     baggage_choices = [i for i in zip(baggage_weight_range, baggage_weight_range)]
     baggage = SelectField("baggage", coerce=int, validators=[InputRequired()], choices=baggage_choices)
     # Fuel
-    fuelgauge_choices = [i for i in zip(fuelgauge_range, fuelgauge_range)]
-    fuelgauge = SelectField("jauge fuel", coerce=float, validators=[InputRequired()], choices=fuelgauge_choices)
+    fuel_gauge_choices = [i for i in zip(fuel_gauge_range, fuel_gauge_range)]
+    fuel_gauge = SelectField("jauge fuel", coerce=float, validators=[InputRequired()], choices=fuel_gauge_choices)
     # Aux fuel
     auxfuel_choices = [i for i in zip(auxfuel_range, auxfuel_range)]
     auxfuel = SelectField("fuel aux. (l)", coerce=int, validators=[InputRequired()], choices=auxfuel_choices)

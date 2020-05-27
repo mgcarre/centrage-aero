@@ -58,8 +58,15 @@ def prepflight():
     form = PrepflightForm()
     
     if form.validate_on_submit():
-        print("VALIDATED")
-        print(form.data)
+        # WeightBalance accepts extra parameters - full dict is Ok
+        p = WeightBalance(**form.data)
+        # Split tkoff and ldng data for prediction
+        tk_dict = {k: v for k, v in form.data.items() if k.startswith("tk")}
+        ld_dict = {k: v for k, v in form.data.items() if k.startswith("ld")}
+        tkoff = PlanePerf(p.planetype, p.auw, **tk_dict)
+        ldng = PlanePerf(p.planetype, p.auw, **ld_dict)
+
+
     else:
         print("ERRORS")
         print(form.errors)

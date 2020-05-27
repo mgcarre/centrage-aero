@@ -106,7 +106,7 @@ $(document).ready(function() {
 
     function update_fuel() {
         console.log(plane.arms.fuel);
-        var gauge = parseFloat($('#fuelgauge').val());
+        var gauge = parseFloat($('#fuel_gauge').val());
         console.log(gauge, plane.maxfuel)
         fuelweight = gauge * plane.maxfuel / 4 * .72;
         fuelarm = plane.arms.fuel;

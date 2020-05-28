@@ -8,13 +8,18 @@ class PrepflightForm(FlaskForm):
 
     # Get plane list from the planes module
     planes = json.dumps(WeightBalance._planes)
-    callsigns = list(WeightBalance._planes.keys())
-    plane = WeightBalance(callsigns[0])
 
+    callsigns = list(WeightBalance._planes.keys())
+    auxfuel_list = []
+    for p in callsigns:
+        auxfuel_list.append(WeightBalance._planes[p]["maxauxfuel"])
+    maxauxfuel = max(auxfuel_list)
+    
+    plane = WeightBalance(callsigns[0])
     pax_weight_range = range(0, 145, 5)
     baggage_weight_range = range(0, plane.bagmax + 1, 5)
     fuel_gauge_range = [0, .5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
-    auxfuel_range = range(0, plane.maxauxfuel + 41, 5)
+    auxfuel_range = range(0, maxauxfuel + 1, 5)
     altitude_range = range(0, 8100, 100)
     temperature_range = range(-20, 51, 1)
     qnh_range = range(950, 1051, 1)

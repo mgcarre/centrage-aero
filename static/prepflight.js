@@ -17,7 +17,7 @@ $(document).ready(function() {
     var auxfuelmoment =0;
     var moment;
     var cg;
-
+    
     function update_totals() {
         auw = [bew, frontweight, rearweight, 
                 bagweight, fuelweight, auxfuelweight].reduce((a, b)=> a +b);
@@ -34,15 +34,15 @@ $(document).ready(function() {
     function update_plane(){
         callsign = $('#callsign').val();
         plane = planes[callsign];
-        console.log("PLANE", plane)
-
-        // update the plane's max aux fuel size
-        var selectbox = $('#auxfuel');
-        var list = '';
-        for (i = 0; i <= plane.maxauxfuel; i += 5){
-            list += "<option value='" + i + "'>" + i + "</option>";
-        }
-        selectbox.empty().append(list);
+        console.log("IN UPDATE PLANE", plane)
+        
+        // // update the plane's max aux fuel size
+        // var list = '';
+        // for (i = 0; i <= plane.maxauxfuel; i += 5) {
+        //     list += "<option value='" + i + "'>" + i + "</option>";
+        // }
+        // $('#auxfuel').empty().append(list);
+        // console.log($('#auxfuel'), $('#auxfuel').val())
 
         planetype = plane.planetype;
         bew = plane.bew;
@@ -105,7 +105,7 @@ $(document).ready(function() {
     }
 
     function update_fuel() {
-        console.log(plane.arms.fuel);
+        console.log("IN UPDATE FUEL", plane.arms.fuel);
         var gauge = parseFloat($('#fuel_gauge').val());
         console.log(gauge, plane.maxfuel)
         fuelweight = gauge * plane.maxfuel / 4 * .72;
@@ -120,8 +120,14 @@ $(document).ready(function() {
     }
 
     function update_auxfuel() {
-        auxfuel = parseFloat($('#auxfuel').val());
-        auxfuelweight = auxfuel * .72;
+        var value = parseInt($('#auxfuel').val());
+        console.log("IN UPDATE_AUXFUEL", value, plane.maxauxfuel, value > plane.maxauxfuel)
+        
+        if (value > plane.maxauxfuel) {
+            value = plane.maxauxfuel;
+            $('#auxfuel').val(plane.maxauxfuel);
+        }
+        auxfuelweight = value * .72;
         auxfuelarm = plane.arms.auxfuel;
         auxfuelmoment = auxfuelweight * auxfuelarm;
 
@@ -145,7 +151,7 @@ $(document).ready(function() {
     $('#pax0, #pax1').on('change', update_front);
     $('#pax2, #pax3').on('change', update_rear);
     $('#baggage').on('change', update_baggage);
-    $('#fuelgauge').on('change', update_fuel);
+    $('#fuel_gauge').on('change', update_fuel);
     $('#auxfuel').on('change', update_auxfuel);
     
 });

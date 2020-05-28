@@ -3,16 +3,16 @@
 {% block title %}Préparation du vol{% endblock %}
 
 {% block head %}
-  {{ super() }}
+{{ super() }}
 
-  <link rel="stylesheet" href="{{url_for('static', filename='form.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='form.css')}}">
 
-  <script>
-      var planes = JSON.parse({{ form.planes|tojson|safe }});
-  </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var planes = JSON.parse({{ form.planes | tojson | safe }});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <script type="text/javascript" src="{{url_for('static', filename='prepflight.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='prepflight.js')}}"></script>
 
 {% endblock %}
 
@@ -20,19 +20,23 @@
 {% block content %}
 
 <!-- <div class="column is-4 is-offset-4"> -->
-    <h3 class="title">Préparation du vol</h3>
-    <div class="form">
+<h3 class="title">Préparation du vol</h3>
+<div class="form">
 
-        <form method="POST" action="/prepflight">
+    <form method="POST" action="/">
 
-            <fieldset>
-                <legend>Masse et centrage</legend>
-                {{ form.hidden_tag() }}
+        <fieldset>
+            <legend>Masse et centrage</legend>
+            {{ form.hidden_tag() }}
 
-                <table class="dataframe">
-                    <!--<thead> -->
-                        <th width="20%"></th><th width="20%"></th><th width="20%">masse (kg)</th><th>levier (m)</th><th>moment (kg.m)</th>
-                    <!-- </thead> -->
+            <table class="dataframe">
+                <!--<thead> -->
+                <th width="20%"></th>
+                <th width="20%"></th>
+                <th width="20%">masse (kg)</th>
+                <th>levier (m)</th>
+                <th>moment (kg.m)</th>
+                <!-- </thead> -->
                 <tr>
                     <td> {{ form.callsign.label }} {{ form.callsign }} </td>
                     <td id="planetype"></td>
@@ -41,23 +45,23 @@
                     <td id="bemoment"></td>
                 </tr>
                 <tr>
-                    <td> {{form.pax0.label }} {{ form.pax0 }} 
+                    <td> pax {{ form.pax0 }}
                         {% if form.pax0.errors %}
                         <ul class="errors">
                             {% for error in form.pax0.errors %}
-                            <li> {{ error }} </li>
+                            <li style="color:red"> {{ error }} </li>
                             {% endfor %}
                         </ul>
                         {% endif %}
                     </td>
-                    <td> {{ form.pax1.label }} {{ form.pax1 }} </td>
+                    <td> pax {{ form.pax1 }} </td>
                     <td id='frontweight'></td>
                     <td id="frontarm"></td>
                     <td id="frontmoment"></td>
                 </tr>
                 <tr>
-                    <td> {{ form.pax2.label }} {{ form.pax2 }} </td>
-                    <td> {{ form.pax3.label }} {{ form.pax3 }} </td>
+                    <td> pax {{ form.pax2 }} </td>
+                    <td> pax {{ form.pax3 }} </td>
                     <td id="rearweight"></td>
                     <td id="reararm"></td>
                     <td id="rearmoment"></td>
@@ -87,66 +91,37 @@
                     <td id="cg"></td>
                     <td id="moment"></td>
                 </tr>
-                </table>
-            </fieldset>
-            <fieldset>
-                <legend>Performances</legend>
-                <table class="dataframe">
-                    <th>décollage</th><th>atterrissage</th>
-                    <tr>
-                        <td> {{ form.tkalt.label }} {{ form.tkalt }} </td>
-                        <td> {{ form.ldalt.label }} {{ form.ldalt }} </td>
-                    </tr>
-                    <tr>
-                        <td> {{ form.tktemp.label }} {{ form.tktemp }} </td>
-                        <td> {{ form.ldtemp.label }} {{ form.ldtemp }} </td>
-                    </tr>
-                    <tr>
-                        <td> {{ form.tkqnh.label }} {{ form.tkqnh }} </td>
-                        <td> {{ form.ldqnh.label }} {{ form.ldqnh }} </td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset>
-                <legend>Validation</legend>
-                <table>
-                    <tr>
-                        <td> {{ form.submit }} </td>
-                    </tr>
-                </table>
-            </fieldset>
-            
-    {% if balance %}
-    <br>
-        <img width=500px, class="prep", src="data:image/png;base64,{{ balance }}"/>
-    {% endif %}
-
-    {% if takeoff %}
-        <img width=400px, class="prep", src="data:image/png;base64,{{ takeoff }}"/>
-    {% endif %}
-    
-    {% if landing %}
-        <img width=400px, class="prep", src="data:image/png;base64,{{ landing }}"/>
-    {% endif %}
-
-    <table class="dataframe">
-        <tr>
-            <td>
-                <fieldset>
-                    <legend>décollage</legend>
-                    {{ takeoff_data | safe }}
-                </fieldset>
-            </td>
-            <td>
-                <fieldset>
-                    <legend>atterrissage</legend>
-                    {{ landing_data | safe }}
-                </fieldset>
-            </td>
-        </tr>
-
-        </form>
-    </div>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>Performances</legend>
+            <table class="dataframe">
+                <th>décollage</th>
+                <th>atterrissage</th>
+                <tr>
+                    <td> {{ form.tkalt.label }} {{ form.tkalt }} </td>
+                    <td> {{ form.ldalt.label }} {{ form.ldalt }} </td>
+                </tr>
+                <tr>
+                    <td> {{ form.tktemp.label }} {{ form.tktemp }} </td>
+                    <td> {{ form.ldtemp.label }} {{ form.ldtemp }} </td>
+                </tr>
+                <tr>
+                    <td> {{ form.tkqnh.label }} {{ form.tkqnh }} </td>
+                    <td> {{ form.ldqnh.label }} {{ form.ldqnh }} </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>Validation</legend>
+            <table>
+                <tr>
+                    <td> {{ form.submit }} </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
 <!-- </div> -->
 
 {% endblock %}

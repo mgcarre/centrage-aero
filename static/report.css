@@ -1,21 +1,23 @@
-.title {
-  width: 80%;
-  margin: auto;
-  padding: 20px;
+.myheading {
+  width: 90%;
+  margin: 20px;
+  padding: 0px;
+  font-size: large;
 }
 
 body {
   background-color: white;
-  text-size-adjust: auto;
+  font-size: small;
+  line-height: 1;
 }
 
 table.dataframe {
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0;
-  border: 1;
+  border-width: 1px;
   width: 100%;
-  margin-left:auto; 
-  margin-right:auto;
+  margin-left: auto; 
+  margin-right: auto;
   table-layout: auto;
 }
 
@@ -35,25 +37,27 @@ td {
   padding: 6px;
 }
 
-label, select {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-}
-
 img.prep {
   border-radius: 30px;
+}
+
+td.imagecell {
+  padding:0px;
 }
 
 fieldset {
   border-radius: 12px;
   border-collapse: separate;
   border-spacing: 0;
-  border: 01;
-  width: 80%;
-  margin-left:auto; 
-  margin-right:auto;
-  padding: 6px 15px 15px;
+  border-width: 1;
+  width: 95%;
+  margin-left: 20px; 
+  margin-right: 20px;
+  padding: 6px;
   background: white;
   color: black;
+}
+
+fieldset.perf {
+  border: 0;
 }

@@ -445,6 +445,7 @@ class WeightBalance:
         # Get cg and auw with no fuel
         no_fuel_plane = copy.copy(self)
         no_fuel_plane.fuel = 0
+        no_fuel_plane.auxfuel = 0
 
         fig = plt.figure()
         ax = plt.gca()
@@ -457,6 +458,7 @@ class WeightBalance:
         ax.plot([no_fuel_plane.cg], [no_fuel_plane.auw], "r^", markerfacecolor="w", markersize=12)
         ax.set_xlabel("m", fontsize=12)
         ax.set_ylabel("kg", fontsize=12)
+        _ = plt.tight_layout()
 
         if encode:
             canvas = FigureCanvas(fig)

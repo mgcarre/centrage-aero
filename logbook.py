@@ -58,7 +58,7 @@ class FlightLog:
         )
         logbook["Temps (hh:mm)"] = pd.to_timedelta(logbook["Temps (hh:mm)"])
         logbook.rename(columns={"Temps (hh:mm)":"Heures"}, inplace=True)
-        logbook["Type"].replace(regex={r"^DR400$": "DR400-160"}, inplace=True)
+        logbook["Type"].replace(regex={r"^DR400$": "DR400-140B"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
 
         return logbook#.style.set_table_styles(htmlstyle).render()

@@ -1,12 +1,15 @@
 import os
 import json
+import pandas as pd
+import urllib
+from datetime import datetime, timezone
 from flask import Blueprint, render_template, flash, session, send_from_directory, request
 from flask_login import login_required, current_user
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from .logbook import FlightLog
 from .models import LogBook
+from .planes import WeightBalance, PlanePerf
+from .forms import PrepflightForm
 from . import db
-import pandas as pd
 
 
 main = Blueprint("main", __name__)
@@ -26,10 +29,10 @@ def get_aero():
         flightlog = FlightLog(pilot)
         logbook = flightlog.logbook
 
-@main.route('/')
-@login_required
-def index():
-    return render_template('index.html')
+# @main.route('/')
+# @login_required
+# def index():
+#     return render_template('index.html')
 
 @main.route('/favicon.ico')
 def favicon():
@@ -50,12 +53,8 @@ def stats():
     flightstats_html = [k.to_html(index=True) for k in flightstats]
     return render_template('stats.html', name=current_user.name, dataframes=flightstats_html)
 
-
-from .planes import WeightBalance, PlanePerf
-from .forms import PrepflightForm
-@main.route("/prepflight", methods=['GET', 'POST'])
+@main.route("/", methods=['GET', 'POST'])
 def prepflight():
-    import urllib
     # form defaults
     form = PrepflightForm()
     
@@ -68,12 +67,15 @@ def prepflight():
         
         # Get plot images
         balance_img = plane.plot_balance(encode=True)
-        tkoff_data = tkoff.predict("takeoff").to_html(classes="dataframe")
+        tkoff_data = tkoff.predict("takeoff").to_html()
         tkoff_img = tkoff.plot_performance("takeoff", encode=True)
         ldng_data = ldng.predict("landing").to_html()
         ldng_img = ldng.plot_performance("landing", encode=True)
 
+        timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
+
         return render_template('report.html', form=form, plane=plane,
+                timestamp = timestamp,
                 balance=urllib.parse.quote(balance_img),
                 takeoff_data=tkoff_data,
                 takeoff=urllib.parse.quote(tkoff_img),
@@ -82,9 +84,11 @@ def prepflight():
         
     else:
         print("ERRORS")
+        print(form.data)
         print(form.errors)
         for k, v in form.errors.items():
             print(k, v)
+            print(form[k])
 
         #return
 

@@ -1,4 +1,5 @@
 import os
+import logging
 import json
 import pandas as pd
 import urllib
@@ -24,7 +25,7 @@ def get_aero():
     """
     global pilot, flightlog, logbook
     if not pilot:
-        print("CALLING AEROGEST AGAIN")
+        logging.info("CALLING AEROGEST AGAIN")
         pilot = {"username": current_user.name, "password": current_user.password}
         flightlog = FlightLog(pilot)
         logbook = flightlog.logbook
@@ -50,46 +51,49 @@ def profile():
 def stats():
     get_aero()
     flightstats = flightlog.log_agg()
+    last_quarter = flightlog.last_quarter().to_html(index=True)
     flightstats_html = [k.to_html(index=True) for k in flightstats]
-    return render_template('stats.html', name=current_user.name, dataframes=flightstats_html)
+    return render_template('stats.html', name=current_user.name,
+                        dataframes=flightstats_html, last_quarter=last_quarter)
 
 @main.route("/", methods=['GET', 'POST'])
 def prepflight():
     # form defaults
     form = PrepflightForm()
     
-    if form.validate_on_submit():
-        # WeightBalance accepts extra parameters - full dict is Ok
-        plane = WeightBalance(**form.data)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # WeightBalance accepts extra parameters - full dict is Ok
+            plane = WeightBalance(**form.data)
 
-        tkoff = PlanePerf(plane.planetype, plane.auw, form.data["tkalt"], form.data["tktemp"], form.data["tkqnh"])
-        ldng = PlanePerf(plane.planetype, plane.auw, form.data["ldalt"], form.data["ldtemp"], form.data["ldqnh"])
-        
-        # Get plot images
-        balance_img = plane.plot_balance(encode=True)
-        tkoff_data = tkoff.predict("takeoff").to_html()
-        tkoff_img = tkoff.plot_performance("takeoff", encode=True)
-        ldng_data = ldng.predict("landing").to_html()
-        ldng_img = ldng.plot_performance("landing", encode=True)
+            tkoff = PlanePerf(plane.planetype, plane.auw, form.data["tkalt"], form.data["tktemp"], form.data["tkqnh"])
+            ldng = PlanePerf(plane.planetype, plane.auw, form.data["ldalt"], form.data["ldtemp"], form.data["ldqnh"])
+            
+            # Get plot images
+            balance_img = plane.plot_balance(encode=True)
+            tkoff_data = tkoff.predict("takeoff").to_html()
+            tkoff_img = tkoff.plot_performance("takeoff", encode=True)
+            ldng_data = ldng.predict("landing").to_html()
+            ldng_img = ldng.plot_performance("landing", encode=True)
 
-        timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
+            timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
 
-        return render_template('report.html', form=form, plane=plane,
-                timestamp = timestamp,
-                balance=urllib.parse.quote(balance_img),
-                takeoff_data=tkoff_data,
-                takeoff=urllib.parse.quote(tkoff_img),
-                landing_data=ldng_data,
-                landing=urllib.parse.quote(ldng_img))
-        
-    else:
-        print("ERRORS")
-        print(form.data)
-        print(form.errors)
-        for k, v in form.errors.items():
-            print(k, v)
-            print(form[k])
+            return render_template('report.html', form=form, plane=plane,
+                    timestamp = timestamp,
+                    balance=urllib.parse.quote(balance_img),
+                    takeoff_data=tkoff_data,
+                    takeoff=urllib.parse.quote(tkoff_img),
+                    landing_data=ldng_data,
+                    landing=urllib.parse.quote(ldng_img))
+            
+        else:
+            print("ERRORS")
+            print(form.data)
+            print(form.errors)
+            for k, v in form.errors.items():
+                print(k, v)
+                print(form[k])
 
-        #return
+            #return
 
     return render_template('prepflight.html', form=form)

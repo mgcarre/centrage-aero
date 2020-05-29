@@ -13,6 +13,10 @@
     <h1 class="title">
     Statistiques de vol de {{ name }}
     </h1>
+    <h2 font-size="large">3 derniers mois</h2>
+    {{ last_quarter | safe }}
+    <br>
+    <h2>All time</h2>
     {% for dataframe in dataframes %}
         {{ dataframe | safe }}
         <br>

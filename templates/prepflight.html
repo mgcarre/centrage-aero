@@ -19,6 +19,8 @@
 
 {% block content %}
 
+{% from "_formhelpers.html" import render_field %}
+
 <!-- <div class="column is-4 is-offset-4"> -->
 <h3 class="title">Préparation du vol</h3>
 <div class="form">
@@ -31,56 +33,49 @@
 
             <table class="dataframe">
                 <!--<thead> -->
-                <th width="20%"></th>
-                <th width="20%"></th>
-                <th width="20%">masse (kg)</th>
+                <th></th>
+                <th></th>
+                <th>masse (kg)</th>
                 <th>levier (m)</th>
                 <th>moment (kg.m)</th>
                 <!-- </thead> -->
                 <tr>
-                    <td> {{ form.callsign.label }} {{ form.callsign }} </td>
+                    <td> {{ render_field(form.callsign) }} </td>
                     <td id="planetype"></td>
                     <td id="bew"></td>
                     <td id="bearm"></td>
                     <td id="bemoment"></td>
                 </tr>
                 <tr>
-                    <td> pax {{ form.pax0 }}
-                        {% if form.pax0.errors %}
-                        <ul class="errors">
-                            {% for error in form.pax0.errors %}
-                            <li style="color:red"> {{ error }} </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+                    <td> {{ render_field(form.pax0, "pax") }}
                     </td>
-                    <td> pax {{ form.pax1 }} </td>
+                    <td> {{ render_field(form.pax1, "pax") }} </td>
                     <td id='frontweight'></td>
                     <td id="frontarm"></td>
                     <td id="frontmoment"></td>
                 </tr>
                 <tr>
-                    <td> pax {{ form.pax2 }} </td>
-                    <td> pax {{ form.pax3 }} </td>
+                    <td> {{ render_field(form.pax2, "pax") }} </td>
+                    <td> {{ render_field(form.pax3, "pax") }} </td>
                     <td id="rearweight"></td>
                     <td id="reararm"></td>
                     <td id="rearmoment"></td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"> {{ form.baggage.label }} {{ form.baggage }}</td>
+                    <td colspan="2"> {{ render_field(form.baggage) }}</td>
                     <td id="bagweight"></td>
                     <td id="bagarm"></td>
                     <td id="bagmoment"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> {{ form.fuel_gauge.label }} {{ form.fuel_gauge }} </td>
+                    <td colspan="2"> {{ render_field(form.fuel_gauge) }} </td>
                     <td id="fuelmass"></td>
                     <td id="fuelarm"></td>
                     <td id="fuelmoment"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> {{ form.auxfuel.label }} {{ form.auxfuel }} </td>
+                    <td colspan="2"> {{ render_field(form.auxfuel) }} </td>
                     <td id="auxfuelmass"></td>
                     <td id="auxfuelarm"></td>
                     <td id="auxfuelmoment"></td>
@@ -99,16 +94,16 @@
                 <th>décollage</th>
                 <th>atterrissage</th>
                 <tr>
-                    <td> {{ form.tkalt.label }} {{ form.tkalt }} </td>
-                    <td> {{ form.ldalt.label }} {{ form.ldalt }} </td>
+                    <td> {{ render_field(form.tkalt) }} </td>
+                    <td> {{ render_field(form.ldalt) }} </td>
                 </tr>
                 <tr>
-                    <td> {{ form.tktemp.label }} {{ form.tktemp }} </td>
-                    <td> {{ form.ldtemp.label }} {{ form.ldtemp }} </td>
+                    <td> {{ render_field(form.tktemp) }} </td>
+                    <td> {{ render_field(form.ldtemp) }} </td>
                 </tr>
                 <tr>
-                    <td> {{ form.tkqnh.label }} {{ form.tkqnh }} </td>
-                    <td> {{ form.ldqnh.label }} {{ form.ldqnh }} </td>
+                    <td> {{ render_field(form.tkqnh) }} </td>
+                    <td> {{ render_field(form.ldqnh) }} </td>
                 </tr>
             </table>
         </fieldset>

@@ -1,5 +1,4 @@
 from flask import Blueprint, redirect, url_for, render_template, request, flash
-#from flask import current_app as app
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User, LogBook
@@ -12,8 +11,8 @@ auth = Blueprint("auth", __name__)
 def login():
     if current_user.is_authenticated:
         flash("Already logged in.")
-        #return redirect(url_for('main.profile'))
-        return redirect(request.referrer)
+        return redirect(url_for('main.profile'))
+        #return redirect(request.referrer)
 
     if request.method == 'POST':
         name = request.form.get('name')
@@ -24,7 +23,7 @@ def login():
 
         # check if user actually exists
         # take the user supplied password, hash it, and compare it to the hashed password in database
-        #if not user or not check_password_hash(user.password, password):
+        # if not user or not check_password_hash(user.password, password):
         if not user or user.password != password:
             flash('Please check your login details and try again.')
             return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
@@ -59,4 +58,4 @@ def signup():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.prepflight'))

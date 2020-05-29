@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import datetime
+from datetime import datetime
 import sys
 from io import StringIO
 from bs4 import BeautifulSoup
@@ -95,6 +95,26 @@ class FlightLog:
                 )
             )
         return tables
+
+    def last_quarter(self):
+        """Provides aggregates over the last 3 months
+        """
+        quarter_index = pd.to_datetime(self.logbook["Date"]) >= (
+                datetime.now().date() - pd.offsets.DateOffset(months=3)
+            )
+        df = self.logbook[quarter_index]
+        pivot_df = pd.pivot_table(
+            df.rename(columns={"Date": "Vols"}),
+            index=["Type"],
+            values=["Vols", "Heures"],
+            aggfunc={
+                "Vols": "count",
+                "Heures": self.heures,
+            },
+            margins=True, margins_name="Total"
+        )
+        return pivot_df
+
 
 if __name__ == "__main__":
     username = input("Type user name: ")

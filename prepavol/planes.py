@@ -268,7 +268,7 @@ class WeightBalance:
     
     @property
     def cg(self):
-        reason = f"""Plane out of cg envelope"""
+        reason = f"""Balance out of cg envelope"""
         self._cg = self.moment / self.auw
         polygon = Polygon(tuple(k) for k in self.envelope)
         point = Point(self._cg, self.auw)

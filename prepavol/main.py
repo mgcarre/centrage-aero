@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 from flask import Blueprint, render_template, flash, session, send_from_directory, request
 from flask_login import login_required, current_user
 from .logbook import FlightLog
-from .models import LogBook
 from .planes import WeightBalance, PlanePerf
 from .forms import PrepflightForm
 from . import db

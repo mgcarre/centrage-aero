@@ -45,3 +45,9 @@ img.prep {
 fieldset {
   border-radius: 10px;
 }
+
+ul.errors {
+  text-align: justify;
+  list-style-type: square;
+  display: table;
+}

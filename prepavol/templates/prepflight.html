@@ -28,20 +28,26 @@
 
     <form method="POST" action="/">
 
-        <fieldset>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="notification is-danger">
-                {% for message in messages %}
-                <dd> {{ message }} </dd>
-                {% endfor %}
-                {% for reason in plane.reasons %}
-                <dd> {{ reason }} </dd>
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% endwith %}
-        </fieldset>
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+            <fieldset>
+
+                <div class="notification is-danger" align="center">
+                    <ul class="errors">
+                    {% for error in errors %}
+                    <dl> {{ error }} </dl>
+                    {% endfor %}
+                    {% if plane %}
+                        {% for reason in plane.reasons %}
+                        <li> {{ reason }} </li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                </div>
+            </fieldset>
+        {% endif %}
+        {% endwith %}
+
 
         <fieldset>
             <legend>Masse et centrage</legend>

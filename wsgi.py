@@ -1,5 +1,5 @@
 """App entry point."""
-from . import create_app, db
+from prepavol import create_app, db
 
 app = create_app()
 

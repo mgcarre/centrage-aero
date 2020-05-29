@@ -182,6 +182,8 @@ class WeightBalance:
         self._auxfuel_mass = self._auxfuel * .72
         self.is_ready_to_fly = True
         self.reasons = []
+        # Need to initialize computed properties
+        _ = self.auw, self.cg, self.moment
 
     def __repr__(self):
         keylist = ["callsign",

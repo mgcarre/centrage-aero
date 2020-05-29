@@ -66,6 +66,10 @@ def prepflight():
             # WeightBalance accepts extra parameters - full dict is Ok
             plane = WeightBalance(**form.data)
 
+            if not plane.is_ready_to_fly:
+                flash("Chargement invalide", "error")
+                return render_template('prepflight.html', form=form, plane=plane)
+
             tkoff = PlanePerf(plane.planetype, plane.auw, form.data["tkalt"], form.data["tktemp"], form.data["tkqnh"])
             ldng = PlanePerf(plane.planetype, plane.auw, form.data["ldalt"], form.data["ldtemp"], form.data["ldqnh"])
             

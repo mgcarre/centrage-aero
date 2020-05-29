@@ -23,9 +23,25 @@
 
 <!-- <div class="column is-4 is-offset-4"> -->
 <h3 class="title">Préparation du vol</h3>
+
 <div class="form">
 
     <form method="POST" action="/">
+
+        <fieldset>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="notification is-danger">
+                {% for message in messages %}
+                <dd> {{ message }} </dd>
+                {% endfor %}
+                {% for reason in plane.reasons %}
+                <dd> {{ reason }} </dd>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+        </fieldset>
 
         <fieldset>
             <legend>Masse et centrage</legend>

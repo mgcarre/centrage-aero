@@ -29,11 +29,6 @@ def get_aero():
         flightlog = FlightLog(pilot)
         logbook = flightlog.logbook
 
-# @main.route('/')
-# @login_required
-# def index():
-#     return render_template('index.html')
-
 @main.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(main.root_path, 'static'),
@@ -90,13 +85,6 @@ def prepflight():
                     landing=urllib.parse.quote(ldng_img))
             
         else:
-            print("ERRORS")
-            print(form.data)
-            print(form.errors)
-            for k, v in form.errors.items():
-                print(k, v)
-                print(form[k])
-
-            #return
-
+            logging.error(form.errors)
+            
     return render_template('prepflight.html', form=form)

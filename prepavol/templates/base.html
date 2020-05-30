@@ -8,6 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}ACDC pilot{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function() {
+
+            // Check for click events on the navbar burger icon
+            $(".navbar-burger").click(function() {
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                $(".navbar-burger").toggleClass("is-active");
+                $(".navbar-menu").toggleClass("is-active");
+
+            });
+        });
+
+    </script>
+
     {% endblock %}
 </head>
 
@@ -16,38 +33,56 @@
 
         <div class="hero-head">
             <nav class="navbar">
-                <div class="container">
+                <div class="navbar-brand">
 
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('main.prepflight') }}" class="navbar-item">
-                                Préparation du vol
-                            </a>
-                            <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                                Log aerogest
-                            </a>
-                            <a href="{{ url_for('main.stats') }}" class="navbar-item">
-                                Statistiques de vol
-                            </a>
-                            <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                                Connexion
-                            </a>
-                            <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                                Inscription
-                            </a>
-                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                                Déconnexion
-                            </a>
+                    <a class="navbar-item" href="{{ url_for('main.prepflight') }}">
+                        <img src="{{ url_for('static', filename='icons8-aircraft-50.png') }}" height="28">
+                    </a>
+
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarMenuHeroA">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="{{ url_for('main.prepflight') }}" class="navbar-item">
+                            Préparation du vol
+                        </a>
+                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                            Log aerogest
+                        </a>
+                        <a href="{{ url_for('main.stats') }}" class="navbar-item">
+                            Statistiques de vol
+                        </a>
+                        <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                            Connexion
+                        </a>
+                    </div>
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a href="{{ url_for('auth.signup') }}" class="button is-info">
+                                    Inscription
+                                </a>
+                                <a href="{{ url_for('auth.logout') }}" class="button is-danger">
+                                    Déconnexion
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </nav>
+             </nav>
         </div>
+
 
         <div class="hero-body">
             <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
     </section>

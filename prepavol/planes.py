@@ -19,9 +19,6 @@ from sklearn.linear_model import Ridge, LinearRegression, Lasso
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
-#from matplotlib import cm
-#from mpl_toolkits.mplot3d import Axes3D
-#import matplotlib.lines as mlines
 
 class Error(Exception):
    """Base class for other exceptions"""

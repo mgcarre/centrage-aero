@@ -1,15 +1,11 @@
 import os
 import logging
-import json
-import pandas as pd
 import urllib
 from datetime import datetime, timezone
-from flask import Blueprint, render_template, flash, session, send_from_directory, request
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, flash, session, redirect, request, url_for, send_from_directory
 from .logbook import FlightLog
 from .planes import WeightBalance, PlanePerf
 from .forms import PrepflightForm
-from . import db
 
 
 main = Blueprint("main", __name__)
@@ -23,11 +19,47 @@ def get_aero():
     """Retrieves flight log data from aerogest
     """
     global pilot, flightlog, logbook
-    if not pilot:
+
+    if pilot:
+        if pilot["username"] != session["username"]:
+            pilot = None
+    
+    if not pilot or not flightlog:
         logging.info("CALLING AEROGEST AGAIN")
-        pilot = {"username": current_user.name, "password": current_user.password}
+        pilot = {"username": session["username"], "password": session["password"]}
         flightlog = FlightLog(pilot)
         logbook = flightlog.logbook
+
+
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    print(request.referrer)
+    if "username" in session.keys():
+        flash("Already logged in.")
+        return redirect(url_for('main.profile'))
+        #return redirect(request.referrer)
+
+    if request.method == 'POST':
+        username = request.form.get('name')
+        password = request.form.get('password')
+        
+        session["username"] = username
+        session["password"] = password
+
+        return redirect(url_for('main.profile'))
+
+    return render_template(('login.html'))
+
+
+@main.route('/logout')
+def logout():
+    if "username" in session.keys():
+        session.clear()
+    pilot = None
+    flightlog = None
+    logbook = None
+    return redirect(url_for('main.prepflight'))
+
 
 @main.route('/favicon.ico')
 def favicon():
@@ -35,19 +67,23 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @main.route('/profile')
-@login_required
 def profile():
+    if "username" not in session.keys():
+        return redirect(url_for('main.login'))
+
     get_aero()
-    return render_template('profile.html', name=current_user.name, dataframe=logbook.to_html(index=None))
+    return render_template('profile.html', name=session["username"], dataframe=logbook.to_html(index=None))
 
 @main.route('/stats')
-@login_required
 def stats():
+    if "username" not in session.keys():
+        return redirect(url_for('main.login'))
+
     get_aero()
     flightstats = flightlog.log_agg()
     last_quarter = flightlog.last_quarter().to_html(index=True)
     flightstats_html = [k.to_html(index=True) for k in flightstats]
-    return render_template('stats.html', name=current_user.name,
+    return render_template('stats.html', name=session["username"],
                         dataframes=flightstats_html, last_quarter=last_quarter)
 
 @main.route("/", methods=['GET', 'POST'])

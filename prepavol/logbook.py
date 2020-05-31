@@ -8,12 +8,21 @@ import requests
 import getpass
 
 class FlightLog:
-    """
+    """Gets a flight log from the aerogest web site
+    Returns a pandas dataframe of the log,
+    or a list of aggregated dataframes.
+
+    user {dictionary}: username and password
+
+    Attributes:
+    is_logged {boolean}: if data retrieval from web site was OK
+    logbook (dataframe):  the flight log
     """
 
 
     def __init__(self, user):
         self.user = user
+        self.is_logged = False
         self.logbook = self.get_log()
 
 
@@ -40,8 +49,8 @@ class FlightLog:
         # If logged in, should be able to find specific div
         lookfor = {"class": "divMonCarnetDeVols"}
         soup = BeautifulSoup(r.content, features="lxml")
-        is_logged = soup.find("div", lookfor) is not None
-        if not is_logged:
+        self.is_logged = soup.find("div", lookfor) is not None
+        if not self.is_logged:
             return None
 
         logbook = pd.read_html(
@@ -75,6 +84,9 @@ class FlightLog:
     def log_agg(self, columns=[]):
         """columns array of columns
         """
+        if not isinstance(self.logbook, pd.DataFrame):
+            return [pd.DataFrame()]
+
         aggcols = ["Type", "Immat", "Mode", "Vol", "Type de vol"]
         columns = [col for col in columns if col in aggcols]
         if len(columns) == 0:
@@ -99,6 +111,9 @@ class FlightLog:
     def last_quarter(self):
         """Provides aggregates over the last 3 months
         """
+        if not isinstance(self.logbook, pd.DataFrame):
+            return pd.DataFrame()
+
         quarter_index = pd.to_datetime(self.logbook["Date"]) >= (
                 datetime.now().date() - pd.offsets.DateOffset(months=3)
             )

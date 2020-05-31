@@ -46,8 +46,13 @@ fieldset {
   border-radius: 10px;
 }
 
-ul.errors {
-  text-align: justify;
+ul.formerrors {
+  text-align: left;
   list-style-type: square;
   display: table;
+}
+
+ul.errors {
+  text-algin: left;
+  color: orange;
 }

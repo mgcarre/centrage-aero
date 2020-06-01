@@ -3,7 +3,8 @@
 
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 import datetime
 import sys
 from base64 import b64encode
@@ -21,13 +22,17 @@ from sklearn.pipeline import make_pipeline
 
 
 class Error(Exception):
-   """Base class for other exceptions"""
-   pass
+    """Base class for other exceptions"""
+
+    pass
+
 
 class FlightValidationError(Error):
-   """Raised when a value is not set within acceptable boundaries.
+    """Raised when a value is not set within acceptable boundaries.
    Flight is forbidden."""
-   pass
+
+    pass
+
 
 class WeightBalance:
     """Maintains a fleet of planes along with their characteristics
@@ -54,7 +59,7 @@ class WeightBalance:
     - is_ready_to_fly: indicates violations of the load and balance
     - reasons: specific violation indications
     """
-    
+
     _planes = {
         "FHAAC": {
             "planetype": "DR400-120",
@@ -71,7 +76,7 @@ class WeightBalance:
                 "rear": 1.19,
                 "baggage": 1.9,
                 "fuel": 1.12,
-                "auxfuel": 0
+                "auxfuel": 0,
             },
             "envelope": [
                 [0.205, 550],
@@ -96,7 +101,7 @@ class WeightBalance:
                 "rear": 1.19,
                 "baggage": 1.9,
                 "fuel": 1.12,
-                "auxfuel": 0
+                "auxfuel": 0,
             },
             "envelope": [
                 [0.205, 550],
@@ -121,7 +126,7 @@ class WeightBalance:
                 "rear": 1.19,
                 "baggage": 1.9,
                 "fuel": 1.12,
-                "auxfuel": 1.61
+                "auxfuel": 1.61,
             },
             "envelope": [
                 [0.205, 550],
@@ -132,27 +137,37 @@ class WeightBalance:
             ],
         },
     }
-    
-    def __init__(self, callsign,
-                 pax0=0, pax1=0, pax2=0, pax3=0,
-                 baggage=0,
-                 fuel=None, fuel_mass=None, fuel_gauge=None,
-                 auxfuel=0,
-                 **kwargs):
+
+    def __init__(
+        self,
+        callsign,
+        pax0=0,
+        pax1=0,
+        pax2=0,
+        pax3=0,
+        baggage=0,
+        fuel=None,
+        fuel_mass=None,
+        fuel_gauge=None,
+        auxfuel=0,
+        **kwargs,
+    ):
         planes = self._planes
         if callsign not in planes.keys():
-            raise Exception(f"No such call sign. Valid call signs are {', '.join(planes.keys())}")
+            raise Exception(
+                f"No such call sign. Valid call signs are {', '.join(planes.keys())}"
+            )
         self.callsign = str(callsign)
         plane = planes[self.callsign]
         self.planetype = plane["planetype"]
-        self.bew = plane['bew']
+        self.bew = plane["bew"]
         self.bagmax = plane["bagmax"]
-        self.mtow = plane['mtow']
-        self.maxfuel = plane['maxfuel']
-        self.unusfuel = plane['unusfuel']
-        self.maxauxfuel = plane['maxauxfuel']
-        self.arms = plane['arms']
-        self.envelope = plane['envelope']
+        self.mtow = plane["mtow"]
+        self.maxfuel = plane["maxfuel"]
+        self.unusfuel = plane["unusfuel"]
+        self.maxauxfuel = plane["maxauxfuel"]
+        self.arms = plane["arms"]
+        self.envelope = plane["envelope"]
         self.fuelrate = plane["fuelrate"]
         self._pax0 = int(pax0)
         self._pax1 = int(pax1)
@@ -176,73 +191,82 @@ class WeightBalance:
             self._fuel_mass = 0
             self._fuel_gauge = 0
         self._auxfuel = int(auxfuel)
-        self._auxfuel_mass = self._auxfuel * .72
+        self._auxfuel_mass = self._auxfuel * 0.72
         self.is_ready_to_fly = True
         self.reasons = []
         # Need to initialize computed properties
         _ = self.auw, self.cg, self.moment
 
     def __repr__(self):
-        keylist = ["callsign",
-                   "pax0", "pax1", "pax2", "pax3",
-                   "baggage",
-                   "fuel",
-                   "auxfuel"]
+        keylist = [
+            "callsign",
+            "pax0",
+            "pax1",
+            "pax2",
+            "pax3",
+            "baggage",
+            "fuel",
+            "auxfuel",
+        ]
         # Couldn't use a list comprehension there. Go figure
         valuelist = [f"'{self.callsign}'"]
         for k in keylist[1:]:
             valuelist.append(eval(f"self.{k}"))
-        parameters = ', '.join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
-        return (f"{self.__class__.__name__}({parameters})")
-        
+        parameters = ", ".join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
+        return f"{self.__class__.__name__}({parameters})"
+
     def _volume_to_mass(self, v):
         """Converts a volume of 100LL gas to mass
         litres to kg
         """
         assert v >= 0
-        return v * .72
-    
+        return v * 0.72
+
     def _mass_to_volume(self, m):
         """Converts a mass of 100LL gas to volume
         kg to litres
         """
         assert m > 0
-        return m / .72
-    
+        return m / 0.72
+
     def _volume_to_gauge(self, v):
         """Converts a volume of fuel to gauge indication (4 fourths)
         """
         assert v >= 0
         return v / self.maxfuel * 4
-    
+
     def _mass_to_gauge(self, m):
         """Converts a mass of fuel to gauge indication (4 fourths)
         """
         assert m >= 0
         volume = self._mass_to_volume(m)
         return self._volume_to_gauge(volume)
-    
+
     def _gauge_to_volume(self, g):
         """Converts a gauge indication to a volume of fuel
         """
         assert 0 <= g <= 4
         return g * self.maxfuel / 4
-    
+
     def _gauge_to_mass(self, g):
         """Converts a gauge indication to a mass of 100LL gas
         """
         assert 0 <= g <= 4
-        return g * self.maxfuel / 4 * .72
-        
+        return g * self.maxfuel / 4 * 0.72
+
     @property
     def auw(self):
         reason = f"All-up weight above MTOW"
-        self._auw = (self.bew                     # BEW
-                     + self.pax0 + self.pax1      # Front row
-                     + self.pax2 + self.pax3      # Back row
-                     + self.baggage               # Baggage row
-                     + self.fuel_mass             # Main fuel tank
-                     + self.auxfuel_mass)         # Auxiliary fuel tank
+        self._auw = (
+            self.bew  # BEW
+            + self.pax0
+            + self.pax1  # Front row
+            + self.pax2
+            + self.pax3  # Back row
+            + self.baggage  # Baggage row
+            + self.fuel_mass  # Main fuel tank
+            + self.auxfuel_mass
+        )  # Auxiliary fuel tank
         if self._auw > self.mtow:
             self.is_ready_to_fly = False
             logging.error(reason)
@@ -251,18 +275,19 @@ class WeightBalance:
         else:
             self.reasons = [k for k in self.reasons if k != reason]
         return self._auw
-    
+
     @property
     def moment(self):
-        self._moment = (self.bew * self.arms["bew"]
-                        + (self.pax0 + self.pax1) * self.arms["front"]
-                        + (self.pax2 + self.pax3) * self.arms["rear"]
-                        + self.baggage * self.arms["baggage"]
-                        + self.fuel_mass * self.arms["fuel"]
-                        + self.auxfuel_mass * self.arms["auxfuel"]
-                       )        
+        self._moment = (
+            self.bew * self.arms["bew"]
+            + (self.pax0 + self.pax1) * self.arms["front"]
+            + (self.pax2 + self.pax3) * self.arms["rear"]
+            + self.baggage * self.arms["baggage"]
+            + self.fuel_mass * self.arms["fuel"]
+            + self.auxfuel_mass * self.arms["auxfuel"]
+        )
         return self._moment
-    
+
     @property
     def cg(self):
         reason = f"""Balance out of cg envelope"""
@@ -277,11 +302,11 @@ class WeightBalance:
         else:
             self.reasons = [k for k in self.reasons if k != reason]
         return self._cg
-    
+
     @property
     def pax0(self):
         return self._pax0
-    
+
     @pax0.setter
     def pax0(self, value):
         self._pax0 = value
@@ -289,7 +314,7 @@ class WeightBalance:
     @property
     def pax1(self):
         return self._pax1
-    
+
     @pax1.setter
     def pax1(self, value):
         self._pax1 = value
@@ -297,6 +322,7 @@ class WeightBalance:
     @property
     def pax2(self):
         return self._pax2
+
     @pax2.setter
     def pax2(self, value):
         self._pax2 = value
@@ -304,7 +330,7 @@ class WeightBalance:
     @property
     def pax3(self):
         return self._pax3
-    
+
     @pax3.setter
     def pax3(self, value):
         self._pax3 = value
@@ -328,7 +354,7 @@ class WeightBalance:
     @property
     def baggage(self):
         return self._baggage
-    
+
     @baggage.setter
     def baggage(self, value):
         reason = f"Baggage weight over max weight"
@@ -349,7 +375,7 @@ class WeightBalance:
     def fuel(self):
         """Fuel quantity in litres"""
         return self._fuel
-    
+
     @fuel.setter
     def fuel(self, value):
         self._fuel = value
@@ -359,7 +385,7 @@ class WeightBalance:
     @property
     def fuel_mass(self):
         return self._fuel_mass
-    
+
     @fuel_mass.setter
     def fuel_mass(self, value):
         assert 0 <= value <= self._volume_to_mass(self.maxfuel)
@@ -370,14 +396,14 @@ class WeightBalance:
     @property
     def fuel_gauge(self):
         return self._fuel_gauge
-        
+
     @fuel_gauge.setter
     def fuel_gauge(self, value):
-        assert 0 <= value <= 4                            # 4 fourths of a tank
+        assert 0 <= value <= 4  # 4 fourths of a tank
         self._fuel_gauge = value
         self._fuel = self._gauge_to_volume(self._fuel_gauge)
         self._fuel_mass = self._gauge_to_mass(self._fuel_gauge)
-        
+
     @property
     def fuelmoment(self):
         return self.fuel_mass * self.arms["fuel"]
@@ -385,7 +411,7 @@ class WeightBalance:
     @property
     def auxfuel(self):
         return self._auxfuel
-    
+
     @auxfuel.setter
     def auxfuel(self, value):
         assert value >= 0
@@ -403,7 +429,7 @@ class WeightBalance:
     @property
     def auxfuel_mass(self):
         return self._auxfuel_mass
-    
+
     @auxfuel_mass.setter
     def auxfuel_mass(self, value):
         assert value >= 0
@@ -429,9 +455,8 @@ class WeightBalance:
         the usable fuel divided by the fuel flow rate
         at cruise speed
         """
-        usable_fuel = (self.fuel + self.auxfuel - self.unusfuel)
-        return  usable_fuel / self.fuelrate
-
+        usable_fuel = self.fuel + self.auxfuel - self.unusfuel
+        return usable_fuel / self.fuelrate
 
     def plot_balance(self, encode=False):
         """Plots the envelope with the evolution of the cg
@@ -440,7 +465,7 @@ class WeightBalance:
         """
         # Envelope
         polygon = Polygon(tuple(k) for k in self.envelope)
-        
+
         # Get cg and auw with no fuel
         no_fuel_plane = copy.copy(self)
         no_fuel_plane.fuel = 0
@@ -454,7 +479,13 @@ class WeightBalance:
         # Start and no fuel points
         ax.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
         ax.plot([self.cg], [self.auw], "ro", markerfacecolor="w", markersize=12)
-        ax.plot([no_fuel_plane.cg], [no_fuel_plane.auw], "r^", markerfacecolor="w", markersize=12)
+        ax.plot(
+            [no_fuel_plane.cg],
+            [no_fuel_plane.auw],
+            "r^",
+            markerfacecolor="w",
+            markersize=12,
+        )
         ax.set_xlabel("m", fontsize=12)
         ax.set_ylabel("kg", fontsize=12)
         _ = plt.tight_layout()
@@ -473,7 +504,7 @@ class WeightBalance:
 class PlanePerf:
     """
     """
-    
+
     def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
         """Predicts DR400 planes takeoff and landing distances (50ft)
         given an all-up weight, airfield altitude, temperature and QNH
@@ -488,22 +519,22 @@ class PlanePerf:
         self.altitude = int(altitude)
         self.temperature = int(temperature)
         self.qnh = int(qnh)
-        
-        
+
     def __repr__(self):
-        return (f"""{self.__class__.__name__}(
+        return f"""{self.__class__.__name__}(
                 planetype='{self.planetype}',
                 auw={self.auw}, altitude={self.altitude},
-                temperature={self.temperature}, qnh={self.qnh})""")
-    
-    
+                temperature={self.temperature}, qnh={self.qnh})"""
+
     def takeoff_data(self):
         """Gets raw performance data for the given type of plane
         Choices are DR400-120 or DR400-140B
         """
         # Takeoff data from POH
         raw = {}
-        raw["DR400-120"] = """alt\ttemp\t700\t900
+        raw[
+            "DR400-120"
+        ] = """alt\ttemp\t700\t900
                     0\t-5\t285\t480
                     0\t15\t315\t535
                     0\t35\t345\t590
@@ -513,7 +544,9 @@ class PlanePerf:
                     8000\t-21\t500\t890
                     8000\t-1\t560\t1000
                     8000\t19\t620\t1125"""
-        raw["DR400-140B"] = """alt\ttemp\t800\t1000
+        raw[
+            "DR400-140B"
+        ] = """alt\ttemp\t800\t1000
                     0\t-5\t245\t435
                     0\t15\t265\t485
                     0\t35\t290\t535
@@ -525,13 +558,12 @@ class PlanePerf:
                     8000\t19\t515\t975"""
 
         assert self.planetype in raw.keys()
-        
+
         tkoff = pd.read_csv(StringIO(raw[self.planetype]), sep="\t", header=0)
         tkoff = tkoff.melt(id_vars=["alt", "temp"], var_name="mass", value_name="m")
         tkoff["temp"] = tkoff["temp"] + 273
         tkoff["mass"] = tkoff["mass"].astype("int")
         return tkoff
-
 
     def landing_data(self):
         """Gets raw performance data for the given type of plane
@@ -539,7 +571,9 @@ class PlanePerf:
         """
         # From POH
         raw = {}
-        raw["DR400-120"] = """alt\ttemp\t700\t900
+        raw[
+            "DR400-120"
+        ] = """alt\ttemp\t700\t900
                         0\t-5\t365\t435
                         0\t15\t385\t460
                         0\t35\t400\t485
@@ -550,7 +584,9 @@ class PlanePerf:
                         8000\t-1\t460\t555
                         8000\t19\t485\t590"""
 
-        raw["DR400-140B"] = """alt\ttemp\t800\t1000
+        raw[
+            "DR400-140B"
+        ] = """alt\ttemp\t800\t1000
                         0\t-5\t380\t445
                         0\t15\t400\t470
                         0\t35\t420\t500
@@ -560,15 +596,14 @@ class PlanePerf:
                         8000\t-21\t450\t540
                         8000\t-1\t480\t575
                         8000\t19\t505\t610"""
-        
+
         assert self.planetype in raw.keys()
-        
+
         ldng = pd.read_csv(StringIO(raw[self.planetype]), sep="\t", header=0)
         ldng = ldng.melt(id_vars=["alt", "temp"], var_name="mass", value_name="m")
         ldng["temp"] = ldng["temp"] + 273
         ldng["mass"] = ldng["mass"].astype("int")
         return ldng
-
 
     def make_model(self, operation):
         """Returns a trained model of takeoff or landing performance.
@@ -579,12 +614,12 @@ class PlanePerf:
         assert operation in ["takeoff", "landing"]
 
         data_df = eval(f"self.{operation}_data()")
-        
+
         model = make_pipeline(PolynomialFeatures(2), LinearRegression())
         _ = model.fit(data_df.iloc[:, :3], data_df.iloc[:, 3])
 
         return model
-        
+
     def predict(self, operation):
         """Builds a linear regression model out of the raw data
         Predicts takeoff or landing distance (50ft) given:
@@ -597,17 +632,17 @@ class PlanePerf:
         Arguments:
             operation {str} -- ["takeoff" or "landing"]
         """
-        
+
         assert operation in ["takeoff", "landing"]
 
         model = self.make_model(operation)
-        
+
         # A little engineering
         # Convert temperature in K
         Ktemp = self.temperature + 273
         # Convert altitude in Zp
         Zp = self.altitude - 28 * (self.qnh - 1013.25)
-        
+
         distance = model.predict([[Zp, Ktemp, self.auw]])
         # Applying coefficient for head wind
         asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
@@ -617,10 +652,12 @@ class PlanePerf:
         df.index = ["dur", "herbe"]
         df.columns.name = "Ve"
         title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
-        print(f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n")
+        print(
+            f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n"
+        )
 
         return df
-    
+
     def plot_performance(self, operation, encode=False):
         """Plots a contour graph of the takeoff or landing performance
         given a plane's all-up weight.
@@ -636,7 +673,9 @@ class PlanePerf:
         N = 10
 
         # Make a mesh grid of altitudes and temperatures
-        predict_a, predict_t = np.meshgrid(np.linspace(0, 13000, N), np.linspace(243, 323, N))
+        predict_a, predict_t = np.meshgrid(
+            np.linspace(0, 13000, N), np.linspace(243, 323, N)
+        )
         predict_x = np.concatenate(
             (
                 predict_a.reshape(-1, 1),
@@ -647,14 +686,14 @@ class PlanePerf:
         )
         predict_x_ = model.steps[0][1].fit_transform(predict_x)
         predict_y = model.steps[1][1].predict(predict_x_)
-        
+
         fig = plt.figure(figsize=(12, 10))
         ax = plt.gca()
         cs = ax.contourf(
             predict_a,
             predict_t - 273,
             predict_y.reshape(predict_a.shape),
-            #cmap=surf.cmap.name,
+            # cmap=surf.cmap.name,
             cmap=cm.jet,
             alpha=0.6,
         )
@@ -670,7 +709,7 @@ class PlanePerf:
         cbar.ax.tick_params(labelsize=20)
         fig.patch.set_alpha(1)
         fig.tight_layout()
-        
+
         if encode:
             canvas = FigureCanvas(fig)
             png = BytesIO()
@@ -680,5 +719,4 @@ class PlanePerf:
             return figdata
         else:
             _ = plt.show()
-        
 

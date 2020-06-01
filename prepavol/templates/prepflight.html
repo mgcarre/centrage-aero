@@ -1,144 +1,214 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Préparation du vol{% endblock %} {%
+block head %} {{ super() }}
 
-{% block title %}Préparation du vol{% endblock %}
-
-{% block head %}
-{{ super() }}
-
-<link rel="stylesheet" href="{{url_for('static', filename='form.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='form.css')}}" />
 
 <script>
-    var planes = JSON.parse({{ form.planes | tojson | safe }});
+  var planes = JSON.parse({{ form.planes | tojson | safe }});
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="{{url_for('static', filename='prepflight.js')}}"></script>
+<script
+  type="text/javascript"
+  src="{{url_for('static', filename='prepflight.js')}}"
+></script>
 
-{% endblock %}
-
-
-{% block content %}
-
-{% from "_formhelpers.html" import render_field %}
+{% endblock %} {% block content %} {% from "_formhelpers.html" import
+render_field %}
 
 <!-- <div class="column is-4 is-offset-4"> -->
 <h3 class="title">Préparation du vol</h3>
 
-<div class="form">
+<div class="formcontainer">
+  <form method="POST" action="/">
+    {{ form.hidden_tag() }} {% with errors =
+    get_flashed_messages(category_filter=["error"]) %} {% if errors %}
+    <fieldset>
+      <div class="notification is-danger" align="center">
+        <ul class="formerrors">
+          {% for error in errors %}
+          <dl>{{ error }}</dl>
+          {% endfor %} {% if plane %} {% for reason in plane.reasons %}
+          <li>{{ reason }}</li>
+          {% endfor %} {% endif %}
+        </ul>
+      </div>
+    </fieldset>
+    {% endif %} {% endwith %}
 
-    <form method="POST" action="/">
+    <fieldset>
+      <legend>Masse et centrage</legend>
 
-        {% with errors = get_flashed_messages(category_filter=["error"]) %}
-        {% if errors %}
-            <fieldset>
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-10"></div>
+        <div class="col-20">
+          <dt id="headermass">masse (kg)</dt>
+        </div>
+        <div class="col-20">
+          <dt id="headlevier">levier (m)</dt>
+        </div>
+        <div class="col-20">
+          <dt id="headmoment">moment (kg.m)</dt>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-20">
+          {{ render_field(form.callsign) }}
+        </div>
+        <div class="col-20">
+          <dt id="planetype"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="bew"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="bearm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="bemoment"></dt>
+        </div>
+      </div>
+      <hr class="formhr" />
+      <div class="row">
+        <div class="col-20">
+          {{ render_field(form.pax0, "pax") }}
+        </div>
+        <div class="col-20">
+          {{ render_field(form.pax1, "pax") }}
+        </div>
+        <div class="col-20">
+          <dt id="frontweight"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="frontarm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="frontmoment"></dt>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-20">
+          {{ render_field(form.pax2, "pax") }}
+        </div>
+        <div class="col-20">
+          {{ render_field(form.pax3, "pax") }}
+        </div>
+        <div class="col-20">
+          <dt id="rearweight"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="reararm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="rearmoment"></dt>
+        </div>
+      </div>
+      <hr class="formhr" />
+      <div class="row">
+        <div class="col-40">
+          {{ render_field(form.baggage) }}
+        </div>
+        <div class="col-20">
+          <dt id="bagweight"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="bagarm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="bagmoment"></dt>
+        </div>
+      </div>
+      <hr class="formhr" />
+      <div class="row">
+        <div class="col-40">
+          {{ render_field(form.fuel_gauge) }}
+        </div>
+        <div class="col-20">
+          <dt id="fuelmass"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="fuelarm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="fuelmoment"></dt>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-40">
+          {{ render_field(form.auxfuel) }}
+        </div>
+        <div class="col-20">
+          <dt id="auxfuelmass"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="auxfuelarm"></dt>
+        </div>
+        <div class="col-20">
+          <dt id="auxfuelmoment"></dt>
+        </div>
+      </div>
+      <hr class="formhr" />
+      <div class="row">
+        <div class="col-40">
+          <b id="total"> TOTAL </b>
+        </div>
+        <div class="col-20">
+          <b id="auw"></b>
+        </div>
+        <div class="col-20">
+          <b id="cg"></b>
+        </div>
+        <div class="col-20">
+          <b id="moment"></b>
+        </div>
+      </div>
+    </fieldset>
 
-                <div class="notification is-danger" align="center">
-                    <ul class="formerrors">
-                    {% for error in errors %}
-                    <dl> {{ error }} </dl>
-                    {% endfor %}
-                    {% if plane %}
-                        {% for reason in plane.reasons %}
-                        <li> {{ reason }} </li>
-                        {% endfor %}
-                    {% endif %}
-                    </ul>
-                </div>
-            </fieldset>
-        {% endif %}
-        {% endwith %}
-
-
-        <fieldset>
-            <legend>Masse et centrage</legend>
-            {{ form.hidden_tag() }}
-
-            <table class="dataframe">
-                <!--<thead> -->
-                <th></th>
-                <th></th>
-                <th>masse (kg)</th>
-                <th>levier (m)</th>
-                <th>moment (kg.m)</th>
-                <!-- </thead> -->
-                <tr>
-                    <td> {{ render_field(form.callsign) }} </td>
-                    <td id="planetype"></td>
-                    <td id="bew"></td>
-                    <td id="bearm"></td>
-                    <td id="bemoment"></td>
-                </tr>
-                <tr>
-                    <td> {{ render_field(form.pax0, "pax") }}
-                    </td>
-                    <td> {{ render_field(form.pax1, "pax") }} </td>
-                    <td id='frontweight'></td>
-                    <td id="frontarm"></td>
-                    <td id="frontmoment"></td>
-                </tr>
-                <tr>
-                    <td> {{ render_field(form.pax2, "pax") }} </td>
-                    <td> {{ render_field(form.pax3, "pax") }} </td>
-                    <td id="rearweight"></td>
-                    <td id="reararm"></td>
-                    <td id="rearmoment"></td>
-                </tr>
-
-                <tr>
-                    <td colspan="2"> {{ render_field(form.baggage) }}</td>
-                    <td id="bagweight"></td>
-                    <td id="bagarm"></td>
-                    <td id="bagmoment"></td>
-                </tr>
-                <tr>
-                    <td colspan="2"> {{ render_field(form.fuel_gauge) }} </td>
-                    <td id="fuelmass"></td>
-                    <td id="fuelarm"></td>
-                    <td id="fuelmoment"></td>
-                </tr>
-                <tr>
-                    <td colspan="2"> {{ render_field(form.auxfuel) }} </td>
-                    <td id="auxfuelmass"></td>
-                    <td id="auxfuelarm"></td>
-                    <td id="auxfuelmoment"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">TOTAL</td>
-                    <td id="auw"></td>
-                    <td id="cg"></td>
-                    <td id="moment"></td>
-                </tr>
-            </table>
-        </fieldset>
-        <fieldset>
-            <legend>Performances</legend>
-            <table class="dataframe">
-                <th>décollage</th>
-                <th>atterrissage</th>
-                <tr>
-                    <td> {{ render_field(form.tkalt) }} </td>
-                    <td> {{ render_field(form.ldalt) }} </td>
-                </tr>
-                <tr>
-                    <td> {{ render_field(form.tktemp) }} </td>
-                    <td> {{ render_field(form.ldtemp) }} </td>
-                </tr>
-                <tr>
-                    <td> {{ render_field(form.tkqnh) }} </td>
-                    <td> {{ render_field(form.ldqnh) }} </td>
-                </tr>
-            </table>
-        </fieldset>
-        <fieldset>
-            <legend>Validation</legend>
-            <table>
-                <tr>
-                    <td> {{ form.submit }} </td>
-                </tr>
-            </table>
-        </fieldset>
-    </form>
+    <fieldset>
+      <legend>Performances</legend>
+      <div class="row">
+        <div class="col-50">
+          décollage
+        </div>
+        <div class="col-50">
+          atterrissage
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          {{ render_field(form.tkalt) }}
+        </div>
+        <div class="col-50">
+          {{ render_field(form.ldalt) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          {{ render_field(form.tktemp) }}
+        </div>
+        <div class="col-50">
+          {{ render_field(form.ldtemp) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          {{ render_field(form.tkqnh) }}
+        </div>
+        <div class="col-50">
+          {{ render_field(form.ldqnh) }}
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Validation</legend>
+      <div class="row">
+        <div class="col-valid">
+          {{ form.submit }}
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </div>
-<!-- </div> -->
 
 {% endblock %}

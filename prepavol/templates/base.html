@@ -1,89 +1,92 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     {% block head %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}ACDC pilot{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} ACDC {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript">
-        $(document).ready(function() {
-
-            // Check for click events on the navbar burger icon
-            $(".navbar-burger").click(function() {
-
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                $(".navbar-burger").toggleClass("is-active");
-                $(".navbar-menu").toggleClass("is-active");
-
-            });
+      $(document).ready(function () {
+        // Check for click events on the navbar burger icon
+        $(".navbar-burger").click(function () {
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          $(".navbar-burger").toggleClass("is-active");
+          $(".navbar-menu").toggleClass("is-active");
         });
-
+      });
     </script>
 
     {% endblock %}
-</head>
+  </head>
 
-<body>
+  <body>
     <section class="hero is-primary is-fullheight">
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="{{ url_for('main.prepflight') }}">
+              <img
+                src="{{ url_for('static', filename='icons8-aircraft-50.png') }}"
+                height="28"
+              />
+            </a>
 
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="navbar-brand">
+            <a
+              role="button"
+              class="navbar-burger burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarMenuHeroA"
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
 
-                    <a class="navbar-item" href="{{ url_for('main.prepflight') }}">
-                        <img src="{{ url_for('static', filename='icons8-aircraft-50.png') }}" height="28">
-                    </a>
-
-                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                        data-target="navbarMenuHeroA">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
-
-                <div id="navbarMenuHeroA" class="navbar-menu">
-                    <div class="navbar-start">
-                        <a href="{{ url_for('main.prepflight') }}" class="navbar-item">
-                            Préparation du vol
-                        </a>
-                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                            Log aerogest
-                        </a>
-                        <a href="{{ url_for('main.stats') }}" class="navbar-item">
-                            Statistiques de vol
-                        </a>
-                        
-                    </div>
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a href="{{ url_for('main.login') }}" class="button is-info">
-                                    Connexion
-                                </a>
-                                <a href="{{ url_for('main.logout') }}" class="button is-danger">
-                                    Déconnexion
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </nav>
-        </div>
-
-
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                {% block content %}
-                {% endblock %}
+          <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-start">
+              <a href="{{ url_for('main.prepflight') }}" class="navbar-item">
+                Préparation du vol
+              </a>
+              <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                Log aerogest
+              </a>
+              <a href="{{ url_for('main.stats') }}" class="navbar-item">
+                Statistiques de vol
+              </a>
             </div>
-        </div>
-    </section>
-</body>
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a href="{{ url_for('main.login') }}" class="button is-info">
+                    Connexion
+                  </a>
+                  <a
+                    href="{{ url_for('main.logout') }}"
+                    class="button is-danger"
+                  >
+                    Déconnexion
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
 
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

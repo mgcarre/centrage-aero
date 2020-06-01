@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 import getpass
 
+
 class FlightLog:
     """Gets a flight log from the aerogest web site
     Returns a pandas dataframe of the log,
@@ -19,19 +20,15 @@ class FlightLog:
     logbook (dataframe):  the flight log
     """
 
-
     def __init__(self, user):
         self.user = user
         self.is_logged = False
         self.logbook = self.get_log()
 
-
     def get_log(self):
         user = self.user
-        
-        POSTLOGINURL = (
-            "http://www.aerogest-reservation.com/connection/logon?aeroclub=aeroclub_camargue"
-        )
+
+        POSTLOGINURL = "http://www.aerogest-reservation.com/connection/logon?aeroclub=aeroclub_camargue"
         REQUESTURL = "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
         payload = {
             "aeroclub": "aeroclub_camargue",
@@ -58,28 +55,28 @@ class FlightLog:
             attrs={"class": "classTableVols"},
             header=1,
             encoding="utf-8",
-            parse_dates=True
+            parse_dates=True,
         )[0]
         logbook = logbook.iloc[:-1, :]
 
         logbook["Temps (hh:mm)"] = logbook["Temps (hh:mm)"].apply(
-           lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000"
+            lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000"
         )
         logbook["Temps (hh:mm)"] = pd.to_timedelta(logbook["Temps (hh:mm)"])
-        logbook.rename(columns={"Temps (hh:mm)":"Heures"}, inplace=True)
+        logbook.rename(columns={"Temps (hh:mm)": "Heures"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR400$": "DR400-140B"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
 
-        return logbook#.style.set_table_styles(htmlstyle).render()
+        return logbook  # .style.set_table_styles(htmlstyle).render()
 
     @staticmethod
     def heures(s):
         a = int(np.sum(s) / np.timedelta64(1, "h"))
         b = int(
-            60 * (np.sum(s) / np.timedelta64(1, "h") - np.sum(s) // np.timedelta64(1, "h"))
+            60
+            * (np.sum(s) / np.timedelta64(1, "h") - np.sum(s) // np.timedelta64(1, "h"))
         )
         return f"{a}h{b:02}"
-
 
     def log_agg(self, columns=[]):
         """columns array of columns
@@ -99,11 +96,9 @@ class FlightLog:
                     self.logbook.rename(columns={"Date": "Vols"}),
                     index=[col],
                     values=["Vols", "Heures"],
-                    aggfunc={
-                        "Vols": "count",
-                        "Heures": self.heures,
-                    },
-                    margins=True, margins_name="Total"
+                    aggfunc={"Vols": "count", "Heures": self.heures,},
+                    margins=True,
+                    margins_name="Total",
                 )
             )
         return tables
@@ -115,18 +110,16 @@ class FlightLog:
             return pd.DataFrame()
 
         quarter_index = pd.to_datetime(self.logbook["Date"]) >= (
-                datetime.now().date() - pd.offsets.DateOffset(months=3)
-            )
+            datetime.now().date() - pd.offsets.DateOffset(months=3)
+        )
         df = self.logbook[quarter_index]
         pivot_df = pd.pivot_table(
             df.rename(columns={"Date": "Vols"}),
             index=["Type"],
             values=["Vols", "Heures"],
-            aggfunc={
-                "Vols": "count",
-                "Heures": self.heures,
-            },
-            margins=True, margins_name="Total"
+            aggfunc={"Vols": "count", "Heures": self.heures,},
+            margins=True,
+            margins_name="Total",
         )
         return pivot_df
 

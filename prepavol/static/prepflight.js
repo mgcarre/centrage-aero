@@ -65,6 +65,10 @@ $(document).ready(function() {
         console.log("PAX", plane);//.arms.front);
         var w1 = parseInt($('#pax0').val());
         var w2 = parseInt($('#pax1').val());
+
+        if (w1 > 0) {
+            $('.errors').empty();
+        }
         frontweight = w1 + w2;
         frontarm = plane.arms.front;
         frontmoment = frontweight * frontarm;
@@ -120,14 +124,12 @@ $(document).ready(function() {
     }
 
     function update_auxfuel() {
-        var value = parseInt($('#auxfuel').val());
+        var value = parseInt($('#auxfuel_gauge').val());
         console.log("IN UPDATE_AUXFUEL", value, plane.maxauxfuel, value > plane.maxauxfuel)
-        
-        if (value > plane.maxauxfuel) {
-            value = plane.maxauxfuel;
-            $('#auxfuel').val(plane.maxauxfuel);
+        if (plane.maxauxfuel == 0) {
+            $('#auxfuel_gauge').val(0);
         }
-        auxfuelweight = value * .72;
+        auxfuelweight = value * plane.maxauxfuel / 4 * .72;
         auxfuelarm = plane.arms.auxfuel;
         auxfuelmoment = auxfuelweight * auxfuelarm;
 
@@ -152,6 +154,6 @@ $(document).ready(function() {
     $('#pax2, #pax3').on('change', update_rear);
     $('#baggage').on('change', update_baggage);
     $('#fuel_gauge').on('change', update_fuel);
-    $('#auxfuel').on('change', update_auxfuel);
+    $('#auxfuel_gauge').on('change', update_auxfuel);
     
 });

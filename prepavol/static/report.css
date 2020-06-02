@@ -37,6 +37,14 @@ td {
   padding: 6px;
 }
 
+table.mto {
+  border: 0;
+}
+
+table.mto td {
+  padding: 3px;
+}
+
 img.prep {
   border-radius: 30px;
 }

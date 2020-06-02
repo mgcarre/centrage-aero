@@ -149,10 +149,12 @@ class WeightBalance:
         fuel=None,
         fuel_mass=None,
         fuel_gauge=None,
-        auxfuel=0,
+        auxfuel=None,
+        auxfuel_mass=None,
+        auxfuel_gauge=None,
         **kwargs,
     ):
-        planes = self._planes
+        planes = self.__class__._planes
         if callsign not in planes.keys():
             raise Exception(
                 f"No such call sign. Valid call signs are {', '.join(planes.keys())}"
@@ -174,24 +176,44 @@ class WeightBalance:
         self._pax2 = int(pax2)
         self._pax3 = int(pax3)
         self._baggage = int(baggage)
+
         if fuel:
             self._fuel = int(fuel)
-            self._fuel_mass = self._volume_to_mass(fuel)
-            self._fuel_gauge = self._volume_to_gauge(fuel)
+            self._fuel_mass = self._volume_to_mass(self.fuel)
+            self._fuel_gauge = self._volume_to_gauge(self.fuel, self.maxfuel)
         elif fuel_mass:
             self._fuel_mass = int(fuel_mass)
-            self._fuel = self._mass_to_volume(fuel_mass)
-            self._fuel_gauge = self._mass_to_gauge(fuel_mass)
+            self._fuel = self._mass_to_volume(self.fuel_mass)
+            self._fuel_gauge = self._mass_to_gauge(self.fuel_mass, self.maxfuel)
         elif fuel_gauge:
             self._fuel_gauge = float(fuel_gauge)
-            self._fuel = self._gauge_to_volume(fuel_gauge)
-            self._fuel_mass = self._gauge_to_mass(fuel_gauge)
+            self._fuel = self._gauge_to_volume(self.fuel_gauge, self.maxfuel)
+            self._fuel_mass = self._gauge_to_mass(self.fuel_gauge, self.maxfuel)
         else:
             self._fuel = 0
             self._fuel_mass = 0
             self._fuel_gauge = 0
-        self._auxfuel = int(auxfuel)
-        self._auxfuel_mass = self._auxfuel * 0.72
+
+        if auxfuel:
+            self._auxfuel = int(auxfuel)
+            self._auxfuel_mass = self._volume_to_mass(self.auxfuel)
+            self._auxfuel_gauge = self._volume_to_gauge(self.auxfuel, self.maxauxfuel)
+        elif auxfuel_mass:
+            self._auxfuel_mass = int(auxfuel_mass)
+            self._auxfuel = self._mass_to_volume(self.auxfuel_mass)
+            self._auxfuel_gauge = self._mass_to_gauge(
+                self.auxfuel_mass, self.maxauxfuel
+            )
+        elif auxfuel_gauge:
+            self._auxfuel_gauge = float(auxfuel_gauge)
+            self._auxfuel = self._gauge_to_volume(self.auxfuel_gauge, self.maxauxfuel)
+            self._auxfuel_mass = self._gauge_to_mass(
+                self.auxfuel_gauge, self.maxauxfuel
+            )
+        else:
+            self._auxfuel = 0
+            self._auxfuel_mass = 0
+            self._auxfuel_gauge = 0
         self.is_ready_to_fly = True
         self.reasons = []
         # Need to initialize computed properties
@@ -229,30 +251,34 @@ class WeightBalance:
         assert m > 0
         return m / 0.72
 
-    def _volume_to_gauge(self, v):
+    def _volume_to_gauge(self, v, tank):
         """Converts a volume of fuel to gauge indication (4 fourths)
+        knowing the volume of the tank
         """
         assert v >= 0
-        return v / self.maxfuel * 4
+        return v / tank * 4
 
-    def _mass_to_gauge(self, m):
+    def _mass_to_gauge(self, m, tank):
         """Converts a mass of fuel to gauge indication (4 fourths)
+        knowing the volume of the tank
         """
         assert m >= 0
         volume = self._mass_to_volume(m)
-        return self._volume_to_gauge(volume)
+        return self._volume_to_gauge(volume, tank)
 
-    def _gauge_to_volume(self, g):
+    def _gauge_to_volume(self, g, tank):
         """Converts a gauge indication to a volume of fuel
+        knowing the volume of the tank
         """
         assert 0 <= g <= 4
-        return g * self.maxfuel / 4
+        return g * tank / 4
 
-    def _gauge_to_mass(self, g):
+    def _gauge_to_mass(self, g, tank):
         """Converts a gauge indication to a mass of 100LL gas
+        knowing the volume of the tank
         """
         assert 0 <= g <= 4
-        return g * self.maxfuel / 4 * 0.72
+        return g * tank / 4 * 0.72
 
     @property
     def auw(self):
@@ -380,7 +406,7 @@ class WeightBalance:
     def fuel(self, value):
         self._fuel = value
         self._fuel_mass = self._volume_to_mass(self._fuel)
-        self._fuel_gauge = self._volume_to_gauge(self._fuel)
+        self._fuel_gauge = self._volume_to_gauge(self._fuel, self.maxfuel)
 
     @property
     def fuel_mass(self):
@@ -391,7 +417,7 @@ class WeightBalance:
         assert 0 <= value <= self._volume_to_mass(self.maxfuel)
         self._fuel_mass = value
         self._fuel = self._mass_to_volume(self._fuel_mass)
-        self._fuel_gauge = self._volume_to_gauge(self._fuel)
+        self._fuel_gauge = self._volume_to_gauge(self._fuel, self.maxfuel)
 
     @property
     def fuel_gauge(self):
@@ -401,8 +427,8 @@ class WeightBalance:
     def fuel_gauge(self, value):
         assert 0 <= value <= 4  # 4 fourths of a tank
         self._fuel_gauge = value
-        self._fuel = self._gauge_to_volume(self._fuel_gauge)
-        self._fuel_mass = self._gauge_to_mass(self._fuel_gauge)
+        self._fuel = self._gauge_to_volume(self._fuel_gauge, self.maxfuel)
+        self._fuel_mass = self._gauge_to_mass(self._fuel_gauge, self.maxfuel)
 
     @property
     def fuelmoment(self):
@@ -446,6 +472,17 @@ class WeightBalance:
         self._auxfuel = self._mass_to_volume(self._auxfuel_mass)
 
     @property
+    def auxfuel_gauge(self):
+        return self._auxfuel_gauge
+
+    @auxfuel_gauge.setter
+    def auxfuel_gauge(self, value):
+        assert 0 <= value <= 4  # 4 fourths of a tank
+        self._auxfuel_gauge = value
+        self._auxfuel = self._gauge_to_volume(self._auxfuel_gauge, self.maxauxfuel)
+        self._auxfuel_mass = self._gauge_to_mass(self._auxfuel_gauge, self.maxauxfuel)
+
+    @property
     def auxfuelmoment(self):
         return self.auxfuel_mass * self.arms["auxfuel"]
 
@@ -453,7 +490,7 @@ class WeightBalance:
     def endurance(self):
         """Endurance of the flight is roughly
         the usable fuel divided by the fuel flow rate
-        at cruise speed
+        at cruise speed.
         """
         usable_fuel = self.fuel + self.auxfuel - self.unusfuel
         return usable_fuel / self.fuelrate
@@ -461,7 +498,8 @@ class WeightBalance:
     def plot_balance(self, encode=False):
         """Plots the envelope with the evolution of the cg
 
-        encode {boolean} - returns BytesIO if True
+        encode: boolean
+            returns BytesIO if True
         """
         # Envelope
         polygon = Polygon(tuple(k) for k in self.envelope)
@@ -488,7 +526,7 @@ class WeightBalance:
         )
         ax.set_xlabel("m", fontsize=12)
         ax.set_ylabel("kg", fontsize=12)
-        _ = plt.tight_layout()
+        plt.tight_layout()
 
         if encode:
             canvas = FigureCanvas(fig)
@@ -502,17 +540,26 @@ class WeightBalance:
 
 
 class PlanePerf:
-    """
+    """Predicts takeoff and landing distances given
+    an aircraft's all-up weight, the elevation of the airfield
+    and the meteorological conditions.
     """
 
     def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
         """Predicts DR400 planes takeoff and landing distances (50ft)
-        given an all-up weight, airfield altitude, temperature and QNH
-        planetype: either DR400-120 or DR400-140B
-        auw: all-up weight in kg
-        altitude: altitude in feet
-        temperature: temperature in Celsius degrees
-        qnh: QNH in hPa
+        given an all-up weight, ground altitude, temperature and QNH.
+
+        Arguments:
+            planetype: str
+                either "DR400-120" or "DR400-140B"
+            auw: float
+                all-up weight in kg
+            altitude: int
+                altitude in feet
+            temperature: int
+                temperature in Celsius degrees
+            qnh: int
+                QNH in mbar
         """
         self.planetype = str(planetype)
         self.auw = float(auw)
@@ -525,6 +572,41 @@ class PlanePerf:
                 planetype='{self.planetype}',
                 auw={self.auw}, altitude={self.altitude},
                 temperature={self.temperature}, qnh={self.qnh})"""
+
+    def pressure_altitude(self, elevation, qnh):
+        """Computes the pressure altitude from a ground elevation
+        and the QNH.
+
+        Arguments:
+            elevation: int
+                ground elevation in feet
+            qnh: int
+                QNH in mbar
+        """
+        return elevation - 27 * (qnh - 1013)
+
+    @property
+    def Zp(self):
+        return self.pressure_altitude(self.altitude, self.qnh)
+
+    def density_altitude(self, elevation, temperature, qnh):
+        """Computes the densisty altitude given an elevation,
+        an outside air temperature and the QNH.
+
+        Arguments:
+            elevation : int 
+                ground elevation in feet
+            temperature: int
+                outside air temperature in °C
+            qnh: int
+                QNH in mbar
+        """
+        Zp = self.pressure_altitude(elevation, qnh)
+        return 1.2376 * Zp + 118.8 * temperature - 1782
+
+    @property
+    def Zd(self):
+        return self.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
         """Gets raw performance data for the given type of plane
@@ -609,7 +691,8 @@ class PlanePerf:
         """Returns a trained model of takeoff or landing performance.
 
         Arguments:
-            operation {str} -- ["takeoff" or "landing"]
+            operation: str
+                "takeoff" or "landing"
         """
         assert operation in ["takeoff", "landing"]
 
@@ -627,10 +710,11 @@ class PlanePerf:
         altitude in ft
         temperature in °C
         auw in kg
-        QNH in hPa
+        QNH in mbar
 
         Arguments:
-            operation {str} -- ["takeoff" or "landing"]
+            operation: str
+                "takeoff" or "landing"]
         """
 
         assert operation in ["takeoff", "landing"]
@@ -641,19 +725,23 @@ class PlanePerf:
         # Convert temperature in K
         Ktemp = self.temperature + 273
         # Convert altitude in Zp
-        Zp = self.altitude - 28 * (self.qnh - 1013.25)
+        Zp = self.pressure_altitude(self.altitude, self.qnh)
+        Zd = self.density_altitude(self.altitude, self.temperature, self.qnh)
 
         distance = model.predict([[Zp, Ktemp, self.auw]])
         # Applying coefficient for head wind
-        asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
-        df = pd.DataFrame(asphalt, columns=["0KN", "10KN", "20KN", "30KN"])
+        if operation == "takeoff":
+            asphalt = np.around(distance * np.array([[1, 0.85, 0.65, 0.55]]))
+        else:
+            asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
+        df = pd.DataFrame(asphalt, columns=["0kn", "10kn", "20kn", "30kn"])
         # Applying coefficient for grass runway
         df = df.append(df.iloc[0].apply(lambda x: round(x * 1.15))).astype("int")
         df.index = ["dur", "herbe"]
         df.columns.name = "Ve"
         title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
         print(
-            f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\n{self.temperature}°C\n{self.auw}kg\n"
+            f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft\n{self.temperature}°C\n{self.auw}kg\n"
         )
 
         return df
@@ -662,8 +750,11 @@ class PlanePerf:
         """Plots a contour graph of the takeoff or landing performance
         given a plane's all-up weight.
 
-        operation: takeoff or landing
-        imagedata: renturns a bytes stream instead of showing the plot
+        Arguments:
+            operation: str
+                "takeoff" or "landing"
+            encode: boolean
+                if True, returns a bytes stream instead of showing the plot
         """
         assert operation in ["takeoff", "landing"]
 
@@ -719,4 +810,3 @@ class PlanePerf:
             return figdata
         else:
             _ = plt.show()
-

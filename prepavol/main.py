@@ -140,8 +140,12 @@ def prepflight():
             # Get plot images
             balance_img = plane.plot_balance(encode=True)
             tkoff_data = tkoff.predict("takeoff").to_html()
+            tkoff_Zp = f"{tkoff.Zp:.0f}"
+            tkoff_Zd = f"{tkoff.Zd:.0f}"
             tkoff_img = tkoff.plot_performance("takeoff", encode=True)
             ldng_data = ldng.predict("landing").to_html()
+            ldng_Zp = f"{ldng.Zp:.0f}"
+            ldng_Zd = f"{ldng.Zd:.0f}"
             ldng_img = ldng.plot_performance("landing", encode=True)
 
             timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
@@ -153,8 +157,12 @@ def prepflight():
                 timestamp=timestamp,
                 balance=urllib.parse.quote(balance_img),
                 takeoff_data=tkoff_data,
+                tkoff_Zp=tkoff_Zp,
+                tkoff_Zd=tkoff_Zd,
                 takeoff=urllib.parse.quote(tkoff_img),
                 landing_data=ldng_data,
+                ldng_Zp=ldng_Zp,
+                ldng_Zd=ldng_Zd,
                 landing=urllib.parse.quote(ldng_img),
             )
 

@@ -93,22 +93,57 @@
         <tr>
             <td>
                     <h3><b>Distance de décollage (15m)</b></h3>
-                        {{ form.tkalt.data }} ft
-                    <br>
-                        {{ form.tktemp.data }} °C
-                    <br>
-                        {{ form.tkqnh.data }} hPa
-                    <br>
+                    <table class="mto">
+                        <tr>
+                            <td>
+                                Alt {{ form.tkalt.data }} ft
+                            </td>
+                            <td>
+                                Alt pression {{ tkoff_Zp }} ft
+                            </td>
+                            <td>
+                                Alt densité {{ tkoff_Zd }} ft
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Temp {{ form.tktemp.data }} °C
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                QNH {{ form.tkqnh.data }} mbar
+                            </td>
+                        </tr>
+                    </table>
                     {{ takeoff_data | safe }}
             </td>
             <td>
                     <h3><b>Distance d'atterrissage (15m)</b></h3>
-                        {{ form.ldalt.data }} ft
-                    <br>
-                        {{ form.ldtemp.data }} °C
-                    <br>
-                        {{ form.ldqnh.data }} hPa
-                    <br>
+
+                    <table class="mto">
+                        <tr>
+                            <td>
+                                Alt {{ form.ldalt.data }} ft
+                            </td>
+                            <td>
+                                Alt pression {{ ldng_Zp }} ft
+                            </td>
+                            <td>
+                                Alt densité {{ ldng_Zd }} ft
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Temp {{ form.ldtemp.data }} °C
+                            </td>
+                        </tr>
+                            <td colspan="3">
+                                QNH {{ form.ldqnh.data }} mbar
+                            </td>
+                        </tr>
+                    </table>
+                    
                     {{ landing_data | safe }}
             </td>
         </tr>

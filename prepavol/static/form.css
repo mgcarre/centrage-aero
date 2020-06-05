@@ -72,21 +72,6 @@ label {
   background-color: gray;
 }
 
-/* input[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: left;
-} */
-
-/* input[type="submit"]:hover {
-  background-color: #45a049;
-}
- */
-
  .formcontainer {
   border-radius: 5px;
   padding: 20px;

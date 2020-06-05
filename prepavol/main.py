@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 import urllib
 from datetime import datetime, timezone
@@ -90,6 +91,10 @@ def profile():
         "profile.html", name=session["username"], dataframe=logbook.to_html(index=None)
     )
 
+@main.route("/fleet")
+def fleet():
+    planes = json.loads(json.dumps(WeightBalance._planes))
+    return render_template("fleet.html", data=planes)
 
 @main.route("/stats")
 def stats():

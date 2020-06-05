@@ -63,7 +63,7 @@ class PrepflightForm(FlaskForm):
     auxfuel_choices = [i for i in zip(auxfuel_range, auxfuel_range)]
     auxfuel_gauge = SelectField(
         "jauge fuel aux.",
-        coerce=int,
+        coerce=float,
         validators=[InputRequired()],
         choices=auxfuel_choices,
     )

@@ -20,10 +20,11 @@ $(document).ready(function() {
     
     function reset_form() {
         console.log('IN RESET');
-        var selectfields = ['#callsign',
-            '#pax0', '#pax1', '#pax2', '#pax3',
+        var selectfields = ['#pax0', '#pax1',
+            '#pax2', '#pax3',
             '#baggage',
-            '#fuel_gauge', '#auxfuel_gauge'];
+            '#fuel_gauge',
+            '#auxfuel_gauge'];
         $.each(selectfields, function(index, value) {
             $(value).get(0).selectedIndex = 0;
             $(value).trigger('change');

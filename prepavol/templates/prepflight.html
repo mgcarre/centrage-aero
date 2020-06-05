@@ -20,7 +20,7 @@ render_field %}
 <h3 class="title">Préparation du vol</h3>
 
 <div class="formcontainer">
-  <form method="POST" action="/">
+  <form id="balance" method="POST" action="/">
     {{ form.hidden_tag() }} {% with errors =
     get_flashed_messages(category_filter=["error"]) %} {% if errors %}
     <fieldset>
@@ -38,173 +38,182 @@ render_field %}
 
     <fieldset>
       <legend>Masse et centrage</legend>
-
-      <div class="row">
-        <div class="col-20"></div>
-        <div class="col-20"></div>
-        <div class="col-20">
-          <dt id="headermass">masse (kg)</dt>
+      <div class="wrapper1">
+        <div class="gridbox callsign">
+          Call sign {{ form.callsign }}
         </div>
-        <div class="col-20">
-          <dt id="headlevier">levier (m)</dt>
-        </div>
-        <div class="col-20">
-          <dt id="headmoment">moment (kg.m)</dt>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-20">
-          {{ render_field(form.callsign) }}
-        </div>
-        <div class="col-20">
+        <div class="gridbox aircraft">
           <dt id="planetype"></dt>
         </div>
-        <div class="col-20">
-          <dt id="bew"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="bearm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="bemoment"></dt>
+
+        <div class="wrapper1">
+          <div class="gridbox bew">
+            <dt id="bew"></dt>
+          </div>
+          <div class="gridbox bearm">
+            <dt id="bearm"></dt>
+          </div>
+          <div class="gridbox bemoment">
+            <dt id="bemoment"></dt>
+          </div>
         </div>
       </div>
-      <hr class="formhr" />
-      <div class="row">
-        <div class="col-20">
+      <div class="wrapper1">
+        <div class="gridbox pax0">
           {{ render_field(form.pax0, "pax") }}
         </div>
-        <div class="col-20">
-          {{ render_field(form.pax1, "pax") }}
+
+        <div class="gridbox pax1">
+          pax {{ form.pax1 }}
         </div>
-        <div class="col-20">
-          <dt id="frontweight"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="frontarm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="frontmoment"></dt>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-20">
-          {{ render_field(form.pax2, "pax") }}
-        </div>
-        <div class="col-20">
-          {{ render_field(form.pax3, "pax") }}
-        </div>
-        <div class="col-20">
-          <dt id="rearweight"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="reararm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="rearmoment"></dt>
+        <div class="wrapper1">
+          <div class="gridbox frontweight">
+            <dt id="frontweight"></dt>
+          </div>
+          <div class="gridbox frontarm">
+            <dt id="frontarm"></dt>
+          </div>
+          <div class="gridbox frontmoment">
+            <dt id="frontmoment"></dt>
+          </div>
         </div>
       </div>
-      <hr class="formhr" />
-      <div class="row">
-        <div class="col-40">
-          {{ render_field(form.baggage) }}
+      <div class="wrapper1">
+        <div class="gridbox pax2">
+          pax {{ form.pax2 }}
         </div>
-        <div class="col-20">
-          <dt id="bagweight"></dt>
+        <div class="gridbox pax3">
+          pax {{ form.pax3 }}
         </div>
-        <div class="col-20">
-          <dt id="bagarm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="bagmoment"></dt>
-        </div>
-      </div>
-      <hr class="formhr" />
-      <div class="row">
-        <div class="col-40">
-          {{ render_field(form.fuel_gauge) }}
-        </div>
-        <div class="col-20">
-          <dt id="fuelmass"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="fuelarm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="fuelmoment"></dt>
+        <div class="wrapper1">
+          <div class="gridbox rearweight">
+            <dt id="rearweight"></dt>
+          </div>
+          <div class="gridbox reararm">
+            <dt id="reararm"></dt>
+          </div>
+          <div class="gridbox rearmoment">
+            <dt id="rearmoment"></dt>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-40">
-          {{ render_field(form.auxfuel_gauge) }}
+      <div class="wrapper1">
+        <div class="gridbox baglabel">
+          {{ form.baggage.label }}
         </div>
-        <div class="col-20">
-          <dt id="auxfuelmass"></dt>
+        <div class="gridbox bag">
+          {{ form.baggage }}
         </div>
-        <div class="col-20">
-          <dt id="auxfuelarm"></dt>
-        </div>
-        <div class="col-20">
-          <dt id="auxfuelmoment"></dt>
+        <div class="wrapper1">
+          <div class="gridbox bagweight">
+            <dt id="bagweight"></dt>
+          </div>
+          <div class="gridbox bagarm">
+            <dt id="bagarm"></dt>
+          </div>
+          <div class="gridbox bagmoment">
+            <dt id="bagmoment"></dt>
+          </div>
         </div>
       </div>
-      <hr class="formhr" />
-      <div class="row">
-        <div class="col-40">
+      <div class="wrapper1">
+        <div class="gridbox fuelgaugelabel">
+          jauge fuel
+        </div>
+        <div class="gridbox fuelgauge">
+          {{ form.fuel_gauge }}
+        </div>
+        <div class="wrapper1">
+          <div class="gridbox fuelweight">
+            <dt id="fuelmass"></dt>
+          </div>
+          <div class="gridbox fuelarm">
+            <dt id="fuelarm"></dt>
+          </div>
+          <div class="gridbox fuelmoment">
+            <dt id="fuelmoment"></dt>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper1">
+        <div class="gridbox auxfuelgaugelabel">
+          jauge fuel aux
+        </div>
+        <div class="gridbox auxfuelgauge">
+          {{ form.auxfuel_gauge }}
+        </div>
+        <div class="wrapper1">
+          <div class="gridbox auxfuelweight">
+            <dt id="auxfuelmass"></dt>
+          </div>
+          <div class="gridbox auxfuelarm">
+            <dt id="auxfuelarm"></dt>
+          </div>
+          <div class="gridbox auxfuelmoment">
+            <dt id="auxfuelmoment"></dt>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper1">
+        <div class="gridbox total">
           <b id="total"> TOTAL </b>
         </div>
-        <div class="col-20">
-          <b id="auw"></b>
-        </div>
-        <div class="col-20">
-          <b id="cg"></b>
-        </div>
-        <div class="col-20">
-          <b id="moment"></b>
+        <div></div>
+        <div class="wrapper1">
+          <div class="gridbox auw">
+            <b id="auw"></b>
+          </div>
+          <div class="gridbox cg">
+            <b id="cg"></b>
+          </div>
+          <div class="gridbox allmoment">
+            <b id="moment"></b>
+          </div>
         </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>Performances</legend>
-      <div class="row">
-        <div class="col-50">
-          décollage
+      <div class="wrapper1">
+        <div class="wrapper2">
+          <div class="gridbox">
+            <b>Décollage</b>
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.tkalt) }}
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.tktemp) }}
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.tkqnh) }}
+          </div>
         </div>
-        <div class="col-50">
-          atterrissage
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-50">
-          {{ render_field(form.tkalt) }}
-        </div>
-        <div class="col-50">
-          {{ render_field(form.ldalt) }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-50">
-          {{ render_field(form.tktemp) }}
-        </div>
-        <div class="col-50">
-          {{ render_field(form.ldtemp) }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-50">
-          {{ render_field(form.tkqnh) }}
-        </div>
-        <div class="col-50">
-          {{ render_field(form.ldqnh) }}
+        <div class="wrapper2">
+          <div class="gridbox">
+            <b>Atterrissage</b>
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.ldalt) }}
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.ldtemp) }}
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.ldqnh) }}
+          </div>
         </div>
       </div>
     </fieldset>
     <fieldset>
       <legend>Validation</legend>
-      <div class="row">
-        <div class="col-valid">
-          {{ form.submit }}
+      <div class="wrapper1">
+        <div class="wrapper2">
+            {{ form.submit(class="button is-success") }}
+        </div>
+        <div class="wrapper2">
+          <input id="resetform" type="button" class="button is-info" value="Reset"></input>
         </div>
       </div>
     </fieldset>

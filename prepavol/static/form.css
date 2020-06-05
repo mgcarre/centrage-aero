@@ -3,6 +3,7 @@ form {
   border-spacing: 0;
   border: 0;
   width: 100%;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   padding: 6px 15px 15px;
@@ -31,12 +32,6 @@ td {
   width: 20%;
 }
 
-label,
-select {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 img.prep {
   border-radius: 30px;
@@ -44,6 +39,7 @@ img.prep {
 
 fieldset {
   border-radius: 12px;
+  padding: 6px;
 }
 
 ul.formerrors {
@@ -57,10 +53,6 @@ ul.errors {
   color: orange;
 }
 
-fieldset {
-  padding: 6px;
-}
-
 legend {
   text-align: left;
   margin-left: 20px;
@@ -68,8 +60,8 @@ legend {
 
 label {
   padding: 6px 12px 12px 0;
-  display: inline-block;
   margin-left: auto;
+  text-align: left;
 }
 
 .formhr {
@@ -80,7 +72,7 @@ label {
   background-color: gray;
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
   background-color: #4caf50;
   color: white;
   padding: 12px 20px;
@@ -88,13 +80,14 @@ input[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   float: left;
-}
+} */
 
-input[type="submit"]:hover {
+/* input[type="submit"]:hover {
   background-color: #45a049;
 }
+ */
 
-.formcontainer {
+ .formcontainer {
   border-radius: 5px;
   padding: 20px;
 }
@@ -104,6 +97,11 @@ input[type="submit"]:hover {
   width: 10%;
   margin-top: 6px;
 }
+
+.col-10 select {
+  display: inline-flex;
+}
+
 .col-20 {
   float: left;
   width: 20%;
@@ -122,20 +120,225 @@ input[type="submit"]:hover {
   margin-top: 6px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.col-valid {
+  text-align: justify;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .col-20,
-  .col-40,
-  .col-valid,
-  input[type="submit"] {
-    width: 100%;
-    margin-top: 0;
-  }
+/* grid layout */
+
+.wrapper1 {
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  padding: 0px;
+  margin: auto;
+  justify-content: flex-start;
+  flex-basis: content;
+  flex-wrap: wrap;
 }
+
+.wrapper1 div {
+  border: 0px dashed gray;
+  flex: 1 1 10px;
+  text-align: left;
+  padding: 6px;
+}
+
+.wrapper2 {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  padding: 0px;
+  margin: auto;
+  justify-content: stretch;
+  flex-basis: content;
+  flex-wrap: wrap;
+}
+
+.wrapper2 div {
+  border: 0px dashed gray;
+  flex: 1 1 10px;
+  text-align: end;
+  padding: 6px;
+}
+
+.gridbox {
+  background-color: #42444e;
+  color: #fff;
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.header {
+  grid-area: header;
+}
+
+.headweight {
+  grid-area: headweight;
+}
+
+.headarm {
+  grid-area: headarm;
+}
+
+.headmoment {
+  grid-area: headmoment;
+}
+
+.callsignlabel {
+  grid-area: callsignlabel;
+}
+
+.callsign {
+  grid-area: callsign;
+}
+
+.aircraft {
+  grid-area: aircraft;
+}
+
+.pax0label {
+  grid-area: pax0label;
+}
+
+.pax0 {
+  grid-area: pax0;
+}
+
+.pax1label {
+  grid-area: pax1label;
+}
+
+.pax1 {
+  grid-area: pax1;
+}
+
+.bew {
+  grid-area: bew;
+}
+
+.bearm {
+  grid-area: bearm;
+}
+
+.bemoment {
+  grid-area: bemoment;
+}
+
+.frontweight {
+  grid-area: frontweight;
+}
+
+.frontarm {
+  grid-area: frontarm;
+}
+
+.frontmoment {
+  grid-area: frontmoment;
+}
+
+.pax2label {
+  grid-area: pax2label;
+}
+
+.pax2 {
+  grid-area: pax2;
+}
+
+.pax3label {
+  grid-area: pax3label;
+}
+
+.pax3 {
+  grid-area: pax3;
+}
+
+.rearweight {
+  grid-area: rearweight;
+}
+
+.reararm {
+  grid-area: reararm;
+}
+
+.rearmoment {
+  grid-area: rearmoment;
+}
+
+.baglabel {
+  grid-area: baglabel;
+}
+
+.bag {
+  grid-area: bag;
+}
+
+.bagweight {
+  grid-area: bagweight;
+}
+
+.bagarm {
+  grid-area: bagarm;
+}
+
+.bagmoment {
+  grid-area: bagmoment;
+}
+
+.fuelgaugelabel {
+  grid-area: fuelgaugelabel;
+}
+
+.fuelgauge {
+  grid-area: fuelgauge;
+}
+
+.fuelweight {
+  grid-area: fuelweight;
+}
+
+.fuelarm {
+  grid-area: fuelarm;
+}
+
+.fuelmoment {
+  grid-area: fuelmoment;
+}
+
+.auxfuelgaugelabel {
+  grid-area: auxfuelgaugelabel;
+}
+
+.auxfuelgauge {
+  grid-area: auxfuelgauge;
+}
+
+.auxfuelweight {
+  grid-area: auxfuelweight;
+}
+
+.auxfuelarm {
+  grid-area: auxfuelarm;
+}
+
+.auxfuelmoment {
+  grid-area: auxfuelmoment;
+}
+
+.total {
+  grid-area: total;
+}
+
+.auw {
+  grid-area: auw;
+}
+
+.cg {
+  grid-area: cg;
+}
+
+.allmoment {
+  grid-area: allmoment;
+}
+

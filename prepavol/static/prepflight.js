@@ -14,10 +14,23 @@ $(document).ready(function() {
     var rearmoment = 0;
     var bagmoment = 0;
     var fuelmoment = 0;
-    var auxfuelmoment =0;
+    var auxfuelmoment = 0;
     var moment;
     var cg;
     
+    function reset_form() {
+        console.log('IN RESET');
+        var selectfields = ['#callsign',
+            '#pax0', '#pax1', '#pax2', '#pax3',
+            '#baggage',
+            '#fuel_gauge', '#auxfuel_gauge'];
+        $.each(selectfields, function(index, value) {
+            $(value).get(0).selectedIndex = 0;
+            $(value).trigger('change');
+            console.log($(value).val());
+        });
+    };
+
     function update_totals() {
         auw = [bew, frontweight, rearweight, 
                 bagweight, fuelweight, auxfuelweight].reduce((a, b)=> a +b);
@@ -26,9 +39,9 @@ $(document).ready(function() {
                 bagmoment, fuelmoment, auxfuelmoment].reduce((a, b)=> a + b);
         cg = moment / auw;
 
-        $('#auw').html(auw.toFixed(3));
-        $('#cg').html(cg.toFixed(3));
-        $('#moment').html(moment.toFixed(3));
+        $('#auw').html(auw.toFixed(1) + 'kg');
+        $('#cg').html(cg.toFixed(2) + 'm');
+        $('#moment').html(moment.toFixed(0) + 'kg.m');
     };
 
     function update_plane(){
@@ -36,23 +49,15 @@ $(document).ready(function() {
         plane = planes[callsign];
         console.log("IN UPDATE PLANE", plane)
         
-        // // update the plane's max aux fuel size
-        // var list = '';
-        // for (i = 0; i <= plane.maxauxfuel; i += 5) {
-        //     list += "<option value='" + i + "'>" + i + "</option>";
-        // }
-        // $('#auxfuel').empty().append(list);
-        // console.log($('#auxfuel'), $('#auxfuel').val())
-
         planetype = plane.planetype;
         bew = plane.bew;
         bearm = plane.arms.bew;
         bemoment = (bew * bearm);
 
         $('#planetype').html(planetype);
-        $('#bew').html(bew.toFixed(3));
-        $('#bearm').html(bearm);
-        $('#bemoment').html(bemoment.toFixed(3));
+        $('#bew').html(bew.toFixed(0) + 'kg');
+        $('#bearm').html(bearm.toFixed(2) + 'm');
+        $('#bemoment').html(bemoment.toFixed(0) + 'kg.m');
 
         update_front();
         update_rear();
@@ -73,9 +78,9 @@ $(document).ready(function() {
         frontarm = plane.arms.front;
         frontmoment = frontweight * frontarm;
 
-        $("#frontweight").html(frontweight.toFixed(3));
-        $('#frontarm').html(frontarm);
-        $('#frontmoment').html(frontmoment.toFixed(3));
+        $("#frontweight").html(frontweight.toFixed(0) + 'kg');
+        $('#frontarm').html(frontarm.toFixed(2) + 'm');
+        $('#frontmoment').html(frontmoment.toFixed(0) + 'kg.m');
 
         update_totals();
     }
@@ -88,9 +93,9 @@ $(document).ready(function() {
         reararm = plane.arms.rear;
         rearmoment = rearweight * reararm;
 
-        $("#rearweight").html(rearweight.toFixed(3));
-        $('#reararm').html(reararm);
-        $('#rearmoment').html(rearmoment.toFixed(3));
+        $("#rearweight").html(rearweight.toFixed(0) + 'kg');
+        $('#reararm').html(reararm.toFixed(2) + 'm');
+        $('#rearmoment').html(rearmoment.toFixed(0) + 'kg.m');
 
         update_totals();
     }
@@ -101,9 +106,9 @@ $(document).ready(function() {
         bagarm = plane.arms.baggage;
         bagmoment = bagweight * bagarm;
 
-        $("#bagweight").html(bagweight.toFixed(3));
-        $('#bagarm').html(bagarm);
-        $('#bagmoment').html(bagmoment.toFixed(3));
+        $("#bagweight").html(bagweight.toFixed(0) + 'kg');
+        $('#bagarm').html(bagarm.toFixed(2) + 'm');
+        $('#bagmoment').html(bagmoment.toFixed(0) + 'kg.m');
 
         update_totals();
     }
@@ -116,9 +121,9 @@ $(document).ready(function() {
         fuelarm = plane.arms.fuel;
         fuelmoment = fuelweight * fuelarm;
 
-        $("#fuelmass").html(fuelweight.toFixed(3));
-        $('#fuelarm').html(fuelarm);
-        $('#fuelmoment').html(fuelmoment.toFixed(3));
+        $("#fuelmass").html(fuelweight.toFixed(0) + 'kg');
+        $('#fuelarm').html(fuelarm.toFixed(2) + 'm');
+        $('#fuelmoment').html(fuelmoment.toFixed(0) + 'kg.m');
 
         update_totals();
     }
@@ -133,9 +138,9 @@ $(document).ready(function() {
         auxfuelarm = plane.arms.auxfuel;
         auxfuelmoment = auxfuelweight * auxfuelarm;
 
-        $("#auxfuelmass").html(auxfuelweight.toFixed(3));
-        $('#auxfuelarm').html(auxfuelarm);
-        $('#auxfuelmoment').html(auxfuelmoment.toFixed(3));
+        $("#auxfuelmass").html(auxfuelweight.toFixed(0) + 'kg');
+        $('#auxfuelarm').html(auxfuelarm.toFixed(2) + 'm');
+        $('#auxfuelmoment').html(auxfuelmoment.toFixed(0) + 'kg.m');
 
         update_totals();
     }
@@ -155,5 +160,6 @@ $(document).ready(function() {
     $('#baggage').on('change', update_baggage);
     $('#fuel_gauge').on('change', update_fuel);
     $('#auxfuel_gauge').on('change', update_auxfuel);
+    $('#resetform').on('click', reset_form);
     
 });

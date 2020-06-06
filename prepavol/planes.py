@@ -4,7 +4,6 @@
 import pandas as pd
 import numpy as np
 
-# import matplotlib.pyplot as plt
 import datetime
 import sys
 from base64 import b64encode
@@ -22,27 +21,29 @@ from sklearn.pipeline import make_pipeline
 
 
 class Error(Exception):
-    """Base class for other exceptions"""
+    """Base class for other exceptions.
+    """
 
     pass
 
 
 class FlightValidationError(Error):
     """Raised when a value is not set within acceptable boundaries.
-   Flight is forbidden."""
+    Flight is forbidden.
+    """
 
     pass
 
 
 class WeightBalance:
     """Maintains a fleet of planes along with their characteristics
-    in order to plan flights (load and balance)
-    and predict takeoff and landing performances.
+    in order to plan flights (weight and balance) and predict takeoff
+    and landing performances.
     
     The characteristics of the aircrafts are:
     - call_sign: call sign (id)
     - bew: basic empty weight
-    - arms: distance of all parts from datum
+    - arms: distance of all sectors of the aircraft from the datum
     - maxfuel: fuel tank capacity
     - maxauxfuel: auxiliary fuel tank capacity
     - unusfuel: unusable fuel
@@ -58,6 +59,33 @@ class WeightBalance:
     - endurance: flight length capability given the amount of fuel
     - is_ready_to_fly: indicates violations of the load and balance
     - reasons: specific violation indications
+
+    Args:
+        callsign (str): the aircraft's call sign.
+        pax[0-3] (int, optional): the weight of the occupants from front left to rear right.
+        baggage (int, optional): the weight in the baggage sector.
+        fuel (int, optional): amount of fuel in the main tank in litres.
+        fuel_mass (float, optional): amount of fuel in the main tank in kg.
+        fuel_gauge (float, optional): amount of fuel in the main tank in fourths of the tank.
+        auxfuel (int, optional): amount of fuel in the auxiliary tank in litres.
+        auxfuel_mass (float, optional): amount of fuel in the auxiliary tank in kg.
+        auxfuel_gauge (float, optional): amount of fuel in the auxiliary tank in fourths of the tank.
+
+        For fuel and auxfuel, the volume, mass and gauge indicator are properties and are converted in one another.
+
+    Attributes:
+        callsign (str): aircraft's call sign.
+        planetype (str): the aircraft model.
+        bew (float): the basic empty weight.
+        mtow (float): the MTOW (max takeoff weight).
+        bagmax (int): the max weight in the baggage sector.
+        maxfuel (int): the main tank's capacity in litres.
+        unusfuel (int): the unusable fuel in litres.
+        maxauxfuel (int): the auxiliary tank's capacity in litres.
+        fuelrate (int): the fuel flow rate in litres per hour.
+        arms (list): the distance of the from the sectors of the plane to the datum.
+        envelope (list of lists): the aircraft's center of gravity envelope.
+        is_ready_to_fly (boolean): airworthiness with regards to the all-up weight and balance.
     """
 
     _planes = {
@@ -238,29 +266,35 @@ class WeightBalance:
         return f"{self.__class__.__name__}({parameters})"
 
     def _volume_to_mass(self, v):
-        """Converts a volume of 100LL gas to mass
-        litres to kg
+        """Converts a volume of 100LL gas to mass (litres to kg).
         """
         assert v >= 0
         return v * 0.72
 
     def _mass_to_volume(self, m):
-        """Converts a mass of 100LL gas to volume
-        kg to litres
+        """Converts a mass of 100LL gas to volume (kg to litres).
         """
         assert m > 0
         return m / 0.72
 
     def _volume_to_gauge(self, v, tank):
         """Converts a volume of fuel to gauge indication (4 fourths)
-        knowing the volume of the tank
+        knowing the volume of the tank.
+
+        Arguments:
+            v (int): litres.
+            tank (int): the tank's capacity.
         """
         assert v >= 0
         return v / tank * 4
 
     def _mass_to_gauge(self, m, tank):
         """Converts a mass of fuel to gauge indication (4 fourths)
-        knowing the volume of the tank
+        knowing the volume of the tank.
+
+        Arguments:
+            m (int): kg.
+            tank (int): the tank's capacity.
         """
         assert m >= 0
         volume = self._mass_to_volume(m)
@@ -269,19 +303,32 @@ class WeightBalance:
     def _gauge_to_volume(self, g, tank):
         """Converts a gauge indication to a volume of fuel
         knowing the volume of the tank
+
+        Arguments:
+            g (float): gauge indication in fourths by step of .5.
+            tank (int): the tank's capacity.
         """
         assert 0 <= g <= 4
         return g * tank / 4
 
     def _gauge_to_mass(self, g, tank):
         """Converts a gauge indication to a mass of 100LL gas
-        knowing the volume of the tank
+        knowing the volume of the tank.
+
+        Arguments:
+            g (float): gauge indication in fourths by step of .5.
+            tank (int): the tank's capacity.
         """
         assert 0 <= g <= 4
         return g * tank / 4 * 0.72
 
     @property
     def auw(self):
+        """All-up weight. Sum of all the parts.
+
+        Returns:
+            (float): all-up weight in kg.
+        """
         reason = f"All-up weight above MTOW"
         self._auw = (
             self.bew  # BEW
@@ -304,6 +351,12 @@ class WeightBalance:
 
     @property
     def moment(self):
+        """Overall moment.
+        Sum of the moments of all the sectors.
+
+        Returns:
+            (float): overall moment in kg.m.
+        """
         self._moment = (
             self.bew * self.arms["bew"]
             + (self.pax0 + self.pax1) * self.arms["front"]
@@ -316,6 +369,12 @@ class WeightBalance:
 
     @property
     def cg(self):
+        """Center of gravity as a distance from the datum.
+        Computed from the all-up weight and the overall moment.
+        
+        Returns:
+            (float): center of gravity in meters from the datum.
+        """
         reason = f"""Balance out of cg envelope"""
         self._cg = self.moment / self.auw
         polygon = Polygon(tuple(k) for k in self.envelope)
@@ -383,6 +442,12 @@ class WeightBalance:
 
     @baggage.setter
     def baggage(self, value):
+        """Baggage weight input.
+        It is checked against the aircraft's max baggage weight.
+
+        Args:
+            value (int): baggage weight in kg.
+        """
         reason = f"Baggage weight over max weight"
         if value > self.bagmax:
             self.is_ready_to_fly = False
@@ -399,7 +464,8 @@ class WeightBalance:
 
     @property
     def fuel(self):
-        """Fuel quantity in litres"""
+        """Fuel quantity in litres.
+        """
         return self._fuel
 
     @fuel.setter
@@ -410,6 +476,8 @@ class WeightBalance:
 
     @property
     def fuel_mass(self):
+        """Fuel quantity in kg.
+        """
         return self._fuel_mass
 
     @fuel_mass.setter
@@ -421,6 +489,8 @@ class WeightBalance:
 
     @property
     def fuel_gauge(self):
+        """Fuel gauge indicator in fourths with step of .5.
+        """
         return self._fuel_gauge
 
     @fuel_gauge.setter
@@ -436,6 +506,8 @@ class WeightBalance:
 
     @property
     def auxfuel(self):
+        """Auxiliary fuel in litres.
+        """
         return self._auxfuel
 
     @auxfuel.setter
@@ -454,6 +526,8 @@ class WeightBalance:
 
     @property
     def auxfuel_mass(self):
+        """Auxiliary fuel in kg.
+        """
         return self._auxfuel_mass
 
     @auxfuel_mass.setter
@@ -473,6 +547,8 @@ class WeightBalance:
 
     @property
     def auxfuel_gauge(self):
+        """Auxiliary fuel gauge indicator in fourths with step of .5.
+        """
         return self._auxfuel_gauge
 
     @auxfuel_gauge.setter
@@ -488,18 +564,23 @@ class WeightBalance:
 
     @property
     def endurance(self):
-        """Endurance of the flight is roughly
-        the usable fuel divided by the fuel flow rate
-        at cruise speed.
+        """Endurance of the flight is roughly the usable fuel divided
+        by the fuel flow rate at cruise speed.
+
+        Returns:
+            float: endurance in hours.
         """
         usable_fuel = self.fuel + self.auxfuel - self.unusfuel
         return usable_fuel / self.fuelrate
 
     def plot_balance(self, encode=False):
-        """Plots the envelope with the evolution of the cg
+        """Plots the envelope with the evolution of the cg.
 
-        encode: boolean
-            returns BytesIO if True
+        Arguments:
+            encode (boolean): returns BytesIO if True.
+
+        Returns:
+            image or image bytes.
         """
         # Envelope
         polygon = Polygon(tuple(k) for k in self.envelope)
@@ -540,27 +621,24 @@ class WeightBalance:
 
 
 class PlanePerf:
-    """Predicts takeoff and landing distances given
-    an aircraft's all-up weight, the elevation of the airfield
-    and the meteorological conditions.
+    """Predicts DR400 planes takeoff and landing distances (50ft)
+    given an all-up weight, the ground altitude, temperature and QNH.
+
+    Arguments:
+        planetype (str):
+            either "DR400-120" or "DR400-140B".
+        auw (float):
+            all-up weight in kg.
+        altitude (int):
+            altitude in feet.
+        temperature (int):
+            temperature in Celsius degrees.
+        qnh (int):
+            QNH in mbar.
     """
 
     def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
-        """Predicts DR400 planes takeoff and landing distances (50ft)
-        given an all-up weight, ground altitude, temperature and QNH.
-
-        Arguments:
-            planetype: str
-                either "DR400-120" or "DR400-140B"
-            auw: float
-                all-up weight in kg
-            altitude: int
-                altitude in feet
-            temperature: int
-                temperature in Celsius degrees
-            qnh: int
-                QNH in mbar
-        """
+        
         self.planetype = str(planetype)
         self.auw = float(auw)
         self.altitude = int(altitude)
@@ -578,10 +656,13 @@ class PlanePerf:
         and the QNH.
 
         Arguments:
-            elevation: int
-                ground elevation in feet
-            qnh: int
-                QNH in mbar
+            elevation (int):
+                ground elevation in feet.
+            qnh (int):
+                QNH in mbar.
+        
+        Returns:
+            float: pressure altitude.
         """
         return elevation - 27 * (qnh - 1013)
 
@@ -594,12 +675,15 @@ class PlanePerf:
         an outside air temperature and the QNH.
 
         Arguments:
-            elevation : int 
-                ground elevation in feet
-            temperature: int
-                outside air temperature in °C
-            qnh: int
+            elevation (int):
+                ground elevation in feet.
+            temperature (int):
+                outside air temperature in °C.
+            qnh (int):
                 QNH in mbar
+
+        Returns:
+            float: density altitude.
         """
         Zp = self.pressure_altitude(elevation, qnh)
         return 1.2376 * Zp + 118.8 * temperature - 1782
@@ -609,8 +693,8 @@ class PlanePerf:
         return self.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
-        """Gets raw performance data for the given type of plane
-        Choices are DR400-120 or DR400-140B
+        """Returns the raw performance data for the given type of plane.
+        Choices are DR400-120 or DR400-140B.
         """
         # Takeoff data from POH
         raw = {}
@@ -648,8 +732,8 @@ class PlanePerf:
         return tkoff
 
     def landing_data(self):
-        """Gets raw performance data for the given type of plane
-        Choices are DR400-120 or DR400-140
+        """Returns the raw performance data for the given type of plane.
+        Choices are DR400-120 or DR400-140.
         """
         # From POH
         raw = {}
@@ -691,8 +775,10 @@ class PlanePerf:
         """Returns a trained model of takeoff or landing performance.
 
         Arguments:
-            operation: str
-                "takeoff" or "landing"
+            operation (str): "takeoff" or "landing"
+
+        Returns:
+            sklearn linear regression model.
         """
         assert operation in ["takeoff", "landing"]
 
@@ -704,7 +790,7 @@ class PlanePerf:
         return model
 
     def predict(self, operation):
-        """Builds a linear regression model out of the raw data
+        """Builds a linear regression model out of the raw data.
         Predicts takeoff or landing distance (50ft) given:
         type of plane
         altitude in ft
@@ -713,8 +799,10 @@ class PlanePerf:
         QNH in mbar
 
         Arguments:
-            operation: str
-                "takeoff" or "landing"]
+            operation (str): "takeoff" or "landing"]
+
+        Returns:
+            dataframe: takeoff or landing for different ground types and head winds.
         """
 
         assert operation in ["takeoff", "landing"]
@@ -751,10 +839,11 @@ class PlanePerf:
         given a plane's all-up weight.
 
         Arguments:
-            operation: str
-                "takeoff" or "landing"
-            encode: boolean
-                if True, returns a bytes stream instead of showing the plot
+            operation (str): "takeoff" or "landing"
+            encode (boolean): if True, returns a bytes stream instead of showing the plot
+
+        Returns:
+            image or image bytes.
         """
         assert operation in ["takeoff", "landing"]
 

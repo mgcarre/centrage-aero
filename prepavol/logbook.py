@@ -9,15 +9,15 @@ import getpass
 
 
 class FlightLog:
-    """Gets a flight log from the aerogest web site
-    Returns a pandas dataframe of the log,
-    or a list of aggregated dataframes.
+    """Returns a flight log from aerogest web site as a pandas dataframe.
+    The class also provides different aggregations of the data.
 
-    user {dictionary}: username and password
+    Args:
+        user (dictionary): Aerogest username and password
 
     Attributes:
-    is_logged {boolean}: if data retrieval from web site was OK
-    logbook (dataframe):  the flight log
+        is_logged (boolean): if data retrieval from web site was OK
+        logbook (dataframe): the flight log
     """
 
     def __init__(self, user):
@@ -26,6 +26,11 @@ class FlightLog:
         self.logbook = self.get_log()
 
     def get_log(self):
+        """Retrieves flight log data from aerogest.
+
+        Returns:
+            logbook (pandas dataframe): flight log
+        """
         user = self.user
 
         POSTLOGINURL = "http://www.aerogest-reservation.com/connection/logon?aeroclub=aeroclub_camargue"
@@ -79,7 +84,14 @@ class FlightLog:
         return f"{a}h{b:02}"
 
     def log_agg(self, columns=[]):
-        """columns array of columns
+        """Returns a list of aggregations of the flight log.
+
+        Args:
+            columns (list, optional): List of columns to aggregate over. 
+                The list is validated against the full list of columns.
+
+        Returns:
+            [list]: list of pivoted dataframes.
         """
         if not isinstance(self.logbook, pd.DataFrame):
             return [pd.DataFrame()]
@@ -104,7 +116,10 @@ class FlightLog:
         return tables
 
     def last_quarter(self):
-        """Provides aggregates over the last 3 months
+        """Provides aggregates of the flight log over the last 3 months.
+
+        Returns:
+            [dataframe]: last three months of flight log aggregated.
         """
         if not isinstance(self.logbook, pd.DataFrame):
             return pd.DataFrame()

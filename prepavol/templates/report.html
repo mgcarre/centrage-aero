@@ -15,8 +15,9 @@
 
 {% block content %}
 
-<h1 class="myheading title">Préparation du vol</h3>
-<h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h4>
+<h1 class="myheading title">Préparation du vol</h1>
+<h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h2>
+<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }} </h2>
 
 <fieldset>
     <legend>Masse et centrage</legend>
@@ -85,7 +86,7 @@
         </tr>
     </table>
 </fieldset>
-
+<br>
 <fieldset>
     <legend>Prévisions</legend>
 

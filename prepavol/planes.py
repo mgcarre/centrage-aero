@@ -97,7 +97,7 @@ class WeightBalance:
             "maxfuel": 110,
             "unusfuel": 1,
             "maxauxfuel": 0,
-            "fuelrate": 25,
+            "fuelrate": 27,
             "arms": {
                 "bew": 0.331,
                 "front": 0.41,
@@ -122,7 +122,7 @@ class WeightBalance:
             "maxfuel": 110,
             "unusfuel": 10,
             "maxauxfuel": 0,
-            "fuelrate": 25,
+            "fuelrate": 27,
             "arms": {
                 "bew": 0.351,
                 "front": 0.41,
@@ -854,7 +854,7 @@ class PlanePerf:
 
         # Make a mesh grid of altitudes and temperatures
         predict_a, predict_t = np.meshgrid(
-            np.linspace(0, 13000, N), np.linspace(243, 323, N)
+            np.linspace(0, 10000, N), np.linspace(243, 323, N)
         )
         predict_x = np.concatenate(
             (

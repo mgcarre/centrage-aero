@@ -89,7 +89,7 @@ class WeightBalance:
     """
 
     _planes = {
-        "FHAAC": {
+        "F-HAAC": {
             "planetype": "DR400-120",
             "bew": 586,
             "bagmax": 40,
@@ -114,7 +114,7 @@ class WeightBalance:
                 [0.564, 550],
             ],
         },
-        "FGGXD": {
+        "F-GGXD": {
             "planetype": "DR400-120",
             "bew": 595.9,
             "bagmax": 40,
@@ -139,13 +139,13 @@ class WeightBalance:
                 [0.564, 550],
             ],
         },
-        "FBUPS": {
+        "F-BUPS": {
             "planetype": "DR400-140B",
             "bew": 593.5,
             "bagmax": 40,
             "mtow": 1000,
             "maxfuel": 110,
-            "unusfuel": 0,
+            "unusfuel": 10,
             "maxauxfuel": 50,
             "fuelrate": 35,
             "arms": {
@@ -571,7 +571,13 @@ class WeightBalance:
             float: endurance in hours.
         """
         usable_fuel = self.fuel + self.auxfuel - self.unusfuel
-        return usable_fuel / self.fuelrate
+        # Fix uggly negative endurance when no fuel
+        if usable_fuel < 0:
+          usable_fuel = 0
+        endurance = usable_fuel / self.fuelrate
+        # Round down to multiples of 5 mn
+        # (convert to mn then round down base 5 then back to hours)
+        return 5 * int(60 * endurance / 5) / 60
 
     def plot_balance(self, encode=False):
         """Plots the envelope with the evolution of the cg.

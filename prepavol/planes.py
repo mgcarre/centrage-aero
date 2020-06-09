@@ -833,10 +833,10 @@ class PlanePerf:
         df = df.append(df.iloc[0].apply(lambda x: round(x * 1.15))).astype("int")
         df.index = ["dur", "herbe"]
         df.columns.name = "Ve"
-        title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
-        print(
-            f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft\n{self.temperature}°C\n{self.auw}kg\n"
-        )
+        # title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
+        # print(
+            # f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft\n{self.temperature}°C\n{self.auw}kg\n"
+        # )
 
         return df
 

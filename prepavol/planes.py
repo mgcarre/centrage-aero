@@ -97,7 +97,7 @@ class WeightBalance:
             "maxfuel": 110,
             "unusfuel": 1,
             "maxauxfuel": 0,
-            "fuelrate": 27,
+            "fuelrate": 25,
             "arms": {
                 "bew": 0.331,
                 "front": 0.41,
@@ -122,7 +122,7 @@ class WeightBalance:
             "maxfuel": 110,
             "unusfuel": 10,
             "maxauxfuel": 0,
-            "fuelrate": 27,
+            "fuelrate": 25,
             "arms": {
                 "bew": 0.351,
                 "front": 0.41,
@@ -147,7 +147,7 @@ class WeightBalance:
             "maxfuel": 110,
             "unusfuel": 10,
             "maxauxfuel": 50,
-            "fuelrate": 35,
+            "fuelrate": 32,
             "arms": {
                 "bew": 0.290,
                 "front": 0.41,

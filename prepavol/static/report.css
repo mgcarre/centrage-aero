@@ -1,3 +1,13 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+html, body {
+  width: 210mm;
+  height: 287mm;
+}
+
 .myheading {
   width: 90%;
   margin: 20px;
@@ -35,6 +45,26 @@ table.dataframe th {
 table.dataframe th,
 td {
   padding: 6px;
+}
+
+.col1 {
+  width: 14%;
+}
+
+.col2 {
+  width: 14%;
+}
+
+.col3 {
+  width: 7%;
+}
+
+.col4 {
+  width: 7%;
+}
+
+.col5 {
+  width: 7%;
 }
 
 table.mto {

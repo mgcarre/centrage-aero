@@ -25,18 +25,18 @@
     <table class="dataframe">
         <th></th>
         <th></th>
-        <th>masse (kg)</th>
-        <th>levier (m)</th>
-        <th>moment (kg.m)</th>
+        <th class="col3">masse (kg)</th>
+        <th class="col4">levier (m)</th>
+        <th class="col5">moment (kg.m)</th>
         <th ></th>
         <tr>
-            <td> call sign {{ plane.callsign }}</td>
-            <td> {{ plane.planetype }} </td>
-            <td id="bew"></td>
-            <td id="bearm"></td>
-            <td id="bemoment"></td>
+            <td class="col1"> {{ plane.callsign }}</td>
+            <td class="col2"> {{ plane.planetype }} </td>
+            <td id="bew"> {{ plane.bew }} </td>
+            <td id="bearm"> {{ '%0.2f'|format(plane.arms["bew"])|float }}</td>
+            <td id="bemoment"> {{ '%0.2f'|format(plane.bew * plane.arms["bew"])|float }} </td>
             <td rowspan="7", class="imagecell">
-                <img width=470px, class="prep", src="data:image/png;base64,{{ balance }}"/>
+                <img width=400px, class="prep", src="data:image/png;base64,{{ balance }}"/>
             </td>
         </tr>
         <tr>

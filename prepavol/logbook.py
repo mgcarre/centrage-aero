@@ -124,7 +124,7 @@ class FlightLog:
         if not isinstance(self.logbook, pd.DataFrame):
             return pd.DataFrame()
 
-        quarter_index = pd.to_datetime(self.logbook["Date"]) >= (
+        quarter_index = pd.to_datetime(self.logbook["Date"], format="%d/%m/%Y") >= (
             datetime.now().date() - pd.offsets.DateOffset(months=3)
         )
         df = self.logbook[quarter_index]

@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+ web:
+   image: eu.gcr.io/able-cogency-278718/prepavol_web:${DOCKER_IMAGE_TAG:-latest}
+ nginx:
+   image: eu.gcr.io/able-cogency-278718/prepavol_nginx:${DOCKER_IMAGE_TAG:-latest}

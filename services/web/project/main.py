@@ -5,6 +5,7 @@ import urllib
 from datetime import datetime, timezone
 from flask import (
     Blueprint,
+    current_app,
     render_template,
     flash,
     session,
@@ -75,7 +76,8 @@ def logout():
 @main.route("/favicon.ico")
 def favicon():
     return send_from_directory(
-        os.path.join(main.root_path, "static"),
+        os.path.join(main.root_path,
+        current_app.config["STATIC_FOLDER"]),
         "favicon.ico",
         mimetype="image/vnd.microsoft.icon",
     )

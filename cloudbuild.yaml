@@ -5,7 +5,3 @@ steps:
   args: ['push', 'eu.gcr.io/$PROJECT_ID/prepavol_web']
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['run', 'deploy', 'prepavol', '--image', 'eu.gcr.io/$PROJECT_ID/prepavol_web', '--region', 'europe-west1', '--platform', 'managed', '--allow-unauthenticated']
-  env:
-  - 'FLASK_APP=project/__init__.py'
-  - 'FLASK_ENV=production'
-  - 'APP_FOLDER=/home/app/web'

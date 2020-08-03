@@ -19,4 +19,4 @@ COPY --from=build-venv --chown=nonroot:nonroot /venv /venv
 COPY --chown=nonroot:nonroot . /app
 WORKDIR /app
 USER nonroot
-ENTRYPOINT ["/venv/bin/python3", "entrypoint.py", "--bind", "0.0.0.0:5000", "--env", "FLASK_ENV=production", "--env", "FLASK_APP=project/__init__.py", "--env", "APP_FOLDER=/home/app/web", "manage:app"]
+ENTRYPOINT ["/venv/bin/python3", "entrypoint.py", "--bind", "0.0.0.0:5000", "--env", "FLASK_ENV=production", "--env", "FLASK_APP=project/__init__.py", "--env", "APP_FOLDER=/app", "manage:app"]

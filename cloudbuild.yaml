@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/prepavol_web', '-f', './services/web/Dockerfile.prod', './services/web']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'eu.gcr.io/$PROJECT_ID/prepavol_web']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'prepavol', '--image', 'eu.gcr.io/$PROJECT_ID/prepavol_web', '--region', 'europe-west1', '--platform', 'managed', '--allow-unauthenticated']

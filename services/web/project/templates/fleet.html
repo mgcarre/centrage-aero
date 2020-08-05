@@ -7,14 +7,6 @@
 
 <h3 class="title">Flotte ACDC</h3>
 
-{% with messages = get_flashed_messages() %} {% if messages %}
-<div class="gridbox">
-  <div class="notification is-danger">
-    {{ messages[0] }}
-  </div>
-</div>
-{% endif %} {% endwith %}
-
 <section class="wrapper">
     <ul class="column__list">
         {% for callsign in data %}

@@ -7,6 +7,14 @@ from bs4 import BeautifulSoup
 import requests
 import getpass
 
+__author__ = "Yannick Teresiak"
+__copyright__ = "Copyright 2020, Prepavol"
+__credits__ = ["Yannick Teresiak"]
+__license__ = None
+__version__ = "1.0.0"
+__maintainer__ = "Yannick Teresiak"
+__email__ = "yannick.teresiak@gmail.com"
+__status__ = "Prod"
 
 class FlightLog:
     """Returns a flight log from aerogest web site as a pandas dataframe.

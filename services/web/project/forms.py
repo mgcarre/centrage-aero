@@ -4,6 +4,14 @@ from wtforms import TextField, IntegerField, SubmitField, SelectField, DecimalFi
 from wtforms.validators import DataRequired, NoneOf, InputRequired
 from .planes import WeightBalance, PlanePerf
 
+__author__ = "Yannick Teresiak"
+__copyright__ = "Copyright 2020, Prepavol"
+__credits__ = ["Yannick Teresiak"]
+__license__ = None
+__version__ = "1.0.0"
+__maintainer__ = "Yannick Teresiak"
+__email__ = "yannick.teresiak@gmail.com"
+__status__ = "Prod"
 
 class PrepflightForm(FlaskForm):
 

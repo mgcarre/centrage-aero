@@ -6,6 +6,7 @@ import numpy as np
 
 import datetime
 import sys
+import yaml
 from base64 import b64encode
 import logging
 import copy
@@ -19,6 +20,14 @@ from sklearn.linear_model import Ridge, LinearRegression, Lasso
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
+__author__ = "Yannick Teresiak"
+__copyright__ = "Copyright 2020, Prepavol"
+__credits__ = ["Yannick Teresiak"]
+__license__ = None
+__version__ = "1.1.0"
+__maintainer__ = "Yannick Teresiak"
+__email__ = "yannick.teresiak@gmail.com"
+__status__ = "Prod"
 
 class Error(Exception):
     """Base class for other exceptions.
@@ -88,84 +97,9 @@ class WeightBalance:
         is_ready_to_fly (boolean): airworthiness with regards to the all-up weight and balance.
     """
 
-    _planes = {
-        "F-HAAC": {
-            "planetype": "DR400-120",
-            "bew": 586,
-            "bagmax": 40,
-            "mtow": 900,
-            "maxfuel": 110,
-            "unusfuel": 1,
-            "maxauxfuel": 0,
-            "fuelrate": 25,
-            "arms": {
-                "bew": 0.331,
-                "front": 0.41,
-                "rear": 1.19,
-                "baggage": 1.9,
-                "fuel": 1.12,
-                "auxfuel": 0,
-            },
-            "envelope": [
-                [0.205, 550],
-                [0.205, 750],
-                [0.428, 900],
-                [0.564, 900],
-                [0.564, 550],
-            ],
-        },
-        "F-GGXD": {
-            "planetype": "DR400-120",
-            "bew": 595.9,
-            "bagmax": 40,
-            "mtow": 900,
-            "maxfuel": 110,
-            "unusfuel": 10,
-            "maxauxfuel": 0,
-            "fuelrate": 25,
-            "arms": {
-                "bew": 0.351,
-                "front": 0.41,
-                "rear": 1.19,
-                "baggage": 1.9,
-                "fuel": 1.12,
-                "auxfuel": 0,
-            },
-            "envelope": [
-                [0.205, 550],
-                [0.205, 750],
-                [0.428, 900],
-                [0.564, 900],
-                [0.564, 550],
-            ],
-        },
-        "F-BUPS": {
-            "planetype": "DR400-140B",
-            "bew": 593.5,
-            "bagmax": 40,
-            "mtow": 1000,
-            "maxfuel": 110,
-            "unusfuel": 10,
-            "maxauxfuel": 50,
-            "fuelrate": 32,
-            "arms": {
-                "bew": 0.290,
-                "front": 0.41,
-                "rear": 1.19,
-                "baggage": 1.9,
-                "fuel": 1.12,
-                "auxfuel": 1.61,
-            },
-            "envelope": [
-                [0.205, 550],
-                [0.205, 750],
-                [0.428, 1000],
-                [0.564, 1000],
-                [0.564, 550],
-            ],
-        },
-    }
-
+    planes_data = "./data/planes.yaml"
+    _planes = yaml.safe_load(open(planes_data, "r"))
+    
     def __init__(
         self,
         callsign,
@@ -699,79 +633,35 @@ class PlanePerf:
         return self.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
-        """Returns the raw performance data for the given type of plane.
-        Choices are DR400-120 or DR400-140B.
+        """Returns the raw performance data for the given type of plane
+        from POH data stored in ./data
         """
-        # Takeoff data from POH
-        raw = {}
-        raw[
-            "DR400-120"
-        ] = """alt\ttemp\t700\t900
-                    0\t-5\t285\t480
-                    0\t15\t315\t535
-                    0\t35\t345\t590
-                    4000\t-13\t375\t645
-                    4000\t7\t415\t720
-                    4000\t27\t460\t800
-                    8000\t-21\t500\t890
-                    8000\t-1\t560\t1000
-                    8000\t19\t620\t1125"""
-        raw[
-            "DR400-140B"
-        ] = """alt\ttemp\t800\t1000
-                    0\t-5\t245\t435
-                    0\t15\t265\t485
-                    0\t35\t290\t535
-                    4000\t-13\t320\t580
-                    4000\t7\t350\t645
-                    4000\t27\t385\t720
-                    8000\t-21\t415\t780
-                    8000\t-1\t465\t870
-                    8000\t19\t515\t975"""
+        input_file = "./data/" + self.planetype + "_takeoff.csv"
+        try:
+            tkoff = pd.read_csv(input_file, sep="\t", header=0)
+        except Exception as e:
+            logging.error(f"file {input_file} does not exist or is not readable.")
+            logging.error(e)
+            raise
 
-        assert self.planetype in raw.keys()
-
-        tkoff = pd.read_csv(StringIO(raw[self.planetype]), sep="\t", header=0)
         tkoff = tkoff.melt(id_vars=["alt", "temp"], var_name="mass", value_name="m")
         tkoff["temp"] = tkoff["temp"] + 273
         tkoff["mass"] = tkoff["mass"].astype("int")
         return tkoff
 
     def landing_data(self):
-        """Returns the raw performance data for the given type of plane.
-        Choices are DR400-120 or DR400-140.
+        """Returns the raw performance data for the given type of plane
+        from POH data stored in ./data
         """
-        # From POH
-        raw = {}
-        raw[
-            "DR400-120"
-        ] = """alt\ttemp\t700\t900
-                        0\t-5\t365\t435
-                        0\t15\t385\t460
-                        0\t35\t400\t485
-                        4000\t-13\t395\t475
-                        4000\t7\t420\t505
-                        4000\t27\t440\t535
-                        8000\t-21\t430\t525
-                        8000\t-1\t460\t555
-                        8000\t19\t485\t590"""
+        input_file = "./data/" + self.planetype + "_landing.csv"
+        try:
+            ldng = pd.read_csv(input_file, sep="\t", header=0)
+        except Exception as e:
+            logging.error(f"file {input_file} does not exist or is not readable.")
+            logging.error(e)
+            raise
 
-        raw[
-            "DR400-140B"
-        ] = """alt\ttemp\t800\t1000
-                        0\t-5\t380\t445
-                        0\t15\t400\t470
-                        0\t35\t420\t500
-                        4000\t-13\t410\t490
-                        4000\t7\t435\t520
-                        4000\t27\t460\t550
-                        8000\t-21\t450\t540
-                        8000\t-1\t480\t575
-                        8000\t19\t505\t610"""
-
-        assert self.planetype in raw.keys()
-
-        ldng = pd.read_csv(StringIO(raw[self.planetype]), sep="\t", header=0)
+        ldng = pd.read_csv(input_file, sep="\t", header=0)
         ldng = ldng.melt(id_vars=["alt", "temp"], var_name="mass", value_name="m")
         ldng["temp"] = ldng["temp"] + 273
         ldng["mass"] = ldng["mass"].astype("int")

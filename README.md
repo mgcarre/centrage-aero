@@ -1,7 +1,7 @@
 # Recipe for multi-container solution with nginx and gunicorn
-# doesn't work on Cloud Run so far - nginx not needed there anyway
+## doesn't work on Cloud Run so far - nginx not needed there anyway
 docker-compose -f docker-compose.prod.yaml -f docker-compose.gcp.yaml up -d --build
-#
+
 # Single container with gunicorn for Cloud Run
 docker build -f services/web/Dockerfile.prod services/web
 docker tag 5fa49f708b68 yayadock/prepavol_web

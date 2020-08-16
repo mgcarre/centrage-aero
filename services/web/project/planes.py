@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 import datetime
+from pathlib import Path
 import sys
 import yaml
 from base64 import b64encode
@@ -97,7 +98,7 @@ class WeightBalance:
         is_ready_to_fly (boolean): airworthiness with regards to the all-up weight and balance.
     """
 
-    planes_data = "./data/planes.yaml"
+    planes_data = Path(__file__).parent / "data/planes.yaml"
     _planes = yaml.safe_load(open(planes_data, "r"))
     
     def __init__(
@@ -636,7 +637,7 @@ class PlanePerf:
         """Returns the raw performance data for the given type of plane
         from POH data stored in ./data
         """
-        input_file = "./data/" + self.planetype + "_takeoff.csv"
+        input_file = Path(__file__).parent / "data" / (self.planetype + "_takeoff.csv")
         try:
             tkoff = pd.read_csv(input_file, sep="\t", header=0)
         except Exception as e:
@@ -653,7 +654,7 @@ class PlanePerf:
         """Returns the raw performance data for the given type of plane
         from POH data stored in ./data
         """
-        input_file = "./data/" + self.planetype + "_landing.csv"
+        input_file = Path(__file__).parent / "data" / (self.planetype + "_landing.csv")
         try:
             ldng = pd.read_csv(input_file, sep="\t", header=0)
         except Exception as e:

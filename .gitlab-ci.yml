@@ -1,5 +1,5 @@
 # File: .gitlab-ci.yml
-#image: docker:latest
+image: alpine:latest
 
 stages:
   - test

@@ -2,8 +2,8 @@
 image: docker:latest
 
 stages:
-  - deploy
   - test
+  - deploy
 
 test:
   stage: test

@@ -3,6 +3,14 @@ image: docker:latest
 
 stages:
   - deploy
+  - test
+
+test:
+  stage: test
+  script:
+  - pwd
+  - ls -l
+  - python -m pytest -v
 
 deploy:
   stage: deploy

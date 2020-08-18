@@ -1,5 +1,5 @@
 # File: .gitlab-ci.yml
-image: alpine:latest
+image: docker:latest
 
 stages:
   - test
@@ -10,8 +10,8 @@ test:
   script:
   - pwd
   - ls -l
-  - apt-get update -qy
-  - apt-get install -y python-dev python-pip
+  - apk update
+  - apk add python3 py3-pip
   - pip install -r services/web/requirements.txt
   - python -m pytest -v
 

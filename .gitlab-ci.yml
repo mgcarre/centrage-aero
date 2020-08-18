@@ -10,7 +10,7 @@ test:
   script:
   - pwd
   - ls -l
-  - python -m pytest -v
+  - ./services/web/venv/bin/python -m pytest -v
 
 deploy:
   stage: deploy

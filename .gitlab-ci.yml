@@ -12,6 +12,7 @@ test:
   - ls -l
   - apt-get update -qy
   - pip install -r services/web/requirements.txt
+  - cd services/web
   - python -m pytest -v
 
 deploy:

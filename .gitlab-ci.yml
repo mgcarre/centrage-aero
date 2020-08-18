@@ -10,7 +10,10 @@ test:
   script:
   - pwd
   - ls -l
-  - ./services/web/venv/bin/python -m pytest -v
+  - apt-get update -qy
+  - apt-get install -y python-dev python-pip
+  - pip install -r services/web/requirements.txt
+  - python -m pytest -v
 
 deploy:
   stage: deploy

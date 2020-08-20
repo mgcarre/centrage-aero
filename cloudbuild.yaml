@@ -5,3 +5,6 @@ steps:
   args: ['push', 'eu.gcr.io/$PROJECT_ID/prepavol_web']
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['run', 'deploy', 'prepavol', '--image', 'eu.gcr.io/$PROJECT_ID/prepavol_web', '--region', 'europe-west1', '--platform', 'managed', '--allow-unauthenticated']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'services', 'update-traffic', 'prepavol', '--to-latest']
+

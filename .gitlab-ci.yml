@@ -3,6 +3,7 @@ image: docker:latest
 
 stages:
   - build
+  - push
   - test
   - deploy
 
@@ -22,13 +23,11 @@ docker-build:
     - master
 
 docker-push:
-  stage: build
+  stage: push
   script:
      - docker images
      - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
      - docker push $CI_REGISTRY_IMAGE:latest
-  dependencies:
-    - docker-build
   only:
     - master
 

@@ -31,7 +31,6 @@ class WebAppTestCase(unittest.TestCase):
         """Generate an error when pax0 weight is missing
         """
         self.plane = project.planes.WeightBalance("FHAAC")
-        #self.planeperf = project.planes.PlanePerf(self.plane.planetype, self.plane.auw, 1200, 25, 1010)
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -50,6 +49,33 @@ class WebAppTestCase(unittest.TestCase):
         }
         result = self.app.post("/", data=data)
         self.assertIn(b'This field is required.', result.data)
+
+    def test_cg_out_of_envelope(self):
+        """Generate a balance error when cg is out the envelope.
+        Full tank and weight at the back seats. 
+        """
+        self.plane = project.planes.WeightBalance("FHAAC")
+        self.plane.pax0 = 10
+        self.plane.pax2, self.plane.pax3 = 2 * [100]
+        self.plane.fuel_gauge = 4
+        data = {
+            "callsign": self.plane.callsign,
+            "pax0": self.plane.pax0,
+            "pax1": self.plane.pax1,
+            "pax2": self.plane.pax2,
+            "pax3": self.plane.pax3,
+            "baggage": self.plane.baggage,
+            "fuel_gauge": self.plane.fuel_gauge,
+            "auxfuel_gauge": self.plane.auxfuel_gauge,
+            "tkalt": 0,
+            "ldalt": 0,
+            "tktemp": 15,
+            "ldtemp": 15,
+            "tkqnh": 1013,
+            "ldqnh": 1013
+        }
+        result = self.app.post("/", data=data)
+        self.assertIn(b'Balance out of cg envelope', result.data)
 
 if __name__ == "__main__":
     unittest.main()

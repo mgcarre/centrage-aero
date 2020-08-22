@@ -1,17 +1,17 @@
 # File: .gitlab-ci.yml
-# image: docker:latest
+#image: docker:stable
 
 stages:
-  - build
+  - build Docker image and push to Docker Hub
   - test
-  - deploy
+  - deploy to Cloud Run
 
 services:
   - docker:dind
 
 docker-build:
-  image: docker:latest
-  stage: build
+  image: docker:stable
+  stage: build Docker image and push to Docker Hub
   before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
@@ -36,14 +36,17 @@ tests:
   - python -m pytest -v
 
 gcloud:
-  stage: deploy
+  stage: deploy to Cloud Run
   image: google/cloud-sdk
   services:
     - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - gcloud config set project $GCP_PROJECT_ID
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
     - gcloud builds submit . --config=cloudbuild.yaml
   only:
     - master

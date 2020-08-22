@@ -1,5 +1,5 @@
 # File: .gitlab-ci.yml
-image: docker:latest
+# image: docker:latest
 
 stages:
   - build

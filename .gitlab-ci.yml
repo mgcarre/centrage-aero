@@ -39,7 +39,7 @@ gcloud:
   stage: deploy to Cloud Run
   image: google/cloud-sdk
   services:
-    - docker:dind
+    - docker:stable-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:

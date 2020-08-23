@@ -6,6 +6,9 @@ stages:
   - test
   - deploy to Cloud Run
 
+variables:
+  DOCKER_HOST=tcp://localhost:2375
+
 services:
   - docker:dind
 

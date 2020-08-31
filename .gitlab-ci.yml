@@ -39,7 +39,7 @@ tests:
   - python -m pytest -v --junitxml=report.xml
   artifacts:
     reports:
-      junit: report.xml
+      junit: services/web/report.xml
 
 gcloud:
   stage: deploy to Cloud Run

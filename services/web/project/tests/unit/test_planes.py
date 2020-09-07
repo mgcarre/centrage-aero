@@ -1,8 +1,13 @@
-from project import planes
+"""Unit tests of the planes module
+"""
+
 import unittest
 import pandas
+from project import planes
 
 class WeightBalanceTestCase(unittest.TestCase):
+    """Unit tests of WeightBalance
+    """
 
     def setUp(self):
         self.plane = planes.WeightBalance("FHAAC")
@@ -36,6 +41,8 @@ class WeightBalanceTestCase(unittest.TestCase):
 
 
 class PlanePerfTestCase(unittest.TestCase):
+    """Unit tests of PlanePerf
+    """
 
     def setUp(self):
         self.plane = planes.WeightBalance("FHAAC")
@@ -54,14 +61,14 @@ class PlanePerfTestCase(unittest.TestCase):
         """Validate density altitude property
         """
         self.assertIsNotNone(self.planeperf.Zd)
-        
-    
+
+
     def test_planeperf_takeoff_prediction(self):
         """Validate takeoff distance prediction
         """
         self.assertIsInstance(self.planeperf.predict("takeoff"), pandas.DataFrame)
-        
-    
+
+
     def test_planeperf_landing_prediction(self):
         """Validate landing distance prediction
         """

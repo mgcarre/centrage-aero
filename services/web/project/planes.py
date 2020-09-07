@@ -1,25 +1,11 @@
 #!/usr/bin/env python
-# coding: utf-8
+# *_* coding: utf-8 *_*
 
-import pandas as pd
-import numpy as np
+"""Light aviation flight preparation tools.
 
-import datetime
-from pathlib import Path
-import sys
-import yaml
-from base64 import b64encode
-import logging
-import copy
-from io import StringIO, BytesIO
-import matplotlib.pyplot as plt
-from matplotlib import cm, lines
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from shapely.geometry import Point
-from shapely.geometry.polygon import Polygon
-from sklearn.linear_model import Ridge, LinearRegression, Lasso
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import make_pipeline
+The module includes a class for weight and balance preparation
+and a class for performance predictions.
+"""
 
 __author__ = "Yannick Teresiak"
 __copyright__ = "Copyright 2020, Prepavol"
@@ -28,28 +14,42 @@ __license__ = None
 __version__ = "1.1.0"
 __maintainer__ = "Yannick Teresiak"
 __email__ = "yannick.teresiak@gmail.com"
-__status__ = "Prod"
+__status__ = "Production"
+
+from pathlib import Path
+from base64 import b64encode
+import logging
+import copy
+from io import BytesIO
+
+import datetime
+import pandas as pd
+import numpy as np
+import yaml
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
 
 class Error(Exception):
     """Base class for other exceptions.
     """
-
-    pass
-
 
 class FlightValidationError(Error):
     """Raised when a value is not set within acceptable boundaries.
     Flight is forbidden.
     """
 
-    pass
-
 
 class WeightBalance:
     """Maintains a fleet of planes along with their characteristics
     in order to plan flights (weight and balance) and predict takeoff
     and landing performances.
-    
+
     The characteristics of the aircrafts are:
     - call_sign: call sign (id)
     - bew: basic empty weight
@@ -61,7 +61,7 @@ class WeightBalance:
     - mtow: MTOW
     - bagmax: max baggage compartment weight
     - envelope: aircraft center of gravity envelope
-    
+
     At any point in the loading the following properties are available:
     - auw: all-up weight
     - moment: the overall moment of the weight items
@@ -79,9 +79,11 @@ class WeightBalance:
         fuel_gauge (float, optional): amount of fuel in the main tank in fourths of the tank.
         auxfuel (int, optional): amount of fuel in the auxiliary tank in litres.
         auxfuel_mass (float, optional): amount of fuel in the auxiliary tank in kg.
-        auxfuel_gauge (float, optional): amount of fuel in the auxiliary tank in fourths of the tank.
+        auxfuel_gauge (float, optional): amount of fuel in the auxiliary tank in fourths
+                                         of the tank.
 
-        For fuel and auxfuel, the volume, mass and gauge indicator are properties and are converted in one another.
+        For fuel and auxfuel, the volume, mass and gauge indicator are properties and are converted
+        in one another.
 
     Attributes:
         callsign (str): aircraft's call sign.
@@ -100,22 +102,22 @@ class WeightBalance:
 
     planes_data = Path(__file__).parent / "data/planes.yaml"
     _planes = yaml.safe_load(open(planes_data, "r"))
-    
+
     def __init__(
-        self,
-        callsign,
-        pax0=0,
-        pax1=0,
-        pax2=0,
-        pax3=0,
-        baggage=0,
-        fuel=None,
-        fuel_mass=None,
-        fuel_gauge=None,
-        auxfuel=None,
-        auxfuel_mass=None,
-        auxfuel_gauge=None,
-        **kwargs,
+            self,
+            callsign,
+            pax0=0,
+            pax1=0,
+            pax2=0,
+            pax3=0,
+            baggage=0,
+            fuel=None,
+            fuel_mass=None,
+            fuel_gauge=None,
+            auxfuel=None,
+            auxfuel_mass=None,
+            auxfuel_gauge=None,
+            **kwargs,
     ):
         planes = self.__class__._planes
         if callsign not in planes.keys():
@@ -194,9 +196,16 @@ class WeightBalance:
             "auxfuel",
         ]
         # Couldn't use a list comprehension there. Go figure
-        valuelist = [f"'{self.callsign}'"]
-        for k in keylist[1:]:
-            valuelist.append(eval(f"self.{k}"))
+        valuelist = [
+            f"{self.callsign}",
+            f"{self.pax0}",
+            f"{self.pax1}",
+            f"{self.pax2}",
+            f"{self.pax3}",
+            f"{self.baggage}",
+            f"{self.fuel}",
+            f"{self.auxfuel}"
+        ]
         parameters = ", ".join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
         return f"{self.__class__.__name__}({parameters})"
 
@@ -264,7 +273,7 @@ class WeightBalance:
         Returns:
             (float): all-up weight in kg.
         """
-        reason = f"All-up weight above MTOW"
+        reason = "All-up weight above MTOW"
         self._auw = (
             self.bew  # BEW
             + self.pax0
@@ -306,11 +315,11 @@ class WeightBalance:
     def cg(self):
         """Center of gravity as a distance from the datum.
         Computed from the all-up weight and the overall moment.
-        
+
         Returns:
             (float): center of gravity in meters from the datum.
         """
-        reason = f"""Balance out of cg envelope"""
+        reason = "Balance out of cg envelope"
         self._cg = self.moment / self.auw
         polygon = Polygon(tuple(k) for k in self.envelope)
         point = Point(self._cg, self.auw)
@@ -325,6 +334,7 @@ class WeightBalance:
 
     @property
     def pax0(self):
+        """Mass of pax in kg"""
         return self._pax0
 
     @pax0.setter
@@ -333,6 +343,7 @@ class WeightBalance:
 
     @property
     def pax1(self):
+        """Mass of pax in kg"""
         return self._pax1
 
     @pax1.setter
@@ -341,6 +352,7 @@ class WeightBalance:
 
     @property
     def pax2(self):
+        """Mass of pax in kg"""
         return self._pax2
 
     @pax2.setter
@@ -349,6 +361,7 @@ class WeightBalance:
 
     @property
     def pax3(self):
+        """Mass of pax in kg"""
         return self._pax3
 
     @pax3.setter
@@ -357,22 +370,27 @@ class WeightBalance:
 
     @property
     def frontweight(self):
+        """Computed mass of front row"""
         return self.pax0 + self.pax1
 
     @property
     def frontmoment(self):
+        """Moment of front row"""
         return self.frontweight * self.arms["front"]
 
     @property
     def rearweight(self):
+        """Computed mass of rear row"""
         return self.pax2 + self.pax3
 
     @property
     def rearmoment(self):
+        """Moment of rear row"""
         return self.rearweight * self.arms["rear"]
 
     @property
     def baggage(self):
+        """Mass of baggage in kg"""
         return self._baggage
 
     @baggage.setter
@@ -383,7 +401,7 @@ class WeightBalance:
         Args:
             value (int): baggage weight in kg.
         """
-        reason = f"Baggage weight over max weight"
+        reason = "Baggage weight over max weight"
         if value > self.bagmax:
             self.is_ready_to_fly = False
             if reason not in self.reasons:
@@ -395,6 +413,7 @@ class WeightBalance:
 
     @property
     def bagmoment(self):
+        """Moment of baggage"""
         return self.baggage * self.arms["baggage"]
 
     @property
@@ -437,6 +456,7 @@ class WeightBalance:
 
     @property
     def fuelmoment(self):
+        """Moment of fuel tank"""
         return self.fuel_mass * self.arms["fuel"]
 
     @property
@@ -495,6 +515,7 @@ class WeightBalance:
 
     @property
     def auxfuelmoment(self):
+        """Moment of auxiliary fuel tank"""
         return self.auxfuel_mass * self.arms["auxfuel"]
 
     @property
@@ -508,7 +529,7 @@ class WeightBalance:
         usable_fuel = self.fuel + self.auxfuel - self.unusfuel
         # Fix uggly negative endurance when no fuel
         if usable_fuel < 0:
-          usable_fuel = 0
+            usable_fuel = 0
         endurance = usable_fuel / self.fuelrate
         # Round down to multiples of 5 mn
         # (convert to mn then round down base 5 then back to hours)
@@ -579,7 +600,7 @@ class PlanePerf:
     """
 
     def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
-        
+
         self.planetype = str(planetype)
         self.auw = float(auw)
         self.altitude = int(altitude)
@@ -601,7 +622,7 @@ class PlanePerf:
                 ground elevation in feet.
             qnh (int):
                 QNH in mbar.
-        
+
         Returns:
             float: pressure altitude.
         """
@@ -609,6 +630,7 @@ class PlanePerf:
 
     @property
     def Zp(self):
+        """Pressure altitude in feet"""
         return self.pressure_altitude(self.altitude, self.qnh)
 
     def density_altitude(self, elevation, temperature, qnh):
@@ -631,6 +653,7 @@ class PlanePerf:
 
     @property
     def Zd(self):
+        """Density altitude in feet"""
         return self.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
@@ -641,7 +664,7 @@ class PlanePerf:
         try:
             tkoff = pd.read_csv(input_file, sep="\t", header=0)
         except Exception as e:
-            logging.error(f"file {input_file} does not exist or is not readable.")
+            logging.error("file %s does not exist or is not readable.", input_file)
             logging.error(e)
             raise
 
@@ -658,7 +681,7 @@ class PlanePerf:
         try:
             ldng = pd.read_csv(input_file, sep="\t", header=0)
         except Exception as e:
-            logging.error(f"file {input_file} does not exist or is not readable.")
+            logging.error("file %s does not exist or is not readable.", input_file)
             logging.error(e)
             raise
 
@@ -677,9 +700,13 @@ class PlanePerf:
         Returns:
             sklearn linear regression model.
         """
+
         assert operation in ["takeoff", "landing"]
 
-        data_df = eval(f"self.{operation}_data()")
+        if operation == "takeoff":
+            data_df = self.takeoff_data()
+        elif operation == "landing":
+            data_df = self.landing_data()
 
         model = make_pipeline(PolynomialFeatures(2), LinearRegression())
         _ = model.fit(data_df.iloc[:, :3], data_df.iloc[:, 3])
@@ -726,7 +753,8 @@ class PlanePerf:
         df.columns.name = "Ve"
         # title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
         # print(
-            # f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft\n{self.temperature}°C\n{self.auw}kg\n"
+        # f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft
+        # \n{self.temperature}°C\n{self.auw}kg\n"
         # )
 
         return df

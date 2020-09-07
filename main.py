@@ -1,5 +1,5 @@
 """App entry point."""
-from prepavol import create_app
+from services.web.project import create_app
 
 app = create_app()
 

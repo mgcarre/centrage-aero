@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""Gunicorn entrypoint.
+"""
+
 import re
 import sys
 

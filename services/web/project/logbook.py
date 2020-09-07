@@ -1,20 +1,23 @@
-import pandas as pd
-import numpy as np
-from datetime import datetime
-import sys
-from io import StringIO
-from bs4 import BeautifulSoup
-import requests
-import getpass
+# *_* coding: utf-8 *_*
+
+"""Extraction of aerogest data and aggregations.
+"""
 
 __author__ = "Yannick Teresiak"
 __copyright__ = "Copyright 2020, Prepavol"
 __credits__ = ["Yannick Teresiak"]
 __license__ = None
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __maintainer__ = "Yannick Teresiak"
 __email__ = "yannick.teresiak@gmail.com"
-__status__ = "Prod"
+__status__ = "Production"
+
+from datetime import datetime
+import getpass
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+import requests
 
 class FlightLog:
     """Returns a flight log from aerogest web site as a pandas dataframe.
@@ -41,7 +44,8 @@ class FlightLog:
         """
         user = self.user
 
-        POSTLOGINURL = "http://www.aerogest-reservation.com/connection/logon?aeroclub=aeroclub_camargue"
+        POSTLOGINURL = ("http://www.aerogest-reservation.com/connection/"
+                        "logon?aeroclub=aeroclub_camargue")
         REQUESTURL = "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
         payload = {
             "aeroclub": "aeroclub_camargue",
@@ -54,7 +58,7 @@ class FlightLog:
             try:
                 _ = session.post(POSTLOGINURL, data=payload)
                 r = session.get(REQUESTURL)
-            except:
+            except requests.RequestException:
                 return None
         # If logged in, should be able to find specific div
         lookfor = {"class": "divMonCarnetDeVols"}
@@ -84,6 +88,8 @@ class FlightLog:
 
     @staticmethod
     def heures(s):
+        """Pretty display of hours
+        """
         a = int(np.sum(s) / np.timedelta64(1, "h"))
         b = int(
             60
@@ -91,11 +97,11 @@ class FlightLog:
         )
         return f"{a}h{b:02}"
 
-    def log_agg(self, columns=[]):
+    def log_agg(self, columns=None):
         """Returns a list of aggregations of the flight log.
 
         Args:
-            columns (list, optional): List of columns to aggregate over. 
+            columns (list, optional): List of columns to aggregate over.
                 The list is validated against the full list of columns.
 
         Returns:
@@ -103,6 +109,9 @@ class FlightLog:
         """
         if not isinstance(self.logbook, pd.DataFrame):
             return [pd.DataFrame()]
+
+        if not columns:
+            columns = []
 
         aggcols = ["Type", "Immat", "Mode", "Vol", "Type de vol"]
         columns = [col for col in columns if col in aggcols]
@@ -150,6 +159,6 @@ class FlightLog:
 if __name__ == "__main__":
     username = input("Type user name: ")
     password = getpass.getpass("Type password: ")
-    user = {"username": username, "password": password}
-    log = FlightLog(user)
+    aerogest_user = {"username": username, "password": password}
+    log = FlightLog(aerogest_user)
     print(log.logbook)

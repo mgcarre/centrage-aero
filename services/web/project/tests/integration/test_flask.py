@@ -1,7 +1,18 @@
-import project
+# *_* coding: utf-8 *_*
+
+"""End to end tests.
+"""
+
 import unittest
+import project
 
 class WebAppTestCase(unittest.TestCase):
+    """"Testing the web pages.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(WebAppTestCase, self).__init__(*args, **kwargs)
+        self.plane = project.planes.WeightBalance("FHAAC")
 
     def setUp(self):
         app = project.create_app()
@@ -30,7 +41,7 @@ class WebAppTestCase(unittest.TestCase):
     def test_form_missing_pax0(self):
         """Generate an error when pax0 weight is missing
         """
-        self.plane = project.planes.WeightBalance("FHAAC")
+
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -52,9 +63,8 @@ class WebAppTestCase(unittest.TestCase):
 
     def test_cg_out_of_envelope(self):
         """Generate a balance error when cg is out the envelope.
-        Full tank and weight at the back seats. 
+        Full tank and weight at the back seats.
         """
-        self.plane = project.planes.WeightBalance("FHAAC")
         self.plane.pax0 = 10
         self.plane.pax2, self.plane.pax3 = 2 * [100]
         self.plane.fuel_gauge = 4

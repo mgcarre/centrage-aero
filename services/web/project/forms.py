@@ -1,8 +1,6 @@
-import json
-from flask_wtf import FlaskForm
-from wtforms import TextField, IntegerField, SubmitField, SelectField, DecimalField
-from wtforms.validators import DataRequired, NoneOf, InputRequired
-from .planes import WeightBalance, PlanePerf
+# *_* coding: utf-8 *_*
+"""Flaskform
+"""
 
 __author__ = "Yannick Teresiak"
 __copyright__ = "Copyright 2020, Prepavol"
@@ -11,17 +9,30 @@ __license__ = None
 __version__ = "1.0.0"
 __maintainer__ = "Yannick Teresiak"
 __email__ = "yannick.teresiak@gmail.com"
-__status__ = "Prod"
+__status__ = "Production"
+
+from pathlib import Path
+import json
+import yaml
+from flask_wtf import FlaskForm
+from wtforms import SubmitField, SelectField
+from wtforms.validators import DataRequired, NoneOf, InputRequired
+from .planes import WeightBalance
+
 
 class PrepflightForm(FlaskForm):
+    """Form
+    """
+    # Get plane list from the planes data
+    # jinja expects a string and not a dict
+    planes_file = Path(__file__).parent / "data/planes.yaml"
+    planes_data = yaml.safe_load(open(planes_file, "r"))
+    planes = json.dumps(planes_data)
 
-    # Get plane list from the planes module
-    planes = json.dumps(WeightBalance._planes)
-
-    callsigns = list(WeightBalance._planes.keys())
+    callsigns = list(planes_data.keys())
     auxfuel_list = []
     for p in callsigns:
-        auxfuel_list.append(WeightBalance._planes[p]["maxauxfuel"])
+        auxfuel_list.append(planes_data[p]["maxauxfuel"])
     maxauxfuel = max(auxfuel_list)
 
     plane = WeightBalance(callsigns[0])
@@ -40,7 +51,7 @@ class PrepflightForm(FlaskForm):
     )
 
     # Front row
-    pax_weight_choices = [i for i in zip(pax_weight_range, pax_weight_range)]
+    pax_weight_choices = list(zip(pax_weight_range, pax_weight_range))
     pax0 = SelectField(
         "pax0", coerce=int, validators=[DataRequired()], choices=pax_weight_choices
     )
@@ -55,12 +66,12 @@ class PrepflightForm(FlaskForm):
         "pax3", coerce=int, validators=[InputRequired()], choices=pax_weight_choices
     )
     # Baggage
-    baggage_choices = [i for i in zip(baggage_weight_range, baggage_weight_range)]
+    baggage_choices = list(zip(baggage_weight_range, baggage_weight_range))
     baggage = SelectField(
         "baggage", coerce=int, validators=[InputRequired()], choices=baggage_choices
     )
     # Fuel
-    fuel_gauge_choices = [i for i in zip(fuel_gauge_range, fuel_gauge_range)]
+    fuel_gauge_choices = list(zip(fuel_gauge_range, fuel_gauge_range))
     fuel_gauge = SelectField(
         "jauge fuel",
         coerce=float,
@@ -68,7 +79,7 @@ class PrepflightForm(FlaskForm):
         choices=fuel_gauge_choices,
     )
     # Aux fuel
-    auxfuel_choices = [i for i in zip(auxfuel_range, auxfuel_range)]
+    auxfuel_choices = list(zip(auxfuel_range, auxfuel_range))
     auxfuel_gauge = SelectField(
         "jauge fuel aux.",
         coerce=float,
@@ -77,7 +88,7 @@ class PrepflightForm(FlaskForm):
     )
 
     # Performances
-    altitude_choices = [i for i in zip(altitude_range, altitude_range)]
+    altitude_choices = list(zip(altitude_range, altitude_range))
     tkalt = SelectField(
         "alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices
     )
@@ -85,7 +96,7 @@ class PrepflightForm(FlaskForm):
         "alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices
     )
 
-    temperature_choices = [i for i in zip(temperature_range, temperature_range)]
+    temperature_choices = list(zip(temperature_range, temperature_range))
     tktemp = SelectField(
         "temp (°C)",
         coerce=int,
@@ -101,7 +112,7 @@ class PrepflightForm(FlaskForm):
         default=15,
     )
 
-    qnh_choices = [i for i in zip(qnh_range, qnh_range)]
+    qnh_choices = list(zip(qnh_range, qnh_range))
     tkqnh = SelectField(
         "QNH",
         coerce=int,

@@ -1,8 +1,16 @@
+# *_* coding: utf-8 *_*
+
+"""Flask views
+"""
+
 import os
-import json
+from pathlib import Path
 import logging
 import urllib
 from datetime import datetime, timezone
+import json
+import yaml
+
 from flask import (
     Blueprint,
     current_app,
@@ -45,6 +53,8 @@ def get_aero():
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
+    """Login to aerogest web site
+    """
     print(request.referrer)
     if "username" in session.keys():
         flash("Already logged in.")
@@ -65,6 +75,8 @@ def login():
 
 @main.route("/logout")
 def logout():
+    """Logout from aerogest
+    """
     if "username" in session.keys():
         session.clear()
     pilot = None
@@ -75,9 +87,10 @@ def logout():
 
 @main.route("/favicon.ico")
 def favicon():
+    """Defines static path for site favicon
+    """
     return send_from_directory(
-        os.path.join(main.root_path,
-        current_app.config["STATIC_FOLDER"]),
+        os.path.join(main.root_path, current_app.config["STATIC_FOLDER"]),
         "favicon.ico",
         mimetype="image/vnd.microsoft.icon",
     )
@@ -85,6 +98,8 @@ def favicon():
 
 @main.route("/profile")
 def profile():
+    """Displays aerogest log book
+    """
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
@@ -95,11 +110,16 @@ def profile():
 
 @main.route("/fleet")
 def fleet():
-    planes = json.loads(json.dumps(WeightBalance._planes))
+    """Displays planes characteristics
+    """
+    planes_file = Path(__file__).parent / "data/planes.yaml"
+    planes = yaml.safe_load(open(planes_file, "r"))
     return render_template("fleet.html", data=planes)
 
 @main.route("/stats")
 def stats():
+    """Aerogest log data aggregated.
+    """
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
@@ -117,6 +137,8 @@ def stats():
 
 @main.route("/", methods=["GET", "POST"])
 def prepflight():
+    """Form for flight preparation.
+    """
     # form defaults
     form = PrepflightForm()
 
@@ -177,4 +199,3 @@ def prepflight():
             logging.error(form.errors)
 
     return render_template("prepflight.html", form=form)
-

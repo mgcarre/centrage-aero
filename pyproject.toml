@@ -1,0 +1,11 @@
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -vv"
+testpaths = [
+    "tests",
+    "integration",
+    "unit",
+]
+junit_family = "xunit2"
+doctest_encoding = "UTF-8"

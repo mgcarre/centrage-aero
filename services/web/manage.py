@@ -2,7 +2,7 @@
 """
 
 from flask.cli import FlaskGroup
-from project import create_app
+from prepavol import create_app
 
 app = create_app()
 cli = FlaskGroup(app)

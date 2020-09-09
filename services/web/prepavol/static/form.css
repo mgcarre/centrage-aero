@@ -34,30 +34,30 @@ td {
 
 select {
   display: block;
-    font-family: sans-serif;
-    font-weight: 700;
-    color: #444;
-    padding: .6em 1.4em .5em .8em;
-    width: 100%;
-    max-width: 100%; /* useful when width is set to anything other than 100% */
-    box-sizing: border-box;
-    margin: 0;
-    border: 1px solid #aaa;
-    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-    border-radius: .5em;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: whitesmoke;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  width: 100%;
+  max-width: 100%; /* useful when width is set to anything other than 100% */
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 0.5em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: whitesmoke;
 }
 
 select:focus {
-    border-color: #aaa;
-    /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
-    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
-    color: #222; 
-    outline: none;
+  border-color: #aaa;
+  /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
 }
 
 img.prep {
@@ -99,7 +99,7 @@ label {
   background-color: gray;
 }
 
- .formcontainer {
+.formcontainer {
   border-radius: 5px;
   padding: 20px;
 }
@@ -353,4 +353,3 @@ label {
 .allmoment {
   grid-area: allmoment;
 }
-

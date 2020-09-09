@@ -1,11 +1,10 @@
-
 table.dataframe {
   border-collapse: separate;
   border-spacing: 0;
   border: 0;
   width: 50%;
-  margin-left:auto; 
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 table.dataframe th,
 td {

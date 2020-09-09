@@ -6,3 +6,4 @@ venv
 .vscode
 .coverage
 coverage.xml
+*.egg-info

@@ -35,8 +35,7 @@ logbook = None
 
 
 def get_aero():
-    """Retrieves flight log data from aerogest
-    """
+    """Retrieves flight log data from aerogest"""
     global pilot, flightlog, logbook
 
     if pilot:
@@ -52,8 +51,7 @@ def get_aero():
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
-    """Login to aerogest web site
-    """
+    """Login to aerogest web site"""
     print(request.referrer)
     if "username" in session.keys():
         flash("Already logged in.")
@@ -74,8 +72,7 @@ def login():
 
 @main.route("/logout")
 def logout():
-    """Logout from aerogest
-    """
+    """Logout from aerogest"""
     if "username" in session.keys():
         session.clear()
     pilot = None
@@ -86,8 +83,7 @@ def logout():
 
 @main.route("/favicon.ico")
 def favicon():
-    """Defines static path for site favicon
-    """
+    """Defines static path for site favicon"""
     return send_from_directory(
         os.path.join(main.root_path, current_app.config["STATIC_FOLDER"]),
         "favicon.ico",
@@ -97,8 +93,7 @@ def favicon():
 
 @main.route("/profile")
 def profile():
-    """Displays aerogest log book
-    """
+    """Displays aerogest log book"""
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
@@ -107,18 +102,18 @@ def profile():
         "profile.html", name=session["username"], dataframe=logbook.to_html(index=None)
     )
 
+
 @main.route("/fleet")
 def fleet():
-    """Displays planes characteristics
-    """
+    """Displays planes characteristics"""
     planes_file = Path(__file__).parent / "data/planes.yaml"
     planes = yaml.safe_load(open(planes_file, "r"))
     return render_template("fleet.html", data=planes)
 
+
 @main.route("/stats")
 def stats():
-    """Aerogest log data aggregated.
-    """
+    """Aerogest log data aggregated."""
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
@@ -136,8 +131,7 @@ def stats():
 
 @main.route("/", methods=["GET", "POST"])
 def prepflight():
-    """Form for flight preparation.
-    """
+    """Form for flight preparation."""
     # form defaults
     form = PrepflightForm()
 

@@ -8,139 +8,97 @@
 <h3 class="title">Flotte ACDC</h3>
 
 <section class="wrapper">
-    <ul class="column__list">
-        {% for callsign in data %}
-    
-        <li class="column__item">
-        <div class="column__title--wrapper">
-            <h2>{{ callsign }}</h2>
-        </div>
+  <ul class="column__list">
+    {% for callsign in data %}
 
-        <ul class="card__list">
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                type
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['planetype'] }}
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                masse à vide
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['bew']}}kg
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                MTOW
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['mtow'] }}kg
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                réservoir principal
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['maxfuel'] }}l
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                réservoir suppll.
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['maxauxfuel'] }}l
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                fuel inconsommable
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['unusfuel'] }}l
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                consommation croisière
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['fuelrate'] }}l/h
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                capacité bagage
-            </span>
-            <h6 class="card__title">
-                {{ data[callsign]['bagmax'] }}kg
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                bras de levier
-            </span>
-            <h6 class="card__title">
-                <table class="arms">
-                    <tr>
-                        <td> à vide </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['bew']) }}m
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> sièges avant </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['front']) }}m
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> sièges arrière </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['rear']) }}m
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> bagages </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['baggage']) }}m
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> réservoir </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['fuel']) }}m
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> réservoir suppl. </td>
-                        <td>
-                            {{ '%0.3f'|format(data[callsign]['arms']['auxfuel']) }}m
-                        </td>
-                    </tr>
-                </table>
-            </h6>
-            </li>
-            <li class="card__item">
-            <span class="card__tag card__tag--design">
-                enveloppe
-            </span>
-            <h6 class="card__title">
-                {% for array in data[callsign]['envelope'] %}
-                    <li> {{ array }} </li>
-                {% endfor %}
-            </h6>
-            </li>
-        </ul>
+    <li class="column__item">
+      <div class="column__title--wrapper">
+        <h2>{{ callsign }}</h2>
+      </div>
+
+      <ul class="card__list">
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> type </span>
+          <h6 class="card__title">{{ data[callsign]['planetype'] }}</h6>
         </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> masse à vide </span>
+          <h6 class="card__title">{{ data[callsign]['bew']}}kg</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> MTOW </span>
+          <h6 class="card__title">{{ data[callsign]['mtow'] }}kg</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> réservoir principal </span>
+          <h6 class="card__title">{{ data[callsign]['maxfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> réservoir suppll. </span>
+          <h6 class="card__title">{{ data[callsign]['maxauxfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> fuel inconsommable </span>
+          <h6 class="card__title">{{ data[callsign]['unusfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design">
+            consommation croisière
+          </span>
+          <h6 class="card__title">{{ data[callsign]['fuelrate'] }}l/h</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> capacité bagage </span>
+          <h6 class="card__title">{{ data[callsign]['bagmax'] }}kg</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> bras de levier </span>
+          <h6 class="card__title">
+            <table class="arms">
+              <tr>
+                <td>à vide</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['bew']) }}m</td>
+              </tr>
+              <tr>
+                <td>sièges avant</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['front']) }}m</td>
+              </tr>
+              <tr>
+                <td>sièges arrière</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['rear']) }}m</td>
+              </tr>
+              <tr>
+                <td>bagages</td>
+                <td>
+                  {{ '%0.3f'|format(data[callsign]['arms']['baggage']) }}m
+                </td>
+              </tr>
+              <tr>
+                <td>réservoir</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['fuel']) }}m</td>
+              </tr>
+              <tr>
+                <td>réservoir suppl.</td>
+                <td>
+                  {{ '%0.3f'|format(data[callsign]['arms']['auxfuel']) }}m
+                </td>
+              </tr>
+            </table>
+          </h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> enveloppe </span>
+          <h6 class="card__title">
+            {% for array in data[callsign]['envelope'] %}
+            <li>{{ array }}</li>
+            {% endfor %}
+          </h6>
+        </li>
+      </ul>
+    </li>
 
-        {% endfor %}
-    </ul>
+    {% endfor %}
+  </ul>
 </section>
 
 {% endblock %}

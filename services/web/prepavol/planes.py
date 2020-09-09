@@ -35,9 +35,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
+
 class Error(Exception):
-    """Base class for other exceptions.
-    """
+    """Base class for other exceptions."""
+
 
 class FlightValidationError(Error):
     """Raised when a value is not set within acceptable boundaries.
@@ -104,20 +105,20 @@ class WeightBalance:
     _planes = yaml.safe_load(open(planes_data, "r"))
 
     def __init__(
-            self,
-            callsign,
-            pax0=0,
-            pax1=0,
-            pax2=0,
-            pax3=0,
-            baggage=0,
-            fuel=None,
-            fuel_mass=None,
-            fuel_gauge=None,
-            auxfuel=None,
-            auxfuel_mass=None,
-            auxfuel_gauge=None,
-            **kwargs,
+        self,
+        callsign,
+        pax0=0,
+        pax1=0,
+        pax2=0,
+        pax3=0,
+        baggage=0,
+        fuel=None,
+        fuel_mass=None,
+        fuel_gauge=None,
+        auxfuel=None,
+        auxfuel_mass=None,
+        auxfuel_gauge=None,
+        **kwargs,
     ):
         planes = self.__class__._planes
         if callsign not in planes.keys():
@@ -204,20 +205,18 @@ class WeightBalance:
             f"{self.pax3}",
             f"{self.baggage}",
             f"{self.fuel}",
-            f"{self.auxfuel}"
+            f"{self.auxfuel}",
         ]
         parameters = ", ".join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
         return f"{self.__class__.__name__}({parameters})"
 
     def _volume_to_mass(self, v):
-        """Converts a volume of 100LL gas to mass (litres to kg).
-        """
+        """Converts a volume of 100LL gas to mass (litres to kg)."""
         assert v >= 0
         return v * 0.72
 
     def _mass_to_volume(self, m):
-        """Converts a mass of 100LL gas to volume (kg to litres).
-        """
+        """Converts a mass of 100LL gas to volume (kg to litres)."""
         assert m > 0
         return m / 0.72
 
@@ -418,8 +417,7 @@ class WeightBalance:
 
     @property
     def fuel(self):
-        """Fuel quantity in litres.
-        """
+        """Fuel quantity in litres."""
         return self._fuel
 
     @fuel.setter
@@ -430,8 +428,7 @@ class WeightBalance:
 
     @property
     def fuel_mass(self):
-        """Fuel quantity in kg.
-        """
+        """Fuel quantity in kg."""
         return self._fuel_mass
 
     @fuel_mass.setter
@@ -443,8 +440,7 @@ class WeightBalance:
 
     @property
     def fuel_gauge(self):
-        """Fuel gauge indicator in fourths with step of .5.
-        """
+        """Fuel gauge indicator in fourths with step of .5."""
         return self._fuel_gauge
 
     @fuel_gauge.setter
@@ -461,8 +457,7 @@ class WeightBalance:
 
     @property
     def auxfuel(self):
-        """Auxiliary fuel in litres.
-        """
+        """Auxiliary fuel in litres."""
         return self._auxfuel
 
     @auxfuel.setter
@@ -481,8 +476,7 @@ class WeightBalance:
 
     @property
     def auxfuel_mass(self):
-        """Auxiliary fuel in kg.
-        """
+        """Auxiliary fuel in kg."""
         return self._auxfuel_mass
 
     @auxfuel_mass.setter
@@ -502,8 +496,7 @@ class WeightBalance:
 
     @property
     def auxfuel_gauge(self):
-        """Auxiliary fuel gauge indicator in fourths with step of .5.
-        """
+        """Auxiliary fuel gauge indicator in fourths with step of .5."""
         return self._auxfuel_gauge
 
     @auxfuel_gauge.setter

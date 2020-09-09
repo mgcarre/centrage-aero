@@ -19,6 +19,7 @@ import numpy as np
 from bs4 import BeautifulSoup
 import requests
 
+
 class FlightLog:
     """Returns a flight log from aerogest web site as a pandas dataframe.
     The class also provides different aggregations of the data.
@@ -44,8 +45,10 @@ class FlightLog:
         """
         user = self.user
 
-        POSTLOGINURL = ("http://www.aerogest-reservation.com/connection/"
-                        "logon?aeroclub=aeroclub_camargue")
+        POSTLOGINURL = (
+            "http://www.aerogest-reservation.com/connection/"
+            "logon?aeroclub=aeroclub_camargue"
+        )
         REQUESTURL = "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
         payload = {
             "aeroclub": "aeroclub_camargue",
@@ -88,8 +91,7 @@ class FlightLog:
 
     @staticmethod
     def heures(s):
-        """Pretty display of hours
-        """
+        """Pretty display of hours"""
         a = int(np.sum(s) / np.timedelta64(1, "h"))
         b = int(
             60
@@ -125,7 +127,10 @@ class FlightLog:
                     self.logbook.rename(columns={"Date": "Vols"}),
                     index=[col],
                     values=["Vols", "Heures"],
-                    aggfunc={"Vols": "count", "Heures": self.heures,},
+                    aggfunc={
+                        "Vols": "count",
+                        "Heures": self.heures,
+                    },
                     margins=True,
                     margins_name="Total",
                 )
@@ -149,7 +154,10 @@ class FlightLog:
             df.rename(columns={"Date": "Vols"}),
             index=["Type"],
             values=["Vols", "Heures"],
-            aggfunc={"Vols": "count", "Heures": self.heures,},
+            aggfunc={
+                "Vols": "count",
+                "Heures": self.heures,
+            },
             margins=True,
             margins_name="Total",
         )

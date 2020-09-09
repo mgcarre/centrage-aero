@@ -21,8 +21,8 @@ from .planes import WeightBalance
 
 
 class PrepflightForm(FlaskForm):
-    """Form
-    """
+    """Form"""
+
     # Get plane list from the planes data
     # jinja expects a string and not a dict
     planes_file = Path(__file__).parent / "data/planes.yaml"

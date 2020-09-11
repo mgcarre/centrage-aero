@@ -118,7 +118,7 @@ class WeightBalance:
         auxfuel=None,
         auxfuel_mass=None,
         auxfuel_gauge=None,
-        **kwargs,
+        **_kwargs,
     ):
         planes = self.__class__._planes
         if callsign not in planes.keys():
@@ -182,8 +182,13 @@ class WeightBalance:
             self._auxfuel_gauge = 0
         self.is_ready_to_fly = True
         self.reasons = []
-        # Need to initialize computed properties
-        _ = self.auw, self.cg, self.moment
+
+        # Initialize computed properties
+        self._auw = 0
+        self._moment = 0
+        self._cg = 0
+        # Needed to have attributes instantiated right away
+        _ = self.auw, self.moment, self.cg
 
     def __repr__(self):
         keylist = [
@@ -281,8 +286,8 @@ class WeightBalance:
             + self.pax3  # Back row
             + self.baggage  # Baggage row
             + self.fuel_mass  # Main fuel tank
-            + self.auxfuel_mass
-        )  # Auxiliary fuel tank
+            + self.auxfuel_mass  # Auxiliary fuel tank
+        )
         if self._auw > self.mtow:
             self.is_ready_to_fly = False
             logging.error(reason)
@@ -592,7 +597,7 @@ class PlanePerf:
             QNH in mbar.
     """
 
-    def __init__(self, planetype, auw, altitude, temperature, qnh, **kwargs):
+    def __init__(self, planetype, auw, altitude, temperature, qnh, **_kwargs):
 
         self.planetype = str(planetype)
         self.auw = float(auw)
@@ -731,7 +736,7 @@ class PlanePerf:
         Ktemp = self.temperature + 273
         # Convert altitude in Zp
         Zp = self.pressure_altitude(self.altitude, self.qnh)
-        Zd = self.density_altitude(self.altitude, self.temperature, self.qnh)
+        # Zd = self.density_altitude(self.altitude, self.temperature, self.qnh)
 
         distance = model.predict([[Zp, Ktemp, self.auw]])
         # Applying coefficient for head wind

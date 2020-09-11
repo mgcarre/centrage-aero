@@ -2,8 +2,9 @@ db.sqlite
 __pycache__
 .pytest_cache
 *.pyc
-venv
-.vscode
+venv/
+.vscode/
 .coverage
+*.egg-info/
 coverage.xml
-*.egg-info
+report.xml

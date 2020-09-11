@@ -5,3 +5,5 @@ app.yaml
 .git
 .gitignore
 .gcloudignore
+*/.pytest_cache
+*/.coverage

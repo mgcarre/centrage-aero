@@ -3,8 +3,10 @@
 """End to end tests.
 """
 
+import os
 import unittest
 import prepavol
+import prepavol.planes as planes
 
 
 class WebAppTestCase(unittest.TestCase):
@@ -12,9 +14,10 @@ class WebAppTestCase(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(WebAppTestCase, self).__init__(*args, **kwargs)
-        self.plane = prepavol.planes.WeightBalance("FHAAC")
+        self.plane = planes.WeightBalance("FHAAC")
 
     def setUp(self):
+        os.environ["FLASK_ENV"] = "testing"
         app = prepavol.create_app()
         app.testing = True
         app.config["WTF_CSRF_ENABLED"] = False

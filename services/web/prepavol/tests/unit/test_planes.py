@@ -36,6 +36,12 @@ class WeightBalanceTestCase(unittest.TestCase):
         _ = self.plane.cg
         self.assertFalse(self.plane.is_ready_to_fly)
 
+    def test_plot_balance(self):
+        """Test the plot_balance method"""
+        self.plane.pax0 = 100
+        self.plane.fuel_gauge = 4
+        self.assertTrue(self.plane.plot_balance(encode=True))
+
 
 class PlanePerfTestCase(unittest.TestCase):
     """Unit tests of PlanePerf"""
@@ -64,6 +70,10 @@ class PlanePerfTestCase(unittest.TestCase):
     def test_planeperf_landing_prediction(self):
         """Validate landing distance prediction"""
         self.assertIsInstance(self.planeperf.predict("landing"), pandas.DataFrame)
+
+    def test_plot_performance(self):
+        """Test plot_performance method"""
+        self.assertTrue(self.planeperf.plot_performance("takeoff", encode=True))
 
 
 if __name__ == "__main__":

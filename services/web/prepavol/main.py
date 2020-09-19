@@ -8,6 +8,8 @@ from pathlib import Path
 import logging
 import urllib
 from datetime import datetime, timezone
+import jsonpickle
+import pandas as pd
 import yaml
 
 from flask import (
@@ -28,32 +30,44 @@ from .forms import PrepflightForm
 
 main = Blueprint("main", __name__)
 
-# Global variables
-pilot = None
-flightlog = None
-logbook = None
 
+def get_aerogest_data(current_data):
+    """Retrieves flight log data from aerogest.
+    It detects a change of aerogest user to refresh the data
+    or returns the current data if no change.
 
-def get_aero():
-    """Retrieves flight log data from aerogest"""
-    global pilot, flightlog, logbook
+    Stores a new dictionary in session variable aerogest_data:
+    - pilot: dictionary of username/password
+    - flightlog: serialized instance of FlightLog class
 
-    if pilot:
-        if pilot["username"] != session["username"]:
-            pilot = None
+    Adds session variable is_logged from FlightLog is_logged attribute.
+    """
 
-    if not pilot or not flightlog:
-        logging.info("CALLING AEROGEST AGAIN")
-        pilot = {"username": session["username"], "password": session["password"]}
-        flightlog = FlightLog(pilot)
-        logbook = flightlog.logbook
+    if not current_data:
+        # Initializing a dict of aerogest data
+        # (pilot and flightlog)
+        current_data = {}
+        session["aerogest_data"] = {}
+
+    if current_data == {} or current_data["pilot"]["username"] != session["username"]:
+        new_data = {}
+        logging.info("Calling aerogest")
+        new_data["pilot"] = {
+            "username": session["username"],
+            "password": session["password"],
+        }
+        flightlog = FlightLog(new_data["pilot"], log_format="json")
+        # Serialize the instance of FlightLog
+        new_data["flightlog"] = jsonpickle.encode(flightlog)
+
+        session["aerogest_data"] = new_data
+        session["is_logged"] = flightlog.is_logged
 
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
     """Login to aerogest web site"""
-    print(request.referrer)
-    if "username" in session.keys():
+    if session.get("is_logged"):
         flash("Already logged in.")
         return redirect(url_for("main.profile"))
         # return redirect(request.referrer)
@@ -65,6 +79,12 @@ def login():
         session["username"] = username
         session["password"] = password
 
+        get_aerogest_data(session.get("aerogest_data"))
+
+        if not session.get("is_logged"):
+            flash("Wrong username or password")
+            return redirect(url_for("main.login"))
+
         return redirect(url_for("main.profile"))
 
     return render_template(("login.html"))
@@ -75,9 +95,6 @@ def logout():
     """Logout from aerogest"""
     if "username" in session.keys():
         session.clear()
-    pilot = None
-    flightlog = None
-    logbook = None
     return redirect(url_for("main.prepflight"))
 
 
@@ -94,10 +111,17 @@ def favicon():
 @main.route("/profile")
 def profile():
     """Displays aerogest log book"""
-    if "username" not in session.keys():
+
+    # Gets back to login page if first time or aerogest login failed
+    if "username" not in session.keys() or not session.get("is_logged"):
+        logging.warning("User %s not logged", session.get("username"))
         return redirect(url_for("main.login"))
 
-    get_aero()
+    get_aerogest_data(session.get("aerogest_data"))
+
+    # Otherwise display logbook
+    flightlog = jsonpickle.decode(session.get("aerogest_data")["flightlog"])
+    logbook = pd.read_json(flightlog.logbook, convert_dates=False)
     return render_template(
         "profile.html", name=session["username"], dataframe=logbook.to_html(index=None)
     )
@@ -117,15 +141,21 @@ def stats():
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
-    get_aero()
+    get_aerogest_data(session.get("aerogest_data"))
+
+    # Deserialize the instance of FlightLog
+    flightlog = jsonpickle.decode(session.get("aerogest_data")["flightlog"])
+
     flightstats = flightlog.log_agg()
-    last_quarter = flightlog.last_quarter().to_html(index=True)
     flightstats_html = [k.to_html(index=True) for k in flightstats]
+
+    last_quarter_html = flightlog.last_quarter().to_html()
+
     return render_template(
         "stats.html",
         name=session["username"],
         dataframes=flightstats_html,
-        last_quarter=last_quarter,
+        last_quarter=last_quarter_html,
     )
 
 
@@ -188,7 +218,6 @@ def prepflight():
                 landing=urllib.parse.quote(ldng_img),
             )
 
-        else:
-            logging.error(form.errors)
+        logging.error(form.errors)
 
     return render_template("prepflight.html", form=form)

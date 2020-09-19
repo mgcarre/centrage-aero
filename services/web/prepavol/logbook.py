@@ -3,15 +3,6 @@
 """Extraction of aerogest data and aggregations.
 """
 
-__author__ = "Yannick Teresiak"
-__copyright__ = "Copyright 2020, Prepavol"
-__credits__ = ["Yannick Teresiak"]
-__license__ = None
-__version__ = "1.1.0"
-__maintainer__ = "Yannick Teresiak"
-__email__ = "yannick.teresiak@gmail.com"
-__status__ = "Production"
-
 from datetime import datetime
 import getpass
 import pandas as pd
@@ -26,14 +17,16 @@ class FlightLog:
 
     Args:
         user (dictionary): Aerogest username and password
+        log_format (string): 'json' returns logbook as a json string. None returns a dataframe.
 
     Attributes:
         is_logged (boolean): if data retrieval from web site was OK
-        logbook (dataframe): the flight log
+        logbook (dataframe): the flight log. Return as json string if log_format is used.
     """
 
-    def __init__(self, user):
+    def __init__(self, user, log_format=None):
         self.user = user
+        self.format = log_format
         self.is_logged = False
         self.logbook = self.get_log()
 
@@ -43,35 +36,36 @@ class FlightLog:
         Returns:
             logbook (pandas dataframe): flight log
         """
-        user = self.user
 
-        POSTLOGINURL = (
+        post_login_url = (
             "http://www.aerogest-reservation.com/connection/"
             "logon?aeroclub=aeroclub_camargue"
         )
-        REQUESTURL = "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
+        request_login_url = (
+            "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
+        )
         payload = {
             "aeroclub": "aeroclub_camargue",
-            "login": user["username"],
-            "pass": user["password"],
+            "login": self.user["username"],
+            "pass": self.user["password"],
             "conserverconnexion": "true",
         }
 
         with requests.Session() as session:
             try:
-                _ = session.post(POSTLOGINURL, data=payload)
-                r = session.get(REQUESTURL)
+                _ = session.post(post_login_url, data=payload)
+                response = session.get(request_login_url)
             except requests.RequestException:
                 return None
         # If logged in, should be able to find specific div
         lookfor = {"class": "divMonCarnetDeVols"}
-        soup = BeautifulSoup(r.content, features="lxml")
+        soup = BeautifulSoup(response.content, features="lxml")
         self.is_logged = soup.find("div", lookfor) is not None
         if not self.is_logged:
             return None
 
         logbook = pd.read_html(
-            r.content,
+            response.content,
             attrs={"class": "classTableVols"},
             header=1,
             encoding="utf-8",
@@ -79,25 +73,29 @@ class FlightLog:
         )[0]
         logbook = logbook.iloc[:-1, :]
 
-        logbook["Temps (hh:mm)"] = logbook["Temps (hh:mm)"].apply(
-            lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000"
-        )
-        logbook["Temps (hh:mm)"] = pd.to_timedelta(logbook["Temps (hh:mm)"])
         logbook.rename(columns={"Temps (hh:mm)": "Heures"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR400$": "DR400-140B"}, inplace=True)
         logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
 
-        return logbook  # .style.set_table_styles(htmlstyle).render()
+        if self.format == "json":
+            return logbook.to_json()
+
+        return logbook
 
     @staticmethod
-    def heures(s):
-        """Pretty display of hours"""
-        a = int(np.sum(s) / np.timedelta64(1, "h"))
-        b = int(
+    def heures(series):
+        """Pretty display of summed hours"""
+        series = series.apply(lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000")
+        flighthours = pd.to_timedelta(series)
+        hours = int(np.sum(flighthours) / np.timedelta64(1, "h"))
+        minutes = int(
             60
-            * (np.sum(s) / np.timedelta64(1, "h") - np.sum(s) // np.timedelta64(1, "h"))
+            * (
+                np.sum(flighthours) / np.timedelta64(1, "h")
+                - np.sum(flighthours) // np.timedelta64(1, "h")
+            )
         )
-        return f"{a}h{b:02}"
+        return f"{hours:02}h{minutes:02}"
 
     def log_agg(self, columns=None):
         """Returns a list of aggregations of the flight log.
@@ -109,7 +107,13 @@ class FlightLog:
         Returns:
             [list]: list of pivoted dataframes.
         """
-        if not isinstance(self.logbook, pd.DataFrame):
+        # Required to kind of deserialize the logbook - used in Flask
+        if self.format == "json":
+            logbook = pd.read_json(self.logbook, convert_dates=False)
+        else:
+            logbook = self.logbook
+
+        if not isinstance(logbook, pd.DataFrame):
             return [pd.DataFrame()]
 
         if not columns:
@@ -124,7 +128,7 @@ class FlightLog:
         for col in columns:
             tables.append(
                 pd.pivot_table(
-                    self.logbook.rename(columns={"Date": "Vols"}),
+                    logbook.rename(columns={"Date": "Vols"}),
                     index=[col],
                     values=["Vols", "Heures"],
                     aggfunc={
@@ -143,15 +147,21 @@ class FlightLog:
         Returns:
             [dataframe]: last three months of flight log aggregated.
         """
-        if not isinstance(self.logbook, pd.DataFrame):
+        # Required to kind of deserialize the logbook - used in Flask
+        if self.format == "json":
+            logbook = pd.read_json(self.logbook, convert_dates=False)
+        else:
+            logbook = self.logbook
+
+        if not isinstance(logbook, pd.DataFrame):
             return pd.DataFrame()
 
-        quarter_index = pd.to_datetime(self.logbook["Date"], format="%d/%m/%Y") >= (
+        quarter_index = pd.to_datetime(logbook["Date"], format="%d/%m/%Y") >= (
             datetime.now().date() - pd.offsets.DateOffset(months=3)
         )
-        df = self.logbook[quarter_index]
+        df_quarter = logbook[quarter_index]
         pivot_df = pd.pivot_table(
-            df.rename(columns={"Date": "Vols"}),
+            df_quarter.rename(columns={"Date": "Vols"}),
             index=["Type"],
             values=["Vols", "Heures"],
             aggfunc={

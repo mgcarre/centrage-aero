@@ -6,6 +6,7 @@ chardet==3.0.4
 click==7.1.2
 cycler==0.10.0
 Flask==1.1.2
+Flask-Session==0.3.2
 Flask-WTF==0.14.3
 gunicorn==20.0.4
 html5lib==1.1
@@ -15,6 +16,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 joblib==0.15.1
 jsonlib-python3==1.6.1
+jsonpickle==1.4.1
 kiwisolver==1.2.0
 lazy-object-proxy==1.4.3
 lxml==4.5.0

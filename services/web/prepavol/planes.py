@@ -7,15 +7,6 @@ The module includes a class for weight and balance preparation
 and a class for performance predictions.
 """
 
-__author__ = "Yannick Teresiak"
-__copyright__ = "Copyright 2020, Prepavol"
-__credits__ = ["Yannick Teresiak"]
-__license__ = None
-__version__ = "1.1.0"
-__maintainer__ = "Yannick Teresiak"
-__email__ = "yannick.teresiak@gmail.com"
-__status__ = "Production"
-
 from pathlib import Path
 from base64 import b64encode
 import logging
@@ -215,60 +206,66 @@ class WeightBalance:
         parameters = ", ".join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
         return f"{self.__class__.__name__}({parameters})"
 
-    def _volume_to_mass(self, v):
-        """Converts a volume of 100LL gas to mass (litres to kg)."""
-        assert v >= 0
-        return v * 0.72
+    @staticmethod
+    def _volume_to_mass(volume):
+        """Converts a volume of fuel to mass (litres to kg)."""
+        assert volume >= 0
+        return volume * 0.72
 
-    def _mass_to_volume(self, m):
-        """Converts a mass of 100LL gas to volume (kg to litres)."""
-        assert m > 0
-        return m / 0.72
+    @staticmethod
+    def _mass_to_volume(mass):
+        """Converts a mass of fuel to volume (kg to litres)."""
+        assert mass > 0
+        return mass / 0.72
 
-    def _volume_to_gauge(self, v, tank):
+    @staticmethod
+    def _volume_to_gauge(volume, tank):
         """Converts a volume of fuel to gauge indication (4 fourths)
         knowing the volume of the tank.
 
         Arguments:
-            v (int): litres.
+            volume (int): litres.
             tank (int): the tank's capacity.
         """
-        assert v >= 0
-        return v / tank * 4
+        assert volume >= 0
+        return volume / tank * 4
 
-    def _mass_to_gauge(self, m, tank):
+    @staticmethod
+    def _mass_to_gauge(mass, tank):
         """Converts a mass of fuel to gauge indication (4 fourths)
         knowing the volume of the tank.
 
         Arguments:
-            m (int): kg.
+            mass (int): kg.
             tank (int): the tank's capacity.
         """
-        assert m >= 0
-        volume = self._mass_to_volume(m)
-        return self._volume_to_gauge(volume, tank)
+        assert mass >= 0
+        volume = WeightBalance._mass_to_volume(mass)
+        return WeightBalance._volume_to_gauge(volume, tank)
 
-    def _gauge_to_volume(self, g, tank):
+    @staticmethod
+    def _gauge_to_volume(gauge, tank):
         """Converts a gauge indication to a volume of fuel
         knowing the volume of the tank
 
         Arguments:
-            g (float): gauge indication in fourths by step of .5.
+            gauge (float): gauge indication in fourths by step of .5.
             tank (int): the tank's capacity.
         """
-        assert 0 <= g <= 4
-        return g * tank / 4
+        assert gauge in np.arange(0, 4.5, 0.5)
+        return gauge * tank / 4
 
-    def _gauge_to_mass(self, g, tank):
+    @staticmethod
+    def _gauge_to_mass(gauge, tank):
         """Converts a gauge indication to a mass of 100LL gas
         knowing the volume of the tank.
 
         Arguments:
-            g (float): gauge indication in fourths by step of .5.
+            gauge (float): gauge indication in fourths by step of .5.
             tank (int): the tank's capacity.
         """
-        assert 0 <= g <= 4
-        return g * tank / 4 * 0.72
+        assert 0 <= gauge <= 4
+        return gauge * tank / 4 * 0.72
 
     @property
     def auw(self):
@@ -551,22 +548,22 @@ class WeightBalance:
         no_fuel_plane.auxfuel = 0
 
         fig = plt.figure()
-        ax = plt.gca()
-        ax.plot(*polygon.exterior.xy, c="b")
+        axis = plt.gca()
+        axis.plot(*polygon.exterior.xy, c="b")
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        ax.set_title(f"centrage de {self.callsign} - {date}")
+        axis.set_title(f"centrage de {self.callsign} - {date}")
         # Start and no fuel points
-        ax.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
-        ax.plot([self.cg], [self.auw], "ro", markerfacecolor="w", markersize=12)
-        ax.plot(
+        axis.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
+        axis.plot([self.cg], [self.auw], "ro", markerfacecolor="w", markersize=12)
+        axis.plot(
             [no_fuel_plane.cg],
             [no_fuel_plane.auw],
             "r^",
             markerfacecolor="w",
             markersize=12,
         )
-        ax.set_xlabel("m", fontsize=12)
-        ax.set_ylabel("kg", fontsize=12)
+        axis.set_xlabel("m", fontsize=12)
+        axis.set_ylabel("kg", fontsize=12)
         plt.tight_layout()
 
         if encode:
@@ -576,8 +573,8 @@ class WeightBalance:
             figdata = b64encode(png.getvalue()).decode("ascii")
             plt.close(fig)
             return figdata
-        else:
-            _ = plt.show()
+
+        _ = plt.show()
 
 
 class PlanePerf:
@@ -611,7 +608,8 @@ class PlanePerf:
                 auw={self.auw}, altitude={self.altitude},
                 temperature={self.temperature}, qnh={self.qnh})"""
 
-    def pressure_altitude(self, elevation, qnh):
+    @staticmethod
+    def pressure_altitude(elevation, qnh):
         """Computes the pressure altitude from a ground elevation
         and the QNH.
 
@@ -629,9 +627,10 @@ class PlanePerf:
     @property
     def Zp(self):
         """Pressure altitude in feet"""
-        return self.pressure_altitude(self.altitude, self.qnh)
+        return PlanePerf.pressure_altitude(self.altitude, self.qnh)
 
-    def density_altitude(self, elevation, temperature, qnh):
+    @staticmethod
+    def density_altitude(elevation, temperature, qnh):
         """Computes the densisty altitude given an elevation,
         an outside air temperature and the QNH.
 
@@ -646,13 +645,13 @@ class PlanePerf:
         Returns:
             float: density altitude.
         """
-        Zp = self.pressure_altitude(elevation, qnh)
+        Zp = PlanePerf.pressure_altitude(elevation, qnh)
         return 1.2376 * Zp + 118.8 * temperature - 1782
 
     @property
     def Zd(self):
         """Density altitude in feet"""
-        return self.density_altitude(self.altitude, self.temperature, self.qnh)
+        return PlanePerf.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
         """Returns the raw performance data for the given type of plane
@@ -661,9 +660,9 @@ class PlanePerf:
         input_file = Path(__file__).parent / "data" / (self.planetype + "_takeoff.csv")
         try:
             tkoff = pd.read_csv(input_file, sep="\t", header=0)
-        except Exception as e:
+        except Exception as exception:
             logging.error("file %s does not exist or is not readable.", input_file)
-            logging.error(e)
+            logging.error(exception)
             raise
 
         tkoff = tkoff.melt(id_vars=["alt", "temp"], var_name="mass", value_name="m")
@@ -678,9 +677,9 @@ class PlanePerf:
         input_file = Path(__file__).parent / "data" / (self.planetype + "_landing.csv")
         try:
             ldng = pd.read_csv(input_file, sep="\t", header=0)
-        except Exception as e:
+        except Exception as exception:
             logging.error("file %s does not exist or is not readable.", input_file)
-            logging.error(e)
+            logging.error(exception)
             raise
 
         ldng = pd.read_csv(input_file, sep="\t", header=0)
@@ -744,18 +743,20 @@ class PlanePerf:
             asphalt = np.around(distance * np.array([[1, 0.85, 0.65, 0.55]]))
         else:
             asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
-        df = pd.DataFrame(asphalt, columns=["0kn", "10kn", "20kn", "30kn"])
+        df_distance = pd.DataFrame(asphalt, columns=["0kn", "10kn", "20kn", "30kn"])
         # Applying coefficient for grass runway
-        df = df.append(df.iloc[0].apply(lambda x: round(x * 1.15))).astype("int")
-        df.index = ["dur", "herbe"]
-        df.columns.name = "Ve"
+        df_distance = df_distance.append(
+            df_distance.iloc[0].apply(lambda x: round(x * 1.15))
+        ).astype("int")
+        df_distance.index = ["dur", "herbe"]
+        df_distance.columns.name = "Ve"
         # title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
         # print(
         # f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft
         # \n{self.temperature}°C\n{self.auw}kg\n"
         # )
 
-        return df
+        return df_distance
 
     def plot_performance(self, operation, encode=False):
         """Plots a contour graph of the takeoff or landing performance
@@ -773,11 +774,11 @@ class PlanePerf:
         model = self.make_model(operation)
 
         # Number of zones in the contour graph
-        N = 10
+        n_zones = 10
 
         # Make a mesh grid of altitudes and temperatures
         predict_a, predict_t = np.meshgrid(
-            np.linspace(0, 10000, N), np.linspace(243, 323, N)
+            np.linspace(0, 10000, n_zones), np.linspace(243, 323, n_zones)
         )
         predict_x = np.concatenate(
             (
@@ -791,8 +792,8 @@ class PlanePerf:
         predict_y = model.steps[1][1].predict(predict_x_)
 
         fig = plt.figure(figsize=(12, 10))
-        ax = plt.gca()
-        cs = ax.contourf(
+        axis = plt.gca()
+        contours = axis.contourf(
             predict_a,
             predict_t - 273,
             predict_y.reshape(predict_a.shape),
@@ -801,13 +802,13 @@ class PlanePerf:
             alpha=0.6,
         )
         title = {"takeoff": "décollage", "landing": "atterrissage"}
-        ax.set_title(f"{title[operation]} (15m) à {self.auw:.2f}kg", size=26)
-        ax.contour(cs, colors="k")
-        cbar = fig.colorbar(cs, ax=ax)
-        ax.set_xlabel("Zp (ft)", size=24)
+        axis.set_title(f"{title[operation]} (15m) à {self.auw:.2f}kg", size=26)
+        axis.contour(contours, colors="k")
+        cbar = fig.colorbar(contours, ax=axis)
+        axis.set_xlabel("Zp (ft)", size=24)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
-        ax.set_ylabel("°C", size=24)
+        axis.set_ylabel("°C", size=24)
         cbar.ax.set_ylabel("mètres", rotation=270, size=24, labelpad=20)
         cbar.ax.tick_params(labelsize=20)
         fig.patch.set_alpha(1)
@@ -820,5 +821,5 @@ class PlanePerf:
             figdata = b64encode(png.getvalue()).decode("ascii")
             plt.close(fig)
             return figdata
-        else:
-            _ = plt.show()
+
+        _ = plt.show()

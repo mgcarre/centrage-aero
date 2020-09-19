@@ -9,3 +9,22 @@ testpaths = [
 ]
 junit_family = "xunit2"
 doctest_encoding = "UTF-8"
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.vscode
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

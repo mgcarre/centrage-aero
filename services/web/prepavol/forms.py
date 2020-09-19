@@ -2,15 +2,6 @@
 """Flaskform
 """
 
-__author__ = "Yannick Teresiak"
-__copyright__ = "Copyright 2020, Prepavol"
-__credits__ = ["Yannick Teresiak"]
-__license__ = None
-__version__ = "1.0.0"
-__maintainer__ = "Yannick Teresiak"
-__email__ = "yannick.teresiak@gmail.com"
-__status__ = "Production"
-
 from pathlib import Path
 import json
 import yaml
@@ -53,22 +44,37 @@ class PrepflightForm(FlaskForm):
     # Front row
     pax_weight_choices = list(zip(pax_weight_range, pax_weight_range))
     pax0 = SelectField(
-        "pax0", coerce=int, validators=[DataRequired()], choices=pax_weight_choices
+        "pax0",
+        coerce=int,
+        validators=[DataRequired()],
+        choices=pax_weight_choices,
     )
     pax1 = SelectField(
-        "pax1", coerce=int, validators=[InputRequired()], choices=pax_weight_choices
+        "pax1",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=pax_weight_choices,
     )
     # Rear row
     pax2 = SelectField(
-        "pax2", coerce=int, validators=[InputRequired()], choices=pax_weight_choices
+        "pax2",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=pax_weight_choices,
     )
     pax3 = SelectField(
-        "pax3", coerce=int, validators=[InputRequired()], choices=pax_weight_choices
+        "pax3",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=pax_weight_choices,
     )
     # Baggage
     baggage_choices = list(zip(baggage_weight_range, baggage_weight_range))
     baggage = SelectField(
-        "baggage", coerce=int, validators=[InputRequired()], choices=baggage_choices
+        "baggage",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=baggage_choices,
     )
     # Fuel
     fuel_gauge_choices = list(zip(fuel_gauge_range, fuel_gauge_range))
@@ -90,10 +96,16 @@ class PrepflightForm(FlaskForm):
     # Performances
     altitude_choices = list(zip(altitude_range, altitude_range))
     tkalt = SelectField(
-        "alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices
+        "alt (ft)",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=altitude_choices,
     )
     ldalt = SelectField(
-        "alt (ft)", coerce=int, validators=[InputRequired()], choices=altitude_choices
+        "alt (ft)",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=altitude_choices,
     )
 
     temperature_choices = list(zip(temperature_range, temperature_range))

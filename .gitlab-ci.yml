@@ -17,14 +17,14 @@ docker-build:
   stage: build Docker image and push to Docker Hub
   needs: ["tests"]
   before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-     - ls -Rl
-     - docker pull $CI_REGISTRY_IMAGE:latest || true
-     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest -f ./services/web/Dockerfile.prod ./services/web
-     - docker images
-     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-     - docker push $CI_REGISTRY_IMAGE:latest
+    - ls -Rl
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest -f ./services/web/Dockerfile.prod ./services/web
+    - docker images
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
   only:
     - master
 
@@ -32,12 +32,12 @@ tests:
   image: python:3.7
   stage: test
   script:
-  - pwd
-  - ls -l
-  - apt-get update -qy
-  - pip install -r services/web/requirements.txt
-  - cd services/web
-  - python -m pytest -v --cov prepavol --cov-report xml --junitxml=report.xml
+    - pwd
+    - ls -l
+    - apt-get update -qy
+    - pip install -r services/web/requirements.txt
+    - cd services/web
+    - python -m pytest -v --cov prepavol --cov-report term --cov-report xml --junitxml=report.xml
   artifacts:
     reports:
       junit: services/web/report.xml

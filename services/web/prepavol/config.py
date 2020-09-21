@@ -37,3 +37,4 @@ class TestingConfig(Config):
     """App testing config"""
 
     TESTING = True
+    STATIC_FOLDER = "static"

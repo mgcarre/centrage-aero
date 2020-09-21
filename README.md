@@ -71,11 +71,22 @@ docker-compose -f docker-compose.prod.yaml -f docker-compose.gcp.yaml up -d --bu
 ## Single container with gunicorn for Cloud Run
 
 ```bash
+docker pull yayadock/prepavol_web:latest
 docker build -f services/web/Dockerfile.prod services/web
 docker tag ${CI_COMMIT_SHA} yayadock/prepavol_web
+docker tag latest yayadock/prepavol_web
 docker tag ${CI_COMMIT_SHA} eu.gcr.io/able-cogency-278718/prepavol_web
 docker push eu.gcr.io/able-cogency-278718/prepavol_web
 ```
+
+## Usage with the docker image
+
+```bash
+docker pull yayadock/prepavol_web:latest
+docker run -p 5000:5000 -d yayadock/prepavol_web
+```
+
+Then browse http://0.0.0.0:5000
 
 ## Run tests in docker container
 

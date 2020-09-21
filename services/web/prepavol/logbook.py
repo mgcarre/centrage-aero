@@ -62,7 +62,24 @@ class FlightLog:
         soup = BeautifulSoup(response.content, features="lxml")
         self.is_logged = soup.find("div", lookfor) is not None
         if not self.is_logged:
-            return None
+            logbook = pd.DataFrame(
+                columns=[
+                    "Date",
+                    "H.Départ",
+                    "H.Retour",
+                    "Type",
+                    "Immat",
+                    "Vol",
+                    "Départ",
+                    "Arrivée",
+                    "Type de vol",
+                    "Mode",
+                    "Heures",
+                ]
+            )
+            if self.format == "json":
+                logbook = logbook.to_json()
+            return logbook
 
         logbook = pd.read_html(
             response.content,
@@ -85,6 +102,9 @@ class FlightLog:
     @staticmethod
     def heures(series):
         """Pretty display of summed hours"""
+        if series.empty:
+            return "00h00"
+
         series = series.apply(lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000")
         flighthours = pd.to_timedelta(series)
         hours = int(np.sum(flighthours) / np.timedelta64(1, "h"))

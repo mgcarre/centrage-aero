@@ -7,3 +7,4 @@ app.yaml
 .gcloudignore
 */.pytest_cache
 */.coverage
+*/.mypy_cache

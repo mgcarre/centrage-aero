@@ -6,6 +6,7 @@
 import unittest
 from unittest import mock
 import pandas as pd
+import pytest
 from prepavol.logbook import FlightLog
 
 
@@ -70,6 +71,7 @@ class LogBookTestCase(unittest.TestCase):
             test_data = test_data.to_json()
         return test_data
 
+    @pytest.mark.timeout(60)
     def test_failed_login_and_log_format(self):
         """Test a failed login to aerogest"""
         instance = FlightLog({"username": "any", "password": "some"}, log_format="json")

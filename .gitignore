@@ -8,3 +8,4 @@ venv/
 *.egg-info/
 coverage.xml
 report.xml
+.mypy_cache

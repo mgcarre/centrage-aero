@@ -36,8 +36,7 @@ tests:
     - ls -l
     - apt-get update -qy
     - pip install -r services/web/requirements.txt
-    - cd services/web
-    - export PYTHONPATH="$PYTHONPATH:."
+    - cd services/web/prepavol
     - python -m pytest -v --cov prepavol --cov-report term --cov-report xml --junitxml=report.xml
   artifacts:
     reports:

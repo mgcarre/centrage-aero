@@ -1,0 +1,6 @@
+graft prepavol/static
+graft prepavol/templates
+graft prepavol/data
+graft tests
+global-exclude *.py[cod]
+include COPYING

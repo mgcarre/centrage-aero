@@ -1,16 +1,13 @@
 # *_* coding: utf-8 *_*
 
-"""Flask views
-"""
+"""Flask views."""
 
 import os
-from pathlib import Path
 import logging
 import urllib
 from datetime import datetime, timezone
 import jsonpickle
 import pandas as pd
-import yaml
 
 from flask import (
     Blueprint,
@@ -32,7 +29,8 @@ main = Blueprint("main", __name__)
 
 
 def get_aerogest_data(current_data):
-    """Retrieves flight log data from aerogest.
+    """Retrieve flight log data from aerogest.
+
     It detects a change of aerogest user to refresh the data
     or returns the current data if no change.
 
@@ -42,7 +40,6 @@ def get_aerogest_data(current_data):
 
     Adds session variable is_logged from FlightLog is_logged attribute.
     """
-
     if not current_data:
         # Initializing a dict of aerogest data
         # (pilot and flightlog)
@@ -66,7 +63,7 @@ def get_aerogest_data(current_data):
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
-    """Login to aerogest web site"""
+    """Login to aerogest web site."""
     if session.get("is_logged"):
         flash("Already logged in.")
         return redirect(url_for("main.profile"))
@@ -92,7 +89,7 @@ def login():
 
 @main.route("/logout")
 def logout():
-    """Logout from aerogest"""
+    """Logout from aerogest."""
     if "username" in session.keys():
         session.clear()
     return redirect(url_for("main.prepflight"))
@@ -100,7 +97,7 @@ def logout():
 
 @main.route("/favicon.ico")
 def favicon():
-    """Defines static path for site favicon"""
+    """Define static path for site favicon."""
     return send_from_directory(
         os.path.join(main.root_path, current_app.config["STATIC_FOLDER"]),
         "favicon.ico",
@@ -110,8 +107,7 @@ def favicon():
 
 @main.route("/profile")
 def profile():
-    """Displays aerogest log book"""
-
+    """Display aerogest log book."""
     # Gets back to login page if first time or aerogest login failed
     if "username" not in session.keys() or not session.get("is_logged"):
         logging.warning("User %s not logged", session.get("username"))
@@ -129,9 +125,8 @@ def profile():
 
 @main.route("/fleet")
 def fleet():
-    """Displays planes characteristics"""
-    planes_file = Path(__file__).parent / "data/planes.yaml"
-    planes = yaml.safe_load(open(planes_file, "r"))
+    """Display planes characteristics."""
+    planes = WeightBalance.load_planes_data()
     return render_template("fleet.html", data=planes)
 
 

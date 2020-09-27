@@ -8,3 +8,7 @@ app.yaml
 */.pytest_cache
 */.coverage
 */.mypy_cache
+*/dist
+*/build
+*/*.egg-info
+*/.tox

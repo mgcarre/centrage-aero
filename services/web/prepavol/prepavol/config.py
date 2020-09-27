@@ -1,7 +1,6 @@
 # *_* coding: utf-8 *_*
 
-"""Application configuration.
-"""
+"""Application configuration."""
 
 import os
 from datetime import timedelta
@@ -11,7 +10,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    """App base config"""
+    """App base config."""
 
     DEBUG = False
     TESTING = False
@@ -24,19 +23,19 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    """App dev config"""
+    """App dev config."""
 
     DEBUG = True
 
 
 class ProductionConfig(Config):
-    """App prod config"""
+    """App prod config."""
 
     SECRET_KEY = "MeRgUeZ34"
 
 
 class TestingConfig(Config):
-    """App testing config"""
+    """App testing config."""
 
     TESTING = True
     STATIC_FOLDER = "static"

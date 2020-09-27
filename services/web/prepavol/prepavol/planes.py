@@ -14,9 +14,11 @@ import copy
 from io import BytesIO
 
 import datetime
+import pkg_resources
 import pandas as pd
 import numpy as np
 import yaml
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -26,21 +28,23 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
+__all__ = ["WeightBalance", "PlanePerf"]
+
 
 class Error(Exception):
     """Base class for other exceptions."""
 
 
 class FlightValidationError(Error):
-    """Raised when a value is not set within acceptable boundaries.
-    Flight is forbidden.
-    """
+    """Raised when a value is not set within acceptable boundaries. Flight is forbidden."""
 
 
 class WeightBalance:
-    """Maintains a fleet of planes along with their characteristics
-    in order to plan flights (weight and balance) and predict takeoff
-    and landing performances.
+    """
+    Aircraft weight and balance planification.
+
+    Maintains a fleet of planes along with their characteristics in order to plan
+    flights (weight and balance) and predict takeoff and landing performances.
 
     The characteristics of the aircrafts are:
     - call_sign: call sign (id)
@@ -92,8 +96,7 @@ class WeightBalance:
         is_ready_to_fly (boolean): airworthiness with regards to the all-up weight and balance.
     """
 
-    planes_data = Path(__file__).parent / "data/planes.yaml"
-    _planes = yaml.safe_load(open(planes_data, "r"))
+    planes_data = "data/planes.yaml"
 
     def __init__(
         self,
@@ -111,7 +114,8 @@ class WeightBalance:
         auxfuel_gauge=None,
         **_kwargs,
     ):
-        planes = self.__class__._planes
+        """Init."""
+        planes = WeightBalance.load_planes_data()
         if callsign not in planes.keys():
             raise Exception(
                 f"No such call sign. Valid call signs are {', '.join(planes.keys())}"
@@ -182,6 +186,7 @@ class WeightBalance:
         _ = self.auw, self.moment, self.cg
 
     def __repr__(self):
+        """Repr."""
         keylist = [
             "callsign",
             "pax0",
@@ -207,20 +212,32 @@ class WeightBalance:
         return f"{self.__class__.__name__}({parameters})"
 
     @staticmethod
+    def load_planes_data():
+        """Load planes.yaml data into a variable.
+
+        Returns:
+            json: planes data from yaml
+        """
+        stream = pkg_resources.resource_stream(__name__, WeightBalance.planes_data)
+        return yaml.safe_load(stream)
+
+    @staticmethod
     def _volume_to_mass(volume):
-        """Converts a volume of fuel to mass (litres to kg)."""
+        """Convert a volume of fuel to mass (litres to kg)."""
         assert volume >= 0
         return volume * 0.72
 
     @staticmethod
     def _mass_to_volume(mass):
-        """Converts a mass of fuel to volume (kg to litres)."""
+        """Convert a mass of fuel to volume (kg to litres)."""
         assert mass > 0
         return mass / 0.72
 
     @staticmethod
     def _volume_to_gauge(volume, tank):
-        """Converts a volume of fuel to gauge indication (4 fourths)
+        """Volume to gauge.
+
+        Convert a volume of fuel to gauge indication (4 fourths)
         knowing the volume of the tank.
 
         Arguments:
@@ -232,7 +249,9 @@ class WeightBalance:
 
     @staticmethod
     def _mass_to_gauge(mass, tank):
-        """Converts a mass of fuel to gauge indication (4 fourths)
+        """Mass to gauge reading.
+
+        Convert a mass of fuel to gauge indication (4 fourths)
         knowing the volume of the tank.
 
         Arguments:
@@ -245,7 +264,9 @@ class WeightBalance:
 
     @staticmethod
     def _gauge_to_volume(gauge, tank):
-        """Converts a gauge indication to a volume of fuel
+        """Gauge reading to volume.
+
+        Convert a gauge indication to a volume of fuel
         knowing the volume of the tank
 
         Arguments:
@@ -257,7 +278,9 @@ class WeightBalance:
 
     @staticmethod
     def _gauge_to_mass(gauge, tank):
-        """Converts a gauge indication to a mass of 100LL gas
+        """Gauge reading to mass.
+
+        Convert a gauge indication to a mass of 100LL gas
         knowing the volume of the tank.
 
         Arguments:
@@ -296,8 +319,7 @@ class WeightBalance:
 
     @property
     def moment(self):
-        """Overall moment.
-        Sum of the moments of all the sectors.
+        """Overall moment. Sum of the moments of all the sectors.
 
         Returns:
             (float): overall moment in kg.m.
@@ -315,6 +337,7 @@ class WeightBalance:
     @property
     def cg(self):
         """Center of gravity as a distance from the datum.
+
         Computed from the all-up weight and the overall moment.
 
         Returns:
@@ -335,7 +358,7 @@ class WeightBalance:
 
     @property
     def pax0(self):
-        """Mass of pax in kg"""
+        """Mass of pax in kg."""
         return self._pax0
 
     @pax0.setter
@@ -344,7 +367,7 @@ class WeightBalance:
 
     @property
     def pax1(self):
-        """Mass of pax in kg"""
+        """Mass of pax in kg."""
         return self._pax1
 
     @pax1.setter
@@ -353,7 +376,7 @@ class WeightBalance:
 
     @property
     def pax2(self):
-        """Mass of pax in kg"""
+        """Mass of pax in kg."""
         return self._pax2
 
     @pax2.setter
@@ -362,7 +385,7 @@ class WeightBalance:
 
     @property
     def pax3(self):
-        """Mass of pax in kg"""
+        """Mass of pax in kg."""
         return self._pax3
 
     @pax3.setter
@@ -371,32 +394,33 @@ class WeightBalance:
 
     @property
     def frontweight(self):
-        """Computed mass of front row"""
+        """Compute mass of front row."""
         return self.pax0 + self.pax1
 
     @property
     def frontmoment(self):
-        """Moment of front row"""
+        """Moment of front row."""
         return self.frontweight * self.arms["front"]
 
     @property
     def rearweight(self):
-        """Computed mass of rear row"""
+        """Compute mass of rear row."""
         return self.pax2 + self.pax3
 
     @property
     def rearmoment(self):
-        """Moment of rear row"""
+        """Moment of rear row."""
         return self.rearweight * self.arms["rear"]
 
     @property
     def baggage(self):
-        """Mass of baggage in kg"""
+        """Mass of baggage in kg."""
         return self._baggage
 
     @baggage.setter
     def baggage(self, value):
         """Baggage weight input.
+
         It is checked against the aircraft's max baggage weight.
 
         Args:
@@ -414,7 +438,7 @@ class WeightBalance:
 
     @property
     def bagmoment(self):
-        """Moment of baggage"""
+        """Moment of baggage."""
         return self.baggage * self.arms["baggage"]
 
     @property
@@ -454,7 +478,7 @@ class WeightBalance:
 
     @property
     def fuelmoment(self):
-        """Moment of fuel tank"""
+        """Moment of fuel tank."""
         return self.fuel_mass * self.arms["fuel"]
 
     @property
@@ -510,13 +534,14 @@ class WeightBalance:
 
     @property
     def auxfuelmoment(self):
-        """Moment of auxiliary fuel tank"""
+        """Moment of auxiliary fuel tank."""
         return self.auxfuel_mass * self.arms["auxfuel"]
 
     @property
     def endurance(self):
-        """Endurance of the flight is roughly the usable fuel divided
-        by the fuel flow rate at cruise speed.
+        """Endurance of the flight.
+
+        Roughly the usable fuel divided by the fuel flow rate at cruise speed.
 
         Returns:
             float: endurance in hours.
@@ -531,7 +556,7 @@ class WeightBalance:
         return 5 * int(60 * endurance / 5) / 60
 
     def plot_balance(self, encode=False):
-        """Plots the envelope with the evolution of the cg.
+        """Plot the envelope with the evolution of the cg.
 
         Arguments:
             encode (boolean): returns BytesIO if True.
@@ -547,6 +572,9 @@ class WeightBalance:
         no_fuel_plane.fuel = 0
         no_fuel_plane.auxfuel = 0
 
+        # Get rid of matplotlib thread warning
+        backend = plt.get_backend()
+        matplotlib.use("Agg")
         fig = plt.figure()
         axis = plt.gca()
         axis.plot(*polygon.exterior.xy, c="b")
@@ -574,12 +602,16 @@ class WeightBalance:
             plt.close(fig)
             return figdata
 
+        # Restore original matplotlib backend
+        matplotlib.use(backend)
         _ = plt.show()
 
 
 class PlanePerf:
-    """Predicts DR400 planes takeoff and landing distances (50ft)
-    given an all-up weight, the ground altitude, temperature and QNH.
+    """Predict DR400 planes takeoff and landing distances (50ft).
+
+    Distances are predicted given an all-up weight, the ground altitude,
+    temperature and QNH.
 
     Arguments:
         planetype (str):
@@ -595,7 +627,7 @@ class PlanePerf:
     """
 
     def __init__(self, planetype, auw, altitude, temperature, qnh, **_kwargs):
-
+        """Init."""
         self.planetype = str(planetype)
         self.auw = float(auw)
         self.altitude = int(altitude)
@@ -603,6 +635,7 @@ class PlanePerf:
         self.qnh = int(qnh)
 
     def __repr__(self):
+        """Repr."""
         return f"""{self.__class__.__name__}(
                 planetype='{self.planetype}',
                 auw={self.auw}, altitude={self.altitude},
@@ -610,8 +643,7 @@ class PlanePerf:
 
     @staticmethod
     def pressure_altitude(elevation, qnh):
-        """Computes the pressure altitude from a ground elevation
-        and the QNH.
+        """Compute the pressure altitude from a ground elevation and the QNH.
 
         Arguments:
             elevation (int):
@@ -626,13 +658,15 @@ class PlanePerf:
 
     @property
     def Zp(self):
-        """Pressure altitude in feet"""
+        """Pressure altitude in feet."""
         return PlanePerf.pressure_altitude(self.altitude, self.qnh)
 
     @staticmethod
     def density_altitude(elevation, temperature, qnh):
-        """Computes the densisty altitude given an elevation,
-        an outside air temperature and the QNH.
+        """Compute the densisty altitude.
+
+        Density altitude is computed given an elevation, an outside air temperature
+        and the QNH.
 
         Arguments:
             elevation (int):
@@ -650,12 +684,15 @@ class PlanePerf:
 
     @property
     def Zd(self):
-        """Density altitude in feet"""
+        """Density altitude in feet."""
         return PlanePerf.density_altitude(self.altitude, self.temperature, self.qnh)
 
     def takeoff_data(self):
-        """Returns the raw performance data for the given type of plane
-        from POH data stored in ./data
+        """
+        Raw takeoff performance data.
+
+        Data source is the POH (pilot operating handbook.
+        Data is loaded from a csv file stored in ./data.
         """
         input_file = Path(__file__).parent / "data" / (self.planetype + "_takeoff.csv")
         try:
@@ -671,8 +708,11 @@ class PlanePerf:
         return tkoff
 
     def landing_data(self):
-        """Returns the raw performance data for the given type of plane
-        from POH data stored in ./data
+        """
+        Raw landing performance data.
+
+        Data source is the POH (pilot operating handbook.
+        Data is loaded from a csv file stored in ./data.
         """
         input_file = Path(__file__).parent / "data" / (self.planetype + "_landing.csv")
         try:
@@ -689,7 +729,7 @@ class PlanePerf:
         return ldng
 
     def make_model(self, operation):
-        """Returns a trained model of takeoff or landing performance.
+        """Return a trained model of takeoff or landing performance.
 
         Arguments:
             operation (str): "takeoff" or "landing"
@@ -697,7 +737,6 @@ class PlanePerf:
         Returns:
             sklearn linear regression model.
         """
-
         assert operation in ["takeoff", "landing"]
 
         if operation == "takeoff":
@@ -711,13 +750,15 @@ class PlanePerf:
         return model
 
     def predict(self, operation):
-        """Builds a linear regression model out of the raw data.
-        Predicts takeoff or landing distance (50ft) given:
-        type of plane
-        altitude in ft
-        temperature in °C
-        auw in kg
-        QNH in mbar
+        """Predict takeoff or landing distance.
+
+        - Build a linear regression model out of the raw data.
+        - Predict takeoff or landing distance (50ft) given:
+            - type of plane
+            - altitude in ft
+            - temperature in °C
+            - auw in kg
+            - QNH in mbar
 
         Arguments:
             operation (str): "takeoff" or "landing"]
@@ -725,7 +766,6 @@ class PlanePerf:
         Returns:
             dataframe: takeoff or landing for different ground types and head winds.
         """
-
         assert operation in ["takeoff", "landing"]
 
         model = self.make_model(operation)
@@ -759,7 +799,9 @@ class PlanePerf:
         return df_distance
 
     def plot_performance(self, operation, encode=False):
-        """Plots a contour graph of the takeoff or landing performance
+        """Plot takeoff or landing peformance.
+
+        Plot a contour graph of the takeoff or landing performance
         given a plane's all-up weight.
 
         Arguments:
@@ -791,6 +833,9 @@ class PlanePerf:
         predict_x_ = model.steps[0][1].fit_transform(predict_x)
         predict_y = model.steps[1][1].predict(predict_x_)
 
+        # Get rid of matplotlib thread warning
+        backend = plt.get_backend()
+        matplotlib.use("Agg")
         fig = plt.figure(figsize=(12, 10))
         axis = plt.gca()
         contours = axis.contourf(
@@ -822,4 +867,6 @@ class PlanePerf:
             plt.close(fig)
             return figdata
 
+        # Restore original matplotlib backend
+        matplotlib.use(backend)
         _ = plt.show()

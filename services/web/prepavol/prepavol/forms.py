@@ -1,10 +1,7 @@
 # *_* coding: utf-8 *_*
-"""Flaskform
-"""
+"""FlaskForm."""
 
-from pathlib import Path
 import json
-import yaml
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField
 from wtforms.validators import DataRequired, NoneOf, InputRequired
@@ -12,12 +9,11 @@ from .planes import WeightBalance
 
 
 class PrepflightForm(FlaskForm):
-    """Form"""
+    """Form."""
 
     # Get plane list from the planes data
     # jinja expects a string and not a dict
-    planes_file = Path(__file__).parent / "data/planes.yaml"
-    planes_data = yaml.safe_load(open(planes_file, "r"))
+    planes_data = WeightBalance.load_planes_data()
     planes = json.dumps(planes_data)
 
     callsigns = list(planes_data.keys())

@@ -1,7 +1,6 @@
 # *_* coding: utf-8 *_*
 
-"""Extraction of aerogest data and aggregations.
-"""
+"""Extraction of aerogest data and aggregations."""
 
 from datetime import datetime
 import getpass
@@ -10,9 +9,13 @@ import numpy as np
 from bs4 import BeautifulSoup
 import requests
 
+__all__ = ["FlightLog"]
+
 
 class FlightLog:
-    """Returns a flight log from aerogest web site as a pandas dataframe.
+    """
+    Return a flight log from aerogest web site as a pandas dataframe.
+
     The class also provides different aggregations of the data.
 
     Args:
@@ -25,18 +28,19 @@ class FlightLog:
     """
 
     def __init__(self, user, log_format=None):
+        """Init."""
         self.user = user
         self.format = log_format
         self.is_logged = False
         self.logbook = self.get_log()
 
     def get_log(self):
-        """Retrieves flight log data from aerogest.
+        """
+        Retrieve flight log data from aerogest.
 
         Returns:
             logbook (pandas dataframe): flight log
         """
-
         post_login_url = (
             "http://www.aerogest-reservation.com/connection/"
             "logon?aeroclub=aeroclub_camargue"
@@ -101,7 +105,7 @@ class FlightLog:
 
     @staticmethod
     def heures(series):
-        """Pretty display of summed hours"""
+        """Pretty display of summed hours."""
         if series.empty:
             return "00h00"
 
@@ -118,7 +122,8 @@ class FlightLog:
         return f"{hours:02}h{minutes:02}"
 
     def log_agg(self, columns=None):
-        """Returns a list of aggregations of the flight log.
+        """
+        Return a list of aggregations of the flight log.
 
         Args:
             columns (list, optional): List of columns to aggregate over.
@@ -162,7 +167,8 @@ class FlightLog:
         return tables
 
     def last_quarter(self):
-        """Provides aggregates of the flight log over the last 3 months.
+        """
+        Provide aggregates of the flight log over the last 3 months.
 
         Returns:
             [dataframe]: last three months of flight log aggregated.

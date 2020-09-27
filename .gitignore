@@ -9,3 +9,6 @@ venv/
 coverage.xml
 report.xml
 .mypy_cache
+build/
+dist/
+.tox/

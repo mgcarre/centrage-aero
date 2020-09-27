@@ -19,7 +19,7 @@ class Config:
     SESSION_FILE_DIR = mkdtemp()
     SESSION_PERMANENT = True
     PERMANENT_SESSION_LIFETIME = timedelta(hours=6)
-    STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/prepavol/static"
+    STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/prepavol/prepavol/static"
 
 
 class DevelopmentConfig(Config):

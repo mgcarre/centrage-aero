@@ -40,8 +40,8 @@ tests:
     - python -m pytest -v --cov prepavol --cov-report term --cov-report xml --junitxml=report.xml
   artifacts:
     reports:
-      junit: services/web/report.xml
-      cobertura: services/web/coverage.xml
+      junit: services/web/prepavol/report.xml
+      cobertura: services/web/prepavol/coverage.xml
 
 gcloud:
   stage: deploy to Cloud Run

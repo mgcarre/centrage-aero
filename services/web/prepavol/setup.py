@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="prepavol",
-    version="0.2.1",
+    version="2.1",
     author="Yannick Teresiak",
     author_email="yannick.teresiak@gmail.com",
     url="https://gitlab.com/yannick.teresiak/flaskapp",

@@ -13,7 +13,7 @@ class PrepflightForm(FlaskForm):
 
     # Get plane list from the planes data
     # jinja expects a string and not a dict
-    planes_data = WeightBalance.load_planes_data()
+    planes_data = WeightBalance.load_fleet_data()
     planes = json.dumps(planes_data)
 
     callsigns = list(planes_data.keys())

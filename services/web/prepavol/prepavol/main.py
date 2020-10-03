@@ -126,7 +126,7 @@ def profile():
 @main.route("/fleet")
 def fleet():
     """Display planes characteristics."""
-    planes = WeightBalance.load_planes_data()
+    planes = WeightBalance.load_fleet_data()
     return render_template("fleet.html", data=planes)
 
 

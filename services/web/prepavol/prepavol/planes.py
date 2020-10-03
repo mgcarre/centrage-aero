@@ -14,7 +14,7 @@ import copy
 from io import BytesIO
 
 import datetime
-import pkg_resources
+import pkgutil
 import pandas as pd
 import numpy as np
 import yaml
@@ -96,8 +96,6 @@ class WeightBalance:
         is_ready_to_fly (boolean): airworthiness with regards to the all-up weight and balance.
     """
 
-    planes_data = "data/planes.yaml"
-
     def __init__(
         self,
         callsign,
@@ -115,7 +113,7 @@ class WeightBalance:
         **_kwargs,
     ):
         """Init."""
-        planes = WeightBalance.load_planes_data()
+        planes = WeightBalance.load_fleet_data()
         if callsign not in planes.keys():
             raise Exception(
                 f"No such call sign. Valid call signs are {', '.join(planes.keys())}"
@@ -212,13 +210,14 @@ class WeightBalance:
         return f"{self.__class__.__name__}({parameters})"
 
     @staticmethod
-    def load_planes_data():
+    def load_fleet_data():
         """Load planes.yaml data into a variable.
 
         Returns:
             json: planes data from yaml
         """
-        stream = pkg_resources.resource_stream(__name__, WeightBalance.planes_data)
+        fleet_data = "data/fleet.yaml"
+        stream = pkgutil.get_data(__name__, fleet_data)
         return yaml.safe_load(stream)
 
     @staticmethod

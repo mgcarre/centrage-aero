@@ -4,3 +4,4 @@ graft prepavol/data
 graft tests
 global-exclude *.py[cod]
 include COPYING
+include tox.ini

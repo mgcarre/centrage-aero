@@ -2,40 +2,42 @@
 
 """Application configuration."""
 
-import os
 from datetime import timedelta
+from dataclasses import dataclass
+import pathlib
 from tempfile import mkdtemp
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 
-
+@dataclass
 class Config:
     """App base config."""
 
-    DEBUG = False
-    TESTING = False
-    SECRET_KEY = "nonPROD"
-    SESSION_TYPE = "filesystem"
-    SESSION_FILE_DIR = mkdtemp()
-    SESSION_PERMANENT = True
-    PERMANENT_SESSION_LIFETIME = timedelta(hours=6)
-    STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/prepavol/prepavol/static"
+    DEBUG: bool = False
+    TESTING: bool = False
+    SECRET_KEY: str = "nonPROD"
+    SESSION_TYPE: str = "filesystem"
+    SESSION_FILE_DIR: str = mkdtemp()
+    SESSION_PERMANENT: bool = True
+    PERMANENT_SESSION_LIFETIME: timedelta = timedelta(hours=24)
+    STATIC_FOLDER: str = pathlib.Path(__file__).parent.joinpath("static")
 
 
+@dataclass
 class DevelopmentConfig(Config):
     """App dev config."""
 
-    DEBUG = True
+    DEBUG: bool = True
 
 
+@dataclass
 class ProductionConfig(Config):
     """App prod config."""
 
-    SECRET_KEY = "MeRgUeZ34"
+    SECRET_KEY: str = "MeRgUeZ34"
 
 
+@dataclass
 class TestingConfig(Config):
     """App testing config."""
 
-    TESTING = True
-    STATIC_FOLDER = "static"
+    TESTING: bool = True

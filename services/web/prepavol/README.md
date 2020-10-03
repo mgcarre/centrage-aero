@@ -23,7 +23,7 @@ import prepavol
 import os
 os.environ["FLASK_ENV"] = "dev"
 app = prepavol.create_app()
-app.run(host="0.0.0.0", debug=True)
+app.run(host="0.0.0.0")
 ```
 
 Example in a production environment with gunicorn (install with pip if required):  

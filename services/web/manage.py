@@ -1,5 +1,4 @@
-"""Gunicorn integration w/ Flask
-"""
+"""Gunicorn integration w/ Flask"""
 
 from flask.cli import FlaskGroup
 from prepavol import create_app

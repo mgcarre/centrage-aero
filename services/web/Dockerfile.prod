@@ -14,7 +14,6 @@ FROM build AS build-venv
 LABEL maintainer="yannick.teresiak@gmail.com"
 COPY requirements.txt /requirements.txt
 RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check ./prepavol
 
 # Copy the virtualenv into a distroless image
 FROM gcr.io/distroless/python3-debian10
@@ -22,5 +21,6 @@ LABEL maintainer="yannick.teresiak@gmail.com"
 COPY --from=build-venv --chown=nonroot:nonroot /venv /venv
 COPY --chown=nonroot:nonroot . /app
 WORKDIR /app
+RUN /venv/bin/pip install --disable-pip-version-check ./prepavol
 USER nonroot
 ENTRYPOINT ["/venv/bin/python3", "entrypoint.py", "--bind", "0.0.0.0:5000", "--env", "FLASK_ENV=production", "--env", "FLASK_APP=prepavol", "--env", "APP_FOLDER=/app", "manage:app"]

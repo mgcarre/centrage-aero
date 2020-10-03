@@ -15,6 +15,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Build application
+COPY . /usr/src/app
+WORKDIR /usr/src/app
 RUN pip install ./prepavol
 
 # Run the application from docker-compose.yaml

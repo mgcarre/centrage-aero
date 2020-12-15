@@ -17,7 +17,10 @@
 
 <h1 class="myheading title">Préparation du vol</h1>
 <h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h2>
-<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }} </h2>
+<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }} 
+    - Temps de vol jour {{ '%dh%02d' | format(plane.endurance - 1/2, ((plane.endurance - 1/2) * 60) % 60) }}
+    - Temps de vol nuit {{ '%dh%02d' | format(plane.endurance - 3/4, ((plane.endurance - 3/4) * 60) % 60) }}
+</h2>
 
 <fieldset>
     <legend>Masse et centrage</legend>
@@ -64,14 +67,14 @@
             
         </tr>
         <tr>
-            <td colspan="2"> fuel {{ plane.fuel }}l </td>
+            <td colspan="2"> fuel {{ plane.fuel }}L </td>
             <td> {{ '%0.2f'|format(plane.fuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["fuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.fuelmoment)|float }} </td>
             
         </tr>
         <tr>
-            <td colspan="2"> fuel aux. {{ plane.auxfuel }}l </td>
+            <td colspan="2"> fuel aux. {{ plane.auxfuel }}L </td>
             <td> {{ '%0.2f'|format(plane.auxfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["auxfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.auxfuelmoment)|float }} </td>

@@ -24,8 +24,8 @@ $(document).ready(function () {
       "#pax2",
       "#pax3",
       "#baggage",
-      "#fuel_gauge",
-      "#auxfuel_gauge",
+      "#fuel",
+      "#auxfuel",
     ];
     $.each(selectfields, function (index, value) {
       $(value).get(0).selectedIndex = 0;
@@ -130,9 +130,9 @@ $(document).ready(function () {
 
   function update_fuel() {
     console.log("IN UPDATE FUEL", plane.arms.fuel);
-    var gauge = parseFloat($("#fuel_gauge").val());
-    console.log(gauge, plane.maxfuel);
-    fuelweight = ((gauge * plane.maxfuel) / 4) * 0.72;
+    var value = parseFloat($("#fuel").val());
+    console.log(value, plane.maxfuel);
+    fuelweight = value * 0.72;
     fuelarm = plane.arms.fuel;
     fuelmoment = fuelweight * fuelarm;
 
@@ -144,7 +144,7 @@ $(document).ready(function () {
   }
 
   function update_auxfuel() {
-    var value = parseInt($("#auxfuel_gauge").val());
+    var value = parseInt($("#auxfuel").val());
     console.log(
       "IN UPDATE_AUXFUEL",
       value,
@@ -152,9 +152,9 @@ $(document).ready(function () {
       value > plane.maxauxfuel
     );
     if (plane.maxauxfuel == 0) {
-      $("#auxfuel_gauge").val(0);
+      $("#auxfuel").val(0);
     }
-    auxfuelweight = ((value * plane.maxauxfuel) / 4) * 0.72;
+    auxfuelweight = value * 0.72;
     auxfuelarm = plane.arms.auxfuel;
     auxfuelmoment = auxfuelweight * auxfuelarm;
 
@@ -178,7 +178,7 @@ $(document).ready(function () {
   $("#pax0, #pax1").on("change", update_front);
   $("#pax2, #pax3").on("change", update_rear);
   $("#baggage").on("change", update_baggage);
-  $("#fuel_gauge").on("change", update_fuel);
-  $("#auxfuel_gauge").on("change", update_auxfuel);
+  $("#fuel").on("change", update_fuel);
+  $("#auxfuel").on("change", update_auxfuel);
   $("#resetform").on("click", reset_form);
 });

@@ -66,7 +66,7 @@ class WebAppTestCase(unittest.TestCase):
         """
         self.plane.pax0 = 10
         self.plane.pax2, self.plane.pax3 = 2 * [100]
-        self.plane.fuel_gauge = 4
+        self.plane.fuel = self.plane.maxfuel
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -74,8 +74,8 @@ class WebAppTestCase(unittest.TestCase):
             "pax2": self.plane.pax2,
             "pax3": self.plane.pax3,
             "baggage": self.plane.baggage,
-            "fuel_gauge": self.plane.fuel_gauge,
-            "auxfuel_gauge": self.plane.auxfuel_gauge,
+            "fuel": self.plane.fuel,
+            "auxfuel": self.plane.auxfuel,
             "tkalt": 0,
             "ldalt": 0,
             "tktemp": 15,
@@ -91,7 +91,7 @@ class WebAppTestCase(unittest.TestCase):
         self.plane.pax0 = 70
         self.plane.pax1 = 70
         self.plane.baggage = 20
-        self.plane.fuel_gauge = 4
+        self.plane.fuel = self.plane.maxfuel
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -99,8 +99,8 @@ class WebAppTestCase(unittest.TestCase):
             "pax2": self.plane.pax2,
             "pax3": self.plane.pax3,
             "baggage": self.plane.baggage,
-            "fuel_gauge": self.plane.fuel_gauge,
-            "auxfuel_gauge": self.plane.auxfuel_gauge,
+            "fuel": self.plane.fuel,
+            "auxfuel": self.plane.auxfuel,
             "tkalt": 0,
             "ldalt": 0,
             "tktemp": 15,

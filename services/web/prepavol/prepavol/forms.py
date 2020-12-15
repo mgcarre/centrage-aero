@@ -2,6 +2,7 @@
 """FlaskForm."""
 
 import json
+import copy
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField
 from wtforms.validators import DataRequired, NoneOf, InputRequired
@@ -17,16 +18,22 @@ class PrepflightForm(FlaskForm):
     planes = json.dumps(planes_data)
 
     callsigns = list(planes_data.keys())
-    auxfuel_list = []
-    for p in callsigns:
-        auxfuel_list.append(planes_data[p]["maxauxfuel"])
-    maxauxfuel = max(auxfuel_list)
 
+    # Run through the fleet to pick get the max fuel and auxfuel
+    # so as to build valid select lists for all aircrafts
+    maxfuel_list = []
+    maxauxfuel_list = []
+    for k, v in planes_data.items():
+        maxfuel_list.append(v["maxfuel"])
+        maxauxfuel_list.append(v["maxauxfuel"])
+    maxfuel = max(maxfuel_list)
+    maxauxfuel = max(maxauxfuel_list)
+    
     plane = WeightBalance(callsigns[0])
     pax_weight_range = range(0, 145, 5)
     baggage_weight_range = range(0, plane.bagmax + 1, 5)
-    fuel_gauge_range = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
-    auxfuel_range = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+    fuel_range = range(0, maxfuel + 5, 5)
+    auxfuel_range = range(0, maxauxfuel + 5, 5)
     altitude_range = range(0, 8100, 100)
     temperature_range = range(-20, 51, 1)
     qnh_range = range(950, 1051, 1)
@@ -73,17 +80,17 @@ class PrepflightForm(FlaskForm):
         choices=baggage_choices,
     )
     # Fuel
-    fuel_gauge_choices = list(zip(fuel_gauge_range, fuel_gauge_range))
-    fuel_gauge = SelectField(
-        "jauge fuel",
+    fuel_choices = list(zip(fuel_range, fuel_range))
+    fuel = SelectField(
+        "fuel",
         coerce=float,
         validators=[InputRequired()],
-        choices=fuel_gauge_choices,
+        choices=fuel_choices,
     )
     # Aux fuel
     auxfuel_choices = list(zip(auxfuel_range, auxfuel_range))
-    auxfuel_gauge = SelectField(
-        "jauge fuel aux.",
+    auxfuel = SelectField(
+        "fuel aux",
         coerce=float,
         validators=[InputRequired()],
         choices=auxfuel_choices,

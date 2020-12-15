@@ -5,6 +5,7 @@
 
 import unittest
 from unittest import mock
+from datetime import datetime, timedelta
 import pandas as pd
 import pytest
 from prepavol.logbook import FlightLog
@@ -18,11 +19,11 @@ class LogBookTestCase(unittest.TestCase):
         """Mock FlightLog.get_log to stub connection to aerogest"""
         test_dict = {
             "Date": {
-                0: "17/09/2020",
-                1: "06/09/2020",
-                2: "27/08/2020",
-                3: "19/08/2020",
-                4: "17/08/2020",
+                0: (datetime.now() - timedelta(days=60)).strftime("%d/%m/%Y"),
+                1: (datetime.now() - timedelta(days=50)).strftime("%d/%m/%Y"),
+                2: (datetime.now() - timedelta(days=40)).strftime("%d/%m/%Y"),
+                3: (datetime.now() - timedelta(days=30)).strftime("%d/%m/%Y"),
+                4: (datetime.now() - timedelta(days=20)).strftime("%d/%m/%Y"),
             },
             "H.Départ": {
                 0: "07:50:00",

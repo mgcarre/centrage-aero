@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="prepavol",
-    version="2.4",
+    version="3.0",
     author="Yannick Teresiak",
     author_email="yannick.teresiak@gmail.com",
     url="https://gitlab.com/yannick.teresiak/flaskapp",

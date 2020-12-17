@@ -1,9 +1,10 @@
 # *_* coding: utf-8 *_*
 
-"""Extraction of aerogest data and aggregations."""
+"""Extraction of aerogest-online data and aggregations."""
 
 from datetime import datetime
 import getpass
+import json
 import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup
@@ -14,12 +15,12 @@ __all__ = ["FlightLog"]
 
 class FlightLog:
     """
-    Return a flight log from aerogest web site as a pandas dataframe.
+    Return a flight log from aerogest-online web site as a pandas dataframe.
 
     The class also provides different aggregations of the data.
 
     Args:
-        user (dictionary): Aerogest username and password
+        user (dictionary): Aerogest-online username and password
         log_format (string): 'json' returns logbook as a json string. None returns a dataframe.
 
     Attributes:
@@ -36,67 +37,109 @@ class FlightLog:
 
     def get_log(self):
         """
-        Retrieve flight log data from aerogest.
+        Retrieve flight log data from aerogest-online.
 
         Returns:
             logbook (pandas dataframe): flight log
         """
-        post_login_url = (
-            "http://www.aerogest-reservation.com/connection/"
-            "logon?aeroclub=aeroclub_camargue"
-        )
-        request_login_url = (
-            "https://www.aerogest-reservation.com/Account/MyPilotLogBook"
-        )
+        login_url = "https://online.aerogest.fr/Connection/logon"
+        logbook_url = "https://online.aerogest.fr/FlightManagement/Flight/indexPilot"
+        api_url = "https://online.aerogest.fr/api/FlightManagement/FlightAPI/getPilot"
         payload = {
-            "aeroclub": "aeroclub_camargue",
             "login": self.user["username"],
-            "pass": self.user["password"],
-            "conserverconnexion": "true",
+            "password": self.user["password"],
+            "rememberMe": "true",
         }
 
         with requests.Session() as session:
             try:
-                _ = session.post(post_login_url, data=payload)
-                response = session.get(request_login_url)
+                # Read the login form token and add it to the payload
+                response = session.get(login_url)
+                soup = BeautifulSoup(response.content, features="html5lib")
+                payload["__RequestVerificationToken"] = soup.find(
+                    "input", attrs={"name": "__RequestVerificationToken"}
+                )["value"]
+                response = session.post(login_url, data=payload)
+
+                # Get the pilot id and add it to the payload
+                # Use epoch as first date to collect all data until now
+                flight_data = {
+                    "date1": "1970-01-01",
+                    "date2": datetime.now().strftime("%Y-%m-%d"),
+                }
+                response = session.get(logbook_url)
+                soup = BeautifulSoup(response.content, features="html5lib")
+                tag = soup.find("input", attrs={"id": "idPilot"})
+                if tag:
+                    flight_data["idPilot"] = tag["value"]
+                    # Then collect the data from the logbook API
+                    response = session.post(api_url, data=flight_data)
+                    soup = BeautifulSoup(response.content, features="html5lib")
+                    # Get the text
+                    rawdata = soup.find("body").text
+                    # The whole thing is validated if the string "aircraft" appears is the soup
+                    self.is_logged = "aircraft" in rawdata
+                    # Finally convert the string into a dictionary
+                    log_data = json.loads(rawdata)
             except requests.RequestException:
                 return None
-        # If logged in, should be able to find specific div
-        lookfor = {"class": "divMonCarnetDeVols"}
-        soup = BeautifulSoup(response.content, features="lxml")
-        self.is_logged = soup.find("div", lookfor) is not None
+
+        # ('id', 'date', 'pilot', 'instr', 'aircraft', 'dep', 'arr', 'time',
+        #  'classe', 'type', 'mode', 'nature', 'validated', 'aeroclub',
+        #  'counterDep', 'counterArr', 'fuelDep', 'fuelArr',
+        #  'fuelTypeDep', 'fuelTypeArr', 'fuelModeDep', 'fuelModeArr')
+        log_columns = [
+            "id",
+            "date",
+            "pilot",
+            "instr",
+            "aircraft",
+            "dep",
+            "arr",
+            "time",
+            "classe",
+            "type",
+            "mode",
+            "nature",
+        ]
         if not self.is_logged:
-            logbook = pd.DataFrame(
-                columns=[
-                    "Date",
-                    "H.Départ",
-                    "H.Retour",
-                    "Type",
-                    "Immat",
-                    "Vol",
-                    "Départ",
-                    "Arrivée",
-                    "Type de vol",
-                    "Mode",
-                    "Heures",
-                ]
+            logbook = pd.DataFrame(columns=log_columns)
+            # Need to rename the columns of the empty data frame
+            # so as not to fail the aggregations
+            logbook.rename(
+                columns={
+                    "pilot": "pilote",
+                    "instr": "FI",
+                    "aircraft": "immat",
+                    "dep": "dep(UTC)",
+                    "arr": "arr(UTC)",
+                    "time": "heures",
+                },
+                inplace=True,
             )
             if self.format == "json":
                 logbook = logbook.to_json()
             return logbook
 
-        logbook = pd.read_html(
-            response.content,
-            attrs={"class": "classTableVols"},
-            header=1,
-            encoding="utf-8",
-            parse_dates=True,
-        )[0]
-        logbook = logbook.iloc[:-1, :]
-
-        logbook.rename(columns={"Temps (hh:mm)": "Heures"}, inplace=True)
-        logbook["Type"].replace(regex={r"^DR400$": "DR400-140B"}, inplace=True)
-        logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
+        logbook = pd.DataFrame(log_data)[log_columns]
+        # Convert duration into timedelta then strings
+        logbook["time"] = pd.to_timedelta(logbook["time"])
+        logbook["time"] = logbook["time"].apply(lambda x: str(x).split(" ")[2])
+        # Finally rename the columns
+        logbook.rename(
+            columns={
+                "pilot": "pilote",
+                "instr": "FI",
+                "aircraft": "immat",
+                "dep": "dep(UTC)",
+                "arr": "arr(UTC)",
+                "time": "heures",
+            },
+            inplace=True,
+        )
+        # This info is no longer available - unfortunately
+        # logbook["Type"].replace(regex={r"^DR400$": "DR400-140B"}, inplace=True)
+        # logbook["Type"].replace(regex={r"^DR\s400*": "DR400"}, inplace=True)
 
         if self.format == "json":
             return logbook.to_json()
@@ -109,7 +152,7 @@ class FlightLog:
         if series.empty:
             return "00h00"
 
-        series = series.apply(lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000")
+        # series = series.apply(lambda x: f"0 days {int(x[0]):02}:{x[-2:]}:00.000000")
         flighthours = pd.to_timedelta(series)
         hours = int(np.sum(flighthours) / np.timedelta64(1, "h"))
         minutes = int(
@@ -144,7 +187,7 @@ class FlightLog:
         if not columns:
             columns = []
 
-        aggcols = ["Type", "Immat", "Mode", "Vol", "Type de vol"]
+        aggcols = ["type", "immat", "mode", "nature"]
         columns = [col for col in columns if col in aggcols]
         if len(columns) == 0:
             columns = aggcols
@@ -153,12 +196,12 @@ class FlightLog:
         for col in columns:
             tables.append(
                 pd.pivot_table(
-                    logbook.rename(columns={"Date": "Vols"}),
+                    logbook.rename(columns={"date": "vols"}),
                     index=[col],
-                    values=["Vols", "Heures"],
+                    values=["vols", "heures"],
                     aggfunc={
-                        "Vols": "count",
-                        "Heures": self.heures,
+                        "vols": "count",
+                        "heures": self.heures,
                     },
                     margins=True,
                     margins_name="Total",
@@ -182,17 +225,17 @@ class FlightLog:
         if not isinstance(logbook, pd.DataFrame):
             return pd.DataFrame()
 
-        quarter_index = pd.to_datetime(logbook["Date"], format="%d/%m/%Y") >= (
+        quarter_index = pd.to_datetime(logbook["date"], format="%d/%m/%Y") >= (
             datetime.now().date() - pd.offsets.DateOffset(months=3)
         )
         df_quarter = logbook[quarter_index]
         pivot_df = pd.pivot_table(
-            df_quarter.rename(columns={"Date": "Vols"}),
-            index=["Type"],
-            values=["Vols", "Heures"],
+            df_quarter.rename(columns={"date": "vols"}),
+            index=["type"],
+            values=["vols", "heures"],
             aggfunc={
-                "Vols": "count",
-                "Heures": self.heures,
+                "vols": "count",
+                "heures": self.heures,
             },
             margins=True,
             margins_name="Total",

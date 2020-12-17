@@ -63,7 +63,7 @@ def get_aerogest_data(current_data):
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
-    """Login to aerogest web site."""
+    """Login to Aerogest Online web site."""
     if session.get("is_logged"):
         flash("Already logged in.")
         return redirect(url_for("main.profile"))
@@ -89,7 +89,7 @@ def login():
 
 @main.route("/logout")
 def logout():
-    """Logout from aerogest."""
+    """Logout from Aerogest Online."""
     if "username" in session.keys():
         session.clear()
     return redirect(url_for("main.prepflight"))

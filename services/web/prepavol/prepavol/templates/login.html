@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
 %}
 <div class="column is-4 is-offset-4">
-  <h3 class="title">login aerogest</h3>
+  <h3 class="title">login Aerogest Online</h3>
   <div class="box">
     {% with messages = get_flashed_messages() %} {% if messages %}
     <div class="notification is-danger">{{ messages[0] }}</div>
@@ -13,7 +13,7 @@
             class="input is-large"
             type="name"
             name="name"
-            placeholder="compte aerogest"
+            placeholder="Mail aerogest online"
             autofocus=""
           />
         </div>
@@ -25,7 +25,7 @@
             class="input is-large"
             type="password"
             name="password"
-            placeholder="Your Password"
+            placeholder="Password"
           />
         </div>
       </div>

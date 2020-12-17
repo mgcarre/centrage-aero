@@ -782,7 +782,7 @@ class PlanePerf:
             asphalt = np.around(distance * np.array([[1, 0.85, 0.65, 0.55]]))
         else:
             asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
-        df_distance = pd.DataFrame(asphalt, columns=["0kn", "10kn", "20kn", "30kn"])
+        df_distance = pd.DataFrame(asphalt, columns=["0kts", "10kts", "20kts", "30kts"])
         # Applying coefficient for grass runway
         df_distance = df_distance.append(
             df_distance.iloc[0].apply(lambda x: round(x * 1.15))

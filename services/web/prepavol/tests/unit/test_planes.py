@@ -31,7 +31,7 @@ class WeightBalanceTestCase(unittest.TestCase):
     def test_cg_out_of_envelope(self):
         """Balance out of envelope should make is_ready_to_fly False"""
         self.plane.pax2, self.plane.pax3 = 2 * [140]
-        self.plane.fuel_gauge = 4
+        self.plane.mainfuel_gauge = 4
         # Required to update properties
         _ = self.plane.cg
         self.assertFalse(self.plane.is_ready_to_fly)
@@ -39,7 +39,7 @@ class WeightBalanceTestCase(unittest.TestCase):
     def test_plot_balance(self):
         """Test the plot_balance method"""
         self.plane.pax0 = 100
-        self.plane.fuel_gauge = 4
+        self.plane.mainfuel_gauge = 4
         self.assertTrue(self.plane.plot_balance(encode=True))
 
 
@@ -49,7 +49,7 @@ class PlanePerfTestCase(unittest.TestCase):
     def setUp(self):
         self.plane = planes.WeightBalance("FHAAC")
         self.plane.pax0, self.plane.pax1 = 2 * [70]
-        self.plane.fuel_gauge = 4
+        self.plane.mainfuel_gauge = 4
         _ = self.plane.cg
         self.planeperf = planes.PlanePerf(
             self.plane.planetype, self.plane.auw, 1200, 25, 1010

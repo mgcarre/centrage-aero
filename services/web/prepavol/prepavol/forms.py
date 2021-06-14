@@ -19,20 +19,31 @@ class PrepflightForm(FlaskForm):
 
     callsigns = list(planes_data.keys())
 
-    # Run through the fleet to pick get the max fuel and auxfuel
+    # Run through the fleet to pick get the max mainfuel, wingfuel and auxfuel 
     # so as to build valid select lists for all aircrafts
-    maxfuel_list = []
+    maxmainfuel_list = []
+    maxwingfuel_list = []
     maxauxfuel_list = []
+    bagmax_list = []
+    bagmax2_list = []
     for k, v in planes_data.items():
-        maxfuel_list.append(v["maxfuel"])
+        maxmainfuel_list.append(v["maxmainfuel"])
+        maxwingfuel_list.append(v["maxwingfuel"])
         maxauxfuel_list.append(v["maxauxfuel"])
-    maxfuel = max(maxfuel_list)
+        bagmax_list.append(v["bagmax"])
+        bagmax2_list.append(v["bagmax2"])
+    maxmainfuel = max(maxmainfuel_list)
+    maxwingfuel = max(maxwingfuel_list)
     maxauxfuel = max(maxauxfuel_list)
+    maxbagmax = max(bagmax_list)
+    maxbagmax2 = max(bagmax2_list)
     
     plane = WeightBalance(callsigns[0])
     pax_weight_range = range(0, 145, 5)
-    baggage_weight_range = range(0, plane.bagmax + 1, 5)
-    fuel_range = range(0, maxfuel + 5, 5)
+    baggage_weight_range = range(0, maxbagmax + 1, 5)
+    baggage2_weight_range = range(0, maxbagmax2 + 1, 5)
+    mainfuel_range = range(0, maxmainfuel + 5, 5)
+    wingfuel_range = range(0, maxwingfuel + 5, 5)
     auxfuel_range = range(0, maxauxfuel + 5, 5)
     altitude_range = range(0, 8100, 100)
     temperature_range = range(-20, 51, 1)
@@ -79,18 +90,42 @@ class PrepflightForm(FlaskForm):
         validators=[InputRequired()],
         choices=baggage_choices,
     )
-    # Fuel
-    fuel_choices = list(zip(fuel_range, fuel_range))
-    fuel = SelectField(
-        "fuel",
+    # Zone 2 Baggage (Sonaca)
+    baggage2_choices = list(zip(baggage2_weight_range, baggage2_weight_range))
+    baggage2 = SelectField(
+        "baggage 2",
+        coerce=int,
+        validators=[InputRequired()],
+        choices=baggage2_choices,
+    )
+    # Main fuel
+    mainfuel_choices = list(zip(mainfuel_range, mainfuel_range))
+    mainfuel = SelectField(
+        "fuel pcpl",
         coerce=float,
         validators=[InputRequired()],
-        choices=fuel_choices,
+        choices=mainfuel_choices,
+    )
+    # Left wing fuel
+    leftwingfuel_choices = list(zip(wingfuel_range, wingfuel_range))
+    leftwingfuel = SelectField(
+        "fuel aile gauche",
+        coerce=float,
+        validators=[InputRequired()],
+        choices=leftwingfuel_choices,
+    )
+    # Right wing fuel
+    rightwingfuel_choices = list(zip(wingfuel_range, wingfuel_range))
+    rightwingfuel = SelectField(
+        "fuel aile gauche",
+        coerce=float,
+        validators=[InputRequired()],
+        choices=rightwingfuel_choices,
     )
     # Aux fuel
     auxfuel_choices = list(zip(auxfuel_range, auxfuel_range))
     auxfuel = SelectField(
-        "fuel aux",
+        "fuel suppl.",
         coerce=float,
         validators=[InputRequired()],
         choices=auxfuel_choices,

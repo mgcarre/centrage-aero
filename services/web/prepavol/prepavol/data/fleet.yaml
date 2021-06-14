@@ -2,11 +2,15 @@ FBUPS:
   arms:
     auxfuel: 1.61
     baggage: 1.9
+    baggage2: 0
     bew: 0.29
     front: 0.41
-    fuel: 1.12
+    mainfuel: 1.12
+    wingfuel: 0
     rear: 1.19
   bagmax: 40
+  bagmax2: 0
+  sumbagmax: 40
   bew: 593.5
   envelope:
     - - 0.205
@@ -21,19 +25,25 @@ FBUPS:
       - 550
   fuelrate: 32
   maxauxfuel: 50
-  maxfuel: 110
+  maxmainfuel: 110
+  maxwingfuel: 0
   mtow: 1000
   planetype: DR400-140B
-  unusfuel: 10
+  unusable_mainfuel: 10
+  unusable_wingfuel: 0
 FGGXD:
   arms:
     auxfuel: 0
     baggage: 1.9
+    baggage2: 0
     bew: 0.351
     front: 0.41
-    fuel: 1.12
+    mainfuel: 1.12
+    wingfuel: 0
     rear: 1.19
   bagmax: 40
+  bagmax2: 0
+  sumbagmax: 40
   bew: 595.9
   envelope:
     - - 0.205
@@ -48,19 +58,25 @@ FGGXD:
       - 550
   fuelrate: 25
   maxauxfuel: 0
-  maxfuel: 110
+  maxmainfuel: 110
+  maxwingfuel: 0
   mtow: 900
   planetype: DR400-120
-  unusfuel: 10
+  unusable_mainfuel: 10
+  unusable_wingfuel: 0
 FHAAC:
   arms:
     auxfuel: 0
     baggage: 1.9
+    baggage2: 0
     bew: 0.331
     front: 0.41
-    fuel: 1.12
+    mainfuel: 1.12
+    wingfuel: 0
     rear: 1.19
   bagmax: 40
+  bagmax2: 0
+  sumbagmax: 40
   bew: 586
   envelope:
     - - 0.205
@@ -75,7 +91,44 @@ FHAAC:
       - 550
   fuelrate: 25
   maxauxfuel: 0
-  maxfuel: 110
+  maxmainfuel: 110
+  maxwingfuel: 0
   mtow: 900
   planetype: DR400-120
-  unusfuel: 1
+  unusable_mainfuel: 1
+  unusable_wingfuel: 0
+FHFNG:
+  arms:
+    auxfuel: 0
+    baggage: 1.500
+    baggage2: 2.296
+    bew: 0.876
+    front: 1.150
+    mainfuel: 0
+    wingfuel: 0.706
+    rear: 0
+  bagmax: 35
+  bagmax2: 25
+  sumbagmax: 35
+  bew: 485
+  envelope:
+    - - 0.8756
+      - 450
+    - - 0.8756
+      - 650
+    - - 0.91514
+      - 750
+    - - 1.03376
+      - 750
+    - - 1.02058
+      - 650
+    - - 1.02058
+      - 450
+  fuelrate: 20
+  maxauxfuel: 0
+  maxmainfuel: 0
+  maxwingfuel: 73
+  mtow: 750
+  planetype: S201
+  unusable_mainfuel: 0
+  unusable_wingfuel: 3

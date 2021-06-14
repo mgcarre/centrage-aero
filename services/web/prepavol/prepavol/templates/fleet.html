@@ -31,15 +31,23 @@
         </li>
         <li class="card__item">
           <span class="card__tag card__tag--design"> réservoir principal </span>
-          <h6 class="card__title">{{ data[callsign]['maxfuel'] }}l</h6>
+          <h6 class="card__title">{{ data[callsign]['maxmainfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> fuel pcpl inconsommable </span>
+          <h6 class="card__title">{{ data[callsign]['unusable_mainfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> réservoirs d'aile </span>
+          <h6 class="card__title">{{ data[callsign]['maxwingfuel'] }}l</h6>
+        </li>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> fuel aile inconsommable </span>
+          <h6 class="card__title">{{ data[callsign]['unusable_wingfuel'] }}l</h6>
         </li>
         <li class="card__item">
           <span class="card__tag card__tag--design"> réservoir suppll. </span>
           <h6 class="card__title">{{ data[callsign]['maxauxfuel'] }}l</h6>
-        </li>
-        <li class="card__item">
-          <span class="card__tag card__tag--design"> fuel inconsommable </span>
-          <h6 class="card__title">{{ data[callsign]['unusfuel'] }}l</h6>
         </li>
         <li class="card__item">
           <span class="card__tag card__tag--design">
@@ -74,8 +82,12 @@
                 </td>
               </tr>
               <tr>
-                <td>réservoir</td>
-                <td>{{ '%0.3f'|format(data[callsign]['arms']['fuel']) }}m</td>
+                <td>réservoir pcpl</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['mainfuel']) }}m</td>
+              </tr>
+              <tr>
+                <td>réservoirs d'aile</td>
+                <td>{{ '%0.3f'|format(data[callsign]['arms']['wingfuel']) }}m</td>
               </tr>
               <tr>
                 <td>réservoir suppl.</td>

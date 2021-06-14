@@ -4,14 +4,18 @@ $(document).ready(function () {
   var frontweight = 0;
   var rearweight = 0;
   var bagweight = 0;
-  var fuelweight = 0;
+  var bagweight2 = 0;
+  var mainfuelweight = 0;
+  var wingfuelweight = 0;
   var auxfuelweight = 0;
   var auw;
   var bemoment = 0;
   var frontmoment = 0;
   var rearmoment = 0;
   var bagmoment = 0;
-  var fuelmoment = 0;
+  var bagmoment2 = 0;
+  var mainfuelmoment = 0;
+  var wingfuelmoment = 0;
   var auxfuelmoment = 0;
   var moment;
   var cg;
@@ -24,7 +28,10 @@ $(document).ready(function () {
       "#pax2",
       "#pax3",
       "#baggage",
-      "#fuel",
+      "#baggage2",
+      "#mainfuel",
+      "#leftwingfuel",
+      "#rightwingfuel",
       "#auxfuel",
     ];
     $.each(selectfields, function (index, value) {
@@ -40,16 +47,20 @@ $(document).ready(function () {
       frontweight,
       rearweight,
       bagweight,
-      fuelweight,
+      bagweight2,
+      mainfuelweight,
+      wingfuelweight,
       auxfuelweight,
     ].reduce((a, b) => a + b);
-    console.log("TOTALS", fuelweight, auw);
+    console.log("IN UPDATE TOTALS", mainfuelweight, auw);
     moment = [
       bemoment,
       frontmoment,
       rearmoment,
       bagmoment,
-      fuelmoment,
+      bagmoment2,
+      mainfuelmoment,
+      wingfuelmoment,
       auxfuelmoment,
     ].reduce((a, b) => a + b);
     cg = moment / auw;
@@ -76,13 +87,16 @@ $(document).ready(function () {
 
     update_front();
     update_rear();
-    update_fuel();
+    update_mainfuel();
+    update_wingfuel();
     update_auxfuel();
+    update_baggage();
+    update_baggage2();
     update_totals();
   }
 
   function update_front() {
-    console.log("PAX", plane); //.arms.front);
+    console.log("FRONT PAX", plane); //.arms.front);
     var w1 = parseInt($("#pax0").val());
     var w2 = parseInt($("#pax1").val());
 
@@ -101,9 +115,15 @@ $(document).ready(function () {
   }
 
   function update_rear() {
-    console.log(plane.arms.rear);
+    console.log("REAR PAX", plane.arms.rear);
     var w1 = parseInt($("#pax2").val());
     var w2 = parseInt($("#pax3").val());
+    if (plane.arms.rear == 0) {
+      $("#pax2").val(0);
+      $("#pax3").val(0);
+      w1 = 0;
+      w2 = 0;
+    }
     rearweight = w1 + w2;
     reararm = plane.arms.rear;
     rearmoment = rearweight * reararm;
@@ -116,7 +136,7 @@ $(document).ready(function () {
   }
 
   function update_baggage() {
-    console.log(plane.arms.baggage);
+    console.log("BAGGAGE", plane.arms.baggage);
     bagweight = parseInt($("#baggage").val());
     bagarm = plane.arms.baggage;
     bagmoment = bagweight * bagarm;
@@ -128,17 +148,57 @@ $(document).ready(function () {
     update_totals();
   }
 
-  function update_fuel() {
-    console.log("IN UPDATE FUEL", plane.arms.fuel);
-    var value = parseFloat($("#fuel").val());
-    console.log(value, plane.maxfuel);
-    fuelweight = value * 0.72;
-    fuelarm = plane.arms.fuel;
-    fuelmoment = fuelweight * fuelarm;
+  function update_baggage2() {
+    console.log("BAGGAGE2", plane.arms.baggage2);
+    bagweight2 = parseInt($("#baggage2").val());
+    if (plane.bagmax2 == 0) {
+      $("#baggage2").val(0);
+      bagweight2 = 0;
+    }
+    bagarm2 = plane.arms.baggage2;
+    bagmoment2 = bagweight2 * bagarm2;
 
-    $("#fuelmass").html(fuelweight.toFixed(0) + "kg");
-    $("#fuelarm").html(fuelarm.toFixed(2) + "m");
-    $("#fuelmoment").html(fuelmoment.toFixed(0) + "kg.m");
+    $("#bagweight2").html(bagweight2.toFixed(0) + "kg");
+    $("#bagarm2").html(bagarm2.toFixed(2) + "m");
+    $("#bagmoment2").html(bagmoment2.toFixed(0) + "kg.m");
+
+    update_totals();
+  }
+
+  function update_mainfuel() {
+    console.log("IN UPDATE FUEL", plane.arms.fuel);
+    var value = parseFloat($("#mainfuel").val());
+    if (plane.maxmainfuel == 0) {
+      $("#mainfuel").val(0);
+      value = 0;
+    }
+    mainfuelweight = value * 0.72;
+    mainfuelarm = plane.arms.mainfuel;
+    mainfuelmoment = mainfuelweight * mainfuelarm;
+
+    $("#mainfuelmass").html(mainfuelweight.toFixed(0) + "kg");
+    $("#mainfuelarm").html(mainfuelarm.toFixed(2) + "m");
+    $("#mainfuelmoment").html(mainfuelmoment.toFixed(0) + "kg.m");
+
+    update_totals();
+  }
+
+  function update_wingfuel() {
+    var w1 = parseInt($("#leftwingfuel").val());
+    var w2 = parseInt($("#rightwingfuel").val());
+    if (plane.maxwingfuel == 0) {
+      $("#leftwingfuel").val(0);
+      $("#rightwingfuel").val(0);
+      w1 = 0;
+      w2 = 0;
+    }
+    wingfuelweight = (w1 + w2) * 0.72;
+    wingfuelarm = plane.arms.wingfuel;
+    wingfuelmoment = wingfuelweight * wingfuelarm;
+
+    $("#wingfuelweight").html(wingfuelweight.toFixed(0) + "kg");
+    $("#wingfuelarm").html(wingfuelarm.toFixed(2) + "m");
+    $("#wingfuelmoment").html(wingfuelmoment.toFixed(0) + "kg.m");
 
     update_totals();
   }
@@ -153,6 +213,7 @@ $(document).ready(function () {
     );
     if (plane.maxauxfuel == 0) {
       $("#auxfuel").val(0);
+      value = 0;
     }
     auxfuelweight = value * 0.72;
     auxfuelarm = plane.arms.auxfuel;
@@ -170,7 +231,9 @@ $(document).ready(function () {
   update_front();
   update_rear();
   update_baggage();
-  update_fuel();
+  update_baggage2();
+  update_mainfuel();
+  update_wingfuel();
   update_auxfuel();
 
   // Event callbacks
@@ -178,7 +241,9 @@ $(document).ready(function () {
   $("#pax0, #pax1").on("change", update_front);
   $("#pax2, #pax3").on("change", update_rear);
   $("#baggage").on("change", update_baggage);
-  $("#fuel").on("change", update_fuel);
+  $("#baggage2").on("change", update_baggage2);
+  $("#mainfuel").on("change", update_mainfuel);
+  $("#leftwingfuel, #rightwingfuel").on("change", update_wingfuel);
   $("#auxfuel").on("change", update_auxfuel);
   $("#resetform").on("click", reset_form);
 });

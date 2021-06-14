@@ -18,8 +18,8 @@
 <h1 class="myheading title">Préparation du vol</h1>
 <h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h2>
 <h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }} 
-    - Temps de vol jour {{ '%dh%02d' | format(plane.endurance - 1/2, ((plane.endurance - 1/2) * 60) % 60) }}
-    - Temps de vol nuit {{ '%dh%02d' | format(plane.endurance - 3/4, ((plane.endurance - 3/4) * 60) % 60) }}
+    - Temps de vol VFR jour {{ '%dh%02d' | format(plane.flight_time, (plane.flight_time * 60) % 60) }}
+    - Temps de vol VFR nuit {{ '%dh%02d' | format(plane.flight_time_night, (plane.flight_time_night * 60) % 60) }}
 </h2>
 
 <fieldset>
@@ -66,15 +66,34 @@
             <td> {{ '%0.2f'|format(plane.bagmoment)|float }}</td>
             
         </tr>
+
         <tr>
-            <td colspan="2"> fuel {{ plane.fuel }}L </td>
-            <td> {{ '%0.2f'|format(plane.fuel_mass)|float }} </td>
-            <td> {{ '%0.2f'|format(plane.arms["fuel"])|float }} </td>
-            <td> {{ '%0.2f'|format(plane.fuelmoment)|float }} </td>
+            <td colspan="2"> bagages 2 {{ plane.baggage2 }}kg</td>
+            <td> {{ '%0.2f'|format(plane.baggage2)|float }}</td>
+            <td> {{ '%0.2f'|format(plane.arms["baggage2"])|float }}</td>
+            <td> {{ '%0.2f'|format(plane.bagmoment2)|float }}</td>
             
         </tr>
+
         <tr>
-            <td colspan="2"> fuel aux. {{ plane.auxfuel }}L </td>
+            <td colspan="2"> fuel pcpl {{ plane.mainfuel }}L </td>
+            <td> {{ '%0.2f'|format(plane.mainfuel_mass)|float }} </td>
+            <td> {{ '%0.2f'|format(plane.arms["mainfuel"])|float }} </td>
+            <td> {{ '%0.2f'|format(plane.mainfuelmoment)|float }} </td>
+            
+        </tr>
+
+        <tr>
+            <td> fuel aile g. {{ plane.leftwingfuel }}L </td>
+            <td> fuel aile d. {{ plane.rightwingfuel }}L </td>
+            <td> {{ '%0.2f'|format(plane.wingfuel_mass)|float }}</td>
+            <td> {{ '%0.2f'|format(plane.arms["wingfuel"])|float }}</td>
+            <td> {{ '%0.2f'|format(plane.wingfuelmoment)|float }}</td>
+            
+        </tr>
+
+        <tr>
+            <td colspan="2"> fuel suppl. {{ plane.auxfuel }}L </td>
             <td> {{ '%0.2f'|format(plane.auxfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["auxfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.auxfuelmoment)|float }} </td>

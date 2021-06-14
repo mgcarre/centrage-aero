@@ -117,27 +117,65 @@ render_field %}
         </div>
       </div>
       <div class="wrapper1">
+        <div class="gridbox baglabel2">
+          bagages 2 (kg)
+        </div>
+        <div class="gridbox bag2">
+          {{ form.baggage2 }}
+        </div>
+        <div class="wrapper1">
+          <div class="gridbox bagweight2">
+            <dt id="bagweight2"></dt>
+          </div>
+          <div class="gridbox bagarm2">
+            <dt id="bagarm2"></dt>
+          </div>
+          <div class="gridbox bagmoment2">
+            <dt id="bagmoment2"></dt>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper1">
         <div class="gridbox fuelgaugelabel">
-          fuel (L)
+          fuel pcpl (L)
         </div>
         <div class="gridbox fuelgauge">
-          {{ form.fuel }}
+          {{ form.mainfuel }}
         </div>
         <div class="wrapper1">
           <div class="gridbox fuelweight">
-            <dt id="fuelmass"></dt>
+            <dt id="mainfuelmass"></dt>
           </div>
           <div class="gridbox fuelarm">
-            <dt id="fuelarm"></dt>
+            <dt id="mainfuelarm"></dt>
           </div>
           <div class="gridbox fuelmoment">
-            <dt id="fuelmoment"></dt>
+            <dt id="mainfuelmoment"></dt>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper1">
+        <div class="gridbox leftwinggaugelabel">
+          fuel aile g. (L) {{ form.leftwingfuel }}
+        </div>
+        <div class="gridbox rightwinggaugelabel">
+          fuel aile d. (L) {{ form.rightwingfuel }}
+        </div>
+        <div class="wrapper1">
+          <div class="gridbox wingfuelweight">
+            <dt id="wingfuelweight"></dt>
+          </div>
+          <div class="gridbox wingfuelarm">
+            <dt id="wingfuelarm"></dt>
+          </div>
+          <div class="gridbox wingfuelmoment">
+            <dt id="wingfuelmoment"></dt>
           </div>
         </div>
       </div>
       <div class="wrapper1">
         <div class="gridbox auxfuelgaugelabel">
-          fuel aux (L)
+          fuel suppl. (L)
         </div>
         <div class="gridbox auxfuelgauge">
           {{ form.auxfuel }}

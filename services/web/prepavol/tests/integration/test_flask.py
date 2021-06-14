@@ -48,8 +48,10 @@ class WebAppTestCase(unittest.TestCase):
             "pax2": self.plane.pax2,
             "pax3": self.plane.pax3,
             "baggage": self.plane.baggage,
-            "fuel_gauge": self.plane.fuel_gauge,
-            "auxfuel_gauge": self.plane.auxfuel_gauge,
+            "mainfuel": self.plane.mainfuel,
+            "leftwingfuel": self.plane.leftwingfuel,
+            "rightwingfuel": self.plane.rightwingfuel,
+            "auxfuel": self.plane.auxfuel,
             "tkalt": 0,
             "ldalt": 0,
             "tktemp": 15,
@@ -66,7 +68,7 @@ class WebAppTestCase(unittest.TestCase):
         """
         self.plane.pax0 = 10
         self.plane.pax2, self.plane.pax3 = 2 * [100]
-        self.plane.fuel = self.plane.maxfuel
+        self.plane.mainfuel = self.plane.maxmainfuel
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -74,7 +76,10 @@ class WebAppTestCase(unittest.TestCase):
             "pax2": self.plane.pax2,
             "pax3": self.plane.pax3,
             "baggage": self.plane.baggage,
-            "fuel": self.plane.fuel,
+            "baggage2": self.plane.baggage2,
+            "mainfuel": self.plane.mainfuel,
+            "leftwingfuel": self.plane.leftwingfuel,
+            "rightwingfuel": self.plane.rightwingfuel,
             "auxfuel": self.plane.auxfuel,
             "tkalt": 0,
             "ldalt": 0,
@@ -91,7 +96,7 @@ class WebAppTestCase(unittest.TestCase):
         self.plane.pax0 = 70
         self.plane.pax1 = 70
         self.plane.baggage = 20
-        self.plane.fuel = self.plane.maxfuel
+        self.plane.mainfuel = self.plane.maxmainfuel
         data = {
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
@@ -99,7 +104,10 @@ class WebAppTestCase(unittest.TestCase):
             "pax2": self.plane.pax2,
             "pax3": self.plane.pax3,
             "baggage": self.plane.baggage,
-            "fuel": self.plane.fuel,
+            "baggage2": self.plane.baggage2,
+            "mainfuel": self.plane.mainfuel,
+            "leftwingfuel": self.plane.leftwingfuel,
+            "rightwingfuel": self.plane.rightwingfuel,
             "auxfuel": self.plane.auxfuel,
             "tkalt": 0,
             "ldalt": 0,

@@ -50,12 +50,13 @@ class WeightBalance:
     - call_sign: call sign (id)
     - bew: basic empty weight
     - arms: distance of all sectors of the aircraft from the datum
-    - maxfuel: fuel tank capacity
+    - maxmainfuel: main fuel tank capacity
     - maxauxfuel: auxiliary fuel tank capacity
-    - unusfuel: unusable fuel
+    - unusable_mainfuel: unusable fuel
     - fuelrate: fuel flow rate at cruise speed
     - mtow: MTOW
     - bagmax: max baggage compartment weight
+    - bagmax2: max zone 2 baggage compartment weight (Sonaca)
     - envelope: aircraft center of gravity envelope
 
     At any point in the loading the following properties are available:
@@ -70,15 +71,22 @@ class WeightBalance:
         callsign (str): the aircraft's call sign.
         pax[0-3] (int, optional): the weight of the occupants from front left to rear right.
         baggage (int, optional): the weight in the baggage sector.
-        fuel (int, optional): amount of fuel in the main tank in litres.
-        fuel_mass (float, optional): amount of fuel in the main tank in kg.
-        fuel_gauge (float, optional): amount of fuel in the main tank in fourths of the tank.
+        baggage2 (int, optional): the weight in the zone 2 baggage sector.
+        mainfuel (int, optional): amount of fuel in the main tank in litres.
+        mainfuel_mass (float, optional): amount of fuel in the main tank in kg.
+        mainfuel_gauge (float, optional): amount of fuel in the main tank in fourths of the tank.
+        leftwingfuel (int, optional): amount of fuel in the left wing tank in litres.
+        leftwingfuel_mass (float, optional): amount of fuel in the left wing tank in kg.
+        leftwingfuel_gauge (float, optional): amount of fuel in the left tank in fourths of the tank.
+        rightwingfuel (int, optional): amount of fuel in the right wing tank in litres.
+        rightwingfuel_mass (float, optional): amount of fuel in the right wing tank in kg.
+        rightwingfuel_gauge (float, optional): amount of fuel in the right tank in fourths of the tank.
         auxfuel (int, optional): amount of fuel in the auxiliary tank in litres.
         auxfuel_mass (float, optional): amount of fuel in the auxiliary tank in kg.
         auxfuel_gauge (float, optional): amount of fuel in the auxiliary tank in fourths
                                          of the tank.
 
-        For fuel and auxfuel, the volume, mass and gauge indicator are properties and are converted
+        For mainfuel and auxfuel, the volume, mass and gauge indicator are properties and are converted
         in one another.
 
     Attributes:
@@ -87,8 +95,13 @@ class WeightBalance:
         bew (float): the basic empty weight.
         mtow (float): the MTOW (max takeoff weight).
         bagmax (int): the max weight in the baggage sector.
-        maxfuel (int): the main tank's capacity in litres.
-        unusfuel (int): the unusable fuel in litres.
+        bagmax2 (int): the max weight in the zone 2 baggage sector.
+        sumbagmax (int): the max weight for baggage + baggage2.
+        sumbag (int): baggage + baggage2 if applicable.
+        maxmainfuel (int): the main tank's capacity in litres.
+        unusable_mainfuel (int): the unusable main tank fuel in litres.
+        maxwingfuel (int): the wing tanks capacity in litres.
+        unusable_wingfuel (int): the unusable wing tank fuel in litres.
         maxauxfuel (int): the auxiliary tank's capacity in litres.
         fuelrate (int): the fuel flow rate in litres per hour.
         arms (list): the distance of the from the sectors of the plane to the datum.
@@ -104,15 +117,25 @@ class WeightBalance:
         pax2=0,
         pax3=0,
         baggage=0,
-        fuel=None,
-        fuel_mass=None,
-        fuel_gauge=None,
-        auxfuel=None,
-        auxfuel_mass=None,
-        auxfuel_gauge=None,
+        baggage2=0,
+        mainfuel=0,
+        #mainfuel_mass=None,
+        #mainfuel_gauge=None,
+        leftwingfuel=0,
+        #leftwingfuel_mass=None,
+        #leftwingfuel_gauge=None,
+        rightwingfuel=0,
+        #rightwingfuel_mass=None,
+        #rightwingfuel_gauge=None,
+        auxfuel=0,
+        #auxfuel_mass=None,
+        #auxfuel_gauge=None,
         **_kwargs,
     ):
         """Init."""
+        self.is_ready_to_fly = True
+        self.reasons = []
+
         planes = WeightBalance.load_fleet_data()
         if callsign not in planes.keys():
             raise Exception(
@@ -123,65 +146,130 @@ class WeightBalance:
         self.planetype = plane["planetype"]
         self.bew = plane["bew"]
         self.bagmax = plane["bagmax"]
+        self.bagmax2 = plane["bagmax2"]
+        self.sumbagmax = plane["sumbagmax"]
         self.mtow = plane["mtow"]
-        self.maxfuel = plane["maxfuel"]
-        self.unusfuel = plane["unusfuel"]
+        self.maxmainfuel = plane["maxmainfuel"]
+        self.unusable_mainfuel = plane["unusable_mainfuel"]
+        self.maxwingfuel = plane["maxwingfuel"]
+        self.unusable_wingfuel = plane["unusable_wingfuel"]
         self.maxauxfuel = plane["maxauxfuel"]
         self.arms = plane["arms"]
         self.envelope = plane["envelope"]
         self.fuelrate = plane["fuelrate"]
-        self._pax0 = int(pax0)
-        self._pax1 = int(pax1)
-        self._pax2 = int(pax2)
-        self._pax3 = int(pax3)
-        self._baggage = int(baggage)
+        self.pax0 = int(pax0)
+        self.pax1 = int(pax1)
+        self.pax2 = int(pax2)
+        self.pax3 = int(pax3)
+        self.baggage = int(baggage)
+        self.baggage2 = int(baggage2)
 
-        if fuel:
-            self._fuel = int(fuel)
-            self._fuel_mass = self._volume_to_mass(self.fuel)
-            self._fuel_gauge = self._volume_to_gauge(self.fuel, self.maxfuel)
-        elif fuel_mass:
-            self._fuel_mass = int(fuel_mass)
-            self._fuel = self._mass_to_volume(self.fuel_mass)
-            self._fuel_gauge = self._mass_to_gauge(self.fuel_mass, self.maxfuel)
-        elif fuel_gauge:
-            self._fuel_gauge = float(fuel_gauge)
-            self._fuel = self._gauge_to_volume(self.fuel_gauge, self.maxfuel)
-            self._fuel_mass = self._gauge_to_mass(self.fuel_gauge, self.maxfuel)
-        else:
-            self._fuel = 0
-            self._fuel_mass = 0
-            self._fuel_gauge = 0
+        self.mainfuel = int(mainfuel)
+        # if mainfuel:
+        #     self._mainfuel = int(mainfuel)
+        #     self._mainfuel_mass = self._volume_to_mass(self.mainfuel)
+        #     self._mainfuel_gauge = self._volume_to_gauge(
+        #         self.mainfuel, self.maxmainfuel
+        #     )
+        # elif mainfuel_mass:
+        #     self._mainfuel_mass = int(mainfuel_mass)
+        #     self._mainfuel = self._mass_to_volume(self.mainfuel_mass)
+        #     self._mainfuel_gauge = self._mass_to_gauge(
+        #         self.mainfuel_mass, self.maxmainfuel
+        #     )
+        # elif mainfuel_gauge:
+        #     self._mainfuel_gauge = float(mainfuel_gauge)
+        #     self._mainfuel = self._gauge_to_volume(
+        #         self.mainfuel_gauge, self.maxmainfuel
+        #     )
+        #     self._mainfuel_mass = self._gauge_to_mass(
+        #         self.mainfuel_gauge, self.maxmainfuel
+        #     )
+        # else:
+        #     self._mainfuel = 0
+        #     self._mainfuel_mass = 0
+        #     self._mainfuel_gauge = 0
 
-        if auxfuel:
-            self._auxfuel = int(auxfuel)
-            self._auxfuel_mass = self._volume_to_mass(self.auxfuel)
-            self._auxfuel_gauge = self._volume_to_gauge(self.auxfuel, self.maxauxfuel)
-        elif auxfuel_mass:
-            self._auxfuel_mass = int(auxfuel_mass)
-            self._auxfuel = self._mass_to_volume(self.auxfuel_mass)
-            self._auxfuel_gauge = self._mass_to_gauge(
-                self.auxfuel_mass, self.maxauxfuel
-            )
-        elif auxfuel_gauge:
-            self._auxfuel_gauge = float(auxfuel_gauge)
-            self._auxfuel = self._gauge_to_volume(self.auxfuel_gauge, self.maxauxfuel)
-            self._auxfuel_mass = self._gauge_to_mass(
-                self.auxfuel_gauge, self.maxauxfuel
-            )
-        else:
-            self._auxfuel = 0
-            self._auxfuel_mass = 0
-            self._auxfuel_gauge = 0
-        self.is_ready_to_fly = True
-        self.reasons = []
+        self.leftwingfuel = int(leftwingfuel)
+        # if leftwingfuel:
+        #     self._leftwingfuel = int(leftwingfuel)
+        #     self._leftwingfuel_mass = self._volume_to_mass(self.leftwingfuel)
+        #     self._leftwingfuel_gauge = self._volume_to_gauge(
+        #         self.leftwingfuel, self.maxwingfuel
+        #     )
+        # elif leftwingfuel_mass:
+        #     self._leftwingfuel_mass = int(leftwingfuel_mass)
+        #     self._leftwingfuel = self._mass_to_volume(self.leftwingfuel_mass)
+        #     self._leftwingfuel_gauge = self._mass_to_gauge(
+        #         self.leftwingfuel_mass, self.maxwingfuel
+        #     )
+        # elif leftwingfuel_gauge:
+        #     self._leftwingfuel_gauge = float(leftwingfuel_gauge)
+        #     self._leftwingfuel = self._gauge_to_volume(
+        #         self.leftwingfuel_gauge, self.maxwingfuel
+        #     )
+        #     self._leftwingfuel_mass = self._gauge_to_mass(
+        #         self.leftwingfuel_gauge, self.maxwingfuel
+        #     )
+        # else:
+        #     self._leftwingfuel = 0
+        #     self._leftwingfuel_mass = 0
+        #     self._leftwingfuel_gauge = 0
+
+        self.rightwingfuel = int(rightwingfuel)
+        # if rightwingfuel:
+        #     self._rightwingfuel = int(rightwingfuel)
+        #     self._rightwingfuel_mass = self._volume_to_mass(self.rightwingfuel)
+        #     self._rightwingfuel_gauge = self._volume_to_gauge(
+        #         self.rightwingfuel, self.maxwingfuel
+        #     )
+        # elif rightwingfuel_mass:
+        #     self._rightwingfuel_mass = int(rightwingfuel_mass)
+        #     self._rightwingfuel = self._mass_to_volume(self.rightwingfuel_mass)
+        #     self._rightwingfuel_gauge = self._mass_to_gauge(
+        #         self.rightwingfuel_mass, self.maxwingfuel
+        #     )
+        # elif rightwingfuel_gauge:
+        #     self._rightwingfuel_gauge = float(rightwingfuel_gauge)
+        #     self._rightwingfuel = self._gauge_to_volume(
+        #         self.rightwingfuel_gauge, self.maxwingfuel
+        #     )
+        #     self._rightwingfuel_mass = self._gauge_to_mass(
+        #         self.rightwingfuel_gauge, self.maxwingfuel
+        #     )
+        # else:
+        #     self._rightwingfuel = 0
+        #     self._rightwingfuel_mass = 0
+        #     self._rightwingfuel_gauge = 0
+
+        self.auxfuel = int(auxfuel)
+        # if auxfuel:
+        #     self._auxfuel = int(auxfuel)
+        #     self._auxfuel_mass = self._volume_to_mass(self.auxfuel)
+        #     self._auxfuel_gauge = self._volume_to_gauge(self.auxfuel, self.maxauxfuel)
+        # elif auxfuel_mass:
+        #     self._auxfuel_mass = int(auxfuel_mass)
+        #     self._auxfuel = self._mass_to_volume(self.auxfuel_mass)
+        #     self._auxfuel_gauge = self._mass_to_gauge(
+        #         self.auxfuel_mass, self.maxauxfuel
+        #     )
+        # elif auxfuel_gauge:
+        #     self._auxfuel_gauge = float(auxfuel_gauge)
+        #     self._auxfuel = self._gauge_to_volume(self.auxfuel_gauge, self.maxauxfuel)
+        #     self._auxfuel_mass = self._gauge_to_mass(
+        #         self.auxfuel_gauge, self.maxauxfuel
+        #     )
+        # else:
+        #     self._auxfuel = 0
+        #     self._auxfuel_mass = 0
+        #     self._auxfuel_gauge = 0
 
         # Initialize computed properties
         self._auw = 0
         self._moment = 0
         self._cg = 0
-        # Needed to have attributes instantiated right away
-        _ = self.auw, self.moment, self.cg
+        # Need to have attributes instantiated right away
+        _ = self.auw, self.moment, self.cg, self.sumbag
 
     def __repr__(self):
         """Repr."""
@@ -192,7 +280,10 @@ class WeightBalance:
             "pax2",
             "pax3",
             "baggage",
-            "fuel",
+            "baggage2",
+            "mainfuel",
+            "leftwingfuel",
+            "rightwingfuel",
             "auxfuel",
         ]
         # Couldn't use a list comprehension there. Go figure
@@ -203,7 +294,10 @@ class WeightBalance:
             f"{self.pax2}",
             f"{self.pax3}",
             f"{self.baggage}",
-            f"{self.fuel}",
+            f"{self.baggage2}",
+            f"{self.mainfuel}",
+            f"{self.leftwingfuel}",
+            f"{self.rightwingfuel}",
             f"{self.auxfuel}",
         ]
         parameters = ", ".join([f"{a}={b}" for a, b in zip(keylist, valuelist)])
@@ -244,6 +338,8 @@ class WeightBalance:
             tank (int): the tank's capacity.
         """
         assert volume >= 0
+        if tank == 0:
+            return 0
         return volume / tank * 4
 
     @staticmethod
@@ -304,7 +400,10 @@ class WeightBalance:
             + self.pax2
             + self.pax3  # Back row
             + self.baggage  # Baggage row
-            + self.fuel_mass  # Main fuel tank
+            + self.baggage2 # zone 2 baggage in Sonaca
+            + self.mainfuel_mass  # Main fuel tank
+            + self.leftwingfuel_mass  # Left wing fuel tank
+            + self.rightwingfuel_mass  # Right wing fuel tank
             + self.auxfuel_mass  # Auxiliary fuel tank
         )
         if self._auw > self.mtow:
@@ -328,7 +427,10 @@ class WeightBalance:
             + (self.pax0 + self.pax1) * self.arms["front"]
             + (self.pax2 + self.pax3) * self.arms["rear"]
             + self.baggage * self.arms["baggage"]
-            + self.fuel_mass * self.arms["fuel"]
+            + self.baggage2 * self.arms["baggage2"]
+            + self.mainfuel_mass * self.arms["mainfuel"]
+            + self.leftwingfuel_mass * self.arms["wingfuel"]
+            + self.rightwingfuel_mass * self.arms["wingfuel"]
             + self.auxfuel_mass * self.arms["auxfuel"]
         )
         return self._moment
@@ -420,7 +522,8 @@ class WeightBalance:
     def baggage(self, value):
         """Baggage weight input.
 
-        It is checked against the aircraft's max baggage weight.
+        It is checked against the aircraft's max baggage weight
+        and the max weight in zone 1 and 2.
 
         Args:
             value (int): baggage weight in kg.
@@ -441,44 +544,213 @@ class WeightBalance:
         return self.baggage * self.arms["baggage"]
 
     @property
-    def fuel(self):
+    def baggage2(self):
+        """Mass of zone2 baggage in kg."""
+        return self._baggage2
+
+    @baggage2.setter
+    def baggage2(self, value):
+        """Zone 2 baggage weight input.
+
+        It is checked against the aircraft's max zone 2 baggage weight.
+
+        Args:
+            value (int): zone 2 baggage weight in kg.
+        """
+        reason = "Zone 2 baggage weight over max weight"
+        if value > self.bagmax2:
+            self.is_ready_to_fly = False
+            if reason not in self.reasons:
+                logging.error(reason)
+                self.reasons.append(reason)
+        else:
+            self.reasons = [k for k in self.reasons if k != reason]
+        self._baggage2 = value
+
+    @property
+    def bagmoment2(self):
+        """Moment of zone 2 baggage."""
+        return self.baggage2 * self.arms["baggage2"]
+
+    @property
+    def sumbag(self):
+        """Zone 1 + zone 2 baggages.
+        
+        Checked against sumbagmax parameter.
+        """
+        reason = f"Baggage + baggage2 over {self.sumbagmax}kg for type {self.planetype}"
+        if self.sumbagmax and self.baggage + self.baggage2 > self.sumbagmax:
+            self.is_ready_to_fly = False
+            if reason not in self.reasons:
+                logging.error(reason)
+                self.reasons.append(reason)
+        else:
+            self.reasons = [k for k in self.reasons if k != reason]
+        return self.baggage + self.baggage2
+
+    @property
+    def mainfuel(self):
         """Fuel quantity in litres."""
-        return self._fuel
+        return self._mainfuel
 
-    @fuel.setter
-    def fuel(self, value):
-        self._fuel = value
-        self._fuel_mass = self._volume_to_mass(self._fuel)
-        self._fuel_gauge = self._volume_to_gauge(self._fuel, self.maxfuel)
+    @mainfuel.setter
+    def mainfuel(self, value):
+        self._mainfuel = value
+        if self.maxmainfuel == 0 and value > 0:
+            msg = f"{self.callsign} has no main fuel tank. Setting volume to 0."
+            logging.warning(msg)
+            self._mainfuel = 0
+        elif value > self.maxmainfuel:
+            msg = f"Main tank max volume is {self.maxauxfuel}"
+            logging.error(msg)
+            self._mainfuel = self.maxmainfuel
+        self._mainfuel_mass = self._volume_to_mass(self._mainfuel)
+        self._mainfuel_gauge = self._volume_to_gauge(self._mainfuel, self.maxmainfuel)
 
     @property
-    def fuel_mass(self):
+    def mainfuel_mass(self):
         """Fuel quantity in kg."""
-        return self._fuel_mass
+        return self._mainfuel_mass
 
-    @fuel_mass.setter
-    def fuel_mass(self, value):
-        assert 0 <= value <= self._volume_to_mass(self.maxfuel)
-        self._fuel_mass = value
-        self._fuel = self._mass_to_volume(self._fuel_mass)
-        self._fuel_gauge = self._volume_to_gauge(self._fuel, self.maxfuel)
+    @mainfuel_mass.setter
+    def mainfuel_mass(self, value):
+        assert 0 <= value <= self._volume_to_mass(self.maxmainfuel)
+        self._mainfuel_mass = value
+        self._mainfuel = self._mass_to_volume(self._mainfuel_mass)
+        self._mainfuel_gauge = self._volume_to_gauge(self._mainfuel, self.maxmainfuel)
 
     @property
-    def fuel_gauge(self):
+    def mainfuel_gauge(self):
         """Fuel gauge indicator in fourths with step of .5."""
-        return self._fuel_gauge
+        return self._mainfuel_gauge
 
-    @fuel_gauge.setter
-    def fuel_gauge(self, value):
+    @mainfuel_gauge.setter
+    def mainfuel_gauge(self, value):
         assert 0 <= value <= 4  # 4 fourths of a tank
-        self._fuel_gauge = value
-        self._fuel = self._gauge_to_volume(self._fuel_gauge, self.maxfuel)
-        self._fuel_mass = self._gauge_to_mass(self._fuel_gauge, self.maxfuel)
+        self._mainfuel_gauge = value
+        self._mainfuel = self._gauge_to_volume(self._mainfuel_gauge, self.maxmainfuel)
+        self._mainfuel_mass = self._gauge_to_mass(
+            self._mainfuel_gauge, self.maxmainfuel
+        )
 
     @property
-    def fuelmoment(self):
-        """Moment of fuel tank."""
-        return self.fuel_mass * self.arms["fuel"]
+    def mainfuelmoment(self):
+        """Moment of main fuel tank."""
+        return self.mainfuel_mass * self.arms["mainfuel"]
+
+    @property
+    def leftwingfuel(self):
+        """Left wing fuel quantity in litres."""
+        return self._leftwingfuel
+
+    @leftwingfuel.setter
+    def leftwingfuel(self, value):
+        self._leftwingfuel = value
+        if self.maxwingfuel == 0 and value > 0:
+            msg = f"{self.callsign} has no wing fuel tank. Setting volume to 0."
+            logging.warning(msg)
+            self._leftwingfuel = 0
+        elif value > self.maxwingfuel:
+            msg = f"Wing tank max volume is {self.maxwingfuel}"
+            logging.error(msg)
+            self._leftwingfuel = self.maxwingfuel
+        self._leftwingfuel_mass = self._volume_to_mass(self._leftwingfuel)
+        self._leftwingfuel_gauge = self._volume_to_gauge(
+            self._leftwingfuel, self.maxwingfuel
+        )
+
+    @property
+    def leftwingfuel_mass(self):
+        """Left wing fuel quantity in kg."""
+        return self._leftwingfuel_mass
+
+    @leftwingfuel_mass.setter
+    def leftwingfuel_mass(self, value):
+        assert 0 <= value <= self._volume_to_mass(self.maxwingfuel)
+        self._leftwingfuel_mass = value
+        self._leftwingfuel = self._mass_to_volume(self._leftwingfuel_mass)
+        self._leftwingfuel_gauge = self._volume_to_gauge(
+            self._leftwingfuel, self.maxwingfuel
+        )
+
+    @property
+    def leftwingfuel_gauge(self):
+        """Left wing fuel gauge indicator in fourths with step of .5."""
+        return self._leftwingfuel_gauge
+
+    @leftwingfuel_gauge.setter
+    def leftwingfuel_gauge(self, value):
+        assert 0 <= value <= 4  # 4 fourths of a tank
+        self._leftwingfuel_gauge = value
+        self._leftwingfuel = self._gauge_to_volume(
+            self._leftwingfuel_gauge, self.maxwingfuel
+        )
+        self._leftwingfuel_mass = self._gauge_to_mass(
+            self._leftwingfuel_gauge, self.maxwingfuel
+        )
+
+    @property
+    def rightwingfuel(self):
+        """Right wing fuel quantity in litres."""
+        return self._rightwingfuel
+
+    @rightwingfuel.setter
+    def rightwingfuel(self, value):
+        self._rightwingfuel = value
+        if self.maxwingfuel == 0 and value > 0:
+            msg = f"{self.callsign} has no wing fuel tank. Setting volume to 0."
+            logging.warning(msg)
+            self._rightwingfuel = 0
+        elif value > self.maxwingfuel:
+            msg = f"Wing tank max volume is {self.maxwingfuel}"
+            logging.error(msg)
+            self._rightwingfuel = self.maxwingfuel
+        self._rightwingfuel_mass = self._volume_to_mass(self._rightwingfuel)
+        self._rightwingfuel_gauge = self._volume_to_gauge(
+            self._rightwingfuel, self.maxwingfuel
+        )
+
+    @property
+    def rightwingfuel_mass(self):
+        """Right wing fuel quantity in kg."""
+        return self._rightwingfuel_mass
+
+    @rightwingfuel_mass.setter
+    def rightwingfuel_mass(self, value):
+        assert 0 <= value <= self._volume_to_mass(self.maxwingfuel)
+        self._rightwingfuel_mass = value
+        self._rightwingfuel = self._mass_to_volume(self._rightwingfuel_mass)
+        self._rightwingfuel_gauge = self._volume_to_gauge(
+            self._rightwingfuel, self.maxwingfuel
+        )
+
+    @property
+    def rightwingfuel_gauge(self):
+        """Right wing fuel gauge indicator in fourths with step of .5."""
+        return self._rightwingfuel_gauge
+
+    @rightwingfuel_gauge.setter
+    def rightwingfuel_gauge(self, value):
+        assert 0 <= value <= 4  # 4 fourths of a tank
+        self._rightwingfuel_gauge = value
+        self._rightwingfuel = self._gauge_to_volume(
+            self._rightwingfuel_gauge, self.maxwingfuel
+        )
+        self._rightwingfuel_mass = self._gauge_to_mass(
+            self._rightwingfuel_gauge, self.maxwingfuel
+        )
+
+    @property
+    def wingfuel_mass(self):
+        """Total mass of wing fuel tanks."""
+        return self.leftwingfuel_mass + self.rightwingfuel_mass
+
+    @property
+    def wingfuelmoment(self):
+        """Moment of wing fuel tanks."""
+        return (self.leftwingfuel_mass + self.rightwingfuel_mass) * self.arms[
+            "wingfuel"
+        ]
 
     @property
     def auxfuel(self):
@@ -489,12 +761,12 @@ class WeightBalance:
     def auxfuel(self, value):
         assert value >= 0
         self._auxfuel = value
-        if self._auxfuel == 0 and value > 0:
+        if self.maxauxfuel == 0 and value > 0:
             msg = f"{self.callsign} has no auxiliary fuel tank. Setting volume to 0."
             logging.warning(msg)
             self._auxfuel = 0
         elif value > self.maxauxfuel:
-            msg = f"Auxiliary tank max volumes is {self.maxauxfuel}"
+            msg = f"Auxiliary tank max volume is {self.maxauxfuel}"
             logging.error(msg)
             self._auxfuel = self.maxauxfuel
         self._auxfuel_mass = self._volume_to_mass(self._auxfuel)
@@ -545,7 +817,9 @@ class WeightBalance:
         Returns:
             float: endurance in hours.
         """
-        usable_fuel = self.fuel + self.auxfuel - self.unusfuel
+        usable_fuel = (
+            self.mainfuel + self.leftwingfuel + self.rightwingfuel + self.auxfuel
+        ) - (self.unusable_mainfuel + 2 * self.unusable_wingfuel)
         # Fix uggly negative endurance when no fuel
         if usable_fuel < 0:
             usable_fuel = 0
@@ -553,6 +827,16 @@ class WeightBalance:
         # Round down to multiples of 5 mn
         # (convert to mn then round down base 5 then back to hours)
         return 5 * int(60 * endurance / 5) / 60
+
+    @property
+    def flight_time(self):
+        """Flight time given the 30 minutes ICAO regulation for day VFR"""
+        return max(0, self.endurance - 0.5)
+
+    @property
+    def flight_time_night(self):
+        """Flight time given the 45 minutes ICAO regulation for night VFR"""
+        return max(0, self.endurance - 0.75)
 
     def plot_balance(self, encode=False):
         """Plot the envelope with the evolution of the cg.
@@ -568,7 +852,9 @@ class WeightBalance:
 
         # Get cg and auw with no fuel
         no_fuel_plane = copy.copy(self)
-        no_fuel_plane.fuel = 0
+        no_fuel_plane.mainfuel = 0
+        no_fuel_plane.leftwingfuel = 0
+        no_fuel_plane.rightwingfuel = 0
         no_fuel_plane.auxfuel = 0
 
         # Get rid of matplotlib thread warning
@@ -614,7 +900,7 @@ class PlanePerf:
 
     Arguments:
         planetype (str):
-            either "DR400-120" or "DR400-140B".
+            "DR400-120", "DR400-140B", "S201" ...
         auw (float):
             all-up weight in kg.
         altitude (int):

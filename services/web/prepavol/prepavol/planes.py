@@ -22,6 +22,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from prepavol.oils import Avgas
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 from sklearn.linear_model import LinearRegression
@@ -143,6 +144,7 @@ class WeightBalance:
             )
         self.callsign = str(callsign)
         plane = planes[self.callsign]
+        self.avgas = Avgas(plane["fuel_name"])
         self.planetype = plane["planetype"]
         self.bew = plane["bew"]
         self.bagmax = plane["bagmax"]
@@ -314,17 +316,15 @@ class WeightBalance:
         stream = pkgutil.get_data(__name__, fleet_data)
         return yaml.safe_load(stream)
 
-    @staticmethod
-    def _volume_to_mass(volume):
+    def _volume_to_mass(self,volume):
         """Convert a volume of fuel to mass (litres to kg)."""
         assert volume >= 0
-        return volume * 0.72
+        return volume * self.avgas.density
 
-    @staticmethod
-    def _mass_to_volume(mass):
+    def _mass_to_volume(self,mass):
         """Convert a mass of fuel to volume (kg to litres)."""
         assert mass > 0
-        return mass / 0.72
+        return mass / self.avgas.density
 
     @staticmethod
     def _volume_to_gauge(volume, tank):
@@ -371,8 +371,7 @@ class WeightBalance:
         assert gauge in np.arange(0, 4.5, 0.5)
         return gauge * tank / 4
 
-    @staticmethod
-    def _gauge_to_mass(gauge, tank):
+    def _gauge_to_mass(self, gauge, tank):
         """Gauge reading to mass.
 
         Convert a gauge indication to a mass of 100LL gas
@@ -383,7 +382,7 @@ class WeightBalance:
             tank (int): the tank's capacity.
         """
         assert 0 <= gauge <= 4
-        return gauge * tank / 4 * 0.72
+        return gauge * tank / 4 * self.avgas.density
 
     @property
     def auw(self):

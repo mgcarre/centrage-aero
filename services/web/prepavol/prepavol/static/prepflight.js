@@ -1,24 +1,25 @@
 $(document).ready(function () {
-  var callsign;
-  var bew = 0;
-  var frontweight = 0;
-  var rearweight = 0;
-  var bagweight = 0;
-  var bagweight2 = 0;
-  var mainfuelweight = 0;
-  var wingfuelweight = 0;
-  var auxfuelweight = 0;
-  var auw;
-  var bemoment = 0;
-  var frontmoment = 0;
-  var rearmoment = 0;
-  var bagmoment = 0;
-  var bagmoment2 = 0;
-  var mainfuelmoment = 0;
-  var wingfuelmoment = 0;
-  var auxfuelmoment = 0;
-  var moment;
-  var cg;
+  let callsign;
+  let bew = 0;
+  let frontweight = 0;
+  let rearweight = 0;
+  let bagweight = 0;
+  let bagweight2 = 0;
+  let mainfuelweight = 0;
+  let wingfuelweight = 0;
+  let auxfuelweight = 0;
+  let auw;
+  let bemoment = 0;
+  let frontmoment = 0;
+  let rearmoment = 0;
+  let bagmoment = 0;
+  let bagmoment2 = 0;
+  let mainfuelmoment = 0;
+  let wingfuelmoment = 0;
+  let auxfuelmoment = 0;
+  let moment;
+  let cg;
+  let essence;
 
   function reset_form() {
     console.log("IN RESET");
@@ -70,11 +71,13 @@ $(document).ready(function () {
     $("#moment").html(moment.toFixed(0) + "kg.m");
   }
 
-  function update_plane() {
+  async function update_plane() {
     callsign = $("#callsign").val();
     plane = planes[callsign];
     console.log("IN UPDATE PLANE", plane);
 
+    req = await fetch(`essence?type=${plane.fuel_name}`)
+    essence = await req.json()
     planetype = plane.planetype;
     bew = plane.bew;
     bearm = plane.arms.bew;
@@ -172,7 +175,7 @@ $(document).ready(function () {
       $("#mainfuel").val(0);
       value = 0;
     }
-    mainfuelweight = value * 0.72;
+    mainfuelweight = value * essence?.density;
     mainfuelarm = plane.arms.mainfuel;
     mainfuelmoment = mainfuelweight * mainfuelarm;
 
@@ -192,7 +195,7 @@ $(document).ready(function () {
       w1 = 0;
       w2 = 0;
     }
-    wingfuelweight = (w1 + w2) * 0.72;
+    wingfuelweight = (w1 + w2) * essence?.density;
     wingfuelarm = plane.arms.wingfuel;
     wingfuelmoment = wingfuelweight * wingfuelarm;
 

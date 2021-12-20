@@ -56,6 +56,10 @@
           <h6 class="card__title">{{ data[callsign]['fuelrate'] }}l/h</h6>
         </li>
         <li class="card__item">
+          <span class="card__tag card__tag--design"> fuel type </span>
+          <h6 class="card__title">{{ data[callsign]['fuel_name'] }}</h6>
+        </li>
+        <li class="card__item">
           <span class="card__tag card__tag--design"> capacité bagage </span>
           <h6 class="card__title">{{ data[callsign]['bagmax'] }}kg</h6>
         </li>
@@ -102,14 +106,14 @@
           <span class="card__tag card__tag--design"> enveloppe </span>
           <h6 class="card__title">
             {% for array in data[callsign]['envelope'] %}
-            <li>{{ array }}</li>
-            {% endfor %}
-          </h6>
-        </li>
-      </ul>
+        <li>{{ array }}</li>
+        {% endfor %}
+        </h6>
     </li>
+  </ul>
+  </li>
 
-    {% endfor %}
+  {% endfor %}
   </ul>
 </section>
 

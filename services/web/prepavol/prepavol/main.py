@@ -20,6 +20,7 @@ from flask import (
     url_for,
     send_from_directory,
 )
+from .oils import Avgas
 from .logbook import FlightLog
 from .planes import WeightBalance, PlanePerf
 from .forms import PrepflightForm
@@ -216,3 +217,8 @@ def prepflight():
         logging.error(form.errors)
 
     return render_template("prepflight.html", form=form)
+
+@main.route("/essence", methods=["GET"])
+def essence():
+    oil = Avgas(request.args.get('type'))
+    return {'density': oil.density, 'title':oil.title}

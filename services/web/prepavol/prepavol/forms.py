@@ -51,7 +51,7 @@ class PrepflightForm(FlaskForm):
 
     callsign = SelectField(
         "Call sign",
-        validators=[NoneOf("FXXXX", message=("Veuillez choisir un appareil"))],
+        validators=[NoneOf("F-XXXX", message=("Veuillez choisir un appareil"))],
         choices=list(zip(callsigns, callsigns)),
     )
 

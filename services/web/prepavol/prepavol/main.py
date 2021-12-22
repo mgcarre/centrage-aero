@@ -10,6 +10,7 @@ import jsonpickle
 import pandas as pd
 
 from flask import (
+    abort,
     Blueprint,
     current_app,
     render_template,
@@ -20,6 +21,7 @@ from flask import (
     url_for,
     send_from_directory,
 )
+from .ads import ADs
 from .oils import Avgas
 from .logbook import FlightLog
 from .planes import WeightBalance, PlanePerf
@@ -198,6 +200,9 @@ def prepflight():
 
             timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
 
+            tkAD = ADs(form.data["tkaltinput"].upper())
+            ldAD = ADs(form.data["ldaltinput"].upper())
+            
             return render_template(
                 "report.html",
                 form=form,
@@ -212,6 +217,8 @@ def prepflight():
                 ldng_Zp=ldng_Zp,
                 ldng_Zd=ldng_Zd,
                 landing=urllib.parse.quote(ldng_img),
+                tkAD=tkAD,
+                ldAD=ldAD,
             )
 
         logging.error(form.errors)
@@ -220,5 +227,23 @@ def prepflight():
 
 @main.route("/essence", methods=["GET"])
 def essence():
+    if not request.args:
+        abort(404)
     oil = Avgas(request.args.get('type'))
     return {'density': oil.density, 'title':oil.title}
+
+@main.route("/ad", methods=["GET"])
+def aerodrome():
+    if not request.args:
+        abort(404)
+
+    terrain = ADs(request.args.get('code').upper())
+    return {
+        'code': terrain.code,
+        'var': terrain.var,
+        'geo': terrain.point,
+        'nom': terrain.nom, 
+        'alt': terrain.alt, 
+        'trafic': terrain.trafic,
+        'statut': terrain.statut
+        }

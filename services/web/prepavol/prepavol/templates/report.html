@@ -16,13 +16,25 @@
 {% block content %}
 
 <h1 class="myheading title">Préparation du vol</h1>
-<a href="/" class="button no-print">Retour</a>
-<h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h2>
-<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }}
-    - Temps de vol VFR jour {{ '%dh%02d' | format(plane.flight_time, (plane.flight_time * 60) % 60) }}
-    - Temps de vol VFR nuit {{ '%dh%02d' | format(plane.flight_time_night, (plane.flight_time_night * 60) % 60) }}
-</h2>
-
+<article class="message is-small is-info">
+    <div class="message-header">
+        <p>{{ plane.callsign }} - {{ timestamp }}</p>
+        <!-- <button class="delete" aria-label="delete"></button> -->
+    </div>
+    <div class="message-body">
+        <p>
+            Autonomie <strong>{{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }}</strong>
+            - Temps de vol VFR jour <strong>{{ '%dh%02d' | format(plane.flight_time, (plane.flight_time * 60) % 60)
+                }}</strong>
+            - Temps de vol VFR nuit <strong>{{ '%dh%02d' | format(plane.flight_time_night, (plane.flight_time_night *
+                60) %
+                60)}}</strong>
+        </p>
+        <p>From: {{tkAD.nom}} ({{tkAD.code}}) - statut: {{tkAD.statut}} - trafic: {{tkAD.trafic}} </p>
+        <p>To: {{ldAD.nom}} ({{ldAD.code}}) - statut: {{ldAD.statut}} - trafic: {{ldAD.trafic}} </p>
+    </div>
+</article>
+<a href="/" class="button is-small is-warning no-print">Retour</a>
 <fieldset>
     <legend>Masse et centrage</legend>
 

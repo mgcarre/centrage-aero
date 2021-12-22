@@ -17,7 +17,7 @@ render_field %}
   <form id="balance" method="POST" action="/">
     {{ form.hidden_tag() }} {% with errors =
     get_flashed_messages(category_filter=["error"]) %} {% if errors %}
-    <fieldset>
+    <fieldset id="errors">
       <div class="notification is-danger" align="center">
         <ul class="formerrors">
           {% for error in errors %}
@@ -30,7 +30,7 @@ render_field %}
     </fieldset>
     {% endif %} {% endwith %}
 
-    <fieldset>
+    <fieldset id="masse_et_centrage">
       <legend>Masse et centrage</legend>
       <div class="wrapper1">
         <div class="gridbox callsign">
@@ -205,12 +205,18 @@ render_field %}
       </div>
     </fieldset>
 
-    <fieldset>
+    <fieldset id="perf">
       <legend>Performances</legend>
       <div class="wrapper1">
         <div class="wrapper2">
           <div class="gridbox">
             <b>Décollage</b>
+            <span class="tag" id="tktitle">
+              ?
+            </span>
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.tkaltinput, class="input", placeholder="Code OACI") }}
           </div>
           <div class="gridbox">
             {{ render_field(form.tkalt) }}
@@ -225,6 +231,12 @@ render_field %}
         <div class="wrapper2">
           <div class="gridbox">
             <b>Atterrissage</b>
+            <span class="tag" id="ldtitle">
+              ?
+            </span>
+          </div>
+          <div class="gridbox">
+            {{ render_field(form.ldaltinput, class="input", placeholder="Code OACI") }}
           </div>
           <div class="gridbox">
             {{ render_field(form.ldalt) }}
@@ -238,7 +250,7 @@ render_field %}
         </div>
       </div>
     </fieldset>
-    <fieldset>
+    <fieldset id="val">
       <legend>Validation</legend>
       <div class="wrapper1">
         <div class="wrapper2">

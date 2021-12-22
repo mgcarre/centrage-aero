@@ -4,8 +4,8 @@
 import json
 import copy
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField
-from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange
+from wtforms import SubmitField, SelectField, StringField
+from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange, Length, Optional
 from .planes import WeightBalance
 
 
@@ -139,11 +139,19 @@ class PrepflightForm(FlaskForm):
         validators=[NumberRange(min=-99,message="Le QNE du terrain est requis")],
         choices=altitude_choices,
     )
+    tkaltinput = StringField(
+        "terrain TKOF",
+        validators=[Length(min=4,max=4),Optional()]
+    )
     ldalt = SelectField(
         "alt (ft)",
         coerce=int,
         validators=[NumberRange(min=-99,message="Le QNE du terrain est requis")],
         choices=altitude_choices,
+    )
+    ldaltinput = StringField(
+        "terrain LDG",
+        validators=[Length(min=4,max=4),Optional()]
     )
 
     temperature_choices = list(zip(temperature_range, temperature_range))

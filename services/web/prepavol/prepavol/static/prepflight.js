@@ -106,11 +106,19 @@ function reset_form() {
     "#leftwingfuel",
     "#rightwingfuel",
     "#auxfuel",
+    "#tkalt",
+    "#ldalt",
+    "#tktemp",
+    "#ldtemp",
+    "#tkqnh",
+    "#ldqnh"
   ];
   selectfields.forEach(field => {
     const elem = document.querySelector(field)
     elem.selectedIndex = 0
   })
+  document.getElementById('tkaltinput').value = ''
+  document.getElementById('ldaltinput').value = ''
 }
 
 function update_totals() {
@@ -254,6 +262,24 @@ function update_auxfuel() {
   update_totals();
 }
 
+async function update_ad_alt(event) {
+  event.preventDefault()
+  event.stopPropagation()
+  const elem = event.target
+  const title = document.getElementById(`${elem.id.slice(0, 2)}title`)
+  if (elem.value.length === 4) {
+    const req = await fetch(`/ad?code=${elem.value.toUpperCase()}`)
+    const res = await req.json()
+    const l = res.alt.toString().length
+    const alt = Math.pow(10, l - 1) * Math.round((res.alt * Math.pow(10, -(l))) * 10)
+    document.getElementById(elem.id.replace('input', '')).value = alt
+    title.innerHTML = res.nom
+    res.statut.toLowerCase().indexOf('milit') > -1 ? title.classList.add('is-danger') : false
+  } else {
+    document.getElementById(`${elem.id.slice(0, 2)}title`).innerHTML = "?"
+    title.classList.remove('is-danger')
+  }
+}
 
 // Event callbacks
 const elem = new Map()
@@ -276,6 +302,7 @@ window.addEventListener("DOMContentLoaded", e => {
     e.preventDefault()
     reset_form()
   })
+  document.querySelectorAll("#perf input").forEach(elem => elem.addEventListener("input", e => update_ad_alt(e)))
   update_plane();
   update_front();
   update_rear();
@@ -285,5 +312,3 @@ window.addEventListener("DOMContentLoaded", e => {
   update_wingfuel();
   update_auxfuel();
 })
-
-

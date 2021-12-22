@@ -18,7 +18,7 @@ class Config:
     SESSION_TYPE: str = "filesystem"
     SESSION_FILE_DIR: str = mkdtemp()
     SESSION_PERMANENT: bool = True
-    PERMANENT_SESSION_LIFETIME: timedelta = timedelta(hours=24)
+    PERMANENT_SESSION_LIFETIME: timedelta = timedelta(hours=8)
     STATIC_FOLDER: str = pathlib.Path(__file__).parent.joinpath("static")
 
 

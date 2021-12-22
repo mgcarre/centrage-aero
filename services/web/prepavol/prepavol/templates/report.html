@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Rapport{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-    <link rel="stylesheet" href="{{url_for('static', filename='report.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style/report.css')}}">
     {% endblock %}
 </head>
 
@@ -30,8 +30,12 @@
                 60) %
                 60)}}</strong>
         </p>
+        {% if tkAD is not none %}
         <p>From: {{tkAD.nom}} ({{tkAD.code}}) - statut: {{tkAD.statut}} - trafic: {{tkAD.trafic}} </p>
+        {% endif %}
+        {% if ldAD is not none %}
         <p>To: {{ldAD.nom}} ({{ldAD.code}}) - statut: {{ldAD.statut}} - trafic: {{ldAD.trafic}} </p>
+        {% endif %}
     </div>
 </article>
 <a href="/" class="button is-small is-warning no-print">Retour</a>

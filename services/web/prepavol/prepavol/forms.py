@@ -5,7 +5,7 @@ import json
 import copy
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField
-from wtforms.validators import DataRequired, NoneOf, InputRequired
+from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange
 from .planes import WeightBalance
 
 
@@ -45,7 +45,7 @@ class PrepflightForm(FlaskForm):
     mainfuel_range = range(0, maxmainfuel + 5, 5)
     wingfuel_range = range(0, maxwingfuel + 5, 5)
     auxfuel_range = range(0, maxauxfuel + 5, 5)
-    altitude_range = range(0, 8100, 100)
+    altitude_range = range(-100, 8100, 100)
     temperature_range = range(-20, 51, 1)
     qnh_range = range(950, 1051, 1)
 
@@ -60,26 +60,26 @@ class PrepflightForm(FlaskForm):
     pax0 = SelectField(
         "pax0",
         coerce=int,
-        validators=[DataRequired()],
+        validators=[DataRequired(message="Ce champ est requis"),NumberRange(min=1,message="Le cdb ne peut avoir un poids nul")],
         choices=pax_weight_choices,
     )
     pax1 = SelectField(
         "pax1",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[InputRequired(message="Ce champ est requis")],
         choices=pax_weight_choices,
     )
     # Rear row
     pax2 = SelectField(
         "pax2",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[InputRequired(message="Ce champ est requis")],
         choices=pax_weight_choices,
     )
     pax3 = SelectField(
         "pax3",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[InputRequired(message="Ce champ est requis")],
         choices=pax_weight_choices,
     )
     # Baggage
@@ -103,13 +103,13 @@ class PrepflightForm(FlaskForm):
     mainfuel = SelectField(
         "fuel pcpl",
         coerce=float,
-        validators=[InputRequired()],
+        validators=[NumberRange(min=1,message="Le carburant ne peut être nul")],
         choices=mainfuel_choices,
     )
     # Left wing fuel
     leftwingfuel_choices = list(zip(wingfuel_range, wingfuel_range))
     leftwingfuel = SelectField(
-        "fuel aile gauche",
+        "fuel aile gauche (L)",
         coerce=float,
         validators=[InputRequired()],
         choices=leftwingfuel_choices,
@@ -117,7 +117,7 @@ class PrepflightForm(FlaskForm):
     # Right wing fuel
     rightwingfuel_choices = list(zip(wingfuel_range, wingfuel_range))
     rightwingfuel = SelectField(
-        "fuel aile gauche",
+        "fuel aile droite (L)",
         coerce=float,
         validators=[InputRequired()],
         choices=rightwingfuel_choices,
@@ -136,13 +136,13 @@ class PrepflightForm(FlaskForm):
     tkalt = SelectField(
         "alt (ft)",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[NumberRange(min=-99,message="Le QNE du terrain est requis")],
         choices=altitude_choices,
     )
     ldalt = SelectField(
         "alt (ft)",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[NumberRange(min=-99,message="Le QNE du terrain est requis")],
         choices=altitude_choices,
     )
 
@@ -150,14 +150,14 @@ class PrepflightForm(FlaskForm):
     tktemp = SelectField(
         "temp (°C)",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[DataRequired(message="Ce champ est requis")],
         choices=temperature_choices,
         default=15,
     )
     ldtemp = SelectField(
         "temp (°C)",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[DataRequired(message="Ce champ est requis")],
         choices=temperature_choices,
         default=15,
     )
@@ -166,14 +166,14 @@ class PrepflightForm(FlaskForm):
     tkqnh = SelectField(
         "QNH",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[DataRequired(message="Ce champ est requis")],
         choices=qnh_choices,
         default=1013,
     )
     ldqnh = SelectField(
         "QNH",
         coerce=int,
-        validators=[InputRequired()],
+        validators=[DataRequired(message="Ce champ est requis")],
         choices=qnh_choices,
         default=1013,
     )

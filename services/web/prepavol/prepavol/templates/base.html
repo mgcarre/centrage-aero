@@ -9,23 +9,11 @@
   <title>{% block title %} PrepaVol {% endblock %}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script language="javascript" type="text/javascript">
-    $(document).ready(function () {
-      // Check for click events on the navbar burger icon
-      $(".navbar-burger").click(function () {
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-      });
-    });
-  </script>
-
   {% endblock %}
 </head>
 
 <body>
-  <section class="hero is-primary is-fullheight">
+  <section class="hero is-grey-light is-fullheight">
     <div class="hero-head">
       <nav class="navbar">
         <div class="navbar-brand">
@@ -60,6 +48,13 @@
       </div>
     </div>
   </section>
+  <script language="javascript" type="text/javascript">
+    document.querySelector(".navbar-burger").addEventListener("click", e => {
+      e.preventDefault()
+      document.querySelector(".navbar-burger").classList.toggle("is-active")
+      document.querySelector(".navbar-menu").classList.toggle("is-active")
+    })
+  </script>
 </body>
 
 </html>

@@ -67,6 +67,7 @@ def get_aerogest_data(current_data):
 @main.route("/login", methods=["GET", "POST"])
 def login():
     """Login to Aerogest Online web site."""
+    abort(400)
     if session.get("is_logged"):
         flash("Already logged in.")
         return redirect(url_for("main.profile"))
@@ -93,6 +94,7 @@ def login():
 @main.route("/logout")
 def logout():
     """Logout from Aerogest Online."""
+    abort(400)
     if "username" in session.keys():
         session.clear()
     return redirect(url_for("main.prepflight"))
@@ -111,6 +113,7 @@ def favicon():
 @main.route("/profile")
 def profile():
     """Display aerogest log book."""
+    abort(400)
     # Gets back to login page if first time or aerogest login failed
     if "username" not in session.keys() or not session.get("is_logged"):
         logging.warning("User %s not logged", session.get("username"))
@@ -136,6 +139,7 @@ def fleet():
 @main.route("/stats")
 def stats():
     """Aerogest log data aggregated."""
+    abort(400)
     if "username" not in session.keys():
         return redirect(url_for("main.login"))
 
@@ -200,9 +204,16 @@ def prepflight():
 
             timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
 
-            tkAD = ADs(form.data["tkaltinput"].upper())
-            ldAD = ADs(form.data["ldaltinput"].upper())
+            if form.data["tkaltinput"] == "":
+                tkAD = None
+            else:
+                tkAD = ADs(form.data["tkaltinput"].upper())
             
+            if form.data["ldaltinput"] == "":
+                ldAD = None
+            else:
+                ldAD = ADs(form.data["ldaltinput"].upper())
+
             return render_template(
                 "report.html",
                 form=form,

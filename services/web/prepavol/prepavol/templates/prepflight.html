@@ -4,14 +4,8 @@ block head %} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static', filename='form.css')}}" />
 
 <script>
-  var planes = JSON.parse({{ form.planes | tojson | safe }});
+  const planes = JSON.parse({{ form.planes | tojson | safe }});
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script
-  type="text/javascript"
-  src="{{url_for('static', filename='prepflight.js')}}"
-></script>
 
 {% endblock %} {% block content %} {% from "_formhelpers.html" import
 render_field %}
@@ -40,7 +34,7 @@ render_field %}
       <legend>Masse et centrage</legend>
       <div class="wrapper1">
         <div class="gridbox callsign">
-          Call sign {{ form.callsign }}
+          Call sign {{ render_field(form.callsign) }}
         </div>
         <div class="gridbox aircraft">
           <dt id="planetype"></dt>
@@ -64,7 +58,7 @@ render_field %}
         </div>
 
         <div class="gridbox pax1">
-          pax (kg) {{ form.pax1 }}
+          {{ render_field(form.pax1, "pax (kg)") }}
         </div>
         <div class="wrapper1">
           <div class="gridbox frontweight">
@@ -80,10 +74,10 @@ render_field %}
       </div>
       <div class="wrapper1">
         <div class="gridbox pax2">
-          pax (kg) {{ form.pax2 }}
+          {{ render_field(form.pax2, "pax (kg)") }}
         </div>
         <div class="gridbox pax3">
-          pax (kg) {{ form.pax3 }}
+          {{ render_field(form.pax3, "pax (kg)") }}
         </div>
         <div class="wrapper1">
           <div class="gridbox rearweight">
@@ -102,7 +96,7 @@ render_field %}
           bagages (kg)
         </div>
         <div class="gridbox bag">
-          {{ form.baggage }}
+          {{ render_field(form.baggage) }}
         </div>
         <div class="wrapper1">
           <div class="gridbox bagweight">
@@ -121,7 +115,7 @@ render_field %}
           bagages 2 (kg)
         </div>
         <div class="gridbox bag2">
-          {{ form.baggage2 }}
+          {{ render_field(form.baggage2) }}
         </div>
         <div class="wrapper1">
           <div class="gridbox bagweight2">
@@ -140,7 +134,7 @@ render_field %}
           fuel pcpl (L)
         </div>
         <div class="gridbox fuelgauge">
-          {{ form.mainfuel }}
+          {{ render_field(form.mainfuel) }}
         </div>
         <div class="wrapper1">
           <div class="gridbox fuelweight">
@@ -156,10 +150,10 @@ render_field %}
       </div>
       <div class="wrapper1">
         <div class="gridbox leftwinggaugelabel">
-          fuel aile g. (L) {{ form.leftwingfuel }}
+          {{ render_field(form.leftwingfuel) }}
         </div>
         <div class="gridbox rightwinggaugelabel">
-          fuel aile d. (L) {{ form.rightwingfuel }}
+          {{ render_field(form.rightwingfuel) }}
         </div>
         <div class="wrapper1">
           <div class="gridbox wingfuelweight">
@@ -178,7 +172,7 @@ render_field %}
           fuel suppl. (L)
         </div>
         <div class="gridbox auxfuelgauge">
-          {{ form.auxfuel }}
+          {{ render_field(form.auxfuel) }}
         </div>
         <div class="wrapper1">
           <div class="gridbox auxfuelweight">
@@ -248,14 +242,16 @@ render_field %}
       <legend>Validation</legend>
       <div class="wrapper1">
         <div class="wrapper2">
-            {{ form.submit(class="button is-success") }}
+          {{ form.submit(class="button is-success") }}
         </div>
         <div class="wrapper2">
-          <input id="resetform" type="button" class="button is-info" value="Reset"></input>
+          <input id="resetform" type="button" class="button is-info" value="RAZ"></input>
         </div>
       </div>
     </fieldset>
   </form>
 </div>
+
+<script type="text/javascript" src="{{url_for('static', filename='prepflight.js')}}"></script>
 
 {% endblock %}

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}rapport{% endblock %}</title>
+    <title>{% block title %}Rapport{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <link rel="stylesheet" href="{{url_for('static', filename='report.css')}}">
     {% endblock %}
@@ -16,8 +16,9 @@
 {% block content %}
 
 <h1 class="myheading title">Préparation du vol</h1>
+<a href="/" class="button no-print">Retour</a>
 <h2 class="myheading title"> {{ plane.callsign }} - {{ timestamp }} </h2>
-<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }} 
+<h2 class="myheading title"> Autonomie {{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }}
     - Temps de vol VFR jour {{ '%dh%02d' | format(plane.flight_time, (plane.flight_time * 60) % 60) }}
     - Temps de vol VFR nuit {{ '%dh%02d' | format(plane.flight_time_night, (plane.flight_time_night * 60) % 60) }}
 </h2>
@@ -31,15 +32,15 @@
         <th class="col3">masse (kg)</th>
         <th class="col4">levier (m)</th>
         <th class="col5">moment (kg.m)</th>
-        <th ></th>
+        <th></th>
         <tr>
             <td class="col1"> {{ plane.callsign }}</td>
             <td class="col2"> {{ plane.planetype }} </td>
             <td id="bew"> {{ plane.bew }} </td>
             <td id="bearm"> {{ '%0.2f'|format(plane.arms["bew"])|float }}</td>
             <td id="bemoment"> {{ '%0.2f'|format(plane.bew * plane.arms["bew"])|float }} </td>
-            <td rowspan="7", class="imagecell">
-                <img width=400px, class="prep", src="data:image/png;base64,{{ balance }}"/>
+            <td rowspan="7" , class="imagecell">
+                <img width=400px, class="prep" , src="data:image/png;base64,{{ balance }}" />
             </td>
         </tr>
         <tr>
@@ -48,7 +49,7 @@
             <td> {{ '%0.2f'|format(plane.frontweight)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["front"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.frontmoment)|float }}</td>
-            
+
         </tr>
         <tr>
             <td> pax {{ plane.pax2 }}kg </td>
@@ -56,7 +57,7 @@
             <td> {{ '%0.2f'|format(plane.rearweight)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["rear"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.rearmoment)|float }}</td>
-            
+
         </tr>
 
         <tr>
@@ -64,7 +65,7 @@
             <td> {{ '%0.2f'|format(plane.baggage)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["baggage"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.bagmoment)|float }}</td>
-            
+
         </tr>
 
         <tr>
@@ -72,7 +73,7 @@
             <td> {{ '%0.2f'|format(plane.baggage2)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["baggage2"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.bagmoment2)|float }}</td>
-            
+
         </tr>
 
         <tr>
@@ -80,7 +81,7 @@
             <td> {{ '%0.2f'|format(plane.mainfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["mainfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.mainfuelmoment)|float }} </td>
-            
+
         </tr>
 
         <tr>
@@ -89,7 +90,7 @@
             <td> {{ '%0.2f'|format(plane.wingfuel_mass)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["wingfuel"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.wingfuelmoment)|float }}</td>
-            
+
         </tr>
 
         <tr>
@@ -97,14 +98,14 @@
             <td> {{ '%0.2f'|format(plane.auxfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["auxfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.auxfuelmoment)|float }} </td>
-            
+
         </tr>
         <tr>
             <td colspan="2"><b>TOTAL</b></td>
             <td> <b>{{ '%0.2f'|format(plane.auw)|float }} </b></td>
             <td> <b>{{ '%0.2f'|format(plane.cg)|float }} </b></td>
             <td> <b>{{ '%0.2f'|format(plane.moment)|float }} </b></td>
-            
+
         </tr>
     </table>
 </fieldset>
@@ -115,76 +116,76 @@
     <table class="dataframe">
         <tr>
             <td>
-                    <h3><b>Distance de décollage (15m)</b></h3>
-                    <table class="mto">
-                        <tr>
-                            <td>
-                                Alt {{ form.tkalt.data }} ft
-                            </td>
-                            <td>
-                                Alt pression {{ tkoff_Zp }} ft
-                            </td>
-                            <td>
-                                Alt densité {{ tkoff_Zd }} ft
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                Temp {{ form.tktemp.data }} °C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                QNH {{ form.tkqnh.data }} mbar
-                            </td>
-                        </tr>
-                    </table>
-                    {{ takeoff_data | safe }}
+                <h3><b>Distance de décollage (15m)</b></h3>
+                <table class="mto">
+                    <tr>
+                        <td>
+                            Alt {{ form.tkalt.data }} ft
+                        </td>
+                        <td>
+                            Alt pression {{ tkoff_Zp }} ft
+                        </td>
+                        <td>
+                            Alt densité {{ tkoff_Zd }} ft
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Temp {{ form.tktemp.data }} °C
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            QNH {{ form.tkqnh.data }} mbar
+                        </td>
+                    </tr>
+                </table>
+                {{ takeoff_data | safe }}
             </td>
             <td>
-                    <h3><b>Distance d'atterrissage (15m)</b></h3>
+                <h3><b>Distance d'atterrissage (15m)</b></h3>
 
-                    <table class="mto">
-                        <tr>
-                            <td>
-                                Alt {{ form.ldalt.data }} ft
-                            </td>
-                            <td>
-                                Alt pression {{ ldng_Zp }} ft
-                            </td>
-                            <td>
-                                Alt densité {{ ldng_Zd }} ft
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                Temp {{ form.ldtemp.data }} °C
-                            </td>
-                        </tr>
-                            <td colspan="3">
-                                QNH {{ form.ldqnh.data }} mbar
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    {{ landing_data | safe }}
-            </td>
+                <table class="mto">
+                    <tr>
+                        <td>
+                            Alt {{ form.ldalt.data }} ft
+                        </td>
+                        <td>
+                            Alt pression {{ ldng_Zp }} ft
+                        </td>
+                        <td>
+                            Alt densité {{ ldng_Zd }} ft
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Temp {{ form.ldtemp.data }} °C
+                        </td>
+                    </tr>
+                    <td colspan="3">
+                        QNH {{ form.ldqnh.data }} mbar
+                    </td>
         </tr>
     </table>
-<!-- </fieldset> -->
 
-<!-- <fieldset class="perf"> -->
-<table class="dataframe">
-    <tr>
-        <td>
-            <img width=500px, class="prep" , src="data:image/png;base64,{{ takeoff }}" />
-        </td>
-        <td>
-            <img width=500px, class="prep" , src="data:image/png;base64,{{ landing }}" />
-        </td>
+    {{ landing_data | safe }}
+    </td>
     </tr>
+    </table>
+    <!-- </fieldset> -->
 
-</table>
+    <!-- <fieldset class="perf"> -->
+    <table class="dataframe">
+        <tr>
+            <td>
+                <img width=500px, class="prep" , src="data:image/png;base64,{{ takeoff }}" />
+            </td>
+            <td>
+                <img width=500px, class="prep" , src="data:image/png;base64,{{ landing }}" />
+            </td>
+        </tr>
+
+    </table>
 </fieldset>
 
 

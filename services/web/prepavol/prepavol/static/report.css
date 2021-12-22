@@ -100,3 +100,15 @@ fieldset {
 fieldset.perf {
   border: 0;
 }
+fieldset legend {
+  margin-left: 5px;
+  padding: 2px;
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

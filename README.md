@@ -1,22 +1,25 @@
-[![pipeline status](https://gitlab.com/yannick.teresiak/flaskapp/badges/master/pipeline.svg)](https://gitlab.com/yannick.teresiak/flaskapp/-/commits/master)
-[![coverage report](https://gitlab.com/yannick.teresiak/flaskapp/badges/master/coverage.svg)](https://gitlab.com/yannick.teresiak/flaskapp/-/commits/master)
+# CentrageAero
 
-# PrepaVol
-
-Prepavol is a web app that helps preparing light aviation flights.  
+CentrageAero is a fork from [PrepaVol](https://gitlab.com/yannick.teresiak/flaskapp.git). This is a web app that helps preparing light aviation flights.  
 It provides a _weight and balance_ form that allows to pick a plane from a fleet
 and plan the load (passengers, baggages, fuel).  
 It also allows to set the meteorological data for a given airfield so as to predict
-the takeoff or landing distances for the planned weight.  
+the takeoff or landing distances for the planned weight.
+It also provides an API for securing AD ALT using [eAIP France](https://www.sia.aviation-civile.gouv.fr/).  
 The app produces an A4 report that can be added to the flight documents.  
-Check the Wiki for app usage.
+
+> **Original work from yannick.teresiak :** https://gitlab.com/yannick.teresiak/flaskapp.git 
 
 ## Installation
 
-Clone the code:
+Clone the original code:
 
 ```bash
 git clone https://gitlab.com/yannick.teresiak/flaskapp.git
+```
+Clone this fork:
+```bash
+git clone https://github.com/mgcarre/centrage-aero
 ```
 
 Then install the required softwares from services/web/requirements.txt.
@@ -24,9 +27,11 @@ Then install the required softwares from services/web/requirements.txt.
 ## Usage
 
 The code is meant to be used to build a docker image and run the container on Google Cloud Run.
-However, it can be run locally with the Flask web server this way:
+However, it can be run locally with the Flask web server using the venv python module this way:
 
 ```bash
+python3 -m venv venv
+. venv/bin/activate
 export APP_FOLDER=$PWD/services/web
 export FLASK_APP=services/web/prepavol/__init__.py
 export FLASK_ENV=dev
@@ -65,7 +70,7 @@ This doesn't work on Cloud Run - nginx not needed there anyway.
 It works on Google App Engine, but it is not the right solution.
 
 ```bash
-docker-compose -f docker-compose.prod.yaml -f docker-compose.gcp.yaml up -d --build
+docker-compose -f docker-compose.prod.yaml -f up -d --build
 ```
 
 ## Single container with gunicorn for Cloud Run

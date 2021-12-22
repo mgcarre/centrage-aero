@@ -863,7 +863,7 @@ class WeightBalance:
         axis = plt.gca()
         axis.plot(*polygon.exterior.xy, c="b")
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        axis.set_title(f"centrage de {self.callsign} - {date}")
+        axis.set_title(f"Centrage de {self.callsign} - {date}")
         # Start and no fuel points
         axis.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
         axis.plot([self.cg], [self.auw], "ro", markerfacecolor="w", markersize=12)
@@ -875,7 +875,7 @@ class WeightBalance:
             markersize=12,
         )
         axis.set_xlabel("m", fontsize=12)
-        axis.set_ylabel("kg", fontsize=12)
+        axis.set_ylabel("Kg", fontsize=12)
         plt.tight_layout()
 
         if encode:
@@ -1131,7 +1131,7 @@ class PlanePerf:
             alpha=0.6,
         )
         title = {"takeoff": "décollage", "landing": "atterrissage"}
-        axis.set_title(f"{title[operation]} (15m) à {self.auw:.2f}kg", size=26)
+        axis.set_title(f"{title[operation]} (15m) à {self.auw:.2f}Kg", size=26)
         axis.contour(contours, colors="k")
         cbar = fig.colorbar(contours, ax=axis)
         axis.set_xlabel("Zp (ft)", size=24)
@@ -1140,6 +1140,7 @@ class PlanePerf:
         axis.set_ylabel("°C", size=24)
         cbar.ax.set_ylabel("mètres", rotation=270, size=24, labelpad=20)
         cbar.ax.tick_params(labelsize=20)
+        # plt.scatter(self.altitude, self.temperature,s=500,c="white")
         fig.patch.set_alpha(1)
         fig.tight_layout()
 

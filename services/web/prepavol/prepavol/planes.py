@@ -1029,7 +1029,7 @@ class PlanePerf:
             data_df = self.landing_data()
 
         model = make_pipeline(PolynomialFeatures(2), LinearRegression())
-        _ = model.fit(data_df.iloc[:, :3], data_df.iloc[:, 3])
+        _ = model.fit(data_df.iloc[:, :3].values, data_df.iloc[:, 3].values)
 
         return model
 

@@ -5,7 +5,7 @@ It provides a _weight and balance_ form that allows to pick a plane from a fleet
 and plan the load (passengers, baggages, fuel).  
 It also allows to set the meteorological data for a given airfield so as to predict
 the takeoff or landing distances for the planned weight.
-It also provides an API for securing AD ALT using [eAIP France](https://www.sia.aviation-civile.gouv.fr/).  
+It also provides an API for securing AD ALT.
 The app produces an A4 report that can be added to the flight documents.  
 
 > **Original work from yannick.teresiak :** https://gitlab.com/yannick.teresiak/flaskapp.git 

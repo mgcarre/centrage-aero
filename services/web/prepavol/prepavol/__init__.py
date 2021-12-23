@@ -16,13 +16,15 @@ from flask_session import Session
 import prepavol.logbook
 import prepavol.planes
 from .main import main as main_blueprint
+from flask_wtf.csrf import CSRFProtect
 
 __all__ = ["logbook", "planes"]
-
+csrf = CSRFProtect()
 
 def create_app():
     """Flask app."""
     app = Flask(__name__)
+    csrf.init_app(app)
     if os.environ["FLASK_ENV"].lower() in ["dev", "development"]:
         app.config.from_object("prepavol.config.DevelopmentConfig")
     elif os.environ["FLASK_ENV"].lower() in ["test", "testing"]:

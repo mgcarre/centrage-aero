@@ -106,7 +106,7 @@
           <span class="card__tag card__tag--design"> enveloppe </span>
           <h6 class="card__title">
             {% for array in data[callsign]['envelope'] %}
-        <li>{{ array }}</li>
+        <li>{{ '%0.3f'|format(array[0]) }} - {{ array[1] }}</li>
         {% endfor %}
         </h6>
     </li>

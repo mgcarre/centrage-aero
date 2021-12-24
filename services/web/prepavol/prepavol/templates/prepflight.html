@@ -34,10 +34,15 @@ render_field %}
       <legend>Masse et centrage</legend>
       <div class="wrapper1">
         <div class="gridbox callsign">
-          Call sign {{ render_field(form.callsign) }}
+          <div class="field">
+            <div class="control">
+              {{ render_field(form.callsign,class="input") }}
+            </div>
+          </div>
         </div>
-        <div class="gridbox aircraft">
-          <dt id="planetype"></dt>
+        <div class="gridbox aircraft has-text-centered">
+          <dt id="planetype-content"><span class="tag is-info is-large" id="planetype"></span>
+          </dt>
         </div>
 
         <div class="wrapper1">
@@ -54,11 +59,20 @@ render_field %}
       </div>
       <div class="wrapper1">
         <div class="gridbox pax0">
-          {{ render_field(form.pax0, "cdb (kg)") }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.pax0, "CdB (kg)", class="input") }}
+
+            </div>
+          </div>
         </div>
 
         <div class="gridbox pax1">
-          {{ render_field(form.pax1, "pax (kg)") }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.pax1, "PAX AVD (kg)", class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox frontweight">
@@ -74,10 +88,18 @@ render_field %}
       </div>
       <div class="wrapper1">
         <div class="gridbox pax2">
-          {{ render_field(form.pax2, "pax (kg)") }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.pax2, "PAX ARG (kg)", class="input") }}
+            </div>
+          </div>
         </div>
         <div class="gridbox pax3">
-          {{ render_field(form.pax3, "pax (kg)") }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.pax3, "PAX ARD (kg)", class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox rearweight">
@@ -96,7 +118,11 @@ render_field %}
           bagages (kg)
         </div>
         <div class="gridbox bag">
-          {{ render_field(form.baggage) }}
+          <div class="field">
+            <div class="control">
+              {{ render_field(form.baggage, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox bagweight">
@@ -115,7 +141,11 @@ render_field %}
           bagages 2 (kg)
         </div>
         <div class="gridbox bag2">
-          {{ render_field(form.baggage2) }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.baggage2, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox bagweight2">
@@ -134,7 +164,11 @@ render_field %}
           fuel pcpl (L)
         </div>
         <div class="gridbox fuelgauge">
-          {{ render_field(form.mainfuel) }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.mainfuel, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox fuelweight">
@@ -150,10 +184,18 @@ render_field %}
       </div>
       <div class="wrapper1">
         <div class="gridbox leftwinggaugelabel">
-          {{ render_field(form.leftwingfuel) }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.leftwingfuel, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="gridbox rightwinggaugelabel">
-          {{ render_field(form.rightwingfuel) }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.rightwingfuel, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox wingfuelweight">
@@ -172,7 +214,11 @@ render_field %}
           fuel suppl. (L)
         </div>
         <div class="gridbox auxfuelgauge">
-          {{ render_field(form.auxfuel) }}
+          <div class="field">
+            <div class="control is-small">
+              {{ render_field(form.auxfuel, class="input") }}
+            </div>
+          </div>
         </div>
         <div class="wrapper1">
           <div class="gridbox auxfuelweight">
@@ -216,16 +262,32 @@ render_field %}
             </span>
           </div>
           <div class="gridbox">
-            {{ render_field(form.tkaltinput, class="input", placeholder="Code OACI") }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.tkaltinput, class="input", placeholder="Code OACI", tabindex="1") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.tkalt) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.tkalt, class="input") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.tktemp) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.tktemp, class="input") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.tkqnh) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.tkqnh, class="input") }}
+              </div>
+            </div>
           </div>
         </div>
         <div class="wrapper2">
@@ -236,16 +298,32 @@ render_field %}
             </span>
           </div>
           <div class="gridbox">
-            {{ render_field(form.ldaltinput, class="input", placeholder="Code OACI") }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.ldaltinput, class="input", placeholder="Code OACI", tabindex="2") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.ldalt) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.ldalt, class="input") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.ldtemp) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.ldtemp, class="input") }}
+              </div>
+            </div>
           </div>
           <div class="gridbox">
-            {{ render_field(form.ldqnh) }}
+            <div class="field">
+              <div class="control is-small">
+                {{ render_field(form.ldqnh, class="input") }}
+              </div>
+            </div>
           </div>
         </div>
       </div>

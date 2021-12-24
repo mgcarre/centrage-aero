@@ -65,6 +65,7 @@ img.prep {
 }
 
 fieldset {
+  border: revert;
   border-radius: 12px;
   padding: 6px;
 }

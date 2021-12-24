@@ -140,7 +140,7 @@ class PrepflightForm(FlaskForm):
         choices=altitude_choices,
     )
     tkaltinput = StringField(
-        "terrain TKOF",
+        "terrain DEP",
         validators=[Length(min=4,max=4),Optional()]
     )
     ldalt = SelectField(
@@ -150,7 +150,7 @@ class PrepflightForm(FlaskForm):
         choices=altitude_choices,
     )
     ldaltinput = StringField(
-        "terrain LDG",
+        "terrain ARR",
         validators=[Length(min=4,max=4),Optional()]
     )
 

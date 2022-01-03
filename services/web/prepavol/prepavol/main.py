@@ -214,6 +214,9 @@ def prepflight():
             else:
                 ldAD = ADs(form.data["ldaltinput"].upper())
 
+            if not plane.is_valid_weight():
+                flash(f"La date de validité de la dernière pesée est échue depuis {plane.humanized_last_weight_difference}", "warning")
+
             return render_template(
                 "report.html",
                 form=form,

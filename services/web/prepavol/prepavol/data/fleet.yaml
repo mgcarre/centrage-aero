@@ -3,7 +3,7 @@ F-GGHJ:
     auxfuel: 1.61
     baggage: 1.9
     baggage2: 0
-    bew: 0.29
+    bew: 0.346
     front: 0.41
     mainfuel: 1.12
     wingfuel: 0
@@ -11,10 +11,10 @@ F-GGHJ:
   bagmax: 40
   bagmax2: 0
   sumbagmax: 40
-  bew: 593.5
+  bew: 604.6
   envelope:
     - - 0.205
-      - 500
+      - 606
     - - 0.205
       - 750
     - - 0.428
@@ -22,22 +22,23 @@ F-GGHJ:
     - - 0.564
       - 1000
     - - 0.564
-      - 500
+      - 606
   fuelrate: 25
   maxauxfuel: 50
   maxmainfuel: 110
   maxwingfuel: 0
-  mtow: 900
-  planetype: DR400-120
+  mtow: 1000
+  planetype: DR400-140B
   unusable_mainfuel: 10
   unusable_wingfuel: 0
   fuel_name: 100LL
+  last_weigh: "2018-02-23"
 F-GTZR:
   arms:
-    auxfuel: 0
+    auxfuel: 1.61
     baggage: 1.9
     baggage2: 0
-    bew: 0.351
+    bew: 0.328
     front: 0.41
     mainfuel: 1.12
     wingfuel: 0
@@ -45,27 +46,28 @@ F-GTZR:
   bagmax: 40
   bagmax2: 0
   sumbagmax: 40
-  bew: 595.9
+  bew: 599
   envelope:
     - - 0.205
-      - 550
+      - 601
     - - 0.205
       - 750
     - - 0.428
       - 900
     - - 0.564
-      - 900
+      - 1000
     - - 0.564
-      - 550
+      - 601
   fuelrate: 25
-  maxauxfuel: 30
+  maxauxfuel: 50
   maxmainfuel: 110
   maxwingfuel: 0
-  mtow: 900
-  planetype: DR400-120
+  mtow: 1000
+  planetype: DR400-140B
   unusable_mainfuel: 10
   unusable_wingfuel: 0
   fuel_name: 100LL
+  last_weigh: "2015-02-27"
 F-TEST:
   arms:
     auxfuel: 1.7
@@ -100,3 +102,4 @@ F-TEST:
   unusable_mainfuel: 10
   unusable_wingfuel: 5
   fuel_name: DIESEL
+  last_weigh: "2018-02-23"

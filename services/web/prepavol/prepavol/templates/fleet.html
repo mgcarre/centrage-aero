@@ -5,7 +5,7 @@
 
 {% endblock %} {% block content %}
 
-<h3 class="title">Flotte ACDC</h3>
+<h3 class="title">Flotte ACDN</h3>
 
 <section class="wrapper">
   <ul class="column__list">
@@ -109,7 +109,12 @@
         <li>{{ '%0.3f'|format(array[0]) }} - {{ array[1] }}</li>
         {% endfor %}
         </h6>
+        <li class="card__item">
+          <span class="card__tag card__tag--design"> dernière pesée </span>
+          <h6 class="card__title">{{ data[callsign]['last_weigh'] }}</h6>
+        </li>
     </li>
+
   </ul>
   </li>
 

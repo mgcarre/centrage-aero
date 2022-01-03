@@ -13,7 +13,7 @@ import logging
 import copy
 from io import BytesIO
 
-import datetime
+from datetime import datetime, timedelta
 import pkgutil
 import pandas as pd
 import numpy as np
@@ -28,6 +28,7 @@ from shapely.geometry.polygon import Polygon
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
+from humanize import naturaldelta, i18n
 
 __all__ = ["WeightBalance", "PlanePerf"]
 
@@ -165,7 +166,8 @@ class WeightBalance:
         self.pax3 = int(pax3)
         self.baggage = int(baggage)
         self.baggage2 = int(baggage2)
-
+        self._last_weight = plane["last_weigh"]
+        
         self.mainfuel = int(mainfuel)
         # if mainfuel:
         #     self._mainfuel = int(mainfuel)
@@ -862,7 +864,7 @@ class WeightBalance:
         fig = plt.figure()
         axis = plt.gca()
         axis.plot(*polygon.exterior.xy, c="b")
-        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        date = datetime.now().strftime("%Y-%m-%d %H:%M")
         axis.set_title(f"Centrage de {self.callsign} - {date}")
         # Start and no fuel points
         axis.plot([self.cg, no_fuel_plane.cg], [self.auw, no_fuel_plane.auw], "r")
@@ -889,6 +891,22 @@ class WeightBalance:
         # Restore original matplotlib backend
         matplotlib.use(backend)
         _ = plt.show()
+    
+    @property
+    def last_weight(self):
+        return datetime.strptime(self._last_weight, "%Y-%m-%d")
+
+    @property
+    def last_weight_difference(self):
+        return datetime.today() - self.last_weight
+
+    @property
+    def humanized_last_weight_difference(self):
+        _t = i18n.activate("fr")
+        return naturaldelta(self.last_weight_difference)
+
+    def is_valid_weight(self) -> bool:
+        return  self.last_weight_difference.days < (365 * 5)
 
 
 class PlanePerf:

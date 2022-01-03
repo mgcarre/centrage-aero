@@ -38,6 +38,19 @@
         {% endif %}
     </div>
 </article>
+{% with warnings =
+get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
+<article class="message is-small is-warning">
+    <div class="message-header">
+        <p>Votre attention est requise</p>
+    </div>
+    <div class="message-body">
+        {% for warning in warnings %}
+        <p>{{ warning }}</p>
+        {% endfor %}
+    </div>
+</article>
+{% endif %} {% endwith %}
 <a href="/" class="button is-small is-warning no-print">Retour</a>
 <fieldset>
     <legend>Masse et centrage</legend>

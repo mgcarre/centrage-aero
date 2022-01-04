@@ -68,38 +68,3 @@ F-GTZR:
   unusable_wingfuel: 0
   fuel_name: 100LL
   last_weigh: "2015-02-27"
-F-TEST:
-  arms:
-    auxfuel: 1.7
-    baggage: 1.9
-    baggage2: 0
-    bew: 0.351
-    front: 0.41
-    mainfuel: 1.12
-    wingfuel: 1.25
-    rear: 1.19
-  bagmax: 40
-  bagmax2: 0
-  sumbagmax: 40
-  bew: 595.9
-  envelope:
-    - - 0.205
-      - 550
-    - - 0.205
-      - 750
-    - - 0.428
-      - 900
-    - - 0.564
-      - 900
-    - - 0.564
-      - 550
-  fuelrate: 25
-  maxauxfuel: 0
-  maxmainfuel: 110
-  maxwingfuel: 80
-  mtow: 1200
-  planetype: DR400-160
-  unusable_mainfuel: 10
-  unusable_wingfuel: 5
-  fuel_name: DIESEL
-  last_weigh: "2018-02-23"

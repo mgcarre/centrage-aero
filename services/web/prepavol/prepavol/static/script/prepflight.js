@@ -281,6 +281,27 @@ async function update_ad_alt(event) {
   }
 }
 
+async function validate_fields(event) {
+  event.preventDefault()
+  const form = new FormData(document.getElementById('balance'))
+  const validate = await fetch("/validate", {
+    method: "POST",
+    body: form
+  })
+  document.querySelectorAll(".input.is-danger").forEach(elem => elem.classList.remove("is-danger"))
+  if (validate.status == 200) {
+    const data = await validate.json()
+    const fields = Object.keys(data)
+    fields.forEach(field => {
+      document.getElementById(field).classList.add("is-danger")
+    })
+  }
+  if (validate.status == 204) {
+    console.info("No errors")
+    document.forms[0].submit.disabled = false
+  }
+}
+
 // Event callbacks
 const elem = new Map()
 elem.set("#callsign", update_plane);
@@ -311,4 +332,5 @@ window.addEventListener("DOMContentLoaded", e => {
   update_mainfuel();
   update_wingfuel();
   update_auxfuel();
+  document.forms[0].addEventListener("change", (e) => validate_fields(e))
 })

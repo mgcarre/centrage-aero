@@ -1,5 +1,4 @@
-import pkgutil
-import yaml
+from .file_reader import FileReader
 
 class ADs:
     def __init__(
@@ -23,9 +22,7 @@ class ADs:
 
     @staticmethod
     def load_ad_data():
-        ad_data = "data/alts.yaml"
-        stream = pkgutil.get_data(__name__, ad_data)
-        return yaml.safe_load(stream)
+        return FileReader("data/alts.yaml").readfile()
 
     
     def __conversion(self,old):

@@ -1,5 +1,4 @@
-import pkgutil
-import yaml
+from .file_reader import FileReader
 
 
 class Avgas:
@@ -18,6 +17,4 @@ class Avgas:
 
     @staticmethod
     def load_oil_data():
-        oil_data = "data/oil.yaml"
-        stream = pkgutil.get_data(__name__, oil_data)
-        return yaml.safe_load(stream)
+        return FileReader("data/oil.yaml").readfile()

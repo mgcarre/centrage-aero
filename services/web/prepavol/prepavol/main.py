@@ -24,7 +24,8 @@ from flask import (
 from .ads import ADs
 from .oils import Avgas
 from .logbook import FlightLog
-from .planes import WeightBalance, PlanePerf
+from .planes import WeightBalance
+from .plane_perf import PlanePerf
 from .forms import PrepflightForm
 
 
@@ -238,6 +239,21 @@ def prepflight():
         logging.error(form.errors)
 
     return render_template("prepflight.html", form=form)
+
+@main.route("/validate", methods=["POST"])
+def validateForm():
+    form = PrepflightForm()
+
+    if form.validate_on_submit():
+        plane = WeightBalance(**form.data)
+
+        if not plane.is_ready_to_fly:
+            abort(426)
+
+    if len(form.errors) == 0:
+        return "", 204
+    else:
+        return form.errors, 200
 
 @main.route("/essence", methods=["GET"])
 def essence():

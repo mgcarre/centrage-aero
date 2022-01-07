@@ -85,6 +85,7 @@ class ACFTParams {
     this.sumbagmax = 0
     this.unusable_mainfuel = 0
     this.unusable_wingfuel = 0
+    this.essence = null
   }
   populate(elem) {
     Object.assign(this, elem)
@@ -92,7 +93,6 @@ class ACFTParams {
 }
 let avion = new ACFT()
 let params = new ACFTParams()
-let essence
 
 function reset_form() {
   const selectfields = [
@@ -138,7 +138,7 @@ async function update_plane() {
   params.populate(planes[avion.callsign])
 
   const req = await fetch(`essence?type=${params.fuel_name}`)
-  essence = await req.json()
+  params.essence = await req.json()
   avion.bew = params.bew;
   avion.bearm = params.arms.bew;
 
@@ -219,7 +219,7 @@ function update_mainfuel() {
   if (params.maxmainfuel == 0) {
     document.querySelector("#mainfuel").selectedIndex = 0
   }
-  avion.mainfuelweight = value * essence?.density;
+  avion.mainfuelweight = value * params.essence?.density;
   avion.mainfuelarm = params.arms.mainfuel;
 
   update_element_HTML("#mainfuelmass", avion.mainfuelweight.toFixed(0), "Kg");
@@ -236,7 +236,7 @@ function update_wingfuel() {
     document.querySelector("#leftwingfuel").selectedIndex = 0
     document.querySelector("#rightwingfuel").selectedIndex = 0
   }
-  avion.wingfuelweight = (w1 + w2) * essence?.density;
+  avion.wingfuelweight = (w1 + w2) * params.essence?.density;
   avion.wingfuelarm = params.arms.wingfuel;
 
   update_element_HTML("#wingfuelweight", avion.wingfuelweight.toFixed(0), "Kg");
@@ -252,7 +252,7 @@ function update_auxfuel() {
   if (params.maxauxfuel == 0) {
     document.querySelector("#auxfuel").selectedIndex = 0
   }
-  avion.auxfuelweight = value * essence?.density;
+  avion.auxfuelweight = value * params.essence?.density;
   avion.auxfuelarm = params.arms.auxfuel;
 
   update_element_HTML("#auxfuelmass", avion.auxfuelweight.toFixed(0), "Kg");

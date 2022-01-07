@@ -6,9 +6,9 @@ venv/
 .vscode/
 .coverage
 *.egg-info/
-coverage.xml
-report.xml
+*.xml
 .mypy_cache
 build/
 dist/
 .tox/
+*.ps1

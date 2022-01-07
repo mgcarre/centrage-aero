@@ -899,9 +899,13 @@ class WeightBalance:
         return datetime.today() - self.last_weight
 
     @property
+    def last_bad_weight_difference(self):
+        return datetime.today() - datetime(self.last_weight.year + 5, self.last_weight.month, self.last_weight.day)
+
+    @property
     def humanized_last_weight_difference(self):
         _t = i18n.activate("fr")
-        return naturaldelta(self.last_weight_difference)
+        return naturaldelta(self.last_bad_weight_difference)
 
     def is_valid_weight(self) -> bool:
         return  self.last_weight_difference.days < (365 * 5)

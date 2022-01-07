@@ -1,8 +1,8 @@
 {% macro render_field(field, mylabel=None) %}
 {% if mylabel %}
-<label for="{{ field.id }}"> {{ mylabel }} </label>
+<label for="{{ field.id }}" class="label has-text-white"> {{ mylabel }} </label>
 {% else %}
-{{ field.label }}
+{{ field.label(class="label has-text-white") }}
 {% endif %}
 {{ field(**kwargs)|safe }}
 {% if field.errors %}

@@ -15,13 +15,13 @@ class Config:
     DEBUG: bool = False
     TESTING: bool = False
     SECRET_KEY: str = "nonPROD"
+    PERMANENT_SESSION_LIFETIME: timedelta = timedelta(minutes=15)
+    STATIC_FOLDER: str = pathlib.Path(__file__).parent.joinpath("static")
+    SESSION_COOKIE_NAME: str = "prepavol"
     SESSION_TYPE: str = "filesystem"
     SESSION_FILE_DIR: str = mkdtemp()
     SESSION_PERMANENT: bool = True
-    PERMANENT_SESSION_LIFETIME: timedelta = timedelta(hours=8)
-    STATIC_FOLDER: str = pathlib.Path(__file__).parent.joinpath("static")
-
-
+    
 @dataclass
 class DevelopmentConfig(Config):
     """App dev config."""

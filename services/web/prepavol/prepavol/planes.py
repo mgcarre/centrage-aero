@@ -808,6 +808,19 @@ class WeightBalance:
         return self.auxfuel_mass * self.arms["auxfuel"]
 
     @property
+    def unusable_fuel(self):
+        return self.unusable_mainfuel + self.unusable_wingfuel
+        
+    @property
+    def usable_fuel(self):
+        usable_fuel = (
+            self.mainfuel + self.leftwingfuel + self.rightwingfuel + self.auxfuel
+        ) - (self.unusable_mainfuel + 2 * self.unusable_wingfuel)
+        if usable_fuel < 0:
+            return 0
+        return usable_fuel
+
+    @property
     def endurance(self):
         """Endurance of the flight.
 
@@ -816,13 +829,8 @@ class WeightBalance:
         Returns:
             float: endurance in hours.
         """
-        usable_fuel = (
-            self.mainfuel + self.leftwingfuel + self.rightwingfuel + self.auxfuel
-        ) - (self.unusable_mainfuel + 2 * self.unusable_wingfuel)
         # Fix uggly negative endurance when no fuel
-        if usable_fuel < 0:
-            usable_fuel = 0
-        endurance = usable_fuel / self.fuelrate
+        endurance = self.usable_fuel / self.fuelrate
         # Round down to multiples of 5 mn
         # (convert to mn then round down base 5 then back to hours)
         return 5 * int(60 * endurance / 5) / 60

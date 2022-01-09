@@ -14,7 +14,7 @@ render_field %}
 <h3 class="title">Préparation du vol</h3>
 
 <div class="formcontainer">
-  <form id="balance" method="POST" action="/">
+  <form id="balance" method="POST" action="{{ url_for('main.prepflight') }}">
     {{ form.hidden_tag() }} {% with errors =
     get_flashed_messages(category_filter=["error"]) %} {% if errors %}
     <fieldset id="errors">

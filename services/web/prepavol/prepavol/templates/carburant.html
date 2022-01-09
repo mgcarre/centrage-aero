@@ -1,0 +1,152 @@
+{% extends "base.html" %} {% block title %}Préparation du vol{% endblock %} {%
+block head %} {{ super() }}
+
+<link rel="stylesheet" href="{{url_for('static', filename='style/form.css')}}" />
+
+<script>
+    const planes = JSON.parse({{ form.planes | tojson | safe }});
+</script>
+
+{% endblock %} {% block content %} {% from "_formhelpers.html" import
+render_field %}
+
+<!-- <div class="column is-4 is-offset-4"> -->
+<h3 class="title">Emport de carburant</h3>
+
+<div class="formcontainer">
+    <form id="balance" method="POST" action="{{ url_for('main.emport_carburant') }}">
+        {{ form.hidden_tag() }} {% with errors =
+        get_flashed_messages(category_filter=["error"]) %} {% if errors %}
+        <fieldset id="errors">
+            <div class="notification is-danger" align="center">
+                <ul class="formerrors">
+                    {% for error in errors %}
+                    <dl>{{ error }}</dl>
+                    {% endfor %} {% if plane %} {% for reason in plane.reasons %}
+                    <li>{{ reason }}</li>
+                    {% endfor %} {% endif %}
+                </ul>
+            </div>
+        </fieldset>
+        {% endif %} {% endwith %}
+
+        <fieldset id="emport_carburant">
+            <legend>Calcul d'emport de carburant</legend>
+            <div class="wrapper1">
+                <div class="gridbox callsign">
+                    <div class="field">
+                        <div class="control">
+                            {{ render_field(form.callsign,class="input") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="gridbox aircraft has-text-centered">
+                    <dt id="planetype-content"><span class="tag is-info is-large" id="planetype"></span>
+                    </dt>
+                </div>
+            </div>
+            <div class="wrapper1">
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.type_vol, class="input") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper1">
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.nb_branches, class="input") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper1">
+                <div class="gridbox">
+                    {% for branche in form.branches %}
+                    <div class="field is-horizontal my-branches">
+                        Branche {{loop.index}}
+                        <div class="control" id="{{branche.id}}-ctrl">
+                            {{ render_field(branche.distance, class="input") }}
+                        </div>
+                        <div class="control">
+                            {{ render_field(branche.vent, class="input") }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="wrapper1">
+                <div class="gridbox">
+                    <div class="field is-horizontal">
+                        {{form.degagement.label}}
+                        <div class="control">
+                            {{ render_field(form.degagement.distance, class="input") }}
+                        </div>
+                        <div class="control">
+                            {{ render_field(form.degagement.vent, class="input") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper1">
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.marge, class="input") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper1">
+                Fonds de réservoir
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.mainfuel, class="input") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.leftwingfuel, class="input") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.rightwingfuel, class="input") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="gridbox">
+                    <div class="field">
+                        <div class="control is-small">
+                            {{ render_field(form.auxfuel, class="input") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="val">
+            <legend>Validation</legend>
+            <div class="wrapper1">
+                <div class="wrapper2">
+                    {{ form.submit(class="button is-success") }}
+                </div>
+                <div class="wrapper2">
+                    <input id="resetform" type="button" class="button is-info" value="RAZ"></input>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript" src="{{url_for('static', filename='script/carburant.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Rapport d'emport de carburant{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='style/report.css')}}">
+    {% endblock %}
+</head>
+
+
+{% block content %}
+
+<div class="block">
+    <h1 class="is-3 title">Emport de carburant</h1>
+    <h1 class="subtitle is-3">{{timestamp}}</h1>
+
+    {% with warnings =
+    get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
+    <article class="message is-small is-warning">
+        <div class="message-header">
+            <p>Votre attention est requise</p>
+        </div>
+        <div class="message-body">
+            {% for warning in warnings %}
+            <p>{{ warning }}</p>
+            {% endfor %}
+        </div>
+    </article>
+    {% endif %} {% endwith %}
+    <a href="{{ url_for('main.prepflight') }}" class="button is-small is-info no-print">Masse & centrage</a>
+    <a href="" onclick="javascript:back()" class="button is-small is-warning no-print">Retour</a>
+    <a href="" onclick="javascript:print()" class="button is-small is-success no-print">Imprimer</a>
+    <fieldset>
+        <legend>Calcul de l'emport minimal</legend>
+
+        <table class="dataframe">
+            <caption>Emport de carburant pour le {{carbu.plane.planetype}} - {{carbu.callsign}}</caption>
+            <tr>
+                <th></th>
+                <th>Temps (mn)</th>
+                <th>Carburant (litres)</th>
+            </tr>
+            <tr>
+                <td>Quantité inutilisable</td>
+                <td> {{carbu.unusable_fuel_time}} </td>
+                <td> {{carbu.unusable_fuel}} </td>
+            </tr>
+            <tr>
+                <td>{{carbu.nb_branches}} Roulage{%if carbu.nb_branches > 1 %}s{% endif %}</td>
+                <td>{{carbu.roulage_time}}</td>
+                <td>{{carbu.roulage_fuel|round|float}}</td>
+            </tr>
+            <tr>
+                <td>{{carbu.nb_branches}} Arrivée{%if carbu.nb_branches > 1 %}s{% endif %}</td>
+                <td>{{carbu.arrival_time}}</td>
+                <td>{{carbu.arrival_fuel|round|float}}</td>
+            </tr>
+            {% for branche in carbu.branches %}
+            <tr>
+                <td>Branche {{loop.index}}</td>
+                <td>{{carbu.branches_time[loop.index0]|round|int}}</td>
+                <td>{{carbu.branches_fuel[loop.index0]|round|float}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Dégagement</td>
+                <td> {{carbu.degagement_time|round|int}} </td>
+                <td> {{carbu.degagement_fuel|round|float}} </td>
+            </tr>
+            <tr>
+                <td>Marge</td>
+                <td> {{carbu.marge}} </td>
+                <td> {{carbu.marge_fuel|round|float}} </td>
+            </tr>
+            <tr>
+                <td>Réserve finale</td>
+                <td> {{carbu.reserve_time|round|float}} </td>
+                <td> {{carbu.reserve_fuel|round|float}} </td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th>{{carbu.sum_time|round|int}}</th>
+                <th>{{carbu.sum_fuel|round|float}}</th>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Calcul du carburant embarqué</legend>
+        <table class="dataframe">
+            <thead>
+                <tr>
+                    <th>_</th>
+                    <th>Réservoir central</th>
+                    <th>Réservoir ailes</th>
+                    <th>Réservoir supplémentaire</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>%</td>
+                    <td>{{carbu.mainfuel|round|int}} %</td>
+                    <td>{{carbu.carburant_wings|round|int}} %</td>
+                    <td>{{carbu.auxfuel|round|int}} %</td>
+                </tr>
+                <tr>
+                    <td>
+                <tr>
+                    <td>litres</td>
+                    <td>{{carbu.carburant_emporte_main|round|int}} l</td>
+                    <td>{{carbu.carburant_emporte_wings|round|int}} l</td>
+                    <td>{{carbu.carburant_emporte_aux|round|int}} l</td>
+                </tr>
+                <tr>
+                    <td>temps</td>
+                    <td>{{carbu.carburant_emporte_main_time|round|int}} mn</td>
+                    <td>{{carbu.carburant_emporte_wings_time|round|int}} mn</td>
+                    <td>{{carbu.carburant_emporte_aux_time|round|int}} mn</td>
+                </tr>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>
+            Rapport final
+        </legend>
+        <article class="message {{carbu.get_report[1]}}">
+            <div class="message-header">
+                <p>Bilan du calcul de l'emport de carburant</p>
+            </div>
+            <div class="message-body">
+                {% for p in carbu.get_report[0] %}
+                <p>{{p|safe}}</p>
+                {% endfor %}
+            </div>
+        </article>
+    </fieldset>
+</div>
+
+{% endblock %}

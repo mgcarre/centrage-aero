@@ -15,7 +15,8 @@
 
 {% block content %}
 
-<h1 class="myheading title">Préparation du vol</h1>
+<h1 class="is-1 title">Préparation du vol</h1>
+
 <article class="message is-small is-info">
     <div class="message-header">
         <p>{{ plane.callsign }} - {{ timestamp }}</p>
@@ -51,7 +52,8 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
     </div>
 </article>
 {% endif %} {% endwith %}
-<a href="/" class="button is-small is-warning no-print">Retour</a>
+<a href="" onclick="javascript:back()" class="button is-small is-warning no-print">Retour</a>
+<a href="" onclick="javascript:print()" class="button is-small is-success no-print">Imprimer</a>
 <fieldset>
     <legend>Masse et centrage</legend>
 

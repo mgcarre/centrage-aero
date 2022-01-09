@@ -21,6 +21,10 @@ from flask import (
     url_for,
     send_from_directory,
 )
+
+from .emport_carburant import EmportCarburant
+
+from .emport_carburant_form import EmportCarburantForm
 from .ads import ADs
 from .oils import Avgas
 from .logbook import FlightLog
@@ -161,8 +165,11 @@ def stats():
         last_quarter=last_quarter_html,
     )
 
+@main.route("/")
+def welcome():
+    return render_template("welcome.html")
 
-@main.route("/", methods=["GET", "POST"])
+@main.route("/prepavol", methods=["GET", "POST"])
 def prepflight():
     """Form for flight preparation."""
     # form defaults
@@ -239,6 +246,25 @@ def prepflight():
         logging.error(form.errors)
 
     return render_template("prepflight.html", form=form)
+
+@main.route("/carburant", methods=["GET","POST"])
+def emport_carburant():
+    form = EmportCarburantForm()
+    timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
+
+    if request.method == "POST":       
+        if form.validate_on_submit():
+            carbu = EmportCarburant(**form.data)
+            return render_template(
+                "report_carburant.html", 
+                carbu=carbu,
+                timestamp=timestamp
+                )
+
+        logging.error(form.errors)
+        return render_template("carburant.html", form=form)
+
+    return render_template("carburant.html", form=form)
 
 @main.route("/validate", methods=["POST"])
 def validateForm():

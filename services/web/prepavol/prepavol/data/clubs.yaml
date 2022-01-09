@@ -1,0 +1,13 @@
+- club:
+  title: ACDN
+  planes:
+    - F-GGHJ
+    - F-GTZR
+- club:
+  title: TEST
+  planes:
+    - EFGH
+- club:
+  title: DEMO
+  planes:
+    - ABCD

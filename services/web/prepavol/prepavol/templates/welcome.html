@@ -33,10 +33,35 @@
         <div class="tile is-parent">
             <article class="tile is-child notification is-success">
                 <div class="content">
-                    <p class="title">Tall tile</p>
-                    <p class="subtitle">With even more content</p>
+                    <p class="title">Choisir son club</p>
+                    <p class="subtitle">Aéroclubs disponibles</p>
                     <div class="content">
+                        {% with notif =
+                        get_flashed_messages(category_filter=["success"]) %} {% if notif %}
+                        <article class="message is-small is-info">
+                            <div class="message-header">
+                                <p>Information</p>
+                            </div>
+                            <div class="message-body">
+                                {% for n in notif %}
+                                <p>{{ n }}</p>
+                                {% endfor %}
+                            </div>
+                        </article>
+                        {% endif %} {% endwith %}
+                        {% if club %}
+                        Votre club est {{club}}
+                        Les avions du club :
+                        <ul>
+                            {% for li in planes if planes %}
+                            <li>{{li}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                         <!-- Content -->
+                        {% for c in clubs if not club %}
+                        <a href="/club/{{c.title}}" class="button">{{c.title}}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </article>

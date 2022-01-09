@@ -22,6 +22,8 @@ from flask import (
     send_from_directory,
 )
 
+from .clubs import Aeroclub
+
 from .emport_carburant import EmportCarburant
 
 from .emport_carburant_form import EmportCarburantForm
@@ -102,7 +104,7 @@ def logout():
     abort(400)
     if "username" in session.keys():
         session.clear()
-    return redirect(url_for("main.prepflight"))
+    return redirect(url_for("main.welcome"))
 
 
 @main.route("/favicon.ico")
@@ -160,14 +162,37 @@ def stats():
 
     return render_template(
         "stats.html",
-        name=session["username"],
+        name=session.get("club"),
         dataframes=flightstats_html,
         last_quarter=last_quarter_html,
     )
 
 @main.route("/")
 def welcome():
-    return render_template("welcome.html")
+    club = session.get("club")
+    clubs = Aeroclub().clubs
+    logging.info(club)
+    return render_template(
+        "welcome.html",
+        club=club,
+        clubs=clubs,
+        planes=session.get("club_planes"),
+        session=session
+        )
+
+@main.route("/club/<string:club>")
+def set_club(club):
+    clubs = Aeroclub()
+    if club in clubs.keys:
+        session["club"] = club
+        session["club_planes"] = clubs.get_plane_keys(club)
+    flash("Votre club a bien été enregistré", "success")
+    return redirect(url_for("main.welcome"))
+
+@main.route("/disconnect")
+def disconnect():
+    session.clear()
+    return redirect(url_for("main.welcome"))
 
 @main.route("/prepavol", methods=["GET", "POST"])
 def prepflight():

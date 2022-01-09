@@ -1,0 +1,55 @@
+{
+    "manifest_version": 3,
+    "name": "Prepavol",
+    "version": "0.1.0",
+    "lang": "fr",
+    "default_locale": "fr",
+    "description": "Préparation du vol : emport carbu & devis centrage",
+    "icons": [
+        {
+            "src": "icons/icons8-windsock-16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icons8-windsock-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icons8-windsock-96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "background_color": "white",
+    "start_url": "/",
+    "display": "fullscreen",
+    "orientation": "landscape-primary",
+    "shortcuts": [
+        {
+            "name": "Calcul emport carburant",
+            "short_name": "Carburant",
+            "description": "Calculez l'emport de carburant nécessaire",
+            "url": "/carburant",
+            "icons": [
+                {
+                    "src": "./icons/icons8-fuel-pump-96.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Masse et centrage",
+            "short_name": "Devis",
+            "description": "Préparez votre devis de masse et centrage",
+            "url": "/prepavol",
+            "icons": [
+                {
+                    "src": "./icons/icons8-gyroscope-96.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
+}

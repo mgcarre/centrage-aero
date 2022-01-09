@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %} PrepaVol {% endblock %}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
 
   {% endblock %}
 </head>
@@ -42,6 +43,13 @@
             </a>
           </div>
           <div class="navbar-end">
+            {% if club %}
+            <div class="navbar-item">
+              <a href="{{ url_for('main.disconnect') }}" class="button is-danger">
+                Déconnexion
+              </a>
+            </div>
+            {% endif %}
             <div class="navbar-item">
               <a href="https://github.com/mgcarre/centrage-aero" target="_blank">
                 <img src="{{ url_for('static', filename='icons/github-mark/GitHub-Mark-32px.png') }}" />

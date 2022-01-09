@@ -34,8 +34,9 @@ def create_app():
     else:
         app.config.from_object("prepavol.config.Config")
 
-    Session(app)
-
+    sess = Session()
+    sess.init_app(app)
+    
     # Registrations
     # blueprint for non-auth parts of app
     app.register_blueprint(main_blueprint)

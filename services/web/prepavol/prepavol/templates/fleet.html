@@ -5,7 +5,7 @@
 
 {% endblock %} {% block content %}
 
-<h3 class="title">Flotte ACDN</h3>
+<h3 class="title">Flotte{% if club is string %} {{club}}{% endif %}</h3>
 
 <section class="wrapper">
   <ul class="column__list">

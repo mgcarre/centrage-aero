@@ -1,4 +1,5 @@
 F-GGHJ:
+  callsign: F-GGHJ
   arms:
     auxfuel: 1.61
     baggage: 1.9
@@ -34,6 +35,7 @@ F-GGHJ:
   fuel_name: 100LL
   last_weigh: "2018-02-23"
 F-GTZR:
+  callsign: F-GTZR
   arms:
     auxfuel: 1.61
     baggage: 1.9

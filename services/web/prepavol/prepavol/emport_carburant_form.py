@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField, StringField
 from wtforms.fields.form import FormField
 from wtforms.fields.list import FieldList
-from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange, Length, Optional
+from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange, Length, Optional, ValidationError
 from .planes import WeightBalance
 import json
 from enum import Enum
@@ -94,12 +94,39 @@ class EmportCarburantForm(FlaskForm):
     )
 
     
+    def validate_carburant(form, field):
+        plane = WeightBalance(form.data["callsign"])
+        if field.name == "mainfuel":
+            if plane.maxmainfuel > 0:
+                if field.data == 0:
+                    raise ValidationError("Le réservoir principal est vide")
+            else:
+                if field.data > 0:
+                    raise ValidationError("Cet avion ne comporte pas de réservoir principal")
+        if field.name == "rightwingfuel" or field.name == "leftwingfuel":
+            if plane.maxwingfuel > 0:
+                if form.data["leftwingfuel"] + form.data["rightwingfuel"] > 2 * 100:
+                    raise ValidationError("Les réservoirs d'ailes débordent")
+                if form.data["leftwingfuel"] + form.data["rightwingfuel"] == 0:
+                    raise ValidationError("Les réservoirs d'aile sont vides")
+            else:
+                if field.data > 0:
+                    raise ValidationError("Cet avion ne comporte pas de réservoir d'aile")
+        else:
+            if plane.maxauxfuel > 0:
+                if field.data == 0:
+                    raise ValidationError("Le réservoir supplémentaire est vide")
+            else:
+                if field.data > 0:
+                    raise ValidationError("Cet avion ne comporte pas de réservoir supplémentaire")
+
     # Main fuel
     mainfuel_choices = list(zip(fuel_range, fuel_range))
     mainfuel = SelectField(
         "Niveau réservoir principal (%)",
         coerce=int,
         choices=mainfuel_choices,
+        validators=[validate_carburant]
     )
     # Left wing fuel
     leftwingfuel_choices = list(zip(fuel_range, fuel_range))
@@ -107,6 +134,7 @@ class EmportCarburantForm(FlaskForm):
         "Niveau réservoir aile gauche (%)",
         coerce=int,
         choices=leftwingfuel_choices,
+        validators=[validate_carburant]
     )
     # Right wing fuel
     rightwingfuel_choices = list(zip(fuel_range, fuel_range))
@@ -114,6 +142,7 @@ class EmportCarburantForm(FlaskForm):
         "Niveau réservoir aile droite (%)",
         coerce=int,
         choices=rightwingfuel_choices,
+        validators=[validate_carburant]
     )
     # Aux fuel
     auxfuel_choices = list(zip(fuel_range, fuel_range))
@@ -121,5 +150,6 @@ class EmportCarburantForm(FlaskForm):
         "Niveau réservoir suppl. (%)",
         coerce=int,
         choices=auxfuel_choices,
+        validators=[validate_carburant]
     )
     submit = SubmitField("Valider")

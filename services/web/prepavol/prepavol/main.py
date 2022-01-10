@@ -139,8 +139,9 @@ def profile():
 @main.route("/fleet")
 def fleet():
     """Display planes characteristics."""
-    planes = WeightBalance.load_fleet_data()
-    return render_template("fleet.html", data=planes)
+    club = session.get("club")
+    planes = WeightBalance.load_fleet_data(club)
+    return render_template("fleet.html", data=planes, club=club)
 
 
 @main.route("/stats")
@@ -197,8 +198,8 @@ def disconnect():
 @main.route("/prepavol", methods=["GET", "POST"])
 def prepflight():
     """Form for flight preparation."""
-    # form defaults
-    form = PrepflightForm()
+    # form defaults + fuel calculation
+    form = PrepflightForm(**session)
 
     if request.method == "POST":
         if form.validate_on_submit():
@@ -280,6 +281,10 @@ def emport_carburant():
     if request.method == "POST":       
         if form.validate_on_submit():
             carbu = EmportCarburant(**form.data)
+            session["leftwingfuel"] = carbu.carburant_emporte_wings / 2
+            session["rightwingfuel"] = carbu.carburant_emporte_wings / 2
+            session["auxfuel"] = carbu.carburant_emporte_aux
+            session["mainfuel"] = carbu.carburant_emporte_main
             return render_template(
                 "report_carburant.html", 
                 carbu=carbu,
@@ -295,16 +300,11 @@ def emport_carburant():
 def validateForm():
     form = PrepflightForm()
 
-    if form.validate_on_submit():
-        plane = WeightBalance(**form.data)
-
-        if not plane.is_ready_to_fly:
-            abort(426)
-
-    if len(form.errors) == 0:
-        return "", 204
-    else:
-        return form.errors, 200
+    if form.is_submitted():
+        if len(form.errors) == 0:
+            return "", 204
+        else:
+            return form.errors, 200
 
 @main.route("/essence", methods=["GET"])
 def essence():

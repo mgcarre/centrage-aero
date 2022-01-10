@@ -70,7 +70,7 @@ This doesn't work on Cloud Run - nginx not needed there anyway.
 It works on Google App Engine, but it is not the right solution.
 
 ```bash
-docker-compose -f docker-compose.prod.yaml -f up -d --build
+docker compose -f docker-compose.prod.yaml up -d --build
 ```
 
 ## Single container with gunicorn for Cloud Run

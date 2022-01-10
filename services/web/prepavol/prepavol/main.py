@@ -140,7 +140,7 @@ def profile():
 def fleet():
     """Display planes characteristics."""
     club = session.get("club")
-    planes = WeightBalance.load_fleet_data(club)
+    planes = WeightBalance.load_fleet_data()
     return render_template("fleet.html", data=planes, club=club)
 
 

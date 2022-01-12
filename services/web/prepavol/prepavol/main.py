@@ -6,8 +6,10 @@ import os
 import logging
 import urllib
 from datetime import datetime, timezone
+from PythonMETAR.metar import NOAAServError
 import jsonpickle
 import pandas as pd
+import PythonMETAR
 
 from flask import (
     abort,
@@ -195,7 +197,7 @@ def disconnect():
     session.clear()
     return redirect(url_for("main.welcome"))
 
-@main.route("/prepavol", methods=["GET", "POST"])
+@main.route("/devis", methods=["GET", "POST"])
 def prepflight():
     """Form for flight preparation."""
     # form defaults + fuel calculation
@@ -300,11 +302,10 @@ def emport_carburant():
 def validateForm():
     form = PrepflightForm()
 
-    if form.is_submitted():
-        if len(form.errors) == 0:
-            return "", 204
-        else:
-            return form.errors, 200
+    if form.validate_on_submit():
+        return "", 204
+    
+    return form.errors, 200
 
 @main.route("/essence", methods=["GET"])
 def essence():
@@ -328,3 +329,15 @@ def aerodrome():
         'trafic': terrain.trafic,
         'statut': terrain.statut
         }
+
+@main.route("/metar/<string:station>")
+def metar(station):
+    if not station:
+        abort(403)
+    try:
+        metar = PythonMETAR.Metar(station.upper())
+        if metar:
+            return metar.getAll()
+    except NOAAServError:
+        abort(404)
+    abort(400)

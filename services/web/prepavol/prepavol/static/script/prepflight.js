@@ -262,6 +262,14 @@ function update_auxfuel() {
   update_totals();
 }
 
+function helper_perf(event) {
+  const alt_input = ["tkaltinput", "ldaltinput"]
+  if (alt_input.indexOf(event.target.id) == -1) {
+    prepare_metar(event)
+  } else {
+    update_ad_alt(event)
+  }
+}
 async function update_ad_alt(event) {
   event.preventDefault()
   event.stopPropagation()
@@ -302,6 +310,37 @@ async function validate_fields(event) {
   }
 }
 
+async function prepare_metar(event) {
+  const url = "/metar"
+  event.preventDefault()
+  event.stopPropagation()
+  const elem = event.target
+  if (elem.value.length === 4) {
+    const req = await fetch(`${url}/${elem.value}`)
+    if (req.status >= 400) {
+      alert(`Pas de METAR pour la station : ${elem.value.toUpperCase()}`)
+      return
+    }
+    try {
+      const res = await req.json()
+      const inputs = {
+        "tktemp_metar": ["tktemp", "tkqnh"],
+        "ldtemp_metar": ["ldtemp", "ldqnh"],
+        fields: [res.temperatures.temperature, res.qnh]
+      }
+      inputs[elem.id].forEach((id, index) => {
+        const el = document.getElementById(id)
+        el.value = inputs.fields[index]
+      })
+    } catch (error) {
+      if (error) {
+        alert(error)
+      }
+    }
+
+  }
+}
+
 // Event callbacks
 const elem = new Map()
 elem.set("#callsign", update_plane);
@@ -323,7 +362,7 @@ window.addEventListener("DOMContentLoaded", e => {
     e.preventDefault()
     reset_form()
   })
-  document.querySelectorAll("#perf input").forEach(elem => elem.addEventListener("input", e => update_ad_alt(e)))
+  document.querySelectorAll("#perf input").forEach(elem => elem.addEventListener("input", e => helper_perf(e)))
   update_plane();
   update_front();
   update_rear();

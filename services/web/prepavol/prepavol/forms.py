@@ -39,12 +39,13 @@ class PrepflightForm(FlaskForm):
     maxbagmax2 = max(bagmax2_list)
     
     plane = WeightBalance(callsigns[0])
+    step_fuel = 1
     pax_weight_range = range(0, 145, 5)
     baggage_weight_range = range(0, maxbagmax + 1, 5)
     baggage2_weight_range = range(0, maxbagmax2 + 1, 5)
-    mainfuel_range = range(0, maxmainfuel + 5, 5)
-    wingfuel_range = range(0, maxwingfuel + 5, 5)
-    auxfuel_range = range(0, maxauxfuel + 5, 5)
+    mainfuel_range = range(0, maxmainfuel + 1, step_fuel)
+    wingfuel_range = range(0, maxwingfuel + 1, step_fuel)
+    auxfuel_range = range(0, maxauxfuel + 1, step_fuel)
     altitude_range = range(-100, 8100, 100)
     temperature_range = range(-20, 51, 1)
     qnh_range = range(950, 1051, 1)
@@ -155,12 +156,21 @@ class PrepflightForm(FlaskForm):
     )
 
     temperature_choices = list(zip(temperature_range, temperature_range))
+    
+    tktemp_metar = StringField(
+        "station METAR",
+        validators=[Length(min=4,max=4),Optional()]
+    )
     tktemp = SelectField(
         "temp (°C)",
         coerce=int,
         validators=[DataRequired(message="Ce champ est requis")],
         choices=temperature_choices,
         default=15,
+    )
+    ldtemp_metar = StringField(
+        "station METAR",
+        validators=[Length(min=4,max=4),Optional()]
     )
     ldtemp = SelectField(
         "temp (°C)",

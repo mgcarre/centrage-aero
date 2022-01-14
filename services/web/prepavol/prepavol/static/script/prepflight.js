@@ -297,7 +297,7 @@ async function validate_fields(event) {
     body: form
   })
   document.querySelectorAll(".input.is-danger").forEach(elem => elem.classList.remove("is-danger"))
-  if (validate.status == 200) {
+  if (validate.status == 422) {
     const data = await validate.json()
     const fields = Object.keys(data)
     fields.forEach(field => {

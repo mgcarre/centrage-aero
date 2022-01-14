@@ -240,12 +240,12 @@ def prepflight():
 
             timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
 
-            if form.data["tkaltinput"] == "":
+            if form.data["tkaltinput"] == "" or not form.data["tkaltinput"]:
                 tkAD = None
             else:
                 tkAD = ADs(form.data["tkaltinput"].upper())
             
-            if form.data["ldaltinput"] == "":
+            if form.data["ldaltinput"] == "" or not form.data["ldaltinput"]:
                 ldAD = None
             else:
                 ldAD = ADs(form.data["ldaltinput"].upper())
@@ -305,7 +305,7 @@ def validateForm():
     if form.validate_on_submit():
         return "", 204
     
-    return form.errors, 200
+    return form.errors, 422
 
 @main.route("/essence", methods=["GET"])
 def essence():

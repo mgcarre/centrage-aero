@@ -4,22 +4,23 @@
 import unittest
 import pandas
 
-from prepavol import planes
-
+from prepavol.planes import WeightBalance
+from prepavol.plane_perf import PlanePerf
 
 class WeightBalanceTestCase(unittest.TestCase):
     """Unit tests of WeightBalance"""
 
     def setUp(self):
-        self.plane = planes.WeightBalance("FHAAC")
+        self.callsign = "F-GTZR"
+        self.plane = WeightBalance(self.callsign)
 
     def test_nonexistent_callsign(self):
         """Unknown call sign should raise an exception"""
-        self.assertRaises(Exception, planes.WeightBalance, "FXXX")
+        self.assertRaises(Exception, WeightBalance, "FXXX")
 
     def test_basic(self):
         """Ensure plane is duly instantiated"""
-        self.assertIsInstance(self.plane, planes.WeightBalance)
+        self.assertIsInstance(self.plane, WeightBalance)
 
     def test_mtow_exceeded(self):
         """All-up weight above MTOW should make is_ready_to_fly False"""
@@ -47,17 +48,18 @@ class PlanePerfTestCase(unittest.TestCase):
     """Unit tests of PlanePerf"""
 
     def setUp(self):
-        self.plane = planes.WeightBalance("FHAAC")
+        self.callsign = "F-GTZR"
+        self.plane = WeightBalance(self.callsign)
         self.plane.pax0, self.plane.pax1 = 2 * [70]
         self.plane.mainfuel_gauge = 4
         _ = self.plane.cg
-        self.planeperf = planes.PlanePerf(
+        self.planeperf = PlanePerf(
             self.plane.planetype, self.plane.auw, 1200, 25, 1010
         )
 
     def test_planeperf_instantiation(self):
         """Validate PlanePerf class instantiation"""
-        self.assertIsInstance(self.planeperf, planes.PlanePerf)
+        self.assertIsInstance(self.planeperf, PlanePerf)
 
     def test_planeperf_density_altitude(self):
         """Validate density altitude property"""

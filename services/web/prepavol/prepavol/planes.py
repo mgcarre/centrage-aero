@@ -449,7 +449,6 @@ class WeightBalance:
         point = Point(self._cg, self.auw)
         if not polygon.contains(point):
             self.is_ready_to_fly = False
-            logging.error(reason)
             if reason not in self.reasons:
                 self.reasons.append(reason)
         else:

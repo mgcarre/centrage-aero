@@ -69,7 +69,7 @@ class EmportCarburantForm(FlaskForm):
     nb_branches_liste = range(0, 7)
     nb_branches = SelectField(
         "Nb branches",
-        validators=[DataRequired(), NumberRange(1, 6)],
+        validators=[DataRequired(message="Le nombre de branche doit être compris entre 1 et 6"), NumberRange(1, 6)],
         coerce=int,
         choices=list(zip(nb_branches_liste, nb_branches_liste))
     )
@@ -88,7 +88,7 @@ class EmportCarburantForm(FlaskForm):
     marge_rng = range(0, 61, 2)
     marge = SelectField(
         "Marge (mn)",
-        validators=[NumberRange(min=2, max=60)],
+        validators=[NumberRange(min=2, max=60, message="La marge est comprise entre 2 et 60")],
         coerce=int,
         choices=list(zip(marge_rng, marge_rng))
     )

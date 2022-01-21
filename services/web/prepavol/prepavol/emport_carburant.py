@@ -37,7 +37,7 @@ class EmportCarburant():
         return range(self.nb_branches)
 
     @property
-    def unusable_fuel(self):
+    def unusable_fuel(self) -> int:
         return self.plane.unusable_fuel
 
     @property
@@ -112,15 +112,6 @@ class EmportCarburant():
         return br
 
     @property
-    def _branches_time_fuel(self):
-        br = []
-        for b in self.branches:
-            tm = (60 / (100 - b["vent"])) * b["distance"]
-            fu = (self.plane.fuelrate / 60) * tm
-            br.append([tm, fu])
-        return br
-
-    @property
     def branches_fuel(self):
         br = []
         for b in self.branches:
@@ -176,8 +167,11 @@ class EmportCarburant():
         return self.carburant_emporte_main_time + self.carburant_emporte_wings_time + self.carburant_emporte_aux_time
 
     @property
-    def compare_fuel(self):
+    def compare_fuel(self) -> bool:
         return self.sum_carburant_emporte >= self.sum_fuel
+
+    def authorized(self):
+        return self.compare_fuel
 
     @property
     def get_compared_fuel(self):

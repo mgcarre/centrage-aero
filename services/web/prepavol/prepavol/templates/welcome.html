@@ -33,39 +33,18 @@
         <div class="tile is-parent">
             <article class="tile is-child notification is-success">
                 <div class="content">
-                    <p class="title">Choisir son club</p>
-                    <p class="subtitle">Aéroclubs disponibles</p>
-                    <div class="content">
-                        {% with notif =
-                        get_flashed_messages(category_filter=["success"]) %} {% if notif %}
-                        <article class="message is-small is-info">
-                            <div class="message-header">
-                                <p>Information</p>
-                            </div>
-                            <div class="message-body">
-                                {% for n in notif %}
-                                <p>{{ n }}</p>
-                                {% endfor %}
-                            </div>
-                        </article>
-                        {% endif %} {% endwith %}
-                        {% if club %}
-                        Votre club est {{club}}
-                        Les avions du club :
-                        <ul>
-                            {% for li in planes if planes %}
-                            <li>{{li}}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        <!-- Content -->
-                        {% for c in clubs if not club %}
-                        <a href="/club/{{c.title}}" class="button">{{c.title}}</a>
-                        {% endfor %}
+                    <p class="title">Info METAR</p>
+                    <p class="subtitle">Choisir son terrain</p>
+                    <div class="content" id="res-api">
+                        <button class="button">LFPN</button>
+                        <button class="button">LFPO</button>
                     </div>
                 </div>
             </article>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="{{url_for('static', filename='script/welcome.js')}}"></script>
+
 {% endblock %}

@@ -20,7 +20,7 @@
     <h1 class="subtitle is-3">{{timestamp}}</h1>
 
     {% with warnings =
-    get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
+    get_flashed_messages() %} {% if warnings %}
     <article class="message is-small is-warning">
         <div class="message-header">
             <p>Votre attention est requise</p>

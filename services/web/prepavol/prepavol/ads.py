@@ -36,3 +36,14 @@ class ADs:
     def get_geo(self,str):
         lat, lon = str.split(' ')
         return [self.__conversion(lat), self.__conversion(lon)]
+
+    def get_dict(self):
+        return {
+        'code': self.code,
+        'var': self.var,
+        'geo': self.point,
+        'nom': self.nom, 
+        'alt': self.alt, 
+        'trafic': self.trafic,
+        'statut': self.statut
+        }

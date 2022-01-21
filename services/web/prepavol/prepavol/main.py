@@ -287,6 +287,7 @@ def emport_carburant():
             session["rightwingfuel"] = carbu.carburant_emporte_wings / 2
             session["auxfuel"] = carbu.carburant_emporte_aux
             session["mainfuel"] = carbu.carburant_emporte_main
+            session["callsign"] = carbu.callsign
             return render_template(
                 "report_carburant.html", 
                 carbu=carbu,

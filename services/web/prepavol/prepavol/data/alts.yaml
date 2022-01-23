@@ -2,7 +2,7 @@ LFAB:
   code: LFAB
   nom: DIEPPE SAINT AUBIN
   var: 0.57
-  Geo: '49°52''57"N 001°05''07"E'
+  Geo: 49°52'57"N 001°05'07"E
   alt: 344
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 145
@@ -11,7 +11,7 @@ LFAC:
   code: LFAC
   nom: CALAIS MARCK
   var: 0.77
-  Geo: '50°57''39"N 001°57''05"E'
+  Geo: 50°57'39"N 001°57'05"E
   alt: 12
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 143
@@ -20,7 +20,7 @@ LFAD:
   code: LFAD
   nom: COMPIEGNE MARGNY
   var: 1.13
-  Geo: '49°26''01"N 002°48''17"E'
+  Geo: 49°26'01"N 002°48'17"E
   alt: 316
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 143
@@ -29,25 +29,25 @@ LFAE:
   code: LFAE
   nom: EU MERS LE TREPORT
   var: 0.66
-  Geo: '50°04''09"N 001°25''36"E'
+  Geo: 50°04'09"N 001°25'36"E
   alt: 328
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFAF:
   code: LFAF
   nom: LAON CHAMBRY
   var: 1.37
-  Geo: '49°35''41"N 003°37''49"E'
+  Geo: 49°35'41"N 003°37'49"E
   alt: 258
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFAG:
   code: LFAG
   nom: PERONNE SAINT QUENTIN
   var: 1.18
-  Geo: '49°52''08"N 003°01''47"E'
+  Geo: 49°52'08"N 003°01'47"E
   alt: 295
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -56,7 +56,7 @@ LFAI:
   code: LFAI
   nom: NANGIS LES LOGES
   var: 1.23
-  Geo: '48°35''49"N 003°00''29"E'
+  Geo: 48°35'49"N 003°00'29"E
   alt: 428
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -65,7 +65,7 @@ LFAJ:
   code: LFAJ
   nom: ARGENTAN
   var: 0.31
-  Geo: '48°42''34"N 000°00''10"E'
+  Geo: 48°42'34"N 000°00'10"E
   alt: 581
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -74,16 +74,16 @@ LFAK:
   code: LFAK
   nom: DUNKERQUE LES MOERES
   var: 0.96
-  Geo: '51°02''26"N 002°33''01"E'
+  Geo: 51°02'26"N 002°33'01"E
   alt: -3
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFAL:
   code: LFAL
   nom: LA FLECHE THOREE LES PINS
   var: 0.38
-  Geo: '47°41''34"N 000°00''07"W'
+  Geo: 47°41'34"N 000°00'07"W
   alt: 120
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -92,16 +92,16 @@ LFAM:
   code: LFAM
   nom: BERCK SUR MER
   var: 0.69
-  Geo: '50°25''23"N 001°35''31"E'
+  Geo: 50°25'23"N 001°35'31"E
   alt: 32
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
   statut: ouvert à la CAP
 LFAO:
   code: LFAO
-  nom: 'BAGNOLES DE L''ORNE COUTERNE'
+  nom: BAGNOLES DE L'ORNE COUTERNE
   var: 0.20
-  Geo: '48°32''41"N 000°23''06"W'
+  Geo: 48°32'41"N 000°23'06"W
   alt: 714
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -110,7 +110,7 @@ LFAP:
   code: LFAP
   nom: RETHEL PERTHES
   var: 1.60
-  Geo: '49°28''52"N 004°21''48"E'
+  Geo: 49°28'52"N 004°21'48"E
   alt: 416
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 148
@@ -119,7 +119,7 @@ LFAQ:
   code: LFAQ
   nom: ALBERT BRAY
   var: 1.07
-  Geo: '49°58''12"N 002°41''33"E'
+  Geo: 49°58'12"N 002°41'33"E
   alt: 363
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 143
@@ -128,25 +128,25 @@ LFAR:
   code: LFAR
   nom: MONTDIDIER
   var: 1.05
-  Geo: '49°40''23"N 002°34''09"E'
+  Geo: 49°40'23"N 002°34'09"E
   alt: 358
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFAS:
   code: LFAS
-  nom: 'FALAISE MONTS D''ERAINES'
+  nom: FALAISE MONTS D'ERAINES
   var: 0.24
-  Geo: '48°55''37"N 000°08''41"W'
+  Geo: 48°55'37"N 000°08'41"W
   alt: 513
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
   statut: usage restreint
 LFAT:
   code: LFAT
-  nom: 'LE TOUQUET COTE D''OPALE'
+  nom: LE TOUQUET COTE D'OPALE
   var: 0.70
-  Geo: '50°30''53"N 001°37''39"E'
+  Geo: 50°30'53"N 001°37'39"E
   alt: 21
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 143
@@ -155,7 +155,7 @@ LFAU:
   code: LFAU
   nom: VAUVILLE
   var: -0.37
-  Geo: '49°37''22"N 001°49''48"W'
+  Geo: 49°37'22"N 001°49'48"W
   alt: 458
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -164,7 +164,7 @@ LFAV:
   code: LFAV
   nom: VALENCIENNES DENAIN
   var: 1.29
-  Geo: '50°19''29"N 003°27''56"E'
+  Geo: 50°19'29"N 003°27'56"E
   alt: 165
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 144
@@ -173,7 +173,7 @@ LFAW:
   code: LFAW
   nom: VILLERUPT
   var: 2.04
-  Geo: '49°24''38"N 005°53''21"E'
+  Geo: 49°24'38"N 005°53'21"E
   alt: 1303
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -182,7 +182,7 @@ LFAX:
   code: LFAX
   nom: MORTAGNE AU PERCHE
   var: 0.49
-  Geo: '48°32''23"N 000°32''03"E'
+  Geo: 48°32'23"N 000°32'03"E
   alt: 886
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 150
@@ -191,7 +191,7 @@ LFAY:
   code: LFAY
   nom: AMIENS-GLISY
   var: 0.98
-  Geo: '49°52''23"N 002°23''13"E'
+  Geo: 49°52'23"N 002°23'13"E
   alt: 208
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 144
@@ -200,7 +200,7 @@ LFBA:
   code: LFBA
   nom: AGEN LA GARENNE
   var: 0.73
-  Geo: '44°10''29"N 000°35''26"E'
+  Geo: 44°10'29"N 000°35'26"E
   alt: 204
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 157
@@ -209,7 +209,7 @@ LFBC:
   code: LFBC
   nom: CAZAUX
   var: 0.2301
-  Geo: '44°32''06"N 001°07''53"W'
+  Geo: 44°32'06"N 001°07'53"W
   alt: 85
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 154
@@ -218,7 +218,7 @@ LFBD:
   code: LFBD
   nom: BORDEAUX MERIGNAC
   var: 0.34
-  Geo: '44°49''43"N 000°42''55"W'
+  Geo: 44°49'43"N 000°42'55"W
   alt: 166
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 152
@@ -227,7 +227,7 @@ LFBE:
   code: LFBE
   nom: BERGERAC DORDOGNE PERIGORD
   var: 0.69
-  Geo: '44°49''28"N 000°31''14"E'
+  Geo: 44°49'28"N 000°31'14"E
   alt: 172
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 154
@@ -236,7 +236,7 @@ LFBF:
   code: LFBF
   nom: TOULOUSE FRANCAZAL
   var: 0.96
-  Geo: '43°32''57"N 001°21''26"E'
+  Geo: 43°32'57"N 001°21'26"E
   alt: 535
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 160
@@ -245,7 +245,7 @@ LFBG:
   code: LFBG
   nom: COGNAC CHATEAUBERNARD
   var: 0.4070
-  Geo: '45°39''30"N 000°19''03"W'
+  Geo: 45°39'30"N 000°19'03"W
   alt: 103
   trafic: NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 153
@@ -254,7 +254,7 @@ LFBH:
   code: LFBH
   nom: LA ROCHELLE ILE DE RE
   var: 0.11
-  Geo: '46°10''45"N 001°11''43"W'
+  Geo: 46°10'45"N 001°11'43"W
   alt: 74
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 153
@@ -263,7 +263,7 @@ LFBI:
   code: LFBI
   nom: POITIERS BIARD
   var: 0.54
-  Geo: '46°35''15"N 000°18''24"E'
+  Geo: 46°35'15"N 000°18'24"E
   alt: 423
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 154
@@ -272,7 +272,7 @@ LFBJ:
   code: LFBJ
   nom: SAINT JUNIEN
   var: 0.75
-  Geo: '45°54''09"N 000°55''08"E'
+  Geo: 45°54'09"N 000°55'08"E
   alt: 903
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -281,7 +281,7 @@ LFBK:
   code: LFBK
   nom: MONTLUCON GUERET
   var: 1.15
-  Geo: '46°13''34"N 002°21''46"E'
+  Geo: 46°13'34"N 002°21'46"E
   alt: 1367
   trafic: NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -290,7 +290,7 @@ LFBL:
   code: LFBL
   nom: LIMOGES BELLEGARDE
   var: 0.83
-  Geo: '45°51''39"N 001°10''49"E'
+  Geo: 45°51'39"N 001°10'49"E
   alt: 1300
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 158
@@ -299,7 +299,7 @@ LFBM:
   code: LFBM
   nom: MONT DE MARSAN
   var: 0.4386
-  Geo: '43°54''41"N 000°30''36"W'
+  Geo: 43°54'41"N 000°30'36"W
   alt: 203
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 157
@@ -308,7 +308,7 @@ LFBN:
   code: LFBN
   nom: NIORT MARAIS POITEVIN
   var: 0.35
-  Geo: '46°18''48"N 000°23''40"W'
+  Geo: 46°18'48"N 000°23'40"W
   alt: 201
   trafic: NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 155
@@ -317,7 +317,7 @@ LFBO:
   code: LFBO
   nom: TOULOUSE BLAGNAC
   var: 0.96
-  Geo: '43°38''06"N 001°22''04"E'
+  Geo: 43°38'06"N 001°22'04"E
   alt: 499
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -326,7 +326,7 @@ LFBP:
   code: LFBP
   nom: PAU PYRENEES
   var: 0.49
-  Geo: '43°22''48"N 000°25''07"W'
+  Geo: 43°22'48"N 000°25'07"W
   alt: 616
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 162
@@ -335,7 +335,7 @@ LFBR:
   code: LFBR
   nom: MURET LHERM
   var: 0.94
-  Geo: '43°26''57"N 001°15''49"E'
+  Geo: 43°26'57"N 001°15'49"E
   alt: 623
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 161
@@ -344,7 +344,7 @@ LFBS:
   code: LFBS
   nom: BISCARROSSE PARENTIS
   var: 0.24
-  Geo: '44°22''05"N 001°07''56"W'
+  Geo: 44°22'05"N 001°07'56"W
   alt: 100
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -353,7 +353,7 @@ LFBT:
   code: LFBT
   nom: TARBES LOURDES PYRENEES
   var: 0.61
-  Geo: '43°11''08"N 000°00''10"W'
+  Geo: 43°11'08"N 000°00'10"W
   alt: 1260
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 166
@@ -362,7 +362,7 @@ LFBU:
   code: LFBU
   nom: ANGOULEME BRIE CHAMPNIERS
   var: 0.56
-  Geo: '45°43''46"N 000°13''09"E'
+  Geo: 45°43'46"N 000°13'09"E
   alt: 436
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 154
@@ -371,7 +371,7 @@ LFBX:
   code: LFBX
   nom: PERIGUEUX BASSILLAC
   var: 0.76
-  Geo: '45°11''51"N 000°48''55"E'
+  Geo: 45°11'51"N 000°48'55"E
   alt: 328
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 156
@@ -380,7 +380,7 @@ LFBY:
   code: LFBY
   nom: DAX SEYRESSE
   var: 0.29
-  Geo: '43°41''21"N 001°04''08"W'
+  Geo: 43°41'21"N 001°04'08"W
   alt: 108
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -389,7 +389,7 @@ LFBZ:
   code: LFBZ
   nom: BIARRITZ PAYS BASQUE
   var: 0.17
-  Geo: '43°28''06"N 001°31''52"W'
+  Geo: 43°28'06"N 001°31'52"W
   alt: 245
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -398,7 +398,7 @@ LFCA:
   code: LFCA
   nom: CHATELLERAULT TARGE
   var: 0.60
-  Geo: '46°46''49"N 000°33''02"E'
+  Geo: 46°46'49"N 000°33'02"E
   alt: 210
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -407,7 +407,7 @@ LFCB:
   code: LFCB
   nom: BAGNERES DE LUCHON
   var: 0.78
-  Geo: '42°48''02"N 000°36''04"E'
+  Geo: 42°48'02"N 000°36'04"E
   alt: 2028
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 174
@@ -416,7 +416,7 @@ LFCC:
   code: LFCC
   nom: CAHORS LALBENQUE
   var: 0.97
-  Geo: '44°21''02"N 001°28''43"E'
+  Geo: 44°21'02"N 001°28'43"E
   alt: 912
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 161
@@ -425,7 +425,7 @@ LFCD:
   code: LFCD
   nom: ANDERNOS LES BAINS
   var: 0.24
-  Geo: '44°45''18"N 001°03''54"W'
+  Geo: 44°45'18"N 001°03'54"W
   alt: 64
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -434,7 +434,7 @@ LFCE:
   code: LFCE
   nom: GUERET SAINT LAURENT
   var: 1.03
-  Geo: '46°10''32"N 001°57''11"E'
+  Geo: 46°10'32"N 001°57'11"E
   alt: 1208
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -443,7 +443,7 @@ LFCF:
   code: LFCF
   nom: FIGEAC LIVERNON
   var: 1.04
-  Geo: '44°40''21"N 001°47''17"E'
+  Geo: 44°40'21"N 001°47'17"E
   alt: 1085
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -452,7 +452,7 @@ LFCG:
   code: LFCG
   nom: SAINT GIRONS ANTICHAN
   var: 0.91
-  Geo: '43°00''28"N 001°06''11"E'
+  Geo: 43°00'28"N 001°06'11"E
   alt: 1376
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -461,7 +461,7 @@ LFCH:
   code: LFCH
   nom: ARCACHON LA TESTE DE BUCH
   var: 0.23
-  Geo: '44°35''49"N 001°06''50"W'
+  Geo: 44°35'49"N 001°06'50"W
   alt: 52
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -470,7 +470,7 @@ LFCI:
   code: LFCI
   nom: ALBI LE SEQUESTRE
   var: 1.15
-  Geo: '43°54''48"N 002°07''00"E'
+  Geo: 43°54'48"N 002°07'00"E
   alt: 565
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 164
@@ -479,7 +479,7 @@ LFCJ:
   code: LFCJ
   nom: JONZAC NEULLES
   var: 0.39
-  Geo: '45°28''59"N 000°25''23"W'
+  Geo: 45°28'59"N 000°25'23"W
   alt: 118
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -488,7 +488,7 @@ LFCK:
   code: LFCK
   nom: CASTRES MAZAMET
   var: 1.21
-  Geo: '43°33''18"N 002°17''26"E'
+  Geo: 43°33'18"N 002°17'26"E
   alt: 785
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 163
@@ -497,7 +497,7 @@ LFCL:
   code: LFCL
   nom: TOULOUSE LASBORDES
   var: 1.00
-  Geo: '43°35''16"N 001°29''55"E'
+  Geo: 43°35'16"N 001°29'55"E
   alt: 460
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -506,7 +506,7 @@ LFCM:
   code: LFCM
   nom: MILLAU LARZAC
   var: 1.43
-  Geo: '43°59''21"N 003°11''00"E'
+  Geo: 43°59'21"N 003°11'00"E
   alt: 2606
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 169
@@ -515,7 +515,7 @@ LFCN:
   code: LFCN
   nom: NOGARO
   var: 0.58
-  Geo: '43°46''08"N 000°02''05"W'
+  Geo: 43°46'08"N 000°02'05"W
   alt: 304
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -524,16 +524,16 @@ LFCO:
   code: LFCO
   nom: OLORON HERRERE
   var: 0.46
-  Geo: '43°09''53"N 000°33''37"W'
+  Geo: 43°09'53"N 000°33'37"W
   alt: 984
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFCP:
   code: LFCP
   nom: PONS AVY
   var: 0.35
-  Geo: '45°33''57"N 000°30''49"W'
+  Geo: 45°33'57"N 000°30'49"W
   alt: 117
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -542,7 +542,7 @@ LFCQ:
   code: LFCQ
   nom: GRAULHET MONTDRAGON
   var: 1.13
-  Geo: '43°46''07"N 002°00''28"E'
+  Geo: 43°46'07"N 002°00'28"E
   alt: 583
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -551,7 +551,7 @@ LFCR:
   code: LFCR
   nom: RODEZ AVEYRON
   var: 1.24
-  Geo: '44°24''27"N 002°29''00"E'
+  Geo: 44°24'27"N 002°29'00"E
   alt: 1909
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 164
@@ -560,7 +560,7 @@ LFCS:
   code: LFCS
   nom: BORDEAUX LEOGNAN SAUCATS
   var: 0.38
-  Geo: '44°41''57"N 000°35''50"W'
+  Geo: 44°41'57"N 000°35'50"W
   alt: 192
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -569,16 +569,16 @@ LFCT:
   code: LFCT
   nom: THOUARS
   var: 0.38
-  Geo: '46°57''43"N 000°09''10"W'
+  Geo: 46°57'43"N 000°09'10"W
   alt: 341
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFCU:
   code: LFCU
   nom: USSEL THALAMY
   var: 1.19
-  Geo: '45°32''09"N 002°25''29"E'
+  Geo: 45°32'09"N 002°25'29"E
   alt: 2427
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -587,7 +587,7 @@ LFCV:
   code: LFCV
   nom: VILLEFRANCHE DE ROUERGUE
   var: 1.12
-  Geo: '44°22''08"N 002°01''37"E'
+  Geo: 44°22'08"N 002°01'37"E
   alt: 1104
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -596,7 +596,7 @@ LFCW:
   code: LFCW
   nom: VILLENEUVE SUR LOT
   var: 0.77
-  Geo: '44°23''57"N 000°45''34"E'
+  Geo: 44°23'57"N 000°45'34"E
   alt: 193
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -605,7 +605,7 @@ LFCX:
   code: LFCX
   nom: CASTELSARRASIN MOISSAC
   var: 0.88
-  Geo: '44°05''09"N 001°07''37"E'
+  Geo: 44°05'09"N 001°07'37"E
   alt: 243
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -614,7 +614,7 @@ LFCY:
   code: LFCY
   nom: ROYAN MEDIS
   var: 0.21
-  Geo: '45°37''52"N 000°58''32"W'
+  Geo: 45°37'52"N 000°58'32"W
   alt: 72
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 152
@@ -623,16 +623,16 @@ LFCZ:
   code: LFCZ
   nom: MIMIZAN
   var: 0.24
-  Geo: '44°08''45"N 001°09''53"W'
+  Geo: 44°08'45"N 001°09'53"W
   alt: 165
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
   statut: ouvert à la CAP
 LFDA:
   code: LFDA
-  nom: 'AIRE SUR L''ADOUR'
+  nom: AIRE SUR L'ADOUR
   var: 0.52
-  Geo: '43°42''31"N 000°14''50"W'
+  Geo: 43°42'31"N 000°14'50"W
   alt: 266
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -641,7 +641,7 @@ LFDB:
   code: LFDB
   nom: MONTAUBAN
   var: 0.95
-  Geo: '44°01''36"N 001°22''37"E'
+  Geo: 44°01'36"N 001°22'37"E
   alt: 353
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -650,7 +650,7 @@ LFDC:
   code: LFDC
   nom: MONTENDRE MARCILLAC
   var: 0.39
-  Geo: '45°16''25"N 000°27''12"W'
+  Geo: 45°16'25"N 000°27'12"W
   alt: 145
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -659,7 +659,7 @@ LFDE:
   code: LFDE
   nom: EGLETONS
   var: 1.09
-  Geo: '45°25''14"N 002°04''04"E'
+  Geo: 45°25'14"N 002°04'04"E
   alt: 1859
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -668,7 +668,7 @@ LFDF:
   code: LFDF
   nom: SAINTE FOY LA GRANDE
   var: 0.59
-  Geo: '44°51''09"N 000°10''32"E'
+  Geo: 44°51'09"N 000°10'32"E
   alt: 282
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -677,7 +677,7 @@ LFDG:
   code: LFDG
   nom: GAILLAC LISLE SUR TARN
   var: 1.09
-  Geo: '43°52''59"N 001°52''27"E'
+  Geo: 43°52'59"N 001°52'27"E
   alt: 441
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -686,7 +686,7 @@ LFDH:
   code: LFDH
   nom: AUCH GERS
   var: 0.75
-  Geo: '43°41''13"N 000°36''00"E'
+  Geo: 43°41'13"N 000°36'00"E
   alt: 411
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 160
@@ -695,16 +695,16 @@ LFDI:
   code: LFDI
   nom: LIBOURNE ARTIGUES DE LUSSAC
   var: 0.49
-  Geo: '44°59''03"N 000°08''14"W'
+  Geo: 44°59'03"N 000°08'14"W
   alt: 157
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFDJ:
   code: LFDJ
   nom: PAMIERS LES PUJOLS
   var: 1.06
-  Geo: '43°05''26"N 001°41''45"E'
+  Geo: 43°05'26"N 001°41'45"E
   alt: 1114
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 163
@@ -713,7 +713,7 @@ LFDK:
   code: LFDK
   nom: SOULAC SUR MER
   var: 0.19
-  Geo: '45°29''38"N 001°05''02"W'
+  Geo: 45°29'38"N 001°05'02"W
   alt: 11
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -722,7 +722,7 @@ LFDL:
   code: LFDL
   nom: LOUDUN
   var: 0.45
-  Geo: '47°02''10"N 000°06''03"E'
+  Geo: 47°02'10"N 000°06'03"E
   alt: 313
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -731,25 +731,25 @@ LFDM:
   code: LFDM
   nom: MARMANDE VIRAZEIL
   var: 0.61
-  Geo: '44°29''57"N 000°12''01"E'
+  Geo: 44°29'57"N 000°12'01"E
   alt: 110
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFDN:
   code: LFDN
   nom: ROCHEFORT CHARENTE MARITIME
   var: 0.20
-  Geo: '45°53''22"N 000°58''56"W'
+  Geo: 45°53'22"N 000°58'56"W
   alt: 60
   trafic: NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 153
   statut: ouvert à la CAP
 LFDP:
   code: LFDP
-  nom: 'SAINT PIERRE D''OLERON'
+  nom: SAINT PIERRE D'OLERON
   var: 0.09
-  Geo: '45°57''28"N 001°18''41"W'
+  Geo: 45°57'28"N 001°18'41"W
   alt: 22
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -758,7 +758,7 @@ LFDQ:
   code: LFDQ
   nom: CASTELNAU MAGNOAC
   var: 0.75
-  Geo: '43°16''39"N 000°31''10"E'
+  Geo: 43°16'39"N 000°31'10"E
   alt: 992
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -767,7 +767,7 @@ LFDR:
   code: LFDR
   nom: LA REOLE FLOUDES
   var: 0.54
-  Geo: '44°34''01"N 000°03''26"W'
+  Geo: 44°34'01"N 000°03'26"W
   alt: 44
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -776,7 +776,7 @@ LFDS:
   code: LFDS
   nom: SARLAT DOMME
   var: 0.89
-  Geo: '44°47''32"N 001°14''37"E'
+  Geo: 44°47'32"N 001°14'37"E
   alt: 979
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -785,7 +785,7 @@ LFDT:
   code: LFDT
   nom: TARBES LALOUBERE
   var: 0.63
-  Geo: '43°12''54"N 000°04''39"E'
+  Geo: 43°12'54"N 000°04'39"E
   alt: 1075
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -794,16 +794,16 @@ LFDU:
   code: LFDU
   nom: LESPARRE SAINT LAURENT MEDOC
   var: 0.27
-  Geo: '45°11''52"N 000°52''56"W'
+  Geo: 45°11'52"N 000°52'56"W
   alt: 105
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFDV:
   code: LFDV
   nom: COUHE VERAC
   var: 0.52
-  Geo: '46°16''14"N 000°11''18"E'
+  Geo: 46°16'14"N 000°11'18"E
   alt: 500
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -812,7 +812,7 @@ LFDW:
   code: LFDW
   nom: CHAUVIGNY
   var: 0.64
-  Geo: '46°35''00"N 000°38''32"E'
+  Geo: 46°35'00"N 000°38'32"E
   alt: 442
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -821,7 +821,7 @@ LFDX:
   code: LFDX
   nom: FUMEL MONTAYRAL
   var: 0.84
-  Geo: '44°27''33"N 001°00''26"E'
+  Geo: 44°27'33"N 001°00'26"E
   alt: 692
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -830,16 +830,16 @@ LFDY:
   code: LFDY
   nom: BORDEAUX YVRAC
   var: 0.40
-  Geo: '44°52''38"N 000°28''45"W'
+  Geo: 44°52'38"N 000°28'45"W
   alt: 240
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFEA:
   code: LFEA
   nom: BELLE ILE
   var: -0.61
-  Geo: '47°19''34"N 003°11''56"W'
+  Geo: 47°19'34"N 003°11'56"W
   alt: 177
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -848,7 +848,7 @@ LFEB:
   code: LFEB
   nom: DINAN TRELIVAN
   var: -0.35
-  Geo: '48°26''36"N 002°06''12"W'
+  Geo: 48°26'36"N 002°06'12"W
   alt: 393
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -857,7 +857,7 @@ LFEC:
   code: LFEC
   nom: OUESSANT
   var: -1.35
-  Geo: '48°27''48"N 005°03''49"W'
+  Geo: 48°27'48"N 005°03'49"W
   alt: 142
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 167
@@ -866,7 +866,7 @@ LFED:
   code: LFED
   nom: PONTIVY
   var: -0.58
-  Geo: '48°03''25"N 002°55''24"W'
+  Geo: 48°03'25"N 002°55'24"W
   alt: 406
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -875,7 +875,7 @@ LFEF:
   code: LFEF
   nom: AMBOISE DIERRE
   var: 0.68
-  Geo: '47°20''26"N 000°56''28"E'
+  Geo: 47°20'26"N 000°56'28"E
   alt: 177
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -884,7 +884,7 @@ LFEG:
   code: LFEG
   nom: ARGENTON SUR CREUSE
   var: 0.92
-  Geo: '46°35''45"N 001°36''04"E'
+  Geo: 46°35'45"N 001°36'04"E
   alt: 666
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -893,16 +893,16 @@ LFEH:
   code: LFEH
   nom: AUBIGNY SUR NERE
   var: 1.10
-  Geo: '47°28''50"N 002°23''39"E'
+  Geo: 47°28'50"N 002°23'39"E
   alt: 630
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFEI:
   code: LFEI
   nom: BRIARE CHATILLON
   var: 1.21
-  Geo: '47°36''52"N 002°46''55"E'
+  Geo: 47°36'52"N 002°46'55"E
   alt: 539
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -911,7 +911,7 @@ LFEJ:
   code: LFEJ
   nom: CHATEAUROUX VILLERS
   var: 0.91
-  Geo: '46°50''27"N 001°37''12"E'
+  Geo: 46°50'27"N 001°37'12"E
   alt: 542
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -920,16 +920,16 @@ LFEK:
   code: LFEK
   nom: ISSOUDUN LE FAY
   var: 1.03
-  Geo: '46°53''19"N 002°02''29"E'
+  Geo: 46°53'19"N 002°02'29"E
   alt: 531
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFEL:
   code: LFEL
   nom: LE BLANC
   var: 0.77
-  Geo: '46°37''12"N 001°05''09"E'
+  Geo: 46°37'12"N 001°05'09"E
   alt: 382
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -938,16 +938,16 @@ LFEM:
   code: LFEM
   nom: MONTARGIS VIMORY
   var: 1.17
-  Geo: '47°57''38"N 002°41''09"E'
+  Geo: 47°57'38"N 002°41'09"E
   alt: 308
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFEN:
   code: LFEN
   nom: TOURS SORIGNY
   var: 0.62
-  Geo: '47°16''00"N 000°41''58"E'
+  Geo: 47°16'00"N 000°41'58"E
   alt: 299
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -956,7 +956,7 @@ LFEP:
   code: LFEP
   nom: POUILLY MACONGE
   var: 1.72
-  Geo: '47°13''14"N 004°33''37"E'
+  Geo: 47°13'14"N 004°33'37"E
   alt: 1413
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -965,16 +965,16 @@ LFEQ:
   code: LFEQ
   nom: QUIBERON
   var: -0.59
-  Geo: '47°28''53"N 003°06''06"W'
+  Geo: 47°28'53"N 003°06'06"W
   alt: 38
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFER:
   code: LFER
   nom: REDON BAINS SUR OUST
   var: -0.26
-  Geo: '47°41''55"N 002°02''17"W'
+  Geo: 47°41'55"N 002°02'17"W
   alt: 225
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -983,7 +983,7 @@ LFES:
   code: LFES
   nom: GUISCRIFF SCAER
   var: -0.83
-  Geo: '48°03''13"N 003°39''51"W'
+  Geo: 48°03'13"N 003°39'51"W
   alt: 574
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -992,7 +992,7 @@ LFET:
   code: LFET
   nom: TIL CHATEL
   var: 1.89
-  Geo: '47°32''47"N 005°12''39"E'
+  Geo: 47°32'47"N 005°12'39"E
   alt: 939
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -1001,7 +1001,7 @@ LFEU:
   code: LFEU
   nom: BAR LE DUC LES HAUTS DE CHEE
   var: 1.85
-  Geo: '48°52''04"N 005°11''03"E'
+  Geo: 48°52'04"N 005°11'03"E
   alt: 899
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -1010,7 +1010,7 @@ LFEV:
   code: LFEV
   nom: GRAY SAINT ADRIEN
   var: 2.00
-  Geo: '47°25''56"N 005°37''17"E'
+  Geo: 47°25'56"N 005°37'17"E
   alt: 685
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1019,7 +1019,7 @@ LFEW:
   code: LFEW
   nom: SAULIEU LIERNAIS
   var: 1.64
-  Geo: '47°14''19"N 004°15''52"E'
+  Geo: 47°14'19"N 004°15'52"E
   alt: 1710
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1028,16 +1028,16 @@ LFEX:
   code: LFEX
   nom: NANCY AZELOT
   var: 2.15
-  Geo: '48°35''31"N 006°14''23"E'
+  Geo: 48°35'31"N 006°14'23"E
   alt: 958
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
   statut: usage restreint
 LFEY:
   code: LFEY
-  nom: 'ILE D''YEU'
+  nom: ILE D'YEU
   var: -0.30
-  Geo: '46°43''03"N 002°23''33"W'
+  Geo: 46°43'03"N 002°23'33"W
   alt: 79
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 157
@@ -1046,7 +1046,7 @@ LFEZ:
   code: LFEZ
   nom: NANCY MALZEVILLE
   var: 2.14
-  Geo: '48°43''25"N 006°12''23"E'
+  Geo: 48°43'25"N 006°12'23"E
   alt: 1247
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -1055,7 +1055,7 @@ LFFB:
   code: LFFB
   nom: BUNO BONNEVAUX
   var: 1.07
-  Geo: '48°21''01"N 002°25''28"E'
+  Geo: 48°21'01"N 002°25'28"E
   alt: 419
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1064,16 +1064,16 @@ LFFC:
   code: LFFC
   nom: MANTES CHERENCE
   var: 0.81
-  Geo: '49°04''44"N 001°41''23"E'
+  Geo: 49°04'44"N 001°41'23"E
   alt: 512
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFFD:
   code: LFFD
-  nom: 'SAINT ANDRE DE L''EURE'
+  nom: SAINT ANDRE DE L'EURE
   var: 0.68
-  Geo: '48°53''51"N 001°15''03"E'
+  Geo: 48°53'51"N 001°15'03"E
   alt: 491
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1082,7 +1082,7 @@ LFFE:
   code: LFFE
   nom: ENGHIEN MOISSELLES
   var: 1.01
-  Geo: '49°02''44"N 002°21''07"E'
+  Geo: 49°02'44"N 002°21'07"E
   alt: 337
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 143
@@ -1091,7 +1091,7 @@ LFFG:
   code: LFFG
   nom: LA FERTE GAUCHER
   var: 1.31
-  Geo: '48°45''27"N 003°16''44"E'
+  Geo: 48°45'27"N 003°16'44"E
   alt: 536
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1100,7 +1100,7 @@ LFFH:
   code: LFFH
   nom: CHATEAU THIERRY BELLEAU
   var: 1.31
-  Geo: '49°04''00"N 003°21''20"E'
+  Geo: 49°04'00"N 003°21'20"E
   alt: 723
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1109,7 +1109,7 @@ LFFI:
   code: LFFI
   nom: ANCENIS
   var: 0.03
-  Geo: '47°24''26"N 001°10''44"W'
+  Geo: 47°24'26"N 001°10'44"W
   alt: 109
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -1118,7 +1118,7 @@ LFFJ:
   code: LFFJ
   nom: JOINVILLE MUSSEY
   var: 1.85
-  Geo: '48°23''07"N 005°08''36"E'
+  Geo: 48°23'07"N 005°08'36"E
   alt: 1030
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -1127,7 +1127,7 @@ LFFK:
   code: LFFK
   nom: FONTENAY LE COMTE
   var: 0.22
-  Geo: '46°26''27"N 000°47''38"W'
+  Geo: 46°26'27"N 000°47'38"W
   alt: 80
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -1136,7 +1136,7 @@ LFFL:
   code: LFFL
   nom: BAILLEAU ARMENONVILLE
   var: 0.83
-  Geo: '48°30''53"N 001°38''19"E'
+  Geo: 48°30'53"N 001°38'19"E
   alt: 508
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1145,7 +1145,7 @@ LFFN:
   code: LFFN
   nom: BRIENNE LE CHATEAU
   var: 1.67
-  Geo: '48°25''47"N 004°28''56"E'
+  Geo: 48°25'47"N 004°28'56"E
   alt: 376
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 150
@@ -1154,16 +1154,16 @@ LFFO:
   code: LFFO
   nom: BEAUVOIR FROMENTINE
   var: -0.21
-  Geo: '46°53''26"N 002°05''19"W'
+  Geo: 46°53'26"N 002°05'19"W
   alt: 10
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFFP:
   code: LFFP
   nom: PITHIVIERS
   var: 1.01
-  Geo: '48°09''23"N 002°11''28"E'
+  Geo: 48°09'23"N 002°11'28"E
   alt: 391
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 146
@@ -1172,7 +1172,7 @@ LFFQ:
   code: LFFQ
   nom: LA FERTE ALAIS
   var: 1.04
-  Geo: '48°29''58"N 002°19''48"E'
+  Geo: 48°29'58"N 002°19'48"E
   alt: 454
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -1181,7 +1181,7 @@ LFFR:
   code: LFFR
   nom: BAR SUR SEINE
   var: 1.66
-  Geo: '48°03''58"N 004°24''45"E'
+  Geo: 48°03'58"N 004°24'45"E
   alt: 938
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -1190,7 +1190,7 @@ LFFT:
   code: LFFT
   nom: NEUFCHATEAU
   var: 2.01
-  Geo: '48°21''42"N 005°43''13"E'
+  Geo: 48°21'42"N 005°43'13"E
   alt: 1228
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -1199,25 +1199,25 @@ LFFU:
   code: LFFU
   nom: CHATEAUNEUF SUR CHER
   var: 1.12
-  Geo: '46°52''16"N 002°22''37"E'
+  Geo: 46°52'16"N 002°22'37"E
   alt: 551
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFFV:
   code: LFFV
   nom: VIERZON MEREAU
   var: 1.02
-  Geo: '47°11''41"N 002°04''00"E'
+  Geo: 47°11'41"N 002°04'00"E
   alt: 430
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFFW:
   code: LFFW
   nom: MONTAIGU SAINT GEORGES
   var: 0.02
-  Geo: '46°55''56"N 001°19''38"W'
+  Geo: 46°55'56"N 001°19'38"W
   alt: 186
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -1226,7 +1226,7 @@ LFFX:
   code: LFFX
   nom: TOURNUS CUISERY
   var: 1.84
-  Geo: '46°33''41"N 004°58''31"E'
+  Geo: 46°33'41"N 004°58'31"E
   alt: 689
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -1235,16 +1235,16 @@ LFFY:
   code: LFFY
   nom: ETREPAGNY
   var: 0.78
-  Geo: '49°18''19"N 001°38''16"E'
+  Geo: 49°18'19"N 001°38'16"E
   alt: 308
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFFZ:
   code: LFFZ
   nom: SEZANNE SAINT REMY
   var: 1.45
-  Geo: '48°42''34"N 003°45''46"E'
+  Geo: 48°42'34"N 003°45'46"E
   alt: 355
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 147
@@ -1253,7 +1253,7 @@ LFGA:
   code: LFGA
   nom: COLMAR HOUSSEN
   var: 2.46
-  Geo: '48°06''37"N 007°21''33"E'
+  Geo: 48°06'37"N 007°21'33"E
   alt: 627
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 158
@@ -1262,7 +1262,7 @@ LFGB:
   code: LFGB
   nom: MULHOUSE HABSHEIM
   var: 2.47
-  Geo: '47°44''14"N 007°25''47"E'
+  Geo: 47°44'14"N 007°25'47"E
   alt: 789
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -1271,7 +1271,7 @@ LFGC:
   code: LFGC
   nom: STRASBOURG NEUHOF
   var: 2.57
-  Geo: '48°33''13"N 007°46''39"E'
+  Geo: 48°33'13"N 007°46'39"E
   alt: 459
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -1280,7 +1280,7 @@ LFGE:
   code: LFGE
   nom: AVALLON
   var: 1.53
-  Geo: '47°30''07"N 003°53''54"E'
+  Geo: 47°30'07"N 003°53'54"E
   alt: 786
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -1289,7 +1289,7 @@ LFGF:
   code: LFGF
   nom: BEAUNE CHALLANGES
   var: 1.81
-  Geo: '47°00''37"N 004°53''47"E'
+  Geo: 47°00'37"N 004°53'47"E
   alt: 656
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1298,7 +1298,7 @@ LFGG:
   code: LFGG
   nom: BELFORT CHAUX
   var: 2.32
-  Geo: '47°42''04"N 006°49''51"E'
+  Geo: 47°42'04"N 006°49'51"E
   alt: 1367
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -1307,7 +1307,7 @@ LFGH:
   code: LFGH
   nom: COSNE SUR LOIRE
   var: 1.26
-  Geo: '47°21''37"N 002°55''06"E'
+  Geo: 47°21'37"N 002°55'06"E
   alt: 580
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -1316,7 +1316,7 @@ LFGI:
   code: LFGI
   nom: DIJON DAROIS
   var: 1.82
-  Geo: '47°23''07"N 004°56''49"E'
+  Geo: 47°23'07"N 004°56'49"E
   alt: 1586
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1325,7 +1325,7 @@ LFGJ:
   code: LFGJ
   nom: DOLE TAVAUX
   var: 1.96
-  Geo: '47°02''34"N 005°26''06"E'
+  Geo: 47°02'34"N 005°26'06"E
   alt: 645
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 157
@@ -1334,7 +1334,7 @@ LFGK:
   code: LFGK
   nom: JOIGNY
   var: 1.37
-  Geo: '47°59''40"N 003°23''27"E'
+  Geo: 47°59'40"N 003°23'27"E
   alt: 732
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 149
@@ -1343,7 +1343,7 @@ LFGL:
   code: LFGL
   nom: LONS LE SAUNIER COURLAOUX
   var: 1.97
-  Geo: '46°40''30"N 005°28''09"E'
+  Geo: 46°40'30"N 005°28'09"E
   alt: 762
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -1352,7 +1352,7 @@ LFGM:
   code: LFGM
   nom: MONTCEAU LES MINES POUILLOUX
   var: 1.67
-  Geo: '46°36''12"N 004°19''58"E'
+  Geo: 46°36'12"N 004°19'58"E
   alt: 1032
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -1361,7 +1361,7 @@ LFGN:
   code: LFGN
   nom: PARAY LE MONIAL
   var: 1.62
-  Geo: '46°28''00"N 004°07''59"E'
+  Geo: 46°28'00"N 004°07'59"E
   alt: 1003
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -1370,7 +1370,7 @@ LFGO:
   code: LFGO
   nom: PONT SUR YONNE
   var: 1.32
-  Geo: '48°17''22"N 003°14''56"E'
+  Geo: 48°17'22"N 003°14'56"E
   alt: 232
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 147
@@ -1379,7 +1379,7 @@ LFGP:
   code: LFGP
   nom: SAINT FLORENTIN CHEU
   var: 1.48
-  Geo: '47°58''53"N 003°46''37"E'
+  Geo: 47°58'53"N 003°46'37"E
   alt: 355
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 150
@@ -1388,16 +1388,16 @@ LFGQ:
   code: LFGQ
   nom: SEMUR EN AUXOIS
   var: 1.65
-  Geo: '47°28''52"N 004°20''35"E'
+  Geo: 47°28'52"N 004°20'35"E
   alt: 1051
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFGR:
   code: LFGR
   nom: DONCOURT LES CONFLANS
   var: 2.06
-  Geo: '49°09''07"N 005°55''53"E'
+  Geo: 49°09'07"N 005°55'53"E
   alt: 809
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -1406,7 +1406,7 @@ LFGS:
   code: LFGS
   nom: LONGUYON VILLETTE
   var: 1.95
-  Geo: '49°29''01"N 005°34''19"E'
+  Geo: 49°29'01"N 005°34'19"E
   alt: 1153
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -1415,7 +1415,7 @@ LFGT:
   code: LFGT
   nom: SARREBOURG BUHL
   var: 2.38
-  Geo: '48°43''06"N 007°04''48"E'
+  Geo: 48°43'06"N 007°04'48"E
   alt: 873
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -1424,7 +1424,7 @@ LFGU:
   code: LFGU
   nom: SARREGUEMINES NEUNKIRCH
   var: 2.39
-  Geo: '49°07''39"N 007°06''24"E'
+  Geo: 49°07'39"N 007°06'24"E
   alt: 863
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -1433,7 +1433,7 @@ LFGW:
   code: LFGW
   nom: VERDUN SOMMEDIEUE
   var: 1.93
-  Geo: '49°07''20"N 005°28''15"E'
+  Geo: 49°07'20"N 005°28'15"E
   alt: 1236
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -1442,7 +1442,7 @@ LFGX:
   code: LFGX
   nom: CHAMPAGNOLE CROTENAY
   var: 2.06
-  Geo: '46°45''48"N 005°49''11"E'
+  Geo: 46°45'48"N 005°49'11"E
   alt: 1745
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -1451,7 +1451,7 @@ LFGY:
   code: LFGY
   nom: SAINT DIE REMOMEIX
   var: 2.36
-  Geo: '48°15''59"N 007°00''27"E'
+  Geo: 48°15'59"N 007°00'27"E
   alt: 1187
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -1460,7 +1460,7 @@ LFGZ:
   code: LFGZ
   nom: NUITS SAINT GEORGES
   var: 1.83
-  Geo: '47°08''32"N 004°58''06"E'
+  Geo: 47°08'32"N 004°58'06"E
   alt: 794
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1469,7 +1469,7 @@ LFHA:
   code: LFHA
   nom: ISSOIRE LE BROC
   var: 1.41
-  Geo: '45°30''50"N 003°15''58"E'
+  Geo: 45°30'50"N 003°15'58"E
   alt: 1240
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -1478,7 +1478,7 @@ LFHC:
   code: LFHC
   nom: PEROUGES MEXIMIEUX
   var: 1.91
-  Geo: '45°52''07"N 005°11''10"E'
+  Geo: 45°52'07"N 005°11'10"E
   alt: 703
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -1487,7 +1487,7 @@ LFHD:
   code: LFHD
   nom: PIERRELATTE
   var: 1.80
-  Geo: '44°23''52"N 004°43''01"E'
+  Geo: 44°23'52"N 004°43'01"E
   alt: 195
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -1496,7 +1496,7 @@ LFHE:
   code: LFHE
   nom: ROMANS SAINT PAUL
   var: 1.89
-  Geo: '45°03''53"N 005°06''05"E'
+  Geo: 45°03'53"N 005°06'05"E
   alt: 595
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -1505,16 +1505,16 @@ LFHF:
   code: LFHF
   nom: RUOMS
   var: 1.71
-  Geo: '44°26''41"N 004°19''58"E'
+  Geo: 44°26'41"N 004°19'58"E
   alt: 353
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
   statut: usage restreint
 LFHG:
   code: LFHG
-  nom: 'SAINT CHAMOND L''HORME'
+  nom: SAINT CHAMOND L'HORME
   var: 1.75
-  Geo: '45°29''31"N 004°32''04"E'
+  Geo: 45°29'31"N 004°32'04"E
   alt: 1307
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -1523,7 +1523,7 @@ LFHH:
   code: LFHH
   nom: VIENNE REVENTIN
   var: 1.82
-  Geo: '45°27''46"N 004°49''40"E'
+  Geo: 45°27'46"N 004°49'40"E
   alt: 720
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -1532,7 +1532,7 @@ LFHI:
   code: LFHI
   nom: MORESTEL
   var: 1.98
-  Geo: '45°41''13"N 005°27''09"E'
+  Geo: 45°41'13"N 005°27'09"E
   alt: 803
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -1541,7 +1541,7 @@ LFHJ:
   code: LFHJ
   nom: LYON CORBAS
   var: 1.84
-  Geo: '45°39''10"N 004°54''44"E'
+  Geo: 45°39'10"N 004°54'44"E
   alt: 652
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -1550,7 +1550,7 @@ LFHL:
   code: LFHL
   nom: LANGOGNE LESPERON
   var: 1.59
-  Geo: '44°42''20"N 003°53''14"E'
+  Geo: 44°42'20"N 003°53'14"E
   alt: 3339
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 172
@@ -1559,7 +1559,7 @@ LFHM:
   code: LFHM
   nom: MEGEVE
   var: 2.27
-  Geo: '45°49''28"N 006°38''54"E'
+  Geo: 45°49'28"N 006°38'54"E
   alt: 4830
   trafic: INTL/NTL VFR NS/P
   GUND_DTHR_ALT_ft: 171
@@ -1568,7 +1568,7 @@ LFHN:
   code: LFHN
   nom: BELLEGARDE VOUVRAY
   var: 2.06
-  Geo: '46°07''24"N 005°48''17"E'
+  Geo: 46°07'24"N 005°48'17"E
   alt: 1626
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -1577,7 +1577,7 @@ LFHO:
   code: LFHO
   nom: AUBENAS ARDECHE MERIDIONALE
   var: 1.72
-  Geo: '44°32''22"N 004°22''18"E'
+  Geo: 44°32'22"N 004°22'18"E
   alt: 923
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -1586,7 +1586,7 @@ LFHP:
   code: LFHP
   nom: LE PUY LOUDES
   var: 1.55
-  Geo: '45°04''47"N 003°45''48"E'
+  Geo: 45°04'47"N 003°45'48"E
   alt: 2731
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 171
@@ -1595,7 +1595,7 @@ LFHQ:
   code: LFHQ
   nom: SAINT FLOUR COLTINES
   var: 1.35
-  Geo: '45°04''30"N 002°59''33"E'
+  Geo: 45°04'30"N 002°59'33"E
   alt: 3218
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 171
@@ -1604,7 +1604,7 @@ LFHR:
   code: LFHR
   nom: BRIOUDE BEAUMONT
   var: 1.44
-  Geo: '45°19''26"N 003°21''30"E'
+  Geo: 45°19'26"N 003°21'30"E
   alt: 1487
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 169
@@ -1613,7 +1613,7 @@ LFHS:
   code: LFHS
   nom: BOURG CEYZERIAT
   var: 1.93
-  Geo: '46°12''20"N 005°17''30"E'
+  Geo: 46°12'20"N 005°17'30"E
   alt: 857
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -1622,16 +1622,16 @@ LFHT:
   code: LFHT
   nom: AMBERT LE POYET
   var: 1.54
-  Geo: '45°30''56"N 003°44''42"E'
+  Geo: 45°30'56"N 003°44'42"E
   alt: 1848
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 169
   statut: ouvert à la CAP
 LFHU:
   code: LFHU
-  nom: 'L''ALPE D''HUEZ'
+  nom: L'ALPE D'HUEZ
   var: 2.14
-  Geo: '45°05''15"N 006°05''01"E'
+  Geo: 45°05'15"N 006°05'01"E
   alt: 6103
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 175
@@ -1640,7 +1640,7 @@ LFHV:
   code: LFHV
   nom: VILLEFRANCHE TARARE
   var: 1.76
-  Geo: '45°55''12"N 004°38''06"E'
+  Geo: 45°55'12"N 004°38'06"E
   alt: 1076
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 163
@@ -1649,7 +1649,7 @@ LFHW:
   code: LFHW
   nom: BELLEVILLE VILLIE MORGON
   var: 1.78
-  Geo: '46°08''28"N 004°42''50"E'
+  Geo: 46°08'28"N 004°42'50"E
   alt: 705
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -1658,7 +1658,7 @@ LFHX:
   code: LFHX
   nom: LAPALISSE PERIGNY
   var: 1.48
-  Geo: '46°15''11"N 003°35''15"E'
+  Geo: 46°15'11"N 003°35'15"E
   alt: 1045
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -1667,7 +1667,7 @@ LFHY:
   code: LFHY
   nom: MOULINS MONTBEUGNY
   var: 1.43
-  Geo: '46°32''04"N 003°25''18"E'
+  Geo: 46°32'04"N 003°25'18"E
   alt: 915
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 157
@@ -1676,16 +1676,16 @@ LFIB:
   code: LFIB
   nom: BELVES SAINT PARDOUX
   var: 0.81
-  Geo: '44°46''57"N 000°57''32"E'
+  Geo: 44°46'57"N 000°57'32"E
   alt: 791
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFID:
   code: LFID
   nom: CONDOM VALENCE SUR BAISE
   var: 0.69
-  Geo: '43°54''33"N 000°23''10"E'
+  Geo: 43°54'33"N 000°23'10"E
   alt: 444
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -1694,7 +1694,7 @@ LFIF:
   code: LFIF
   nom: SAINT AFFRIQUE BELMONT
   var: 1.32
-  Geo: '43°49''22"N 002°44''50"E'
+  Geo: 43°49'22"N 002°44'50"E
   alt: 1686
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -1703,7 +1703,7 @@ LFIG:
   code: LFIG
   nom: CASSAGNES BEGONHES
   var: 1.25
-  Geo: '44°10''42"N 002°31''04"E'
+  Geo: 44°10'42"N 002°31'04"E
   alt: 2025
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -1712,7 +1712,7 @@ LFIH:
   code: LFIH
   nom: CHALAIS
   var: 0.52
-  Geo: '45°16''01"N 000°00''57"E'
+  Geo: 45°16'01"N 000°00'57"E
   alt: 299
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -1721,7 +1721,7 @@ LFIK:
   code: LFIK
   nom: RIBERAC-TOURETTE
   var: 0.60
-  Geo: '45°14''22"N 000°15''57"E'
+  Geo: 45°14'22"N 000°15'57"E
   alt: 353
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -1730,16 +1730,16 @@ LFIL:
   code: LFIL
   nom: RION DES LANDES
   var: 0.31
-  Geo: '43°54''57"N 000°56''57"W'
+  Geo: 43°54'57"N 000°56'57"W
   alt: 256
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFIM:
   code: LFIM
   nom: SAINT GAUDENS MONTREJEAU
   var: 0.78
-  Geo: '43°06''27"N 000°37''09"E'
+  Geo: 43°06'27"N 000°37'09"E
   alt: 1320
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -1748,16 +1748,16 @@ LFIP:
   code: LFIP
   nom: PEYRESOURDE BALESTAS
   var: 0.74
-  Geo: '42°47''49"N 000°26''02"E'
+  Geo: 42°47'49"N 000°26'02"E
   alt: 5193
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFIR:
   code: LFIR
   nom: REVEL MONTGEY
   var: 1.13
-  Geo: '43°28''49"N 001°58''44"E'
+  Geo: 43°28'49"N 001°58'44"E
   alt: 643
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -1766,16 +1766,16 @@ LFIS:
   code: LFIS
   nom: SAINT INGLEVERT LES DEUX CAPS
   var: 0.71
-  Geo: '50°52''57"N 001°44''10"E'
+  Geo: 50°52'57"N 001°44'10"E
   alt: 443
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFIT:
   code: LFIT
   nom: TOULOUSE BOURG SAINT BERNARD
   var: 1.06
-  Geo: '43°36''40"N 001°43''27"E'
+  Geo: 43°36'40"N 001°43'27"E
   alt: 526
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -1784,25 +1784,25 @@ LFIV:
   code: LFIV
   nom: VENDAYS MONTALIVET
   var: 0.19
-  Geo: '45°22''50"N 001°06''57"W'
+  Geo: 45°22'50"N 001°06'57"W
   alt: 16
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFIX:
   code: LFIX
   nom: ITXASSOU
   var: 0.20
-  Geo: '43°20''15"N 001°25''20"W'
+  Geo: 43°20'15"N 001°25'20"W
   alt: 607
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFIY:
   code: LFIY
-  nom: 'SAINT JEAN D''ANGELY SAINT DENIS DU PIN'
+  nom: SAINT JEAN D'ANGELY SAINT DENIS DU PIN
   var: 0.33
-  Geo: '45°57''55"N 000°31''28"W'
+  Geo: 45°57'55"N 000°31'28"W
   alt: 245
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -1811,16 +1811,16 @@ LFJA:
   code: LFJA
   nom: CHAUMONT SEMOUTIERS
   var: 1.83
-  Geo: '48°05''30"N 005°03''00"E'
+  Geo: 48°05'30"N 005°03'00"E
   alt: 1004
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFJB:
   code: LFJB
   nom: MAULEON
   var: 0.22
-  Geo: '46°54''11"N 000°41''51"W'
+  Geo: 46°54'11"N 000°41'51"W
   alt: 568
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -1829,7 +1829,7 @@ LFJC:
   code: LFJC
   nom: CLAMECY
   var: 1.42
-  Geo: '47°26''15"N 003°30''27"E'
+  Geo: 47°26'15"N 003°30'27"E
   alt: 714
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -1838,7 +1838,7 @@ LFJD:
   code: LFJD
   nom: CORLIER
   var: 1.98
-  Geo: '46°02''23"N 005°29''46"E'
+  Geo: 46°02'23"N 005°29'46"E
   alt: 2770
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -1847,7 +1847,7 @@ LFJF:
   code: LFJF
   nom: AUBENASSON
   var: 1.91
-  Geo: '44°41''43"N 005°09''14"E'
+  Geo: 44°41'43"N 005°09'14"E
   alt: 807
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -1856,7 +1856,7 @@ LFJH:
   code: LFJH
   nom: CAZERES PALAMINY
   var: 0.89
-  Geo: '43°12''03"N 001°03''00"E'
+  Geo: 43°12'03"N 001°03'00"E
   alt: 816
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -1865,16 +1865,16 @@ LFJI:
   code: LFJI
   nom: MARENNES
   var: 0.17
-  Geo: '45°49''26"N 001°04''38"W'
+  Geo: 45°49'26"N 001°04'38"W
   alt: 29
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFJL:
   code: LFJL
   nom: METZ NANCY LORRAINE
   var: 2.15
-  Geo: '48°58''42"N 006°14''48"E'
+  Geo: 48°58'42"N 006°14'48"E
   alt: 870
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 154
@@ -1883,7 +1883,7 @@ LFJR:
   code: LFJR
   nom: ANGERS MARCE
   var: 0.29
-  Geo: '47°33''37"N 000°18''44"W'
+  Geo: 47°33'37"N 000°18'44"W
   alt: 194
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 153
@@ -1892,7 +1892,7 @@ LFJS:
   code: LFJS
   nom: SOISSONS COURMELLES
   var: 1.28
-  Geo: '49°20''42"N 003°16''59"E'
+  Geo: 49°20'42"N 003°16'59"E
   alt: 518
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -1901,16 +1901,16 @@ LFJT:
   code: LFJT
   nom: TOURS LE LOUROUX
   var: 0.63
-  Geo: '47°09''00"N 000°42''46"E'
+  Geo: 47°09'00"N 000°42'46"E
   alt: 413
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFJU:
   code: LFJU
   nom: LURCY LEVIS
   var: 1.29
-  Geo: '46°42''44"N 002°56''41"E'
+  Geo: 46°42'44"N 002°56'41"E
   alt: 747
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -1919,16 +1919,16 @@ LFJV:
   code: LFJV
   nom: LASCLAVERIES
   var: 0.52
-  Geo: '43°25''31"N 000°17''13"W'
+  Geo: 43°25'31"N 000°17'13"W
   alt: 843
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFJY:
   code: LFJY
   nom: CHAMBLEY
   var: 2.04
-  Geo: '49°01''32"N 005°52''34"E'
+  Geo: 49°01'32"N 005°52'34"E
   alt: 866
   trafic: NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 154
@@ -1937,7 +1937,7 @@ LFKA:
   code: LFKA
   nom: ALBERTVILLE GENERAL PIERRE DELACHENAL
   var: 2.19
-  Geo: '45°37''35"N 006°19''44"E'
+  Geo: 45°37'35"N 006°19'44"E
   alt: 1035
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -1946,7 +1946,7 @@ LFKB:
   code: LFKB
   nom: BASTIA PORETTA
   var: 2.84
-  Geo: '42°33''00"N 009°29''05"E'
+  Geo: 42°33'00"N 009°29'05"E
   alt: 26
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -1955,7 +1955,7 @@ LFKC:
   code: LFKC
   nom: CALVI SAINTE CATHERINE
   var: 2.70
-  Geo: '42°31''28"N 008°47''35"E'
+  Geo: 42°31'28"N 008°47'35"E
   alt: 210
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -1964,7 +1964,7 @@ LFKD:
   code: LFKD
   nom: SOLLIERES SARDIERES
   var: 2.31
-  Geo: '45°15''14"N 006°48''04"E'
+  Geo: 45°15'14"N 006°48'04"E
   alt: 4255
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 178
@@ -1973,7 +1973,7 @@ LFKE:
   code: LFKE
   nom: SAINT JEAN EN ROYANS
   var: 1.95
-  Geo: '45°01''35"N 005°18''33"E'
+  Geo: 45°01'35"N 005°18'33"E
   alt: 872
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -1982,7 +1982,7 @@ LFKF:
   code: LFKF
   nom: FIGARI SUD CORSE
   var: 2.73
-  Geo: '41°30''08"N 009°05''48"E'
+  Geo: 41°30'08"N 009°05'48"E
   alt: 85
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 157
@@ -1991,16 +1991,16 @@ LFKG:
   code: LFKG
   nom: GHISONACCIA ALZITONE
   var: 2.81
-  Geo: '42°03''16"N 009°24''01"E'
+  Geo: 42°03'16"N 009°24'01"E
   alt: 177
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
   statut: usage restreint
 LFKH:
   code: LFKH
-  nom: 'SAINT JEAN D''AVELANNE'
+  nom: SAINT JEAN D'AVELANNE
   var: 2.03
-  Geo: '45°30''57"N 005°40''46"E'
+  Geo: 45°30'57"N 005°40'46"E
   alt: 964
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -2009,7 +2009,7 @@ LFKJ:
   code: LFKJ
   nom: AJACCIO NAPOLEON BONAPARTE
   var: 2.69
-  Geo: '41°55''26"N 008°48''09"E'
+  Geo: 41°55'26"N 008°48'09"E
   alt: 19
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 157
@@ -2018,16 +2018,16 @@ LFKK:
   code: LFKK
   nom: MONTMEILLEUR
   var: 2.06
-  Geo: '44°47''37"N 005°45''42"E'
+  Geo: 44°47'37"N 005°45'42"E
   alt: 2992
   trafic: VFR NS/P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: privé
 LFKL:
   code: LFKL
   nom: LYON BRINDAS
   var: 1.78
-  Geo: '45°42''38"N 004°41''48"E'
+  Geo: 45°42'38"N 004°41'48"E
   alt: 1040
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2036,7 +2036,7 @@ LFKM:
   code: LFKM
   nom: SAINT GALMIER
   var: 1.68
-  Geo: '45°36''23"N 004°18''18"E'
+  Geo: 45°36'23"N 004°18'18"E
   alt: 1269
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -2045,7 +2045,7 @@ LFKO:
   code: LFKO
   nom: PROPRIANO
   var: 2.70
-  Geo: '41°39''37"N 008°53''38"E'
+  Geo: 41°39'37"N 008°53'38"E
   alt: 16
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -2054,7 +2054,7 @@ LFKP:
   code: LFKP
   nom: LA TOUR DU PIN CESSIEU
   var: 1.96
-  Geo: '45°33''32"N 005°23''02"E'
+  Geo: 45°33'32"N 005°23'02"E
   alt: 1053
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -2063,7 +2063,7 @@ LFKR:
   code: LFKR
   nom: SAINT REMY DE MAURIENNE
   var: 2.18
-  Geo: '45°22''30"N 006°16''40"E'
+  Geo: 45°22'30"N 006°16'40"E
   alt: 1399
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 171
@@ -2072,7 +2072,7 @@ LFKS:
   code: LFKS
   nom: SOLENZARA
   var: 2.8063
-  Geo: '41°55''35"N 009°24''19"E'
+  Geo: 41°55'35"N 009°24'19"E
   alt: 29
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 157
@@ -2081,7 +2081,7 @@ LFKT:
   code: LFKT
   nom: CORTE
   var: 2.78
-  Geo: '42°17''25"N 009°11''33"E'
+  Geo: 42°17'25"N 009°11'33"E
   alt: 1130
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2090,7 +2090,7 @@ LFKX:
   code: LFKX
   nom: MERIBEL ROBERT MERLOZ
   var: 2.25
-  Geo: '45°24''27"N 006°34''39"E'
+  Geo: 45°24'27"N 006°34'39"E
   alt: 5639
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 173
@@ -2099,7 +2099,7 @@ LFKY:
   code: LFKY
   nom: BELLEY-PEYRIEU
   var: 2.04
-  Geo: '45°41''38"N 005°41''30"E'
+  Geo: 45°41'38"N 005°41'30"E
   alt: 739
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -2108,7 +2108,7 @@ LFLA:
   code: LFLA
   nom: AUXERRE BRANCHES
   var: 1.40
-  Geo: '47°50''47"N 003°29''48"E'
+  Geo: 47°50'47"N 003°29'48"E
   alt: 523
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 150
@@ -2117,7 +2117,7 @@ LFLB:
   code: LFLB
   nom: CHAMBERY AIX LES BAINS
   var: 2.08
-  Geo: '45°38''21"N 005°52''48"E'
+  Geo: 45°38'21"N 005°52'48"E
   alt: 779
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 162
@@ -2126,7 +2126,7 @@ LFLC:
   code: LFLC
   nom: CLERMONT FERRAND AUVERGNE
   var: 1.38
-  Geo: '45°47''10"N 003°09''45"E'
+  Geo: 45°47'10"N 003°09'45"E
   alt: 1092
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 164
@@ -2135,7 +2135,7 @@ LFLD:
   code: LFLD
   nom: BOURGES
   var: 1.11
-  Geo: '47°03''39"N 002°22''12"E'
+  Geo: 47°03'39"N 002°22'12"E
   alt: 529
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 153
@@ -2144,7 +2144,7 @@ LFLE:
   code: LFLE
   nom: CHAMBERY CHALLES LES EAUX
   var: 2.11
-  Geo: '45°33''38"N 005°58''33"E'
+  Geo: 45°33'38"N 005°58'33"E
   alt: 973
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2153,7 +2153,7 @@ LFLG:
   code: LFLG
   nom: GRENOBLE LE VERSOUD
   var: 2.08
-  Geo: '45°13''05"N 005°50''55"E'
+  Geo: 45°13'05"N 005°50'55"E
   alt: 724
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 168
@@ -2162,7 +2162,7 @@ LFLH:
   code: LFLH
   nom: CHALON CHAMPFORGEUIL
   var: 1.80
-  Geo: '46°49''42"N 004°49''01"E'
+  Geo: 46°49'42"N 004°49'01"E
   alt: 623
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 157
@@ -2171,7 +2171,7 @@ LFLI:
   code: LFLI
   nom: ANNEMASSE
   var: 2.18
-  Geo: '46°11''31"N 006°16''06"E'
+  Geo: 46°11'31"N 006°16'06"E
   alt: 1620
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2180,7 +2180,7 @@ LFLJ:
   code: LFLJ
   nom: COURCHEVEL
   var: 2.27
-  Geo: '45°23''45"N 006°37''57"E'
+  Geo: 45°23'45"N 006°37'57"E
   alt: 6583
   trafic: INTL/NTL VFR P
   GUND_DTHR_ALT_ft: 175
@@ -2189,7 +2189,7 @@ LFLK:
   code: LFLK
   nom: OYONNAX ARBENT
   var: 2.03
-  Geo: '46°16''43"N 005°39''59"E'
+  Geo: 46°16'43"N 005°39'59"E
   alt: 1755
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2198,7 +2198,7 @@ LFLL:
   code: LFLL
   nom: LYON SAINT EXUPERY
   var: 1.88
-  Geo: '45°43''32"N 005°04''52"E'
+  Geo: 45°43'32"N 005°04'52"E
   alt: 821
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 161
@@ -2207,7 +2207,7 @@ LFLM:
   code: LFLM
   nom: MACON CHARNAY
   var: 1.80
-  Geo: '46°17''45"N 004°47''45"E'
+  Geo: 46°17'45"N 004°47'45"E
   alt: 729
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -2216,7 +2216,7 @@ LFLN:
   code: LFLN
   nom: SAINT YAN
   var: 1.59
-  Geo: '46°24''23"N 004°01''16"E'
+  Geo: 46°24'23"N 004°01'16"E
   alt: 796
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 159
@@ -2225,7 +2225,7 @@ LFLO:
   code: LFLO
   nom: ROANNE
   var: 1.60
-  Geo: '46°03''10"N 003°59''59"E'
+  Geo: 46°03'10"N 003°59'59"E
   alt: 1106
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2234,7 +2234,7 @@ LFLP:
   code: LFLP
   nom: ANNECY MEYTHET
   var: 2.14
-  Geo: '45°55''51"N 006°06''23"E'
+  Geo: 45°55'51"N 006°06'23"E
   alt: 1521
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2243,16 +2243,16 @@ LFLQ:
   code: LFLQ
   nom: MONTELIMAR ANCONE
   var: 1.81
-  Geo: '44°34''49"N 004°44''21"E'
+  Geo: 44°34'49"N 004°44'21"E
   alt: 241
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
   statut: ouvert à la CAP
 LFLR:
   code: LFLR
-  nom: 'SAINT RAMBERT D''ALBON'
+  nom: SAINT RAMBERT D'ALBON
   var: 1.82
-  Geo: '45°15''18"N 004°49''29"E'
+  Geo: 45°15'18"N 004°49'29"E
   alt: 509
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2261,7 +2261,7 @@ LFLS:
   code: LFLS
   nom: GRENOBLE ALPES ISERE
   var: 1.95
-  Geo: '45°21''47"N 005°19''58"E'
+  Geo: 45°21'47"N 005°19'58"E
   alt: 1302
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 162
@@ -2270,7 +2270,7 @@ LFLT:
   code: LFLT
   nom: MONTLUCON DOMERAT
   var: 1.20
-  Geo: '46°21''10"N 002°34''14"E'
+  Geo: 46°21'10"N 002°34'14"E
   alt: 771
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -2279,7 +2279,7 @@ LFLU:
   code: LFLU
   nom: VALENCE CHABEUIL
   var: 1.86
-  Geo: '44°54''56"N 004°58''07"E'
+  Geo: 44°54'56"N 004°58'07"E
   alt: 525
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2288,7 +2288,7 @@ LFLV:
   code: LFLV
   nom: VICHY CHARMEIL
   var: 1.43
-  Geo: '46°10''18"N 003°24''15"E'
+  Geo: 46°10'18"N 003°24'15"E
   alt: 817
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -2297,7 +2297,7 @@ LFLW:
   code: LFLW
   nom: AURILLAC
   var: 1.20
-  Geo: '44°53''51"N 002°25''00"E'
+  Geo: 44°53'51"N 002°25'00"E
   alt: 2096
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 167
@@ -2306,7 +2306,7 @@ LFLX:
   code: LFLX
   nom: CHATEAUROUX DEOLS
   var: 0.94
-  Geo: '46°51''37"N 001°43''16"E'
+  Geo: 46°51'37"N 001°43'16"E
   alt: 529
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 153
@@ -2315,7 +2315,7 @@ LFLY:
   code: LFLY
   nom: LYON BRON
   var: 1.85
-  Geo: '45°43''46"N 004°56''20"E'
+  Geo: 45°43'46"N 004°56'20"E
   alt: 659
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 162
@@ -2324,7 +2324,7 @@ LFLZ:
   code: LFLZ
   nom: FEURS CHAMBEON
   var: 1.65
-  Geo: '45°42''24"N 004°11''49"E'
+  Geo: 45°42'24"N 004°11'49"E
   alt: 1095
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -2333,7 +2333,7 @@ LFMA:
   code: LFMA
   nom: AIX LES MILLES
   var: 1.96
-  Geo: '43°30''19"N 005°22''02"E'
+  Geo: 43°30'19"N 005°22'02"E
   alt: 368
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2342,7 +2342,7 @@ LFMC:
   code: LFMC
   nom: LE LUC LE CANNET
   var: 2.1994
-  Geo: '43°23''05"N 006°23''13"E'
+  Geo: 43°23'05"N 006°23'13"E
   alt: 265
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2351,7 +2351,7 @@ LFMD:
   code: LFMD
   nom: CANNES MANDELIEU
   var: 2.33
-  Geo: '43°32''47"N 006°57''15"E'
+  Geo: 43°32'47"N 006°57'15"E
   alt: 14
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 160
@@ -2360,7 +2360,7 @@ LFME:
   code: LFME
   nom: NIMES COURBESSAC
   var: 1.73
-  Geo: '43°51''11"N 004°24''52"E'
+  Geo: 43°51'11"N 004°24'52"E
   alt: 197
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2369,7 +2369,7 @@ LFMF:
   code: LFMF
   nom: FAYENCE
   var: 2.27
-  Geo: '43°36''29"N 006°42''06"E'
+  Geo: 43°36'29"N 006°42'06"E
   alt: 738
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2378,7 +2378,7 @@ LFMG:
   code: LFMG
   nom: MONTAGNE NOIRE
   var: 1.13
-  Geo: '43°24''23"N 001°59''21"E'
+  Geo: 43°24'23"N 001°59'21"E
   alt: 1468
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 161
@@ -2387,7 +2387,7 @@ LFMH:
   code: LFMH
   nom: SAINT ETIENNE LOIRE
   var: 1.68
-  Geo: '45°32''03"N 004°17''50"E'
+  Geo: 45°32'03"N 004°17'50"E
   alt: 1325
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 166
@@ -2396,7 +2396,7 @@ LFMI:
   code: LFMI
   nom: ISTRES LE TUBE
   var: 1.8598
-  Geo: '43°31''21"N 004°55''27"E'
+  Geo: 43°31'21"N 004°55'27"E
   alt: 82
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 162
@@ -2405,7 +2405,7 @@ LFMK:
   code: LFMK
   nom: CARCASSONNE SALVAZA
   var: 1.22
-  Geo: '43°12''57"N 002°18''31"E'
+  Geo: 43°12'57"N 002°18'31"E
   alt: 434
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 162
@@ -2414,16 +2414,16 @@ LFML:
   code: LFML
   nom: MARSEILLE PROVENCE
   var: 1.93
-  Geo: '43°26''12"N 005°12''54"E'
+  Geo: 43°26'12"N 005°12'54"E
   alt: 70
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
   statut: ouvert à la CAP
 LFMN:
   code: LFMN
-  nom: 'NICE COTE D''AZUR'
+  nom: NICE COTE D'AZUR
   var: 2.39
-  Geo: '43°39''55"N 007°12''54"E'
+  Geo: 43°39'55"N 007°12'54"E
   alt: 12
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -2432,7 +2432,7 @@ LFMO:
   code: LFMO
   nom: ORANGE CARITAT
   var: 1.84
-  Geo: '44°08''24"N 004°52''07"E'
+  Geo: 44°08'24"N 004°52'07"E
   alt: 197
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 163
@@ -2441,7 +2441,7 @@ LFMP:
   code: LFMP
   nom: PERPIGNAN RIVESALTES
   var: 1.37
-  Geo: '42°44''27"N 002°52''11"E'
+  Geo: 42°44'27"N 002°52'11"E
   alt: 144
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 163
@@ -2450,7 +2450,7 @@ LFMQ:
   code: LFMQ
   nom: LE CASTELLET
   var: 2.06
-  Geo: '43°15''08"N 005°47''10"E'
+  Geo: 43°15'08"N 005°47'10"E
   alt: 1391
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2459,7 +2459,7 @@ LFMR:
   code: LFMR
   nom: BARCELONNETTE SAINT PONS
   var: 2.26
-  Geo: '44°23''14"N 006°36''33"E'
+  Geo: 44°23'14"N 006°36'33"E
   alt: 3714
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 176
@@ -2468,7 +2468,7 @@ LFMS:
   code: LFMS
   nom: ALES CEVENNES
   var: 1.67
-  Geo: '44°04''22"N 004°08''35"E'
+  Geo: 44°04'22"N 004°08'35"E
   alt: 668
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -2477,7 +2477,7 @@ LFMT:
   code: LFMT
   nom: MONTPELLIER MEDITERRANEE
   var: 1.63
-  Geo: '43°35''00"N 003°57''41"E'
+  Geo: 43°35'00"N 003°57'41"E
   alt: 17
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 163
@@ -2486,7 +2486,7 @@ LFMU:
   code: LFMU
   nom: BEZIERS VIAS
   var: 1.48
-  Geo: '43°19''24"N 003°21''12"E'
+  Geo: 43°19'24"N 003°21'12"E
   alt: 56
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2495,7 +2495,7 @@ LFMV:
   code: LFMV
   nom: AVIGNON CAUMONT
   var: 1.85
-  Geo: '43°54''24"N 004°54''07"E'
+  Geo: 43°54'24"N 004°54'07"E
   alt: 124
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 162
@@ -2504,7 +2504,7 @@ LFMW:
   code: LFMW
   nom: CASTELNAUDARY VILLENEUVE
   var: 1.12
-  Geo: '43°18''40"N 001°55''12"E'
+  Geo: 43°18'40"N 001°55'12"E
   alt: 553
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -2513,7 +2513,7 @@ LFMX:
   code: LFMX
   nom: CHATEAU ARNOUX SAINT AUBAN
   var: 2.11
-  Geo: '44°03''31"N 005°59''27"E'
+  Geo: 44°03'31"N 005°59'27"E
   alt: 1507
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -2522,7 +2522,7 @@ LFMY:
   code: LFMY
   nom: SALON DE PROVENCE
   var: 1.90
-  Geo: '43°36''10"N 005°06''29"E'
+  Geo: 43°36'10"N 005°06'29"E
   alt: 197
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 162
@@ -2531,7 +2531,7 @@ LFMZ:
   code: LFMZ
   nom: LEZIGNAN CORBIERES
   var: 1.33
-  Geo: '43°10''30"N 002°43''58"E'
+  Geo: 43°10'30"N 002°43'58"E
   alt: 204
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2540,7 +2540,7 @@ LFNA:
   code: LFNA
   nom: GAP TALLARD
   var: 2.12
-  Geo: '44°27''14"N 006°02''12"E'
+  Geo: 44°27'14"N 006°02'12"E
   alt: 1966
   trafic: INTL/NTL VFR P
   GUND_DTHR_ALT_ft: 177
@@ -2549,7 +2549,7 @@ LFNB:
   code: LFNB
   nom: MENDE BRENOUX
   var: 1.50
-  Geo: '44°30''15"N 003°31''39"E'
+  Geo: 44°30'15"N 003°31'39"E
   alt: 3362
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 172
@@ -2558,7 +2558,7 @@ LFNC:
   code: LFNC
   nom: MONT DAUPHIN SAINT CREPIN
   var: 2.26
-  Geo: '44°42''02"N 006°35''57"E'
+  Geo: 44°42'02"N 006°35'57"E
   alt: 2963
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 176
@@ -2567,7 +2567,7 @@ LFNE:
   code: LFNE
   nom: SALON EYGUIERES
   var: 1.88
-  Geo: '43°39''27"N 005°00''46"E'
+  Geo: 43°39'27"N 005°00'46"E
   alt: 247
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2576,7 +2576,7 @@ LFNF:
   code: LFNF
   nom: VINON
   var: 2.06
-  Geo: '43°44''11"N 005°46''59"E'
+  Geo: 43°44'11"N 005°46'59"E
   alt: 903
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2585,7 +2585,7 @@ LFNG:
   code: LFNG
   nom: MONTPELLIER CANDILLARGUES
   var: 1.6530
-  Geo: '43°36''37"N 004°04''13"E'
+  Geo: 43°36'37"N 004°04'13"E
   alt: 5
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2594,7 +2594,7 @@ LFNH:
   code: LFNH
   nom: CARPENTRAS
   var: 1.90
-  Geo: '44°01''21"N 005°05''24"E'
+  Geo: 44°01'21"N 005°05'24"E
   alt: 388
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 163
@@ -2603,7 +2603,7 @@ LFNJ:
   code: LFNJ
   nom: ASPRES SUR BUECH
   var: 2.05
-  Geo: '44°31''04"N 005°44''10"E'
+  Geo: 44°31'04"N 005°44'10"E
   alt: 2727
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 170
@@ -2612,7 +2612,7 @@ LFNL:
   code: LFNL
   nom: SAINT MARTIN DE LONDRES
   var: 1.58
-  Geo: '43°48''01"N 003°46''54"E'
+  Geo: 43°48'01"N 003°46'54"E
   alt: 602
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -2621,7 +2621,7 @@ LFNN:
   code: LFNN
   nom: NARBONNE
   var: 1.41
-  Geo: '43°11''39"N 003°03''06"E'
+  Geo: 43°11'39"N 003°03'06"E
   alt: 10
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2630,16 +2630,16 @@ LFNO:
   code: LFNO
   nom: FLORAC SAINTE ENIMIE
   var: 1.49
-  Geo: '44°17''08"N 003°27''56"E'
+  Geo: 44°17'08"N 003°27'56"E
   alt: 3055
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFNQ:
   code: LFNQ
   nom: LA LLAGONNE LA QUILLANE
   var: 1.18
-  Geo: '42°32''36"N 002°07''12"E'
+  Geo: 42°32'36"N 002°07'12"E
   alt: 5612
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 173
@@ -2648,7 +2648,7 @@ LFNR:
   code: LFNR
   nom: BERRE LA FARE
   var: 1.92
-  Geo: '43°32''12"N 005°10''39"E'
+  Geo: 43°32'12"N 005°10'39"E
   alt: 108
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2657,7 +2657,7 @@ LFNS:
   code: LFNS
   nom: SISTERON VAUMEILH
   var: 2.10
-  Geo: '44°17''12"N 005°55''45"E'
+  Geo: 44°17'12"N 005°55'45"E
   alt: 1778
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 168
@@ -2666,7 +2666,7 @@ LFNT:
   code: LFNT
   nom: AVIGNON PUJAUT
   var: 1.82
-  Geo: '43°59''46"N 004°45''16"E'
+  Geo: 43°59'46"N 004°45'16"E
   alt: 146
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2675,7 +2675,7 @@ LFNU:
   code: LFNU
   nom: UZES
   var: 1.73
-  Geo: '44°05''01"N 004°23''38"E'
+  Geo: 44°05'01"N 004°23'38"E
   alt: 884
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2684,7 +2684,7 @@ LFNV:
   code: LFNV
   nom: VALREAS VISAN
   var: 1.85
-  Geo: '44°20''09"N 004°54''25"E'
+  Geo: 44°20'09"N 004°54'25"E
   alt: 472
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -2693,7 +2693,7 @@ LFNW:
   code: LFNW
   nom: PUIVERT
   var: 1.16
-  Geo: '42°54''37"N 002°03''17"E'
+  Geo: 42°54'37"N 002°03'17"E
   alt: 1610
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -2702,7 +2702,7 @@ LFNX:
   code: LFNX
   nom: BEDARIEUX LA TOUR SUR ORB
   var: 1.42
-  Geo: '43°38''23"N 003°08''41"E'
+  Geo: 43°38'23"N 003°08'41"E
   alt: 1247
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 165
@@ -2711,7 +2711,7 @@ LFNZ:
   code: LFNZ
   nom: LE MAZET DE ROMANIN
   var: 1.85
-  Geo: '43°46''15"N 004°53''40"E'
+  Geo: 43°46'15"N 004°53'40"E
   alt: 395
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 162
@@ -2720,7 +2720,7 @@ LFOA:
   code: LFOA
   nom: AVORD
   var: 1.19
-  Geo: '47°03''25"N 002°38''20"E'
+  Geo: 47°03'25"N 002°38'20"E
   alt: 578
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 154
@@ -2729,7 +2729,7 @@ LFOB:
   code: LFOB
   nom: BEAUVAIS TILLE
   var: 0.92
-  Geo: '49°27''16"N 002°06''46"E'
+  Geo: 49°27'16"N 002°06'46"E
   alt: 359
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 144
@@ -2738,7 +2738,7 @@ LFOC:
   code: LFOC
   nom: CHATEAUDUN
   var: 0.77
-  Geo: '48°03''28"N 001°22''46"E'
+  Geo: 48°03'28"N 001°22'46"E
   alt: 432
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 148
@@ -2747,7 +2747,7 @@ LFOD:
   code: LFOD
   nom: SAUMUR SAINT FLORENT
   var: 0.37
-  Geo: '47°15''24"N 000°06''49"W'
+  Geo: 47°15'24"N 000°06'49"W
   alt: 269
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -2756,7 +2756,7 @@ LFOE:
   code: LFOE
   nom: EVREUX FAUVILLE
   var: 0.6667
-  Geo: '49°01''43"N 001°13''12"E'
+  Geo: 49°01'43"N 001°13'12"E
   alt: 465
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 146
@@ -2765,7 +2765,7 @@ LFOF:
   code: LFOF
   nom: ALENCON VALFRAMBERT
   var: 0.36
-  Geo: '48°26''48"N 000°06''30"E'
+  Geo: 48°26'48"N 000°06'30"E
   alt: 476
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -2774,7 +2774,7 @@ LFOG:
   code: LFOG
   nom: FLERS SAINT PAUL
   var: 0.11
-  Geo: '48°44''59"N 000°35''41"W'
+  Geo: 48°44'59"N 000°35'41"W
   alt: 663
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -2783,7 +2783,7 @@ LFOH:
   code: LFOH
   nom: LE HAVRE OCTEVILLE
   var: 0.27
-  Geo: '49°32''02"N 000°05''17"E'
+  Geo: 49°32'02"N 000°05'17"E
   alt: 313
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 148
@@ -2792,16 +2792,16 @@ LFOI:
   code: LFOI
   nom: ABBEVILLE
   var: 0.79
-  Geo: '50°08''32"N 001°49''52"E'
+  Geo: 50°08'32"N 001°49'52"E
   alt: 220
   trafic: INTL/NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFOJ:
   code: LFOJ
   nom: ORLEANS BRICY
   var: 0.89
-  Geo: '47°59''16"N 001°45''38"E'
+  Geo: 47°59'16"N 001°45'38"E
   alt: 412
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 147
@@ -2810,16 +2810,16 @@ LFOK:
   code: LFOK
   nom: CHALONS VATRY
   var: 1.58
-  Geo: '48°46''24"N 004°12''22"E'
+  Geo: 48°46'24"N 004°12'22"E
   alt: 586
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 150
   statut: ouvert à la CAP
 LFOL:
   code: LFOL
-  nom: 'L''AIGLE SAINT MICHEL'
+  nom: L'AIGLE SAINT MICHEL
   var: 0.51
-  Geo: '48°45''32"N 000°39''28"E'
+  Geo: 48°45'32"N 000°39'28"E
   alt: 787
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 149
@@ -2828,7 +2828,7 @@ LFOM:
   code: LFOM
   nom: LESSAY
   var: -0.22
-  Geo: '49°12''12"N 001°30''17"W'
+  Geo: 49°12'12"N 001°30'17"W
   alt: 96
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -2837,16 +2837,16 @@ LFON:
   code: LFON
   nom: DREUX VERNOUILLET
   var: 0.73
-  Geo: '48°42''21"N 001°21''41"E'
+  Geo: 48°42'21"N 001°21'41"E
   alt: 445
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 146
   statut: ouvert à la CAP
 LFOO:
   code: LFOO
-  nom: 'LES SABLES D''OLONNE TALMONT'
+  nom: LES SABLES D'OLONNE TALMONT
   var: -0.07
-  Geo: '46°28''32"N 001°43''30"W'
+  Geo: 46°28'32"N 001°43'30"W
   alt: 104
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 155
@@ -2855,7 +2855,7 @@ LFOP:
   code: LFOP
   nom: ROUEN VALLEE DE SEINE
   var: 0.63
-  Geo: '49°23''27"N 001°11''02"E'
+  Geo: 49°23'27"N 001°11'02"E
   alt: 512
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 145
@@ -2864,7 +2864,7 @@ LFOQ:
   code: LFOQ
   nom: BLOIS LE BREUIL
   var: 0.74
-  Geo: '47°40''47"N 001°12''21"E'
+  Geo: 47°40'47"N 001°12'21"E
   alt: 398
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 149
@@ -2873,16 +2873,16 @@ LFOR:
   code: LFOR
   nom: CHARTRES METROPOLE
   var: 0.79
-  Geo: '48°27''32"N 001°31''26"E'
+  Geo: 48°27'32"N 001°31'26"E
   alt: 509
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFOS:
   code: LFOS
   nom: SAINT VALERY VITTEFLEUR
   var: 0.43
-  Geo: '49°50''07"N 000°39''20"E'
+  Geo: 49°50'07"N 000°39'20"E
   alt: 269
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -2891,7 +2891,7 @@ LFOT:
   code: LFOT
   nom: TOURS VAL DE LOIRE
   var: -0.22
-  Geo: '47°25''55"N 000°43''23"E'
+  Geo: 47°25'55"N 000°43'23"E
   alt: 357
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 151
@@ -2900,7 +2900,7 @@ LFOU:
   code: LFOU
   nom: CHOLET LE PONTREAU
   var: 0.15
-  Geo: '47°04''55"N 000°52''38"W'
+  Geo: 47°04'55"N 000°52'38"W
   alt: 443
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -2909,7 +2909,7 @@ LFOV:
   code: LFOV
   nom: LAVAL ENTRAMMES
   var: 0.12
-  Geo: '48°01''56"N 000°44''34"W'
+  Geo: 48°01'56"N 000°44'34"W
   alt: 330
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -2918,16 +2918,16 @@ LFOW:
   code: LFOW
   nom: SAINT QUENTIN ROUPY
   var: 1.24
-  Geo: '49°49''01"N 003°12''24"E'
+  Geo: 49°49'01"N 003°12'24"E
   alt: 325
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFOX:
   code: LFOX
   nom: ETAMPES MONDESIR
   var: 0.97
-  Geo: '48°22''52"N 002°04''26"E'
+  Geo: 48°22'52"N 002°04'26"E
   alt: 494
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -2936,16 +2936,16 @@ LFOY:
   code: LFOY
   nom: LE HAVRE SAINT ROMAIN
   var: 0.36
-  Geo: '49°32''38"N 000°21''35"E'
+  Geo: 49°32'38"N 000°21'35"E
   alt: 423
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 147
   statut: ouvert à la CAP
 LFOZ:
   code: LFOZ
-  nom: 'ORLEANS SAINT DENIS DE L''HOTEL'
+  nom: ORLEANS SAINT DENIS DE L'HOTEL
   var: 1.02
-  Geo: '47°53''51"N 002°09''51"E'
+  Geo: 47°53'51"N 002°09'51"E
   alt: 397
   trafic: INTL/NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 148
@@ -2954,7 +2954,7 @@ LFPA:
   code: LFPA
   nom: PERSAN BEAUMONT
   var: 1.00
-  Geo: '49°09''54"N 002°18''42"E'
+  Geo: 49°09'54"N 002°18'42"E
   alt: 149
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 143
@@ -2963,25 +2963,16 @@ LFPB:
   code: LFPB
   nom: PARIS LE BOURGET
   var: 1.04
-  Geo: '48°58''10"N 002°26''29"E'
+  Geo: 48°58'10"N 002°26'29"E
   alt: 220
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 144
   statut: ouvert à la CAP
-LFPC:
-  code: LFPC
-  nom: CREIL
-  var: 1.05
-  Geo: '49°15''13"N 002°31''09"E'
-  alt: 291
-  trafic: NTL VFR
-  GUND_DTHR_ALT_ft: 144
-  statut: Militaire
 LFPD:
   code: LFPD
   nom: BERNAY SAINT MARTIN
   var: 0.46
-  Geo: '49°06''09"N 000°33''56"E'
+  Geo: 49°06'09"N 000°33'56"E
   alt: 555
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 148
@@ -2990,7 +2981,7 @@ LFPE:
   code: LFPE
   nom: MEAUX ESBLY
   var: 1.17
-  Geo: '48°55''37"N 002°50''02"E'
+  Geo: 48°55'37"N 002°50'02"E
   alt: 220
   trafic: NTL VFR NS/P
   GUND_DTHR_ALT_ft: 144
@@ -2999,16 +2990,16 @@ LFPF:
   code: LFPF
   nom: BEYNES THIVERVAL
   var: 0.89
-  Geo: '48°50''37"N 001°54''32"E'
+  Geo: 48°50'37"N 001°54'32"E
   alt: 371
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFPG:
   code: LFPG
   nom: PARIS CHARLES DE GAULLE
   var: 1.08
-  Geo: '49°00''35"N 002°32''52"E'
+  Geo: 49°00'35"N 002°32'52"E
   alt: 392
   trafic: INTL/NTL IFR/VFR S/NS
   GUND_DTHR_ALT_ft: 143
@@ -3017,7 +3008,7 @@ LFPH:
   code: LFPH
   nom: CHELLES LE PIN
   var: 1.10
-  Geo: '48°53''48"N 002°36''22"E'
+  Geo: 48°53'48"N 002°36'22"E
   alt: 208
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3026,7 +3017,7 @@ LFPK:
   code: LFPK
   nom: COULOMMIERS VOISINS
   var: 1.22
-  Geo: '48°50''15"N 003°00''52"E'
+  Geo: 48°50'15"N 003°00'52"E
   alt: 470
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 145
@@ -3035,7 +3026,7 @@ LFPL:
   code: LFPL
   nom: LOGNES EMERAINVILLE
   var: 1.11
-  Geo: '48°49''19"N 002°37''22"E'
+  Geo: 48°49'19"N 002°37'22"E
   alt: 359
   trafic: INTL/NTL VFR S/NS/P
   GUND_DTHR_ALT_ft: 144
@@ -3044,7 +3035,7 @@ LFPM:
   code: LFPM
   nom: MELUN VILLAROCHE
   var: 1.13
-  Geo: '48°36''19"N 002°40''15"E'
+  Geo: 48°36'19"N 002°40'15"E
   alt: 304
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 144
@@ -3053,7 +3044,7 @@ LFPN:
   code: LFPN
   nom: TOUSSUS LE NOBLE
   var: 0.96
-  Geo: '48°44''59"N 002°06''40"E'
+  Geo: 48°44'59"N 002°06'40"E
   alt: 538
   trafic: NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 144
@@ -3062,7 +3053,7 @@ LFPO:
   code: LFPO
   nom: PARIS ORLY
   var: 1.04
-  Geo: '48°43''24"N 002°22''46"E'
+  Geo: 48°43'24"N 002°22'46"E
   alt: 291
   trafic: INTL/NTL IFR/VFR S/NS
   GUND_DTHR_ALT_ft: 144
@@ -3071,7 +3062,7 @@ LFPP:
   code: LFPP
   nom: LE PLESSIS BELLEVILLE
   var: 1.13
-  Geo: '49°06''33"N 002°44''13"E'
+  Geo: 49°06'33"N 002°44'13"E
   alt: 387
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3080,25 +3071,25 @@ LFPQ:
   code: LFPQ
   nom: FONTENAY TRESIGNY
   var: 1.20
-  Geo: '48°42''22"N 002°54''10"E'
+  Geo: 48°42'22"N 002°54'10"E
   alt: 371
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFPR:
   code: LFPR
   nom: ORANGE PLAN DE DIEU
   var: 1.86
-  Geo: '44°10''46"N 004°55''08"E'
+  Geo: 44°10'46"N 004°55'08"E
   alt: 305
   trafic: 
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: Militaire
 LFPT:
   code: LFPT
   nom: PONTOISE CORMEILLES EN VEXIN
   var: 0.92
-  Geo: '49°05''48"N 002°02''27"E'
+  Geo: 49°05'48"N 002°02'27"E
   alt: 325
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 143
@@ -3107,16 +3098,16 @@ LFPU:
   code: LFPU
   nom: MORET EPISY
   var: 1.18
-  Geo: '48°20''27"N 002°47''52"E'
+  Geo: 48°20'27"N 002°47'52"E
   alt: 253
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFPV:
   code: LFPV
   nom: VILLACOUBLAY VELIZY
   var: 0.98
-  Geo: '48°46''27"N 002°11''29"E'
+  Geo: 48°46'27"N 002°11'29"E
   alt: 585
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 144
@@ -3125,16 +3116,16 @@ LFPX:
   code: LFPX
   nom: CHAVENAY VILLEPREUX
   var: 0.91
-  Geo: '48°50''32"N 001°58''49"E'
+  Geo: 48°50'32"N 001°58'49"E
   alt: 424
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
   statut: ouvert à la CAP
 LFPZ:
   code: LFPZ
-  nom: 'SAINT CYR L''ECOLE'
+  nom: SAINT CYR L'ECOLE
   var: 0.94
-  Geo: '48°48''37"N 002°04''24"E'
+  Geo: 48°48'37"N 002°04'24"E
   alt: 373
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3143,7 +3134,7 @@ LFQA:
   code: LFQA
   nom: REIMS PRUNAY
   var: 1.55
-  Geo: '49°12''31"N 004°09''24"E'
+  Geo: 49°12'31"N 004°09'24"E
   alt: 313
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 147
@@ -3152,7 +3143,7 @@ LFQB:
   code: LFQB
   nom: TROYES BARBEREY
   var: 1.54
-  Geo: '48°19''18"N 004°01''00"E'
+  Geo: 48°19'18"N 004°01'00"E
   alt: 389
   trafic: NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 149
@@ -3161,7 +3152,7 @@ LFQC:
   code: LFQC
   nom: LUNEVILLE CROISMARE
   var: 2.23
-  Geo: '48°35''37"N 006°32''32"E'
+  Geo: 48°35'37"N 006°32'32"E
   alt: 790
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3170,7 +3161,7 @@ LFQD:
   code: LFQD
   nom: ARRAS ROCLINCOURT
   var: 1.08
-  Geo: '50°19''26"N 002°48''10"E'
+  Geo: 50°19'26"N 002°48'10"E
   alt: 328
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 143
@@ -3179,7 +3170,7 @@ LFQE:
   code: LFQE
   nom: ETAIN ROUVRES
   var: 1.98
-  Geo: '49°13''45"N 005°40''34"E'
+  Geo: 49°13'45"N 005°40'34"E
   alt: 760
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 153
@@ -3188,7 +3179,7 @@ LFQF:
   code: LFQF
   nom: AUTUN BELLEVUE
   var: 1.64
-  Geo: '46°58''16"N 004°15''40"E'
+  Geo: 46°58'16"N 004°15'40"E
   alt: 1001
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -3197,7 +3188,7 @@ LFQG:
   code: LFQG
   nom: NEVERS FOURCHAMBAULT
   var: 1.33
-  Geo: '47°00''13"N 003°06''39"E'
+  Geo: 47°00'13"N 003°06'39"E
   alt: 602
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -3206,7 +3197,7 @@ LFQH:
   code: LFQH
   nom: CHATILLON SUR SEINE
   var: 1.71
-  Geo: '47°50''43"N 004°34''46"E'
+  Geo: 47°50'43"N 004°34'46"E
   alt: 906
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 153
@@ -3215,7 +3206,7 @@ LFQJ:
   code: LFQJ
   nom: MAUBEUGE ELESMES
   var: 1.47
-  Geo: '50°18''30"N 004°01''48"E'
+  Geo: 50°18'30"N 004°01'48"E
   alt: 452
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 147
@@ -3224,7 +3215,7 @@ LFQK:
   code: LFQK
   nom: CHALONS ECURY SUR COOLE
   var: 1.61
-  Geo: '48°54''20"N 004°21''10"E'
+  Geo: 48°54'20"N 004°21'10"E
   alt: 321
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 148
@@ -3233,7 +3224,7 @@ LFQL:
   code: LFQL
   nom: LENS BENIFONTAINE
   var: 1.08
-  Geo: '50°27''59"N 002°49''11"E'
+  Geo: 50°27'59"N 002°49'11"E
   alt: 170
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 143
@@ -3242,7 +3233,7 @@ LFQM:
   code: LFQM
   nom: BESANCON LA VEZE
   var: 2.12
-  Geo: '47°12''19"N 006°04''50"E'
+  Geo: 47°12'19"N 006°04'50"E
   alt: 1270
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 160
@@ -3251,16 +3242,16 @@ LFQN:
   code: LFQN
   nom: SAINT OMER WIZERNES
   var: 0.88
-  Geo: '50°43''44"N 002°14''04"E'
+  Geo: 50°43'44"N 002°14'04"E
   alt: 249
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFQO:
   code: LFQO
   nom: LILLE MARCQ EN BAROEUL
   var: 1.15
-  Geo: '50°41''14"N 003°04''32"E'
+  Geo: 50°41'14"N 003°04'32"E
   alt: 70
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3269,7 +3260,7 @@ LFQP:
   code: LFQP
   nom: PHALSBOURG BOURSCHEID
   var: 2.41
-  Geo: '48°46''05"N 007°12''18"E'
+  Geo: 48°46'05"N 007°12'18"E
   alt: 1018
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 159
@@ -3278,7 +3269,7 @@ LFQQ:
   code: LFQQ
   nom: LILLE LESQUIN
   var: 1.16
-  Geo: '50°33''48"N 003°05''13"E'
+  Geo: 50°33'48"N 003°05'13"E
   alt: 157
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 144
@@ -3287,16 +3278,16 @@ LFQS:
   code: LFQS
   nom: VITRY EN ARTOIS
   var: 1.14
-  Geo: '50°20''15"N 002°59''31"E'
+  Geo: 50°20'15"N 002°59'31"E
   alt: 174
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFQT:
   code: LFQT
   nom: MERVILLE CALONNE
   var: 1.02
-  Geo: '50°37''00"N 002°38''24"E'
+  Geo: 50°37'00"N 002°38'24"E
   alt: 61
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3305,7 +3296,7 @@ LFQU:
   code: LFQU
   nom: SARRE UNION
   var: 2.38
-  Geo: '48°57''03"N 007°04''35"E'
+  Geo: 48°57'03"N 007°04'35"E
   alt: 842
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -3314,7 +3305,7 @@ LFQV:
   code: LFQV
   nom: CHARLEVILLE MEZIERES
   var: 1.67
-  Geo: '49°47''06"N 004°38''34"E'
+  Geo: 49°47'06"N 004°38'34"E
   alt: 492
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 150
@@ -3323,7 +3314,7 @@ LFQW:
   code: LFQW
   nom: VESOUL FROTEY
   var: 2.15
-  Geo: '47°38''19"N 006°12''15"E'
+  Geo: 47°38'19"N 006°12'15"E
   alt: 1249
   trafic: NTL VFR NS/P
   GUND_DTHR_ALT_ft: 158
@@ -3332,7 +3323,7 @@ LFQX:
   code: LFQX
   nom: JUVANCOURT
   var: 1.77
-  Geo: '48°06''50"N 004°49''10"E'
+  Geo: 48°06'50"N 004°49'10"E
   alt: 1147
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 152
@@ -3341,7 +3332,7 @@ LFQY:
   code: LFQY
   nom: SAVERNE STEINBOURG
   var: 2.47
-  Geo: '48°45''12"N 007°25''33"E'
+  Geo: 48°45'12"N 007°25'33"E
   alt: 623
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -3350,7 +3341,7 @@ LFQZ:
   code: LFQZ
   nom: DIEUZE GUEBLANGE
   var: 2.28
-  Geo: '48°46''28"N 006°42''51"E'
+  Geo: 48°46'28"N 006°42'51"E
   alt: 718
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3359,16 +3350,16 @@ LFRB:
   code: LFRB
   nom: BREST BRETAGNE
   var: -1.13
-  Geo: '48°26''50"N 004°25''18"W'
+  Geo: 48°26'50"N 004°25'18"W
   alt: 325
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 166
   statut: ouvert à la CAP
 LFRC:
   code: LFRC
-  nom: CHERBOURG MAUPERTUS
+  nom: CHERBOURG MANCHE
   var: -0.25
-  Geo: '49°39''03"N 001°28''31"W'
+  Geo: 49°39'03"N 001°28'31"W
   alt: 459
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 153
@@ -3377,7 +3368,7 @@ LFRD:
   code: LFRD
   nom: DINARD PLEURTUIT SAINT MALO
   var: -0.36
-  Geo: '48°35''16"N 002°04''48"W'
+  Geo: 48°35'16"N 002°04'48"W
   alt: 219
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 159
@@ -3386,7 +3377,7 @@ LFRE:
   code: LFRE
   nom: LA BAULE ESCOUBLAC
   var: -0.33
-  Geo: '47°17''18"N 002°20''49"W'
+  Geo: 47°17'18"N 002°20'49"W
   alt: 106
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 157
@@ -3395,7 +3386,7 @@ LFRF:
   code: LFRF
   nom: GRANVILLE-MONT SAINT MICHEL
   var: -0.21
-  Geo: '48°52''58"N 001°33''50"W'
+  Geo: 48°52'58"N 001°33'50"W
   alt: 45
   trafic: NTL VFR NS/P
   GUND_DTHR_ALT_ft: 157
@@ -3404,7 +3395,7 @@ LFRG:
   code: LFRG
   nom: DEAUVILLE NORMANDIE
   var: 0.31
-  Geo: '49°21''48"N 000°09''36"E'
+  Geo: 49°21'48"N 000°09'36"E
   alt: 479
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 149
@@ -3413,7 +3404,7 @@ LFRH:
   code: LFRH
   nom: LORIENT LANN BIHOUE
   var: -0.73
-  Geo: '47°45''38"N 003°26''24"W'
+  Geo: 47°45'38"N 003°26'24"W
   alt: 159
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 161
@@ -3422,7 +3413,7 @@ LFRI:
   code: LFRI
   nom: LA ROCHE SUR YON LES AJONCS
   var: 0.02
-  Geo: '46°42''09"N 001°22''54"W'
+  Geo: 46°42'09"N 001°22'54"W
   alt: 299
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 155
@@ -3431,7 +3422,7 @@ LFRJ:
   code: LFRJ
   nom: LANDIVISIAU
   var: -1.05
-  Geo: '48°31''49"N 004°09''06"W'
+  Geo: 48°31'49"N 004°09'06"W
   alt: 348
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 165
@@ -3440,7 +3431,7 @@ LFRK:
   code: LFRK
   nom: CAEN CARPIQUET
   var: 0.13
-  Geo: '49°10''24"N 000°27''00"W'
+  Geo: 49°10'24"N 000°27'00"W
   alt: 256
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 152
@@ -3449,7 +3440,7 @@ LFRL:
   code: LFRL
   nom: LANVEOC POULMIC
   var: -1.12
-  Geo: '48°16''57"N 004°26''37"W'
+  Geo: 48°16'57"N 004°26'37"W
   alt: 287
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 166
@@ -3458,7 +3449,7 @@ LFRM:
   code: LFRM
   nom: LE MANS ARNAGE
   var: 0.42
-  Geo: '47°56''55"N 000°12''06"E'
+  Geo: 47°56'55"N 000°12'06"E
   alt: 194
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 152
@@ -3467,7 +3458,7 @@ LFRN:
   code: LFRN
   nom: RENNES SAINT JACQUES
   var: -0.20
-  Geo: '48°04''19"N 001°43''56"W'
+  Geo: 48°04'19"N 001°43'56"W
   alt: 124
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 158
@@ -3476,7 +3467,7 @@ LFRO:
   code: LFRO
   nom: LANNION
   var: -0.84
-  Geo: '48°45''16"N 003°28''19"W'
+  Geo: 48°45'16"N 003°28'19"W
   alt: 290
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 164
@@ -3485,7 +3476,7 @@ LFRP:
   code: LFRP
   nom: PLOERMEL LOYAT
   var: -0.40
-  Geo: '48°00''07"N 002°22''43"W'
+  Geo: 48°00'07"N 002°22'43"W
   alt: 237
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 159
@@ -3494,7 +3485,7 @@ LFRQ:
   code: LFRQ
   nom: QUIMPER PLUGUFFAN
   var: -0.99
-  Geo: '47°58''30"N 004°10''04"W'
+  Geo: 47°58'30"N 004°10'04"W
   alt: 297
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 164
@@ -3503,7 +3494,7 @@ LFRS:
   code: LFRS
   nom: NANTES ATLANTIQUE
   var: -0.08
-  Geo: '47°09''25"N 001°36''28"W'
+  Geo: 47°09'25"N 001°36'28"W
   alt: 90
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 155
@@ -3512,7 +3503,7 @@ LFRT:
   code: LFRT
   nom: SAINT BRIEUC ARMOR
   var: -0.61
-  Geo: '48°32''15"N 002°51''24"W'
+  Geo: 48°32'15"N 002°51'24"W
   alt: 452
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 163
@@ -3521,8 +3512,8 @@ LFRU:
   code: LFRU
   nom: MORLAIX PLOUJEAN
   var: -0.94
-  Geo: '48°36''03"N 003°49''00"W'
-  alt: 277
+  Geo: 48°36'03"N 003°49'00"W
+  alt: 278
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 164
   statut: ouvert à la CAP
@@ -3530,7 +3521,7 @@ LFRV:
   code: LFRV
   nom: VANNES MEUCON
   var: -0.49
-  Geo: '47°43''09"N 002°43''24"W'
+  Geo: 47°43'09"N 002°43'24"W
   alt: 440
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 159
@@ -3539,7 +3530,7 @@ LFRW:
   code: LFRW
   nom: AVRANCHES LE VAL SAINT PERE
   var: -0.14
-  Geo: '48°39''39"N 001°24''21"W'
+  Geo: 48°39'39"N 001°24'21"W
   alt: 25
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3548,7 +3539,7 @@ LFRZ:
   code: LFRZ
   nom: SAINT NAZAIRE MONTOIR
   var: -0.27
-  Geo: '47°18''38"N 002°09''24"W'
+  Geo: 47°18'38"N 002°09'24"W
   alt: 13
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 157
@@ -3557,7 +3548,7 @@ LFSA:
   code: LFSA
   nom: BESANCON THISE
   var: 2.12
-  Geo: '47°16''25"N 006°04''59"E'
+  Geo: 47°16'25"N 006°04'59"E
   alt: 807
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 160
@@ -3566,7 +3557,7 @@ LFSB:
   code: LFSB
   nom: BALE-MULHOUSE
   var: 2.50
-  Geo: '47°35''24"N 007°31''45"E'
+  Geo: 47°35'24"N 007°31'45"E
   alt: 885
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -3575,7 +3566,7 @@ LFSD:
   code: LFSD
   nom: DIJON-LONGVIC
   var: 1.86
-  Geo: '47°15''57"N 005°05''42"E'
+  Geo: 47°15'57"N 005°05'42"E
   alt: 728
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 156
@@ -3584,7 +3575,7 @@ LFSE:
   code: LFSE
   nom: EPINAL DOGNEVILLE
   var: 2.21
-  Geo: '48°12''41"N 006°26''54"E'
+  Geo: 48°12'41"N 006°26'54"E
   alt: 1041
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 158
@@ -3593,7 +3584,7 @@ LFSG:
   code: LFSG
   nom: EPINAL MIRECOURT
   var: 2.11
-  Geo: '48°19''30"N 006°04''00"E'
+  Geo: 48°19'30"N 006°04'00"E
   alt: 1084
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3602,7 +3593,7 @@ LFSH:
   code: LFSH
   nom: HAGUENAU
   var: 2.58
-  Geo: '48°47''49"N 007°49''09"E'
+  Geo: 48°47'49"N 007°49'09"E
   alt: 491
   trafic: INTL/NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3611,7 +3602,7 @@ LFSI:
   code: LFSI
   nom: SAINT DIZIER ROBINSON
   var: 1.78
-  Geo: '48°38''01"N 004°54''29"E'
+  Geo: 48°38'01"N 004°54'29"E
   alt: 459
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 152
@@ -3620,7 +3611,7 @@ LFSJ:
   code: LFSJ
   nom: SEDAN DOUZY
   var: 1.79
-  Geo: '49°39''32"N 005°02''12"E'
+  Geo: 49°39'32"N 005°02'12"E
   alt: 513
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 151
@@ -3629,7 +3620,7 @@ LFSK:
   code: LFSK
   nom: VITRY LE FRANCOIS VAUCLERC
   var: 1.71
-  Geo: '48°42''08"N 004°41''00"E'
+  Geo: 48°42'08"N 004°41'00"E
   alt: 411
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 150
@@ -3638,7 +3629,7 @@ LFSL:
   code: LFSL
   nom: BRIVE SOUILLAC
   var: 0.95
-  Geo: '45°02''23"N 001°29''08"E'
+  Geo: 45°02'23"N 001°29'08"E
   alt: 1016
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 160
@@ -3647,7 +3638,7 @@ LFSM:
   code: LFSM
   nom: MONTBELIARD COURCELLES
   var: 2.31
-  Geo: '47°29''12"N 006°47''29"E'
+  Geo: 47°29'12"N 006°47'29"E
   alt: 1041
   trafic: NTL IFR/VFR P
   GUND_DTHR_ALT_ft: 160
@@ -3656,7 +3647,7 @@ LFSN:
   code: LFSN
   nom: NANCY ESSEY
   var: 2.15
-  Geo: '48°41''32"N 006°13''34"E'
+  Geo: 48°41'32"N 006°13'34"E
   alt: 757
   trafic: INTL/NTL IFR/VFR NS/P
   GUND_DTHR_ALT_ft: 154
@@ -3665,7 +3656,7 @@ LFSO:
   code: LFSO
   nom: NANCY OCHEY
   var: 2.07
-  Geo: '48°34''59"N 005°57''16"E'
+  Geo: 48°34'59"N 005°57'16"E
   alt: 1106
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 155
@@ -3674,7 +3665,7 @@ LFSP:
   code: LFSP
   nom: PONTARLIER
   var: 2.19
-  Geo: '46°54''30"N 006°19''45"E'
+  Geo: 46°54'30"N 006°19'45"E
   alt: 2683
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 164
@@ -3683,16 +3674,16 @@ LFSS:
   code: LFSS
   nom: SAINT SULPICE DES LANDES
   var: -0.14
-  Geo: '47°47''30"N 001°38''37"W'
+  Geo: 47°47'30"N 001°38'37"W
   alt: 312
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFST:
   code: LFST
   nom: STRASBOURG ENTZHEIM
   var: 2.53
-  Geo: '48°32''31"N 007°38''04"E'
+  Geo: 48°32'31"N 007°38'04"E
   alt: 505
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 157
@@ -3701,7 +3692,7 @@ LFSU:
   code: LFSU
   nom: LANGRES ROLAMPONT
   var: 1.90
-  Geo: '47°57''51"N 005°17''37"E'
+  Geo: 47°57'51"N 005°17'37"E
   alt: 1375
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -3710,7 +3701,7 @@ LFSV:
   code: LFSV
   nom: PONT SAINT VINCENT
   var: 2.10
-  Geo: '48°36''00"N 006°03''23"E'
+  Geo: 48°36'00"N 006°03'23"E
   alt: 1339
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 154
@@ -3719,7 +3710,7 @@ LFSW:
   code: LFSW
   nom: EPERNAY PLIVOT
   var: 1.53
-  Geo: '49°00''16"N 004°05''07"E'
+  Geo: 49°00'16"N 004°05'07"E
   alt: 291
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 147
@@ -3728,7 +3719,7 @@ LFSX:
   code: LFSX
   nom: LUXEUIL SAINT SAUVEUR
   var: 2.19
-  Geo: '47°47''14"N 006°21''54"E'
+  Geo: 47°47'14"N 006°21'54"E
   alt: 886
   trafic: NTL IFR/VFR
   GUND_DTHR_ALT_ft: 158
@@ -3737,7 +3728,7 @@ LFTB:
   code: LFTB
   nom: MARIGNANE BERRE
   var: 1.93
-  Geo: '43°27''00"N 005°13''00"E'
+  Geo: 43°27'00"N 005°13'00"E
   alt: 0
   trafic: INTL/NTL VFR
   GUND_DTHR_ALT_ft: 161
@@ -3746,7 +3737,7 @@ LFTF:
   code: LFTF
   nom: CUERS PIERREFEU
   var: 2.14
-  Geo: '43°14''51"N 006°07''38"E'
+  Geo: 43°14'51"N 006°07'38"E
   alt: 269
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 156
@@ -3755,7 +3746,7 @@ LFTH:
   code: LFTH
   nom: HYERES LE PALYVESTRE
   var: 2.1424
-  Geo: '43°05''50"N 006°08''46"E'
+  Geo: 43°05'50"N 006°08'46"E
   alt: 13
   trafic: INTL/NTL IFR/VFR
   GUND_DTHR_ALT_ft: 159
@@ -3764,16 +3755,16 @@ LFTM:
   code: LFTM
   nom: SERRES LA BATIE MONTSALEON
   var: 2.05
-  Geo: '44°27''26"N 005°43''38"E'
+  Geo: 44°27'26"N 005°43'38"E
   alt: 2328
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 169
   statut: usage restreint
 LFTN:
   code: LFTN
-  nom: 'LA GRAND''COMBE'
+  nom: LA GRAND'COMBE
   var: 1.63
-  Geo: '44°14''35"N 004°00''40"E'
+  Geo: 44°14'35"N 004°00'40"E
   alt: 1623
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 167
@@ -3782,7 +3773,7 @@ LFTP:
   code: LFTP
   nom: PUIMOISSON
   var: 2.15
-  Geo: '43°52''08"N 006°09''46"E'
+  Geo: 43°52'08"N 006°09'46"E
   alt: 2469
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 166
@@ -3791,16 +3782,16 @@ LFTQ:
   code: LFTQ
   nom: CHATEAUBRIANT POUANCE
   var: 0.00
-  Geo: '47°44''26"N 001°11''17"W'
+  Geo: 47°44'22"N 001°11'25"W
   alt: 322
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFTW:
   code: LFTW
   nom: NIMES GARONS
   var: 1.74
-  Geo: '43°45''27"N 004°24''59"E'
+  Geo: 43°45'27"N 004°24'59"E
   alt: 309
   trafic: INTL/NTL IFR/VFR S/NS/P
   GUND_DTHR_ALT_ft: 162
@@ -3809,43 +3800,43 @@ LFTZ:
   code: LFTZ
   nom: LA MOLE
   var: 2.22
-  Geo: '43°12''19"N 006°28''55"E'
+  Geo: 43°12'19"N 006°28'55"E
   alt: 63
   trafic: INTL/NTL IFR/VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFXA:
   code: LFXA
   nom: AMBERIEU
   var: 1.94
-  Geo: '45°58''47"N 005°20''16"E'
+  Geo: 45°58'47"N 005°20'16"E
   alt: 823
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFXB:
   code: LFXB
   nom: SAINTES THENAC
   var: 0.31
-  Geo: '45°42''07"N 000°38''10"W'
+  Geo: 45°42'07"N 000°38'10"W
   alt: 118
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFXQ:
   code: LFXQ
   nom: COETQUIDAN
   var: -0.33
-  Geo: '47°56''38"N 002°10''55"W'
+  Geo: 47°56'38"N 002°10'55"W
   alt: 499
   trafic: NTL VFR
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: Militaire
 LFXU:
   code: LFXU
   nom: LES MUREAUX
   var: 0.89
-  Geo: '48°59''55"N 001°56''30"E'
+  Geo: 48°59'55"N 001°56'30"E
   alt: 91
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 144
@@ -3854,25 +3845,25 @@ LFYG:
   code: LFYG
   nom: CAMBRAI NIERGNIES
   var: 1.24
-  Geo: '50°08''29"N 003°15''49"E'
+  Geo: 50°08'29"N 003°15'49"E
   alt: 312
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: ouvert à la CAP
 LFYR:
   code: LFYR
   nom: ROMORANTIN PRUNIERS
   var: 0.91
-  Geo: '47°19''15"N 001°41''20"E'
+  Geo: 47°19'15"N 001°41'20"E
   alt: 289
   trafic: NTL VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint
 LFYS:
   code: LFYS
   nom: SAINTE LEOCADIE
   var: 1.16
-  Geo: '42°26''50"N 002°00''39"E'
+  Geo: 42°26'50"N 002°00'39"E
   alt: 4331
   trafic: NTL VFR P
   GUND_DTHR_ALT_ft: 173
@@ -3881,8 +3872,8 @@ LFYV:
   code: LFYV
   nom: YVETOT-BAONS LE COMTE
   var: 0.47
-  Geo: '49°38''19"N 000°43''57"E'
+  Geo: 49°38'19"N 000°43'57"E
   alt: 463
   trafic: VFR P
-  GUND_DTHR_ALT_ft: NIL
+  GUND_DTHR_ALT_ft: 
   statut: usage restreint

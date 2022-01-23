@@ -43,7 +43,7 @@
             "name": "Masse et centrage",
             "short_name": "Devis",
             "description": "Préparez votre devis de masse et centrage",
-            "url": "/prepavol",
+            "url": "/devis",
             "icons": [
                 {
                     "src": "./icons/icons8-gyroscope-96.png",

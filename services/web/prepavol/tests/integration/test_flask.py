@@ -233,7 +233,9 @@ class WebAppTestCase(unittest.TestCase):
             "submit": "Valider"
         }
         result = self.app.post("/carburant", data=data)
-        self.assertIn(b"This field is required.", result.data)
+        self.assertIn(b"nombre de branche doit", result.data)
+        self.assertIn(b"La marge est comprise", result.data)
+        self.assertIn(b"est vide", result.data)
 
     def test_form_carburant_valid(self):
         data = {

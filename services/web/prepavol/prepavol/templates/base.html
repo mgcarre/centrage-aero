@@ -32,15 +32,16 @@
 
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-start">
-            <a href="{{ url_for('main.emport_carburant') }}" class="navbar-item">
-              Carburant
+            {% for href, caption in
+            [
+            (url_for('main.emport_carburant'), 'Carburant'),
+            (url_for('main.prepflight'), 'Devis Masse & Centrage'),
+            (url_for('main.fleet'), 'Flotte')
+            ] %}
+            <a href="{{ href }}" class="navbar-item">
+              {{ caption }}
             </a>
-            <a href="{{ url_for('main.prepflight') }}" class="navbar-item">
-              Devis Masse & Centrage
-            </a>
-            <a href="{{ url_for('main.fleet') }}" class="navbar-item">
-              Flotte
-            </a>
+            {% endfor %}
           </div>
           <div class="navbar-end">
             {% if club %}

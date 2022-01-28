@@ -192,20 +192,23 @@ class PlanePerf:
             asphalt = np.around(distance * np.array([[1, 0.85, 0.65, 0.55]]))
         else:
             asphalt = np.around(distance * np.array([[1, 0.78, 0.63, 0.52]]))
-        df_distance = pd.DataFrame(asphalt, columns=["0kts", "10kts", "20kts", "30kts"])
-        # Applying coefficient for grass runway
-        df_distance = df_distance.append(
-            df_distance.iloc[0].apply(lambda x: round(x * 1.15))
-        ).astype("int")
-        df_distance.index = ["dur", "herbe"]
-        df_distance.columns.name = "Ve"
+        columns = ["0kts", "10kts", "20kts", "30kts"]
+        df_distance = pd.DataFrame(asphalt, columns=columns)
+        # Series for grass runway
+        s_grass = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * (1.2,1.15)[operation == "landing"])),
+            index=columns
+        )
+        df_retour = pd.concat([df_distance, s_grass.to_frame().T]).astype("int")
+        df_retour.index = ["dur", "herbe"]
+        df_retour.columns.name = "Ve"
         # title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
         # print(
         # f"\nDistance {title[operation]} (15m)\nZp {Zp}ft\nZd {Zd} ft
         # \n{self.temperature}°C\n{self.auw}kg\n"
         # )
 
-        return df_distance
+        return df_retour
 
     def plot_performance(self, operation, encode=False):
         """Plot takeoff or landing peformance.

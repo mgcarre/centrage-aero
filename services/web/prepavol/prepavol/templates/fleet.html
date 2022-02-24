@@ -89,16 +89,20 @@
                 <td>réservoir pcpl</td>
                 <td>{{ '%0.3f'|format(data[callsign]['arms']['mainfuel']) }}m</td>
               </tr>
+              {% if data[callsign]['arms']['wingfuel'] != 0 %}
               <tr>
                 <td>réservoirs d'aile</td>
                 <td>{{ '%0.3f'|format(data[callsign]['arms']['wingfuel']) }}m</td>
               </tr>
+              {% endif %}
+              {% if data[callsign]['arms']['auxfuel'] != 0 %}
               <tr>
                 <td>réservoir suppl.</td>
                 <td>
                   {{ '%0.3f'|format(data[callsign]['arms']['auxfuel']) }}m
                 </td>
               </tr>
+              {% endif %}
             </table>
           </h6>
         </li>

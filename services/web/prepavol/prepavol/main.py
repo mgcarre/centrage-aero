@@ -170,7 +170,7 @@ def stats():
         last_quarter=last_quarter_html,
     )
 
-@main.route("/")
+@main.get("/")
 def welcome():
     club = session.get("club")
     clubs = Aeroclub().clubs
@@ -229,11 +229,11 @@ def prepflight():
 
             # Get plot images
             balance_img = plane.plot_balance(encode=True)
-            tkoff_data = tkoff.predict("takeoff").to_html()
+            tkoff_data = tkoff.predict("takeoff", form.data.get("rvt")).to_html()
             tkoff_Zp = f"{tkoff.Zp:.0f}"
             tkoff_Zd = f"{tkoff.Zd:.0f}"
             tkoff_img = tkoff.plot_performance("takeoff", encode=True)
-            ldng_data = ldng.predict("landing").to_html()
+            ldng_data = ldng.predict("landing", form.data.get("rvt")).to_html()
             ldng_Zp = f"{ldng.Zp:.0f}"
             ldng_Zd = f"{ldng.Zd:.0f}"
             ldng_img = ldng.plot_performance("landing", encode=True)
@@ -299,7 +299,7 @@ def emport_carburant():
 
     return render_template("carburant.html", form=form)
 
-@main.route("/validate", methods=["POST"])
+@main.post("/validate")
 def validateForm():
     form = PrepflightForm()
 
@@ -308,14 +308,14 @@ def validateForm():
     
     return form.errors, 422
 
-@main.route("/essence", methods=["GET"])
+@main.get("/essence")
 def essence():
     if not request.args:
         abort(404)
     oil = Avgas(request.args.get('type'))
     return {'density': oil.density, 'title':oil.title}
 
-@main.route("/ad", methods=["GET"])
+@main.get("/ad")
 def aerodrome():
     if not request.args:
         abort(404)
@@ -331,7 +331,7 @@ def aerodrome():
         'statut': terrain.statut
         }
 
-@main.route("/metar/<string:station>")
+@main.get("/metar/<string:station>")
 def metar(station):
     if not station:
         abort(403)

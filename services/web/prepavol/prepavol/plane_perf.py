@@ -1,3 +1,4 @@
+from typing import List
 import pandas as pd
 from pathlib import Path
 import logging
@@ -49,6 +50,10 @@ class PlanePerf:
                 planetype='{self.planetype}',
                 auw={self.auw}, altitude={self.altitude},
                 temperature={self.temperature}, qnh={self.qnh})"""
+
+    @staticmethod
+    def revetements() -> List[str]:
+        return ["dur", "herbe", "dur mouillée", "herbe mouillée", "pente 2%", "contaminée", "multiple"]
 
     @staticmethod
     def pressure_altitude(elevation, qnh):
@@ -158,7 +163,7 @@ class PlanePerf:
 
         return model
 
-    def predict(self, operation):
+    def predict(self, operation, revetements = ["dur", "herbe"]):
         """Predict takeoff or landing distance.
 
         - Build a linear regression model out of the raw data.
@@ -199,8 +204,41 @@ class PlanePerf:
             df_distance.iloc[0].apply(lambda x: round(x * (1.2,1.15)[operation == "landing"])),
             index=columns
         )
-        df_retour = pd.concat([df_distance, s_grass.to_frame().T]).astype("int")
-        df_retour.index = ["dur", "herbe"]
+        # Series for wet runway
+        s_wet = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * (1,1.15)[operation == "landing"])),
+            index=columns
+        )
+        # Series for wet grass runway
+        s_wet_grass = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * (1.3,1.35)[operation == "landing"])),
+            index=columns
+        )
+        # Series for inclined runway
+        s_inclined = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * 1.1)),
+            index=columns
+        )
+        # Series for contaminated runway
+        s_snow = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * 1.2)),
+            index=columns
+        )
+        # Series for contaminated runway
+        s_multiple = pd.Series(
+            df_distance.iloc[0].apply(lambda x: round(x * (1.33,1.43)[operation == "landing"])),
+            index=columns
+        )
+        df_retour = pd.concat([
+            df_distance, 
+            s_grass.to_frame().T,
+            s_wet.to_frame().T,
+            s_wet_grass.to_frame().T,
+            s_inclined.to_frame().T,
+            s_snow.to_frame().T,
+            s_multiple.to_frame().T
+            ]).astype("int")
+        df_retour.index = PlanePerf.revetements()
         df_retour.columns.name = "Ve"
         # title = {"takeoff": "de décollage", "landing": "d'atterrissage"}
         # print(
@@ -208,7 +246,7 @@ class PlanePerf:
         # \n{self.temperature}°C\n{self.auw}kg\n"
         # )
 
-        return df_retour
+        return df_retour[df_retour.index.isin(revetements)]
 
     def plot_performance(self, operation, encode=False):
         """Plot takeoff or landing peformance.

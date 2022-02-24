@@ -4,9 +4,11 @@
 import json
 import copy
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField, StringField
+from wtforms import SubmitField, SelectField, StringField, SelectMultipleField
 from wtforms.validators import DataRequired, NoneOf, InputRequired, NumberRange, Length, Optional
+
 from .planes import WeightBalance
+from .plane_perf import PlanePerf
 
 
 class PrepflightForm(FlaskForm):
@@ -196,4 +198,11 @@ class PrepflightForm(FlaskForm):
         default=1013,
     )
 
+    revetements_choices = list(zip(PlanePerf.revetements(),PlanePerf.revetements()))
+    rvt = SelectMultipleField(
+        "Revêtements",
+        validators=[DataRequired(message="Ce champ est requis")],
+        choices=revetements_choices,
+        default = ["dur", "herbe"]
+    )
     submit = SubmitField("Valider")

@@ -1,10 +1,6 @@
 let avion = null
 let params = null
 
-function reset_form() {
-
-}
-
 function update_plane() {
   let callsign = document.querySelector("#callsign").value;
   avion = planes[callsign]

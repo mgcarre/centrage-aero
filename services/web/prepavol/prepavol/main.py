@@ -172,24 +172,18 @@ def stats():
 
 @main.get("/")
 def welcome():
-    club = session.get("club")
-    clubs = Aeroclub().clubs
-    logging.info(club)
+    name = session.get("name")
+    logging.info(name)
     return render_template(
         "welcome.html",
-        club=club,
-        clubs=clubs,
-        planes=session.get("club_planes"),
+        name=name,
         session=session
         )
 
-@main.route("/club/<string:club>")
-def set_club(club):
-    clubs = Aeroclub()
-    if club in clubs.keys:
-        session["club"] = club
-        session["club_planes"] = clubs.get_plane_keys(club)
-    flash("Votre club a bien été enregistré", "success")
+@main.route("/pilot/<string:name>")
+def set_club(name):
+    session["name"] = name
+    flash("Votre nom a bien été enregistré", "success")
     return redirect(url_for("main.welcome"))
 
 @main.route("/disconnect")
@@ -333,7 +327,7 @@ def aerodrome():
 
 @main.get("/metar/<string:station>")
 def metar(station):
-    if not station:
+    if not station or not station.upper().startswith("LF"):
         abort(403)
     try:
         metar = PythonMETAR.Metar(station.upper())

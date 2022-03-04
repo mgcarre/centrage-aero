@@ -124,7 +124,7 @@ class WebAppTestCase(unittest.TestCase):
         """Generate a balance error when cg is out the envelope.
         Full tank and weight at the back seats.
         """
-        self.plane.pax0 = 10
+        self.plane.pax0 = 100
         self.plane.pax2, self.plane.pax3 = 2 * [100]
         self.plane.mainfuel = self.plane.maxmainfuel
         data = {
@@ -145,6 +145,7 @@ class WebAppTestCase(unittest.TestCase):
             "ldtemp": 15,
             "tkqnh": 1013,
             "ldqnh": 1013,
+            "rvt": "dur"
         }
         result = self.app.post("/devis", data=data)
         self.assertIn(b"Balance out of cg envelope", result.data)
@@ -173,7 +174,8 @@ class WebAppTestCase(unittest.TestCase):
             "ldtemp": 2,
             "tkqnh": 1025,
             "ldqnh": 1027,
-            "submit": "Valider"
+            "submit": "Valider",
+            "rvt": "dur"
         }
         result = self.app.post("/devis", data=data)
         self.assertIn(b"Autonomie", result.data)
@@ -204,7 +206,7 @@ class WebAppTestCase(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
     def test_metar_nok(self):
         result = self.app.get("/metar/abcdef")
-        self.assertEqual(result.status_code, 404)
+        self.assertEqual(result.status_code, 403)
 
     def test_form_carburant_nok(self):
         data = {

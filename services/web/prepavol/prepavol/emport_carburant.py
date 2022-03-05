@@ -177,14 +177,23 @@ class EmportCarburant():
     def get_compared_fuel(self):
         return self.sum_fuel - self.sum_carburant_emporte
 
-    @property
-    def get_report(self):
-        ph = []
+    def get_str_estime(self):
+        return str(datetime.timedelta(minutes=self.sum_time))
+
+    def hum_carbu_emporte(self):
         _ = humanize.activate("fr")
-        if self.compare_fuel:
-            ph.append(f"Avec un emport minimum de {humanize.apnumber(self.sum_fuel)} litres, l'objectif de {self.type_vol.value.lower()} avec le {self.callsign} ({self.plane.planetype}) est <strong>autorisé</strong>. La durée de ce vol inclant {self.nb_branches} branche(s), {self.nb_branches} départ(s) et {self.nb_branches} arrivée(s) est estimée à {str(datetime.timedelta(minutes=self.sum_time))}. Avec {humanize.apnumber(self.sum_carburant_emporte)} litres embarqués, vous aurez une autonomie de {humanize.naturaldelta(datetime.timedelta(minutes=self.sum_carburant_emporte_time))} ({str(datetime.timedelta(minutes=self.sum_carburant_emporte_time))} minutes). Votre vol ne devra pas excéder {str(datetime.timedelta(minutes=self.max_flight_time))} car votre réserve finale est de {self.reserve_time}mn. Ces valeurs sont à reporter à la section 2 de votre devis de masse et centrage. Les performances de décollages / atterrissages sont à vérfier dans le manuel de vol. <strong>BON VOL</strong>".split(". "))
-            ph.append("is-success")
-        else:
-            ph.append(f"Ce vol n'est pas autorisé car il manque {humanize.apnumber(self.get_compared_fuel)} litres de carburant.".split("."))
-            ph.append("is-danger")
-        return ph
+        return humanize.apnumber(self.sum_carburant_emporte)
+
+    def hum_sum_carburant_emporte(self):
+        _ = humanize.activate("fr")
+        return humanize.naturaldelta(datetime.timedelta(minutes=self.sum_carburant_emporte_time))
+
+    def str_sum_carburant_emporte(self):
+        return str(datetime.timedelta(minutes=self.sum_carburant_emporte_time))
+
+    def str_max_flight_time(self):
+        return str(datetime.timedelta(minutes=self.max_flight_time))
+
+    def hum_compared_fuel(self):
+        _ = humanize.activate("fr")
+        return humanize.apnumber(self.get_compared_fuel)

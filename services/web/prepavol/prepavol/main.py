@@ -24,8 +24,6 @@ from flask import (
     send_from_directory,
 )
 
-from .clubs import Aeroclub
-
 from .emport_carburant import EmportCarburant
 
 from .emport_carburant_form import EmportCarburantForm
@@ -35,7 +33,7 @@ from .logbook import FlightLog
 from .planes import WeightBalance
 from .plane_perf import PlanePerf
 from .forms import PrepflightForm
-
+from .connexion_form import ConnexionForm
 
 main = Blueprint("main", __name__)
 
@@ -137,6 +135,23 @@ def profile():
         "profile.html", name=session["username"], dataframe=logbook.to_html(index=None)
     )
 
+@main.route("/connexion", methods=["GET", "POST"])
+def connexion():
+    """Route pour connecter le pilote."""
+    form = ConnexionForm()
+
+    if session.get("is_logged"):
+        flash("Already logged in.")
+        return redirect(url_for("main.welcome"))
+
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # WeightBalance accepts extra parameters - full dict is Ok
+            session["pilot_name"] = form.pilot_name.data.upper()
+            flash("Votre nom a bien été enregistré", "success")
+            return redirect(url_for("main.welcome"))
+            
+    return render_template("connexion.html", form=form)
 
 @main.route("/fleet")
 def fleet():
@@ -271,17 +286,23 @@ def prepflight():
 
 @main.route("/carburant", methods=["GET","POST"])
 def emport_carburant():
-    form = EmportCarburantForm()
+    form = EmportCarburantForm(**session)
     timestamp = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M %Z")
 
     if request.method == "POST":       
         if form.validate_on_submit():
             carbu = EmportCarburant(**form.data)
+
+            if not carbu.authorized():
+                flash(f"Prévoyez un complément de carburant car il manque {carbu.hum_compared_fuel()} litres de carburant.", "error")
+                return render_template("carburant.html", form=form)
+
             session["leftwingfuel"] = carbu.carburant_emporte_wings / 2
             session["rightwingfuel"] = carbu.carburant_emporte_wings / 2
             session["auxfuel"] = carbu.carburant_emporte_aux
             session["mainfuel"] = carbu.carburant_emporte_main
             session["callsign"] = carbu.callsign
+            session["pilot_name"] = form.pilot_name.data
             return render_template(
                 "report_carburant.html", 
                 carbu=carbu,

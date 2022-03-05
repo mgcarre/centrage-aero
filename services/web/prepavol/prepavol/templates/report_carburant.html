@@ -19,19 +19,7 @@
     <h1 class="is-3 title">Emport de carburant</h1>
     <h1 class="subtitle is-3">{{timestamp}}</h1>
 
-    {% with warnings =
-    get_flashed_messages() %} {% if warnings %}
-    <article class="message is-small is-warning">
-        <div class="message-header">
-            <p>Votre attention est requise</p>
-        </div>
-        <div class="message-body">
-            {% for warning in warnings %}
-            <p>{{ warning }}</p>
-            {% endfor %}
-        </div>
-    </article>
-    {% endif %} {% endwith %}
+    {% include '_flashmessages.html' %}
     <a href="{{ url_for('main.prepflight') }}" class="button is-small is-info no-print">Masse & centrage</a>
     <a href="" onclick="javascript:back()" class="button is-small is-warning no-print">Retour</a>
     <a href="" onclick="javascript:print()" class="button is-small is-success no-print">Imprimer</a>
@@ -39,7 +27,8 @@
         <legend>Calcul de l'emport minimal</legend>
 
         <table class="dataframe">
-            <caption>Emport de carburant pour le {{carbu.plane.planetype}} - {{carbu.callsign}}</caption>
+            <caption>Emport de carburant pour le {{carbu.plane.planetype}} - {{carbu.callsign}} - Pilote :
+                {{carbu.pilot_name}}</caption>
             <tr>
                 <th></th>
                 <th>Temps (mn)</th>
@@ -130,16 +119,51 @@
         <legend>
             Rapport final
         </legend>
-        <article class="message {{carbu.get_report[1]}}">
+        {% if carbu.authorized() %}
+        <article class="message is-success">
             <div class="message-header">
                 <p>Bilan du calcul de l'emport de carburant</p>
             </div>
             <div class="message-body">
-                {% for p in carbu.get_report[0] %}
-                <p>{{p|safe}}</p>
-                {% endfor %}
+                <p>
+                    Avec un emport minimum de {{carbu.sum_fuel | round(2)}}<abbr title="litres">L</abbr>, l'objectif de
+                    {{carbu.type_vol.value.lower()}} avec le {{carbu.callsign}} ({{carbu.plane.planetype}}) est
+                    <strong>autorisé</strong>.
+                </p>
+                <p>
+                    La durée de ce vol incluant {{carbu.nb_branches}} branche{{"s" if carbu.nb_branches > 1}},
+                    {{carbu.nb_branches}} départ{{"s" if carbu.nb_branches > 1}} et {{carbu.nb_branches}} arrivée{{"s"
+                    if carbu.nb_branches > 1}} est estimée à
+                    {{carbu.get_str_estime()}}.
+                </p>
+                <p>
+                    Avec {{carbu.hum_carbu_emporte()}} litres embarqués, vous aurez une autonomie de
+                    {{carbu.hum_sum_carburant_emporte()}} ({{carbu.str_sum_carburant_emporte()}} minutes). Votre vol ne
+                    devra pas excéder {{carbu.str_max_flight_time()}} car votre réserve finale est de
+                    {{carbu.reserve_time}} minutes.
+                </p>
+                <p>
+                    Ces valeurs sont à reporter à la section 2 de votre devis de masse et centrage. Les performances de
+                    décollages / atterrissages sont à vérfier dans le manuel de vol.
+                </p>
+                <p><strong>BON VOL</strong></p>
             </div>
         </article>
+        {% else %}
+        <article class="message is-danger">
+            <div class="message-header">
+                <p>Bilan du calcul de l'emport de carburant</p>
+            </div>
+            <div class="message-body">
+                <p>Le vol prévu avec {{carbu.callsign}} (
+                    {{carbu.plane.planetype}}) n'est pas autorisé car il manque {{carbu.hum_compared_fuel()}} litres de
+                    carburant.
+                </p>
+                <p>
+                </p>
+            </div>
+        </article>
+        {% endif %}
     </fieldset>
 </div>
 

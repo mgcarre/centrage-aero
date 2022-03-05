@@ -52,15 +52,7 @@ class EmportCarburantTest(unittest.TestCase):
     def test_bad_fuel_quantity_time(self):
         resultat = self.bad_emport.sum_carburant_emporte_time
         self.assertAlmostEqual(resultat, 2, delta=0.5)
-
-    def test_get_bad_report(self):
-        resultat = self.bad_emport.get_report[0]
-        self.assertIn("Ce vol n'est pas autorisé", ''.join(resultat))
     
     def test_good_mainfuel_quantity(self):
         resultat = self.good_emport.sum_carburant_emporte
         self.assertEqual(resultat,160)
-
-    def test_get_good_report(self):
-        resultat = self.good_emport.get_report[0]
-        self.assertIn("BON VOL", " ".join(resultat))

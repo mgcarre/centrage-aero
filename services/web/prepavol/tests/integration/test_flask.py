@@ -18,6 +18,7 @@ class WebAppTestCase(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.callsign = "F-GTZR"
         self.plane = planes.WeightBalance(self.callsign)
+        self.pilotname = "PILOTATOR"
 
     def setUp(self):
         os.environ["FLASK_ENV"] = "testing"
@@ -128,6 +129,7 @@ class WebAppTestCase(unittest.TestCase):
         self.plane.pax2, self.plane.pax3 = 2 * [100]
         self.plane.mainfuel = self.plane.maxmainfuel
         data = {
+            "pilot_name": "essai",
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
             "pax1": self.plane.pax1,
@@ -157,6 +159,7 @@ class WebAppTestCase(unittest.TestCase):
         self.plane.baggage = 20
         self.plane.mainfuel = self.plane.maxmainfuel
         data = {
+            "pilot_name": self.pilotname,
             "callsign": self.plane.callsign,
             "pax0": self.plane.pax0,
             "pax1": self.plane.pax1,
@@ -208,8 +211,9 @@ class WebAppTestCase(unittest.TestCase):
         result = self.app.get("/metar/abcdef")
         self.assertEqual(result.status_code, 403)
 
-    def test_form_carburant_nok(self):
+    def test_form_carburant_fields_missing(self):
         data = {
+            "pilot_name": self.pilotname,
             "callsign": "F-GGHJ",
             "type_vol": "TDP",
             "nb_branches": 0,
@@ -241,6 +245,7 @@ class WebAppTestCase(unittest.TestCase):
 
     def test_form_carburant_valid(self):
         data = {
+            "pilot_name": self.pilotname,
             "callsign": "F-GGHJ",
             "type_vol": "NAV",
             "nb_branches": 1,
@@ -270,6 +275,7 @@ class WebAppTestCase(unittest.TestCase):
 
     def test_form_carburant_invalid(self):
         data = {
+            "pilot_name": self.pilotname,
             "callsign": "F-GGHJ",
             "type_vol": "NAV",
             "nb_branches": 6,
@@ -295,7 +301,31 @@ class WebAppTestCase(unittest.TestCase):
             "submit": "Valider"
         }
         result = self.app.post("/carburant", data=data)
-        self.assertIn(b"Ce vol n\'est pas autoris\xc3\xa9", result.data)
+        self.assertIn(b"compl\xc3\xa9ment de carburant", result.data)
+
+    def test_connexion_not_test(self):
+        data = {
+            "pilot_name": "test",
+            "submit": "Valider"
+        }
+        result = self.app.post("/connexion", data=data)
+        self.assertIn(b"t, e, s, t", result.data)
+
+    def test_connexion_required(self):
+        data = {
+            "pilot_name": "",
+            "submit": "Valider"
+        }
+        result = self.app.post("/connexion", data=data)
+        self.assertIn(b"This field is required.", result.data)
+
+    def test_connexion_ok(self):
+        data = {
+            "pilot_name": self.pilotname,
+            "submit": "Valider"
+        }
+        result = self.app.post("/connexion", data=data)
+        self.assertEqual(result.status_code, 302)
 
 if __name__ == "__main__":
     unittest.main()

@@ -52,6 +52,11 @@ class EmportCarburantForm(FlaskForm):
 
     fuel_range = range(0, 101, 10)
 
+    pilot_name = StringField(
+        "Nom pilote",
+        validators=[InputRequired()]
+    )
+
     callsign = SelectField(
         "Call sign",
         validators=[NoneOf("F-XXXX", message=("Veuillez choisir un appareil"))],

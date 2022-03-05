@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Connexion{% endblock %} {% block content
+%}
+{% from "_formhelpers.html" import render_field %}
+{% include "_flashmessages.html" %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Connexion</h3>
+    <div class="box has-background-primary">
+        <form id="connexion_form" method="POST" action="{{ url_for('main.connexion') }}">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                <div class="control">
+                    {{ render_field(form.pilot_name, class="input", placeholder="Nom du pilote") }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{ render_field(form.submit, class="button is-link") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -52,6 +52,11 @@ class PrepflightForm(FlaskForm):
     temperature_range = range(-20, 51, 1)
     qnh_range = range(950, 1051, 1)
 
+    pilot_name = StringField(
+        "Nom pilote",
+        validators=[InputRequired()]
+    )
+    
     callsign = SelectField(
         "Call sign",
         validators=[NoneOf("F-XXXX", message=("Veuillez choisir un appareil"))],

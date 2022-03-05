@@ -19,7 +19,7 @@
 
 <article class="message is-small is-info">
     <div class="message-header">
-        <p>{{ plane.callsign }} - {{ timestamp }}</p>
+        <p>{{ plane.callsign }} - {{ timestamp }} - Pilot : {{ session["pilot_name"] | upper }}</p>
         <!-- <button class="delete" aria-label="delete"></button> -->
     </div>
     <div class="message-body">

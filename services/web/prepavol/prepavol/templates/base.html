@@ -32,22 +32,34 @@
 
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-start">
-            {% for href, caption in
+            {% for href, caption, logged in
             [
-            (url_for('main.emport_carburant'), 'Carburant'),
-            (url_for('main.prepflight'), 'Devis Masse & Centrage'),
-            (url_for('main.fleet'), 'Flotte')
+            (url_for('main.emport_carburant'), 'Carburant', True),
+            (url_for('main.prepflight'), 'Devis Masse & Centrage', True),
+            (url_for('main.fleet'), 'Flotte', False)
             ] %}
+            {% if logged and session["pilot_name"] %}
             <a href="{{ href }}" class="navbar-item">
               {{ caption }}
             </a>
+            {% elif not logged %}
+            <a href="{{ href }}" class="navbar-item">
+              {{ caption }}
+            </a>
+            {% endif %}
             {% endfor %}
           </div>
           <div class="navbar-end">
-            {% if club %}
+            {% if session["pilot_name"] %}
             <div class="navbar-item">
               <a href="{{ url_for('main.disconnect') }}" class="button is-danger">
                 Déconnexion
+              </a>
+            </div>
+            {% else %}
+            <div class="navbar-item">
+              <a href="{{ url_for('main.connexion') }}" class="button is-primary">
+                Connexion
               </a>
             </div>
             {% endif %}

@@ -24,7 +24,7 @@ F-GGHJ:
       - 1000
     - - 0.564
       - 606
-  fuelrate: 25
+  fuelrate: 30
   maxauxfuel: 50
   maxmainfuel: 110
   maxwingfuel: 0
@@ -34,6 +34,7 @@ F-GGHJ:
   unusable_wingfuel: 0
   fuel_name: 100LL
   last_weigh: "2018-02-23"
+  active: False
 F-GTZR:
   callsign: F-GTZR
   arms:
@@ -60,7 +61,7 @@ F-GTZR:
       - 1000
     - - 0.564
       - 601
-  fuelrate: 25
+  fuelrate: 30
   maxauxfuel: 50
   maxmainfuel: 110
   maxwingfuel: 0
@@ -70,3 +71,4 @@ F-GTZR:
   unusable_wingfuel: 0
   fuel_name: 100LL
   last_weigh: "2015-02-27"
+  active: True

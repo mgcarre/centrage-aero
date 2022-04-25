@@ -167,6 +167,7 @@ class WeightBalance:
         self.baggage = int(baggage)
         self.baggage2 = int(baggage2)
         self._last_weight = plane["last_weigh"]
+        self.active_plane = plane["active"]
         
         self.mainfuel = int(mainfuel)
         # if mainfuel:

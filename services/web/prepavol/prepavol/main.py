@@ -148,7 +148,7 @@ def connexion():
         if form.validate_on_submit():
             # WeightBalance accepts extra parameters - full dict is Ok
             session["pilot_name"] = form.pilot_name.data.upper()
-            flash("Votre nom a bien été enregistré", "success")
+            flash("Vous êtes bien enregistré", "success")
             return redirect(url_for("main.welcome"))
             
     return render_template("connexion.html", form=form)
@@ -221,8 +221,11 @@ def prepflight():
             plane = WeightBalance(**form.data)
 
             if not plane.is_ready_to_fly:
-                flash("Chargement invalide", "error")
+                flash("Chargement invalide", "danger")
                 return render_template("prepflight.html", form=form, plane=plane)
+
+            if not plane.active_plane:
+                flash("Cet avion est désactivé pour des raisons de sécurité", "warning")
 
             tkoff = PlanePerf(
                 plane.planetype,

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Prepavol",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "lang": "fr",
     "default_locale": "fr",
     "description": "Préparation du vol : emport carbu & devis centrage",
@@ -25,7 +25,7 @@
     "background_color": "white",
     "start_url": "/",
     "display": "fullscreen",
-    "orientation": "landscape-primary",
+    "orientation": "portrait-primary",
     "shortcuts": [
         {
             "name": "Calcul emport carburant",

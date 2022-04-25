@@ -188,7 +188,9 @@ def stats():
 @main.get("/")
 def welcome():
     name = session.get("name")
-    logging.info(name)
+    metar = session.get("metar")
+    if metar is not None:
+        flash(metar, "info")
     return render_template(
         "welcome.html",
         name=name,
@@ -204,6 +206,7 @@ def set_club(name):
 @main.route("/disconnect")
 def disconnect():
     session.clear()
+    flash("Vous êtes déconnecté", "info")
     return redirect(url_for("main.welcome"))
 
 @main.route("/devis", methods=["GET", "POST"])
@@ -261,6 +264,9 @@ def prepflight():
 
             if not plane.is_valid_weight():
                 flash(f"La date de validité de la dernière pesée est échue depuis {plane.humanized_last_weight_difference}", "warning")
+            carbu = None
+            if session.get("report_carburant") is not None:
+                carbu = session.get("carbu")
 
             return render_template(
                 "report.html",
@@ -278,6 +284,7 @@ def prepflight():
                 landing=urllib.parse.quote(ldng_img),
                 tkAD=tkAD,
                 ldAD=ldAD,
+                carbu=carbu
             )
 
         logging.error(form.errors)
@@ -303,15 +310,27 @@ def emport_carburant():
             session["mainfuel"] = carbu.carburant_emporte_main
             session["callsign"] = carbu.callsign
             session["pilot_name"] = form.pilot_name.data
-            return render_template(
-                "report_carburant.html", 
-                carbu=carbu,
-                timestamp=timestamp
-                )
+
+            if "Enregistrer" in form.submit.raw_data:
+                session["carbu"]=carbu
+                session["report_carburant"]=True
+                flash("Votre rapport d'emport de carburant a bien été enregistré et sera affiché lorsque vous aurez réalisé le devis de masse et centrage","info")
+                return redirect(url_for("main.prepflight"))
+            else:
+                session["report_carburant"]=False
+                return render_template(
+                    "report_carburant.html", 
+                    carbu=carbu,
+                    timestamp=timestamp
+                    )
 
         logging.error(form.errors)
         return render_template("carburant.html", form=form)
 
+    metar = session.get("metar")
+    logging.info(metar)
+    if metar is not None:
+        flash(metar, "info")
     return render_template("carburant.html", form=form)
 
 @main.post("/validate")
@@ -353,6 +372,10 @@ def metar(station):
     try:
         metar = PythonMETAR.Metar(station.upper())
         if metar:
+            session["tktemp_metar"] = station
+            session["tktemp"] = metar.temperatures["temperature"]
+            session["tkqnh"] = metar.qnh
+            session["metar"] = metar.metar
             return metar.getAll()
     except NOAAServError:
         abort(404)

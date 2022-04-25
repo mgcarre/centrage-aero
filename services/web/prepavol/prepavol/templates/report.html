@@ -15,6 +15,11 @@
 
 {% block content %}
 
+{% if session["report_carburant"] %}
+{% include "report_carburant.html" %}
+<div class="pagebreak"> </div>
+{% endif %}
+
 <h1 class="is-1 title">Préparation du vol</h1>
 
 <article class="message is-small is-info">
@@ -23,6 +28,7 @@
         <!-- <button class="delete" aria-label="delete"></button> -->
     </div>
     <div class="message-body">
+        {% if not carbu %}
         <p>
             Autonomie <strong>{{ '%dh%02d' | format(plane.endurance, (plane.endurance * 60) % 60) }}</strong>
             - Temps de vol VFR jour <strong>{{ '%dh%02d' | format(plane.flight_time, (plane.flight_time * 60) % 60)
@@ -31,6 +37,14 @@
                 60) %
                 60)}}</strong>
         </p>
+        {% else %}
+        <p>
+            Autonomie <strong>{{ carbu.hum_sum_carburant_emporte() }}</strong>
+            - Temps de vol maximum en {{carbu.type_vol.value.lower()}} de <strong>{{ carbu.str_max_flight_time()
+                }}</strong> -
+            Réserve finale <strong>{{carbu.reserve_time}}</strong> minutes
+        </p>
+        {% endif %}
         {% if tkAD is not none %}
         <p>From: {{tkAD.nom}} ({{tkAD.code}}) - statut: {{tkAD.statut}} - trafic: {{tkAD.trafic}} </p>
         {% endif %}

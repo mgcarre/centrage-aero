@@ -9,26 +9,14 @@ block head %} {{ super() }}
 
 {% endblock %} {% block content %} {% from "_formhelpers.html" import
 render_field %}
+{% include "_flashmessages.html" %}
 
 <!-- <div class="column is-4 is-offset-4"> -->
 <h3 class="title">Préparation du vol</h3>
 
 <div class="formcontainer">
   <form id="balance" method="POST" action="{{ url_for('main.prepflight') }}">
-    {{ form.hidden_tag() }} {% with errors =
-    get_flashed_messages(category_filter=["error"]) %} {% if errors %}
-    <fieldset id="errors">
-      <div class="notification is-danger" align="center">
-        <ul class="formerrors">
-          {% for error in errors %}
-          <dl>{{ error }}</dl>
-          {% endfor %} {% if plane %} {% for reason in plane.reasons %}
-          <li>{{ reason }}</li>
-          {% endfor %} {% endif %}
-        </ul>
-      </div>
-    </fieldset>
-    {% endif %} {% endwith %}
+    {{ form.hidden_tag() }}
 
     <fieldset id="masse_et_centrage">
       <legend>Masse et centrage</legend>

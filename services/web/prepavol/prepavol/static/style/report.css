@@ -111,4 +111,8 @@ fieldset legend {
     {
         display: none !important;
     }
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
 }

@@ -24,11 +24,11 @@ class TypeVol(Enum):
     NUIT = "Vol de nuit"
 
 class DegagementForm(FlaskForm):
-    distance_rng_index = range(5, 151, 5)
-    distance_rng_values = [f"{x} Nm" for x in distance_rng_index ]
+    distance_rng_index = range(5, 351, 5)
+    distance_rng_values = [f"{x} NM" for x in distance_rng_index ]
     distance_rng = list(zip(distance_rng_index, distance_rng_values))
     distance = SelectField(
-        "Distance (Nm)",
+        "Distance (NM)",
         coerce=int,
         choices=distance_rng,
         default=0
@@ -70,6 +70,12 @@ class EmportCarburantForm(FlaskForm):
         choices=type_vol_liste_values,
         default="TDP"
     )
+    def validate_type_vol(form, field):
+        """Valide le vol local ou tour de piste selon les règles du SERA (CTR ou <=6.5NM)"""
+        type_vol = TypeVol[field.data].value.lower()
+        if field.data == "TDP" or field.data == "VLJVA" or field.data == "VLJHA":
+            if form.branches.data[0]["distance"] > 6.5:
+                raise ValidationError(f"Le {type_vol} ne peut pas dépasser la CTR ou 6,5NM.")
 
     nb_branches_liste = range(0, 7)
     nb_branches = SelectField(

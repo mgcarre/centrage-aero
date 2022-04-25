@@ -20,7 +20,9 @@
     <h1 class="subtitle is-3">{{timestamp}}</h1>
 
     {% include '_flashmessages.html' %}
+    {% if not session.report_carburant %}
     <a href="{{ url_for('main.prepflight') }}" class="button is-small is-info no-print">Masse & centrage</a>
+    {% endif %}
     <a href="" onclick="javascript:back()" class="button is-small is-warning no-print">Retour</a>
     <a href="" onclick="javascript:print()" class="button is-small is-success no-print">Imprimer</a>
     <fieldset>
@@ -28,7 +30,7 @@
 
         <table class="dataframe">
             <caption>Emport de carburant pour le {{carbu.plane.planetype}} - {{carbu.callsign}} - Pilote :
-                {{carbu.pilot_name}}</caption>
+                {{session.pilot_name}}</caption>
             <tr>
                 <th></th>
                 <th>Temps (mn)</th>
@@ -127,7 +129,10 @@
             <div class="message-body">
                 <p>
                     Avec un emport minimum de {{carbu.sum_fuel | round(2)}}<abbr title="litres">L</abbr>, l'objectif de
-                    {{carbu.type_vol.value.lower()}} avec le {{carbu.callsign}} ({{carbu.plane.planetype}}) est
+                    {{carbu.type_vol.value.lower()}} avec le {{carbu.callsign}} ({{carbu.plane.planetype}}) consommant
+                    en moyenne
+                    {{carbu.plane.fuelrate}} <abbr title="litres par heure">L/h</abbr>
+                    est
                     <strong>autorisé</strong>.
                 </p>
                 <p>

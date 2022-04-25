@@ -150,7 +150,7 @@ class WebAppTestCase(unittest.TestCase):
             "rvt": "dur"
         }
         result = self.app.post("/devis", data=data)
-        self.assertIn(b"Balance out of cg envelope", result.data)
+        self.assertIn(b"Chargement invalide", result.data)
 
     def test_form_ok(self):
         """Generate a balance report when the form is valid."""

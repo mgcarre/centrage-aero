@@ -383,3 +383,10 @@ def metar(station):
     except NOAAServError:
         abort(404)
     abort(400)
+
+@main.get("/pwa")
+def pwa():
+    year=datetime.now().year
+    short="ACDN"
+    long="Aéroclub des Navigants"
+    return render_template("pwa.html", year=year, short=short, long=long)

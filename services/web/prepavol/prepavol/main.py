@@ -34,6 +34,7 @@ from .planes import WeightBalance
 from .plane_perf import PlanePerf
 from .forms import PrepflightForm
 from .connexion_form import ConnexionForm
+from .links import Links
 
 main = Blueprint("main", __name__)
 
@@ -384,9 +385,14 @@ def metar(station):
         abort(404)
     abort(400)
 
-@main.get("/pwa")
-def pwa():
+@main.get("/kiosk")
+def kiosk():
     year=datetime.now().year
     short="ACDN"
     long="Aéroclub des Navigants"
-    return render_template("pwa.html", year=year, short=short, long=long)
+    useragent=None
+    if request.user_agent.browser != "chrome":
+        useragent=request.user_agent.browser
+        flash("Le navigateur Edge n'est pas supporté par OpenFlyers.")
+    links = Links().links
+    return render_template("pwa.html", year=year, short=short, long=long, error=useragent, links=links)

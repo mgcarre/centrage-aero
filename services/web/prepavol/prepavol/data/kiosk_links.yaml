@@ -1,0 +1,50 @@
+---
+- title: Openflyers
+  subtitle: Sed vel commodo mi, vitae.
+  style: primary
+  line: 0
+  target:
+    href: https://openflyers.com/acdn/
+    value: ~
+- title: Aéroweb
+  subtitle: Donec eu mattis lacus, et.
+  style: outline-light
+  line: 1
+  target:
+    href: https://aviation.meteo.fr/
+    value: ~
+- title: Sofia-Briefing
+  subtitle: Donec imperdiet augue id odio.
+  style: outline-secondary
+  line: 1
+  target:
+    href: https://sofia-briefing.aviation-civile.gouv.fr/sofia/pages/homepage.html
+    value: ~
+- title: OSAC
+  subtitle: Fusce vestibulum metus nec ligula.
+  style: outline-light
+  line: 2
+  target:
+    href: https://www.osac.aero/
+    value: ~
+- title: BEA
+  subtitle: Duis quis ultrices lacus. Maecenas.
+  style: outline-light
+  line: 2
+  target:
+    href: https://bea.aero/
+    value: ~
+- title: DGAC
+  subtitle: Donec quis interdum nisi. Nulla.
+  style: outline-light
+  line: 2
+  target:
+    href: https://www.ecologie.gouv.fr/direction-generale-laviation-civile-dgac
+    value: ~
+- title: Immatriculations
+  subtitle: In metus mi, congue elementum.
+  style: outline-light
+  line: 2
+  target:
+    href: https://immat.aviation-civile.gouv.fr/immat/servlet/aeronef_liste.html
+    value: Consulter les immatriculations

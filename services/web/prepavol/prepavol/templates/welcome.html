@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}Prepavol - Bienvenue{% endblock %} {% block head %}
 {{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.1.0/build/global/luxon.min.js"></script>
 
 
 {% endblock %} {% block content %}
@@ -9,7 +10,7 @@
 <div class="content">
     <h1>Bienvenue sur Prépavol</h1>
     <div class="tile is-ancestor">
-        <div class="tile is-vertical is-8">
+        <div class="tile is-vertical is-6">
             <div class="tile">
                 <div class="tile is-parent">
                     <article class="tile is-child notification is-info">
@@ -38,12 +39,42 @@
                     <p class="title">Info METAR</p>
                     <p class="subtitle">Choisir son terrain</p>
                     <div class="content buttons has-addons is-centered" id="res-api">
-                        <button class="button">LFPN</button>
-                        <button class="button">LFPO</button>
-                        <button class="button">LFOJ</button>
-                        <button class="button">LFPM</button>
+                        <button class="button is-ad-btn">LFPN</button>
+                        <button class="button is-ad-btn">LFPO</button>
+                        <button class="button is-ad-btn">LFOJ</button>
+                        <button class="button is-ad-btn">LFPM</button>
                     </div>
                     <p id="metar_data" class="has-background-light has-text-black"></p>
+                </div>
+            </article>
+            <article class="tile is-child notification is-dark">
+                <div class="content">
+                    <p class="title">Info SR-SS</p>
+                    <p class="subtitle">Affichage de l'éphéméride</p>
+                    <div class="content buttons is-centered">
+                        <button class="button" id="btn-sr-ss">Charg.</button>
+                    </div>
+                    <p id="sr-ss-data" class="has-background-light has-text-black">
+                    <table class="table is-bordered">
+                        <thead>
+                            <tr>
+                                <th>Jour aéro</th>
+                                <th>SR</th>
+                                <th>SS</th>
+                                <th>Nuit aéro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="jr-aero"></td>
+                                <td id="sr"></td>
+                                <td id="ss"></td>
+                                <td id="nt-aero"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="sunset"></div>
+                    </p>
                 </div>
             </article>
         </div>

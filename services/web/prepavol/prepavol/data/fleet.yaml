@@ -34,7 +34,7 @@ F-GGHJ:
   unusable_wingfuel: 0
   fuel_name: 100LL
   last_weigh: "2018-02-23"
-  active: False
+  active: True
 F-GTZR:
   callsign: F-GTZR
   arms:

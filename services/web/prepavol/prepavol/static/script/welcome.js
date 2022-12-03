@@ -19,15 +19,7 @@ const btnSrSs = document.getElementById("btn-sr-ss")
 btnSrSs.addEventListener("click", (e) => {
     e.preventDefault()
     btnSrSs.classList.add("is-loading")
-    navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-        if (result.state === 'granted' || result.state === 'prompt') {
-            displaySrSs()
-        } else {
-            btnSrSs.classList.remove("is-loading")
-            btnSrSs.classList.add("is-danger")
-            btnSrSs.disabled = true
-        }
-    });
+    queryNavigation()
 })
 
 function toggleSelectedButton(btn) {
@@ -40,6 +32,15 @@ function toggleSelectedButton(btn) {
     })
 }
 
+function queryNavigation() {
+    navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        if (result.state === 'granted' || result.state === 'prompt') {
+            displaySrSs()
+        } else {
+            disableSrSsBtn()
+        }
+    });
+}
 function displaySrSs() {
     const dt = luxon.DateTime
     navigator.geolocation.getCurrentPosition((coords) => {
@@ -47,13 +48,18 @@ function displaySrSs() {
         fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`).then(r => r.json()).then(rep => {
             btnSrSs.classList.remove("is-loading")
             const { sunrise, sunset } = rep.results
-            const dtSr = dt.fromISO(sunrise)
-            const dtSs = dt.fromISO(sunset)
-            const format = "HH'h'mm"
+            const dtSr = dt.fromISO(sunrise).setLocale(navigator.language)
+            const dtSs = dt.fromISO(sunset).setLocale(navigator.language)
+            const format = "T ZZZZ"
             document.getElementById("jr-aero").innerText = dtSr.minus({ minutes: 30 }).toFormat(format)
             document.getElementById("sr").innerText = dtSr.toFormat(format)
             document.getElementById("ss").innerText = dtSs.toFormat(format)
             document.getElementById("nt-aero").innerText = dtSs.plus({ minutes: 30 }).toFormat(format)
-        })
+        }).catch(err => disableSrSsBtn())
     })
+}
+function disableSrSsBtn() {
+    btnSrSs.classList.remove("is-loading")
+    btnSrSs.classList.add("is-danger")
+    btnSrSs.disabled = true
 }

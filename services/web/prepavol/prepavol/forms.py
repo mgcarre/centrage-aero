@@ -50,7 +50,7 @@ class PrepflightForm(FlaskForm):
     auxfuel_range = range(0, maxauxfuel + 1, step_fuel)
     altitude_range = range(-100, 8100, 100)
     temperature_range = range(-20, 51, 1)
-    qnh_range = range(950, 1051, 1)
+    qnh_range = range(850, 1051, 1)
 
     pilot_name = StringField(
         "Nom pilote",

@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from io import BytesIO
 from base64 import b64encode
+from math import pow
 
 from matplotlib import cm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -68,7 +69,8 @@ class PlanePerf:
         Returns:
             float: pressure altitude.
         """
-        return elevation - 27 * (qnh - 1013)
+        return elevation + (145442.26627 * (1 - pow((qnh / 1013.25),0.19035)))
+        # return elevation + (27.5 * (1013.25-qnh))
 
     @property
     def Zp(self):

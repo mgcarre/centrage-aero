@@ -35,28 +35,32 @@ function toggleSelectedButton(btn) {
 function queryNavigation() {
     navigator.permissions.query({ name: 'geolocation' }).then((result) => {
         if (result.state === 'granted' || result.state === 'prompt') {
-            displaySrSs()
+            navigator.geolocation.getCurrentPosition((coords) => {
+                const { latitude, longitude } = coords.coords
+                console.info("Real geolocation params", result.state, { latitude, longitude })
+                getSrSs(latitude, longitude)
+            })
         } else {
-            disableSrSsBtn()
+            console.info("Default geolocation params", result.state, { lat: 48.380377, lng: 2.074632 })
+            getSrSs(48.380377, 2.074632)
         }
     });
 }
-function displaySrSs() {
+
+function getSrSs(latitude, longitude) {
     const dt = luxon.DateTime
-    navigator.geolocation.getCurrentPosition((coords) => {
-        const { latitude, longitude } = coords.coords
-        fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`).then(r => r.json()).then(rep => {
-            btnSrSs.classList.remove("is-loading")
-            const { sunrise, sunset } = rep.results
-            const dtSr = dt.fromISO(sunrise).setLocale(navigator.language)
-            const dtSs = dt.fromISO(sunset).setLocale(navigator.language)
-            const format = "T ZZZZ"
-            document.getElementById("jr-aero").innerText = dtSr.minus({ minutes: 30 }).toFormat(format)
-            document.getElementById("sr").innerText = dtSr.toFormat(format)
-            document.getElementById("ss").innerText = dtSs.toFormat(format)
-            document.getElementById("nt-aero").innerText = dtSs.plus({ minutes: 30 }).toFormat(format)
-        }).catch(err => disableSrSsBtn())
-    })
+
+    fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`).then(r => r.json()).then(rep => {
+        btnSrSs.classList.remove("is-loading")
+        const { sunrise, sunset } = rep.results
+        const dtSr = dt.fromISO(sunrise).setLocale(navigator.language)
+        const dtSs = dt.fromISO(sunset).setLocale(navigator.language)
+        const format = "T ZZZZ"
+        document.getElementById("jr-aero").innerText = dtSr.minus({ minutes: 30 }).toFormat(format)
+        document.getElementById("sr").innerText = dtSr.toFormat(format)
+        document.getElementById("ss").innerText = dtSs.toFormat(format)
+        document.getElementById("nt-aero").innerText = dtSs.plus({ minutes: 30 }).toFormat(format)
+    }).catch(err => disableSrSsBtn())
 }
 function disableSrSsBtn() {
     btnSrSs.classList.remove("is-loading")

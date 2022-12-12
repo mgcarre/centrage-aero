@@ -79,8 +79,8 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         <th class="col5">moment (kg.m)</th>
         <th></th>
         <tr>
-            <td class="col1"> {{ plane.callsign }}</td>
-            <td class="col2"> {{ plane.planetype }} </td>
+            <td class="col1"> <span class="tag is-info">{{ plane.callsign }}</span></td>
+            <td class="col2"> <span class="tag">{{ plane.planetype }}</span> </td>
             <td id="bew"> {{ plane.bew }} </td>
             <td id="bearm"> {{ '%0.2f'|format(plane.arms["bew"])|float }}</td>
             <td id="bemoment"> {{ '%0.2f'|format(plane.bew * plane.arms["bew"])|float }} </td>
@@ -89,16 +89,16 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
             </td>
         </tr>
         <tr>
-            <td> cdb {{ plane.pax0 }}kg</td>
-            <td> pax {{ plane.pax1 }}kg</td>
+            <td> cdb <span class="tag">{{ plane.pax0 }}kg</span></td>
+            <td> pax <span class="tag">{{ plane.pax1 }}kg</span></td>
             <td> {{ '%0.2f'|format(plane.frontweight)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["front"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.frontmoment)|float }}</td>
 
         </tr>
         <tr>
-            <td> pax {{ plane.pax2 }}kg </td>
-            <td> pax {{ plane.pax3 }}kg </td>
+            <td> pax <span class="tag">{{ plane.pax2 }}kg</span> </td>
+            <td> pax <span class="tag">{{ plane.pax3 }}kg</span> </td>
             <td> {{ '%0.2f'|format(plane.rearweight)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["rear"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.rearmoment)|float }}</td>
@@ -106,7 +106,7 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         </tr>
 
         <tr>
-            <td colspan="2"> bagages {{ plane.baggage }}kg</td>
+            <td colspan="2"> bagages <span class="tag">{{ plane.baggage }}kg</span></td>
             <td> {{ '%0.2f'|format(plane.baggage)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["baggage"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.bagmoment)|float }}</td>
@@ -114,7 +114,7 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         </tr>
 
         <tr>
-            <td colspan="2"> bagages 2 {{ plane.baggage2 }}kg</td>
+            <td colspan="2"> bagages 2 <span class="tag">{{ plane.baggage2 }}kg</span></td>
             <td> {{ '%0.2f'|format(plane.baggage2)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["baggage2"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.bagmoment2)|float }}</td>
@@ -122,7 +122,7 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         </tr>
 
         <tr>
-            <td colspan="2"> fuel pcpl {{ plane.mainfuel }}L </td>
+            <td colspan="2"> fuel pcpl <span class="tag">{{ plane.mainfuel }}L</span> </td>
             <td> {{ '%0.2f'|format(plane.mainfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["mainfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.mainfuelmoment)|float }} </td>
@@ -130,8 +130,8 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         </tr>
 
         <tr>
-            <td> fuel aile g. {{ plane.leftwingfuel }}L </td>
-            <td> fuel aile d. {{ plane.rightwingfuel }}L </td>
+            <td> fuel aile g. <span class="tag">{{ plane.leftwingfuel }}L</span> </td>
+            <td> fuel aile d. <span class="tag">{{ plane.rightwingfuel }}L</span> </td>
             <td> {{ '%0.2f'|format(plane.wingfuel_mass)|float }}</td>
             <td> {{ '%0.2f'|format(plane.arms["wingfuel"])|float }}</td>
             <td> {{ '%0.2f'|format(plane.wingfuelmoment)|float }}</td>
@@ -139,7 +139,7 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
         </tr>
 
         <tr>
-            <td colspan="2"> fuel suppl. {{ plane.auxfuel }}L </td>
+            <td colspan="2"> fuel suppl. <span class="tag">{{ plane.auxfuel }}L</span> </td>
             <td> {{ '%0.2f'|format(plane.auxfuel_mass)|float }} </td>
             <td> {{ '%0.2f'|format(plane.arms["auxfuel"])|float }} </td>
             <td> {{ '%0.2f'|format(plane.auxfuelmoment)|float }} </td>
@@ -165,23 +165,23 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
                 <table class="mto">
                     <tr>
                         <td>
-                            Alt {{ form.tkalt.data }} ft
+                            Alt <span class="tag">{{ form.tkalt.data }} ft</span>
                         </td>
                         <td>
-                            Alt pression {{ tkoff_Zp }} ft
+                            Alt pression <span class="tag">{{ tkoff_Zp }} ft</span>
                         </td>
                         <td>
-                            Alt densité {{ tkoff_Zd }} ft
+                            Alt densité <span class="tag">{{ tkoff_Zd }} ft</span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            Temp {{ form.tktemp.data }} °C
+                            Temp <span class="tag">{{ form.tktemp.data }} °C</span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            QNH {{ form.tkqnh.data }} mbar
+                            QNH <span class="tag">{{ form.tkqnh.data }} mbar</span>
                         </td>
                     </tr>
                 </table>
@@ -193,22 +193,22 @@ get_flashed_messages(category_filter=["warning"]) %} {% if warnings %}
                 <table class="mto">
                     <tr>
                         <td>
-                            Alt {{ form.ldalt.data }} ft
+                            Alt <span class="tag">{{ form.ldalt.data }} ft</span>
                         </td>
                         <td>
-                            Alt pression {{ ldng_Zp }} ft
+                            Alt pression <span class="tag">{{ ldng_Zp }} ft</span>
                         </td>
                         <td>
-                            Alt densité {{ ldng_Zd }} ft
+                            Alt densité <span class="tag">{{ ldng_Zd }} ft</span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            Temp {{ form.ldtemp.data }} °C
+                            Temp <span class="tag">{{ form.ldtemp.data }} °C</span>
                         </td>
                     </tr>
                     <td colspan="3">
-                        QNH {{ form.ldqnh.data }} mbar
+                        QNH <span class="tag">{{ form.ldqnh.data }} mbar</span>
                     </td>
         </tr>
     </table>
